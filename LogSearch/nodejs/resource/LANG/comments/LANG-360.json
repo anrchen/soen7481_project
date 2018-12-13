@@ -1,0 +1,111 @@
+[Definitely agreed that I wouldn't expect the chained style to fail just because null was passed into it.
+
+A StringBuffer with "null" in seems to make more sense than an empty StringBuffer. 
+
+So +1 to both suggestions, and we just need to decide if we're happy making this change in 2.4., What's ironic is that the current behavior is in perfect line with the javadoc:
+
+"Appends the toString that would be produced by Object  if a class did not override toString itself. null  will return null. ObjectUtils.appendIdentityToString(*, null) = null"
+
+Based on that, it's difficult to argue that the current behavior is incorrect. Almost all of Commons Lang behavior returns null where possible for a null source parameter.
+
+I recommend keeping the current behavior, but adding a second method that combines appendIdentityToString and defaultIfNull: 
+
+appendIdentityToString(StringBuffer buffer, Object object, Object defaultValue), Yes, this behavior is in sync with the javadoc. That's where I found it first. But that did not mean that it is a good behavior.
+
+I like to vote against a second method with a default value. Who needs a default value, when debugging an object? (If this bean is null, log another one?) A method appendIdentityToStringNullSave would be better, but a little ugly.
+
+>> Almost all of Commons Lang behavior returns null where possible for a null source parameter.  <<
+
+Hm, I don't think so. And evan if it would be: Returning null, if the StringBuffer is null could be argued, but returning null if the second value is null is definitly a bad behavior. Remember this:
+   appendIdentityToString(new StringBuffer(), null)  
+Would you expect this to return null? But this does not return null:
+   appendIdentityToString(null, new Object())
+Really confusing., It's unfortunate that the API here forces the user to null-protect his parameters to it. I think it's clear that the better choice would have been to simply append "null", since that is the toString() value of the null reference according to the JLS. That said, it is documented to work the way it does, and that makes it not wrong but simply annoying.
+
++1 to Paul's idea and having a similarly named method with another parameter with a default value. Maybe we should also deprecate the current one for 2.4 with a warning explaining this problem., After some further ruminations, I favor deprecating the current method (Ben's comment) but also coming up with a new name that corrects the behavior. Throwing in a third parameter is quite ugly and not necessary. Perhaps we can call it simply "appendIdentity" ? Funny that the current method is "ToString" when it really appends to a StringBuffer, not a String ;-), +1 on 'appendIdentity'.
+
+I also don't like the first parameter being nullable. There should be a version without that. 
+
+appendIdentity(Object obj);StringBuffer
+appendIdentity(Object obj, StringBuffer buffer);StringBuffer
+
+The downside is that that means making it the second parameter. It's a clash between the API rules that 'the target should come first' and 'optional parameters should be on the end'. An optional target is just odd :)
+
+Maybe:
+
+appendIdentityToNewBuffer(Object obj);StringBuffer
+appendIdentity(StringBuffer buffer, Object obj);StringBuffer
+
+, >> Perhaps we can call it simply "appendIdentity" ? Funny that the current method is "ToString" when it really appends to a StringBuffer, not a String ;-) <<
+
+:-)   +1 on that!, I like Henri's second suggestion better. Between that and deprecating the old method, I think everybody's happy :), Prodding it more - it's "identityToString", meaning the identity toString() method; not the appending of the identity to java.lang.String. So the name makes syntactic sense - it's just confusing. , Brain kicks in.... Also, I wouldn't expect:
+
+ObjectUtils.appendIdentityToString(buffer, param1)
+                    .appendIdentityToString(buffer, param2)
+                    .appendIdentityToString(buffer, param3); 
+
+to even compile. A StringBuffer is returned, not an ObjectUtils. 
+
+Chaining isn't allowed here, the actual code would have been the very ugly and nested:
+
+            ObjectUtils.appendIdentityToString(
+                ObjectUtils.appendIdentityToString(
+                    ObjectUtils.appendIdentityToString(buffer, param1)
+                    , param2)
+                , param3);
+
+However that doesn't end up with a NullPointerException. Instead you get a very nasty bug whereby if param2 is null, then you'll end up with a  StringBuffer just containing the text of param1 - no param3. If you had 'buffer =' on the front, then you just get param3 and no param1. 
+
+Ideally the code should be:
+
+* public static String identityToString(Object)
+* public static void appendIdentityToString(StringBuffer, Object)
+
+Sod the StringBuffer creation - bet that was only there so the first method could reuse the second. The problem with that is that we don't have overloaded return types. So an alternative would be to deprecate both methods and have:
+
+* public static String identity(Object)
+* public static void appendIdentity(StringBuffer, Object)
+
+That would allow us to decide if we think a null Object passed in should return the String "null" or null in the first case; and result in "null" or "" in the second. 
+
+Alternatively, we could go with an overload of the original name:
+
+* public static String identityToString(Object)
+* public static void identityToString(StringBuffer, Object)
+
+but that would make the "null" bit bad if we do it.
+
+Thoughts?, Attaching a patch with the solution originally suggested. It should be pretty close to some of the other options. 
+
+A bit more testing should be done on the new methods., Are we not over-thinking this? The method does what it says it does, and is perfectly usable as such.
+
+This method is meant to simulate the identity toString, which can naturally only be called on a non-null object. If anything, it probably should have thrown an exception for a non-null second argument.
+
+If you do decide to add a new method, could I suggest considering creating a StringBufferUtils class, with methods similar to StringUtils. appendIdentityToString(StringBuffer, Object) would naturally fit there, and could be defined to append "null" if the object is null.
+
+, The problem with the method lies with the automagical creation. Passing in null should not lead to a StringBuffer being created and then returned - the user should be responsible for their parameters. StringBuffer methods should have void return types. 
+
+The best way to solve that is to deprecate the old StringBuffer method and add a new method of:
+
+* public static void identityToString(StringBuffer, Object) 
+
+One that throws an NPE if the first param is null.
+
+The second question is what to do in the case of Object being null. Currently the String variant returns null. The new StringBuffer variant could either append "null", "", or throw an NPE. The old library was effectively appending "", so that's the current behaviour. I can see value in all three options, so suggest we stick with the empty String option - ie) nothing happens to the buffer. , Stephen says: "This method is meant to simulate the identity toString". Based on his words, I concur that passing a null object should throw an exception. 
+
+Thus I recommend:
+(1) return void to get rid of method chaining 
+(2) throw an exception is StringBuffer is null
+(3) throw an exception if Object is null
+
+#3 makes most sense. There is no identity to a null object.
+, Attaching another attempt at this - matches consensus atm.
+
+New method.
+Old method deprecated.
+Throws NPEs for null input., Looks good. +1., svn ci -m "Applying my second patch from LANG-360 - it seems to do what Stephane/Paul and I are consensing on" src
+
+Sending        src/java/org/apache/commons/lang/ObjectUtils.java
+Sending        src/test/org/apache/commons/lang/ObjectUtilsTest.java
+Transmitting file data ..
+Committed revision 594336.]

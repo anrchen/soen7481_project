@@ -1,0 +1,22 @@
+[Thanks for the report.
+{quote}it looks like the code in JavaVersion intends to return JAVA_RECENT in the case of unknown versions.
+{quote}
+Clearly, this is broken. It seems to assume that versions are always "1.X".
+ Adding a new {{enum}} item ({{JAVA_11}}) would work for now; but the same bug will reappear at the next unknown version., I agree that – particularly given the increased pace of Java releases – any real solution has to put a nail in this for good rather than just adding a new {{enum}} reactively every few months. The {{JAVA_RECENT}} thing seems to have been an attempt to do that, it just doesn't seem to be working., I've added {{JAVA_11}} in commit 50ce8c44e1601acffa39f5568f0fc140aade0564 ("master" branch)., [~erans]: Don't forget to update {{changes.xml}} ;), We also need to push out a 3.8 ASAP IMO so that Maven plugins like Surefire can update Commons Lang (again), to avoid this NPE., bq. Don't forget to update changes.xml
+
+Done (I didn't know whether my changes would be sufficient to resolve this issue).
+
+Please examine the attempt to prevent the same failure for later versions (would only work if the naming scheme stays the same)., Yes, this will work for now, at least until Java versions go past {{"99"}}. This {{SystemUtils}} method:
+
+{code:java}
+    static boolean isJavaVersionMatch(final String version, final String versionPrefix) {
+        if (version == null) {
+            return false;
+        }
+        return version.startsWith(versionPrefix);
+    }
+{code}
+
+will not do the right thing when comparing {{"100"}} with {{"10"}}.
+
+Gary, 3.8 Released.]

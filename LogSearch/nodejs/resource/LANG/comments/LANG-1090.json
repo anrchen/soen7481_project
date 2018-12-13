@@ -1,0 +1,9 @@
+[URL: http://svn.apache.org/r1663438
+Log:
+LANG-1090 FastDateParser does not set error indication in ParsePosition
+
+Modified:
+    commons/proper/lang/trunk/src/changes/changes.xml
+    commons/proper/lang/trunk/src/main/java/org/apache/commons/lang3/time/FastDateParser.java
+    commons/proper/lang/trunk/src/test/java/org/apache/commons/lang3/time/FastDateParserSDFTest.java
+]

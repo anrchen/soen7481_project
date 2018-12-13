@@ -1,0 +1,14 @@
+[Or maybe the new method is still called append but takes a boolean indicating support for cycles/recursion., Personally I don't like boolean flags to methods that change the behaviour of methods. Personally I prefer two different methods for two different things. But if a boolean flag is an acceptable compromise then I'll take it., A potential patch https://github.com/apache/commons-lang/pull/142, The patch is missing the new method (maybe call it something similar to #appendWithCycleCheck?)., The patch is indeed missing the new method. I'm unsure what to name it., Github user PascalSchumacher commented on the issue:
+
+    https://github.com/apache/commons-lang/pull/142
+  
+    To keep the code clean the pull request should also undo the other additions to `HashCodeBuilderTest` done with https://github.com/apache/commons-lang/commit/b5749b4f54b30c0c2050e456c12cfcf516434f13
+, Github user asfgit closed the pull request at:
+
+    https://github.com/apache/commons-lang/pull/142
+, Github user PascalSchumacher commented on the issue:
+
+    https://github.com/apache/commons-lang/pull/142
+  
+    Thanks! :+1: 
+, Pull request applied. Thanks. I reopened LANG-456.]

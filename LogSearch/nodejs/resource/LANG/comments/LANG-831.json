@@ -1,0 +1,9 @@
+[URL: http://svn.apache.org/viewvc?rev=1390779&view=rev
+Log:
+LANG-831 FastDateParser does not handle white-space properly
+
+Modified:
+    commons/proper/lang/trunk/src/changes/changes.xml
+    commons/proper/lang/trunk/src/main/java/org/apache/commons/lang3/time/FastDateParser.java
+    commons/proper/lang/trunk/src/test/java/org/apache/commons/lang3/time/FastDateParserTest.java
+]

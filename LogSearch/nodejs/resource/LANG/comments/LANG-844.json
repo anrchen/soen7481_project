@@ -1,0 +1,6 @@
+[A patch for the bug.  Fixes the javadoc comments in StringUtil so that the examples provided are correct.
+
+No new unit test added, since the examples are already present in the existing unit test.
+, Patch applied in r1396313.
+
+Thanks for the report and patch!]

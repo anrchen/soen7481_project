@@ -1,0 +1,12 @@
+[Patches welcome! Don't forget to include a junit test :-), Commit cb83f7cb31e50f265e098c5380b3f0051e257f46 has a test to show that this is same behavior as SimpleDateFormat., Thanks for commit tests.
+I agree that is same behavior as SimpleDateFormat.
+However, It is incorrect operation, I think.
+
+format : yyyyMMdd
+input : 20150429113100
+
+It matches pattern below
+{code}(\p{Nd{4}}+)(\p{Nd{2}+)(\p{Nd}++){code}
+It works yyyy, MM, and the others are dd (don't care how long digits)
+
+Is there any plan for patches, or not?, [~freeism], no I don't think so, because FastDateFormat is supposed to be a replacement for SimpleDateFormat, so it has to behave the same way., Ok, Thank you for reply. Have a nice day :)]

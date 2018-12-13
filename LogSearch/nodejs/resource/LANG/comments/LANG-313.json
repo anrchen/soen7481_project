@@ -1,0 +1,12 @@
+[Unit test committed showing that this issue doesn't occur with the current Lang trunk (and so won't be in the forthcoming 2.3).
+
+svn ci -m "Adding a unit test to show that LANG-313 is not a problem in the current trunk"
+
+Sending        src/test/org/apache/commons/lang/StringEscapeUtilsTest.java
+Transmitting file data .
+Committed revision 496931., Hi,
+
+   You're right, it looks like it's fixed in 2.3-SNAPSHOT.
+
+Regards,
+Thiago Souza]

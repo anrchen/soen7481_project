@@ -1,0 +1,203 @@
+{
+    "expand": "operations,versionedRepresentations,editmeta,changelog,renderedFields",
+    "fields": {
+        "aggregateprogress": {
+            "progress": 0,
+            "total": 0
+        },
+        "aggregatetimeestimate": null,
+        "aggregatetimeoriginalestimate": null,
+        "aggregatetimespent": null,
+        "assignee": null,
+        "components": [{
+            "id": "12313203",
+            "name": "lang.*",
+            "self": "https://issues.apache.org/jira/rest/api/2/component/12313203"
+        }],
+        "created": "2015-04-03T09:43:33.000+0000",
+        "creator": {
+            "active": true,
+            "avatarUrls": {
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452",
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452"
+            },
+            "displayName": "Narendhiran K",
+            "key": "naren_k",
+            "name": "naren_k",
+            "self": "https://issues.apache.org/jira/rest/api/2/user?username=naren_k",
+            "timeZone": "Etc/UTC"
+        },
+        "customfield_10010": null,
+        "customfield_12310220": "2015-04-03T11:53:57.799+0000",
+        "customfield_12310222": "1_*:*_1_*:*_7846449_*|*_5_*:*_1_*:*_0",
+        "customfield_12310250": null,
+        "customfield_12310290": null,
+        "customfield_12310291": null,
+        "customfield_12310300": null,
+        "customfield_12310310": "0.0",
+        "customfield_12310420": "9223372036854775807",
+        "customfield_12310920": "9223372036854775807",
+        "customfield_12310921": null,
+        "customfield_12311020": null,
+        "customfield_12311024": null,
+        "customfield_12311120": "AMBARI-8146",
+        "customfield_12311820": "0|i27qzr:",
+        "customfield_12312022": null,
+        "customfield_12312023": null,
+        "customfield_12312024": null,
+        "customfield_12312026": null,
+        "customfield_12312220": null,
+        "customfield_12312320": null,
+        "customfield_12312321": null,
+        "customfield_12312322": null,
+        "customfield_12312323": null,
+        "customfield_12312324": null,
+        "customfield_12312325": null,
+        "customfield_12312326": null,
+        "customfield_12312327": null,
+        "customfield_12312328": null,
+        "customfield_12312329": null,
+        "customfield_12312330": null,
+        "customfield_12312331": null,
+        "customfield_12312332": null,
+        "customfield_12312333": null,
+        "customfield_12312334": null,
+        "customfield_12312335": null,
+        "customfield_12312336": null,
+        "customfield_12312337": null,
+        "customfield_12312338": null,
+        "customfield_12312339": null,
+        "customfield_12312340": null,
+        "customfield_12312341": null,
+        "customfield_12312520": null,
+        "customfield_12312521": "Thu Apr 09 14:17:41 UTC 2015",
+        "customfield_12312720": null,
+        "customfield_12312823": null,
+        "customfield_12312920": null,
+        "customfield_12312921": null,
+        "customfield_12312923": null,
+        "customfield_12313422": "false",
+        "customfield_12313520": null,
+        "description": "When we use StringUtils equals() method with below scenario, it returns wrong results.\nScenario : StringUtils.equals(\"someStr\", null);\nResult : true\nExpected result : false\nExplanation:\nSome logical / typo mistake on the below line.\n\nreturn ((str1 == null) ? false : (str2 == null) ? true : str1.equals(str2));\n\nInstead of \"true\" it should be \"false\", when str2 is checked.\n",
+        "duedate": null,
+        "environment": "java version \"1.7.0_02\"\nJava(TM) SE Runtime Environment (build 1.7.0_02-b13)\nwindows 7",
+        "fixVersions": [],
+        "issuelinks": [],
+        "issuetype": {
+            "avatarId": 21133,
+            "description": "A problem which impairs or prevents the functions of the product.",
+            "iconUrl": "https://issues.apache.org/jira/secure/viewavatar?size=xsmall&avatarId=21133&avatarType=issuetype",
+            "id": "1",
+            "name": "Bug",
+            "self": "https://issues.apache.org/jira/rest/api/2/issuetype/1",
+            "subtask": false
+        },
+        "labels": ["bug"],
+        "lastViewed": null,
+        "priority": {
+            "iconUrl": "https://issues.apache.org/jira/images/icons/priorities/major.svg",
+            "id": "3",
+            "name": "Major",
+            "self": "https://issues.apache.org/jira/rest/api/2/priority/3"
+        },
+        "progress": {
+            "progress": 0,
+            "total": 0
+        },
+        "project": {
+            "avatarUrls": {
+                "16x16": "https://issues.apache.org/jira/secure/projectavatar?size=xsmall&pid=12310481&avatarId=10011",
+                "24x24": "https://issues.apache.org/jira/secure/projectavatar?size=small&pid=12310481&avatarId=10011",
+                "32x32": "https://issues.apache.org/jira/secure/projectavatar?size=medium&pid=12310481&avatarId=10011",
+                "48x48": "https://issues.apache.org/jira/secure/projectavatar?pid=12310481&avatarId=10011"
+            },
+            "id": "12310481",
+            "key": "LANG",
+            "name": "Commons Lang",
+            "projectCategory": {
+                "description": "Apache Commons components",
+                "id": "10260",
+                "name": "Commons",
+                "self": "https://issues.apache.org/jira/rest/api/2/projectCategory/10260"
+            },
+            "self": "https://issues.apache.org/jira/rest/api/2/project/12310481"
+        },
+        "reporter": {
+            "active": true,
+            "avatarUrls": {
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452",
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452"
+            },
+            "displayName": "Narendhiran K",
+            "key": "naren_k",
+            "name": "naren_k",
+            "self": "https://issues.apache.org/jira/rest/api/2/user?username=naren_k",
+            "timeZone": "Etc/UTC"
+        },
+        "resolution": {
+            "description": "The problem isn't valid and it can't be fixed.",
+            "id": "6",
+            "name": "Invalid",
+            "self": "https://issues.apache.org/jira/rest/api/2/resolution/6"
+        },
+        "resolutiondate": "2015-04-03T11:54:19.000+0000",
+        "status": {
+            "description": "The issue is considered finished, the resolution is correct. Issues which are not closed can be reopened.",
+            "iconUrl": "https://issues.apache.org/jira/images/icons/statuses/closed.png",
+            "id": "6",
+            "name": "Closed",
+            "self": "https://issues.apache.org/jira/rest/api/2/status/6",
+            "statusCategory": {
+                "colorName": "green",
+                "id": 3,
+                "key": "done",
+                "name": "Done",
+                "self": "https://issues.apache.org/jira/rest/api/2/statuscategory/3"
+            }
+        },
+        "subtasks": [],
+        "summary": "StringUtils equals() method produces wrong result for the below scenario",
+        "timeestimate": null,
+        "timeoriginalestimate": null,
+        "timespent": null,
+        "updated": "2015-04-09T14:24:01.000+0000",
+        "versions": [
+            {
+                "archived": false,
+                "description": "",
+                "id": "12316043",
+                "name": "2.6",
+                "releaseDate": "2011-01-17",
+                "released": true,
+                "self": "https://issues.apache.org/jira/rest/api/2/version/12316043"
+            },
+            {
+                "archived": false,
+                "description": "Bugfix release for 3.3.1",
+                "id": "12326666",
+                "name": "3.3.2",
+                "releaseDate": "2014-04-09",
+                "released": true,
+                "self": "https://issues.apache.org/jira/rest/api/2/version/12326666"
+            }
+        ],
+        "votes": {
+            "hasVoted": false,
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/LANG-1106/votes",
+            "votes": 0
+        },
+        "watches": {
+            "isWatching": false,
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/LANG-1106/watchers",
+            "watchCount": 2
+        },
+        "workratio": -1
+    },
+    "id": "12787956",
+    "key": "LANG-1106",
+    "self": "https://issues.apache.org/jira/rest/api/2/issue/12787956"
+}

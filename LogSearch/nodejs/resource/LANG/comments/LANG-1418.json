@@ -1,0 +1,12 @@
+[How does this test pass? 
+
+{{public class StringUtilsEmptyBlankTest {...}}
+
+{{    @Test}}
+{{    public void testIsAnyBlank() {}}
+
+{{        assertTrue(StringUtils.isAnyBlank((String) null));}}
+
+...
+
+Most likely bug in Intellij IDEA.]

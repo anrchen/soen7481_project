@@ -1,0 +1,37 @@
+[typo fix and clarity improved, According javadoc of BigDecimal.equals() the method should fail for values with different scale. So the use of compareTo in the EqualsBuilder is wrong in this case., Has already been reported in LANG-393. See discussion there., The use of compareTo() in EqualsBuilder() is arguably wrong, however compareTo is referenced from the BigDecimal javadoc as the alternative to equals for cases where the scale is not relevant
+
+In LANG-393 it was decided that EqualsBuidler should use the compareTo() method to compare BigDecimals(), which is a nice convenience for those of use using BigDecimals in conjunction with EqualsBuilder and who want 0 and 0.0 to be considered equal.
+
+However LANG-393 did not put the equivalent fix into the HashCodeBuilder so this has made HashCodeBuilder and EqualsBuilder non-symmetric. It was actually LANG-393 which added a feature to EqualsBuilder and at the same time created this bug in HashCodeBuilder.
+
+So as far as the EqualsBuilder is concerned 10.2 and 10.20 are equal, i.e. the following evaluates to true.
+ {code}
+new EqualsBuilder().append(new BigDecimal("10.2"), new BigDecimal("10.20")).isEquals();
+{code}
+
+However when using these two values with HashCodeBuilder they actually give different hashCodes(), the following evaluates to false.
+{code}
+new HashCodeBuilder(17, 37).append(new BigDecimal("10.2")).toHashCode() == new HashCodeBuilder(17, 37).append(new BigDecimal("10.20")).toHashCode()
+{code}
+
+However the contract of hashCode() method for Object says that if two objects are considered equal using their equals method then they must also generate the same hashCode().
+
+Of course this is true for BigDecimal class itself, even though it is somewhat inconvenient. 
+
+MyPojo class as given in the test case above 
+* implements the equals() method as documented by EqualsBuilder
+* implements the hashCode() method as documented by HashCodeBuilder
+
+Despite following the documented approach for implementing equals and hashCode the test case *proves* that MyPojo breaks the contract of hashCode(), the following evaluates to true
+{code}
+myPojo1.equals(myPojo2)
+{code}
+However myPojo1 and myPojo2 generate different hashCodes(), the following evaluates to false
+{code}
+myPojo1.hashCode() == myPojo2.hashCode()
+{code}
+, We can't have EqualsBuilder and HashCodeBuilder out of line.
+
+My preferred fix would be to revert the invalid change to EqualsBuilder., Agreed, in that I don't see a solution for HashCodeBuilder and the two need to be the same.
+
+I've reverted the change as r836149.]

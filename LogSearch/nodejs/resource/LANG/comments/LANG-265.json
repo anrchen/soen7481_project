@@ -1,0 +1,8 @@
+[The patch., Looks like this has been applied/fixed separately. Thanks Stepan.
+
+r418568 | scolebourne | 2006-07-02 03:46:52 -0700 (Sun, 02 Jul 2006) | 1 line
+Changed paths:
+   M /jakarta/commons/proper/lang/trunk/src/test/org/apache/commons/lang/builder/EqualsBuilderTest.java
+   M /jakarta/commons/proper/lang/trunk/src/test/org/apache/commons/lang/builder/HashCodeBuilderTest.java
+
+]

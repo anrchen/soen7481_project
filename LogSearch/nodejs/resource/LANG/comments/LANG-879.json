@@ -1,0 +1,15 @@
+[Can confirm that there is a problem; this is caused by a change to the Locale class in 1.7 which now includes both script and extensions; these are now shown in the toString() output.
+
+The current Javadoc says that it validates language and country, but does not mention variant validation. 
+However it does say: "This method validates the input strictly" which suggests that it should.
+It would be easy enough to reject all strings that contain "#"; this would avoid the problem entirely.
+
+Given that some of the Java 7 Locales can only be created using Locale.forLanguageTag or Locale.Builder, there seems little point in trying to handle the additional script/extension fields which happen to be in the toString() output., URL: http://svn.apache.org/r1488038
+Log:
+LANG-879 LocaleUtils test fails with new Locale "ja_JP_JP_#u-ca-japanese" of JDK7
+
+Modified:
+    commons/proper/lang/trunk/src/changes/changes.xml
+    commons/proper/lang/trunk/src/main/java/org/apache/commons/lang3/LocaleUtils.java
+    commons/proper/lang/trunk/src/test/java/org/apache/commons/lang3/LocaleUtilsTest.java
+]

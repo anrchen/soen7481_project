@@ -1,0 +1,6 @@
+[In CVS and nightly-builds you will find isEquals() public and setEquals() protected., I created a subclass of EqualsBuilder without a problem.  You only need to
+change isEquals if you've found an inequality, right?  So instead of setting it
+directly, just call append(true, false) and put in a comment explaining why
+you're doing that.
+
+, In CVS, so fixed., 2.1 released, closing.]

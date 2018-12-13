@@ -1,0 +1,13 @@
+[Fix
+
+This re-introduces StringUtils#equals(String, String) and changes StringUtils#equals(CharSequence, CharSequence) to compare chars individually., Hi, Daniel, and thanks for your contribution!  Notwithstanding the obvious potential for arguments about OO design and method overloading, I have reworked your patch so that {{String-String}} comparisons are still handled in the body of the basic {{equals(CharSequence, CharSequence)}} method; thus no exception is needed in {{StringUtilsTest#testStringUtilsCharSequenceContract()}}.  Specifically I have retained your {{StringUtilsEqualsIndexOfTest}} improvements.
+
+{{Committed revision 1234915.}}, I think there is still area for improvement: [line 192 of CharSequenceUtils()|http://svn.apache.org/viewvc/commons/proper/lang/trunk/src/main/java/org/apache/commons/lang3/CharSequenceUtils.java?revision=1199894&view=markup#l192] reads
+
+{{TODO: Implement rather than convert to String}}
+
+In my case I have {{CharSequence}} that implements a "lazy" string, and {{toString()}} implementation is very expensive plus can potentially cause OOM.
+
+Thus {{CharSequenceUtils.regionMatches()}} should really do char-by-char comparison, leaving the optimization to underlying {{CharSequence}} implementation., @Dmitry: please raise this as a new JIRA issue (you can then link it to this one if you want).
+
+We have already closed this issue, and your comment is about performance rather than correctness.]

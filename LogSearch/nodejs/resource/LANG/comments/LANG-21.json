@@ -1,0 +1,7 @@
+[
+
+*** This bug has been marked as a duplicate of 38210 ***, Oops, not a dupe. It's at the opposite end of the spectrum., There's been discussion on this on the user mailing list., We have two reports currently, one that we don't escape low characters and should do; and one that we do escape high characters and shouldn't do.
+
+I'm marking this as WONTFIX based on Phil's thoughts on the commons-user mailing list. It's easier to add the code to escape than it would be to undo it.
+
+The escaping high characters issue will be fixed to not escape.]

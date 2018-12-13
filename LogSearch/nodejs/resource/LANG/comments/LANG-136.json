@@ -1,0 +1,28 @@
+[There should also be a getLastSplitTime() or some such. For a StopWatch, I
+should have available the last split time and the current time at the same time.
+If not split, the last split time should be 0., Attempt at a crude state table.
+
+
+                  STATE_UNSTARTED STATE_RUNNING STATE_SPLIT STATE_STOPPED
+STATE_SUSPENDED
+=================|===============|=============|===========|=============|===============
+start()          |      X        |      -      |     -     |      -      |       -
+stop()           |      -        |      X      |     X     |      -      |       -
+reset()          |      -        |      ?      |     ?     |      X      |       -
+split()          |      -        |      X      |     X     |      -      |       -
+unsplit()        |      -        |      -      |     X     |      -      |       -
+suspend()        |      -        |      X      |     X     |      -      |       -
+resume()         |      -        |      -      |     -     |      -      |       X
+getTime()        |      X        |      X      |     X     |      X      |       X
+getSplitTime()   |      -        |      -      |     X     |      -      |       -, The table above represents my thoughts on how Stopwatch should work. Bit crappy
+as it means a change in the features of the API. Perhaps stupidly, X means yes,
+- means no and ? is unsure.
+
+In addition, getTime would always return the time to now (unless suspended),
+while getSplitTime would be used to do splits.
+
+I can see one immediate problem. If in SUSPEND, should still be able to call
+stop(). The two ? marks are because I'm not sure if reset() should stop() if the
+stopwatch is not stopped yet. If so, then the only state that can't have reset
+is UNSTARTED., Tis all implemented. The state table is slightly different for reset, anything
+may be reset so X's all the way across., 2.1 released, closing.]

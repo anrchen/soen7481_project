@@ -1,0 +1,21 @@
+[This file in pure UTF-8 encoding (Eclipse or jEdit) is converted into a property-file through an ANT-task (native2ascii) :
+
+
+    <echo>Converting ...</echo>
+    <native2ascii encoding="UTF-8"
+                  src="${resources.dir}"
+                  dest="${build.dir}"
+                  includes="**/*.UTF8" ext=".properties"
+                  description="Conversion the weird foreign characters into proper UTF-8 escaped characters" />
+    <echo>Conversion done !</echo>, Seems odd. 
+
+Testing, the following passes:
+
++    public void testLang623() {
++        assertEquals("t", StringUtils.replaceChars("\u00DE", '\u00DE', 't'));
++        assertEquals("t", StringUtils.replaceChars("\u00FE", '\u00FE', 't'));
++    }
+
+So I think the issue is outside of StringUtils.replace. 
+
+Closing the issue, but please reopen if something is wrong with my test above., This test can only proof something if Thomas set the encoding option of the compiler to utf-8. Otherwise the test is simply wrong. Therefore it is always a bad idea to put non-ASCII characters directly into source.]

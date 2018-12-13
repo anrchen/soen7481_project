@@ -1,0 +1,14 @@
+[In 3.0 the code has changed a fair amount. These will no longer escape for escapeXML and escapeHTML, but it's easy to turn the feature back on. The code is also now codepoint based, but I need to get a good unit test in for supplementary characters to decide what the code should actually do:
+
+http://svn.apache.org/repos/asf/commons/proper/lang/trunk/src/main/java/org/apache/commons/lang3/text/translate/UnicodeEscaper.java, I am attaching two files with a very simple test case:
+- utf8-fragment.txt
+  Contains an UTF-8 encoded string with a few BMP (Basic Multilingual Plane) characters and 6 non-BMP characters (the ones causing trouble).
+- xml-escaped-fragment.txt
+  Contains the expected XML-escaped string.
+
+I hope you find it useful.
+, I tested with 10C22, broken down into supplementary \uD803\uDC22 and the new code seems happy for the numeric entity escaping. 
+
+Unescaping will need some work, so I will leave this open. , Change made to the NumericEntityUnescaper so &#68642; escapes to \uD803\uDC22.
+
+Very interested in how the current trunk works for you. , Marking this as closed. Feel free to reopen if you find the current codebase is still problematic David. Things seem good with the data you provided (many thanks for that by the way).]

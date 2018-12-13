@@ -1,0 +1,53 @@
+[Created an attachment (id=7332)
+ToStringBuilder.java
+, Rather than adding support for just java.util.Date, consider adding support to 
+allow a user to custom format any type of field.  Something like this:
+
+1. Create an interface called say ToStringer
+
+    public class ToStringer{
+          String toString(Object objectToFormat);
+    }
+
+2. Add a method to ToStringStyle called say addToStringer to add custom 
+formatters for specific field types.  Add a map field to hold the formatters.
+
+    public void addToStringer(Class type, ToStringer formatter){
+       formatters.put(type,formatter);
+    }
+
+3. Then a client will use/configure ToStringStyle like this to custom format 
+say fields of type Dates, Doubles and Foos:
+
+        ToStringStyle t = new ToStringStyle();
+        t.addToStringer(java.util.Date.class,new ToStringer(){
+            String toString(Object date){
+                Date d = (Date date);
+                return new SimpleDateFormat("yyyy-MM-dd").format(d);
+            }
+        });
+        t.addToStringer(Double.class,new ToStringer(){
+              String toString(Object decimal){
+                  return new DecimalFormat("#,000.0000").format(decimal);
+              }
+          });
+        t.addToStringer(Foo.class,new ToStringer(){
+              String toString(Object foo){
+                  Foo f = (Foo)foo;
+                  return "Foo object #" + f.getId();
+              }
+          });
+        }
+
+-Brian, If we do something like that the interface function could also be (presumably
+for internal efficiency):
+
+append(Object object, StringBuffer buffer);
+
+We can discuss the 3 approaches and see what people think., A full converter approach is the right one if a change is to be made.
+
+This should wait until after 2.0 though., Dropping this from 2.1 aims. Commons-Convert does seem the better choice if
+people want this to be of a lot of use., I have added some javadoc to ToStringStyle to demonstrate how to format fields.
+
+The rest of this goes beyond lang at the moment into the realms of convert and 
+the text package. The idea is not invalid though, so it may yet come back., 2.1 released, closing.]

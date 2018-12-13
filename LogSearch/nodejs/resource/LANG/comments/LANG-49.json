@@ -1,0 +1,8 @@
+[I have applied the patch, however I have changed 89 to 61.
+
+JDK1.4 uses powers of two internally and does not default to size 101. 61 
+should scale in JDK1.4 to size 64, and yet is still a prime number for JDK1.2 
+and 1.3.
+
+Perhaps you could test this?
+Stephen]

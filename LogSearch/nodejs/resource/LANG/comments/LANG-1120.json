@@ -1,0 +1,68 @@
+[I can confirm that this is a bug. The following test will fail:
+
+{code:java}
+    @Test
+    public void testLANG1120() throws Exception {
+        assertEquals("ALOSZZCN aloszzcn", StringUtils.stripAccents("ĄŁÓŚŻŹĆŃ ąłóśżźćń"));
+    }
+{code}
+
+Output is:
+
+{code}
+org.junit.ComparisonFailure: 
+Expected :ALOSZZCN aloszzcn
+Actual   :??�????? ??�?????
+{code}
+
+Patches welcome!, GitHub user kaching88 opened a pull request:
+
+    https://github.com/apache/commons-lang/pull/105
+
+    [LANG-1120] Bugfix: StringUtils#stripAccents Ł and ł.
+
+    Solution and unit test. 
+
+
+You can merge this pull request into a Git repository by running:
+
+    $ git pull https://github.com/kaching88/commons-lang stripAccents
+
+Alternatively you can review and apply these changes as the patch at:
+
+    https://github.com/apache/commons-lang/pull/105.patch
+
+To close this pull request, make a commit to your master/trunk branch
+with (at least) the following in the commit message:
+
+    This closes #105
+    
+----
+commit 0a203baf42fa8d7399ddf9be4beae4254108624a
+Author: kaching88 <waved@o2.pl>
+Date:   2015-07-13T23:54:35Z
+
+    [LANG-1120] Bugfix: StringUtils#stripAccents Ł and ł.
+
+----
+, Github user fracz commented on the pull request:
+
+    https://github.com/apache/commons-lang/pull/105#issuecomment-182746493
+  
+    +1
+, Github user chonton commented on the pull request:
+
+    https://github.com/apache/commons-lang/pull/105#issuecomment-213879732
+  
+    Patch does not apply.  Please update pull request.
+, Github user asfgit closed the pull request at:
+
+    https://github.com/apache/commons-lang/pull/105
+, Github user PascalSchumacher commented on the pull request:
+
+    https://github.com/apache/commons-lang/pull/105#issuecomment-218262780
+  
+    Thanks! :+1: 
+, Pull request merged. Thanks!
+
+Issue can be resolved.]

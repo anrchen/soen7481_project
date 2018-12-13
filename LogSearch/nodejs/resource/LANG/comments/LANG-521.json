@@ -1,0 +1,5 @@
+[Fair enough. Adding to 3.0 version. 
+
+Unit tests needed. createNumber also needs to make sure it works., Noting that "2." works for Double and Float too., Fixed in 893088.
+
+Both createNumber and isNumber now accept "2.". createNumber returns a Float in that case.]

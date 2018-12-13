@@ -1,0 +1,42 @@
+[GitHub user PascalSchumacher opened a pull request:
+
+    https://github.com/apache/commons-lang/pull/148
+
+    LANG-1199: Incorrect implementation of StringUtils#getJaroWinklerDist…
+
+    …ance()
+    
+    replace current implementation with Jaro-Winkler distance implementation of Apache Lucene
+
+You can merge this pull request into a Git repository by running:
+
+    $ git pull https://github.com/PascalSchumacher/commons-lang jaro
+
+Alternatively you can review and apply these changes as the patch at:
+
+    https://github.com/apache/commons-lang/pull/148.patch
+
+To close this pull request, make a commit to your master/trunk branch
+with (at least) the following in the commit message:
+
+    This closes #148
+    
+----
+commit 3d8ff5286f174cfd8ceb8b98ff22b73897f2470d
+Author: pascalschumacher <pascalschumacher@gmx.net>
+Date:   2016-05-20T19:18:47Z
+
+    LANG-1199: Incorrect implementation of StringUtils#getJaroWinklerDistance()
+    
+    replace current implementation with Jaro-Winkler distance implementation of Apache Lucene
+
+----
+, Fixed by replacing the current implementation with the one of Apache Lucene. Thanks for reporting., Github user PascalSchumacher commented on the issue:
+
+    https://github.com/apache/commons-lang/pull/148
+  
+    merged: https://github.com/apache/commons-lang/commit/c35a04102274b330aa833030c15f722b00062812
+, Github user PascalSchumacher closed the pull request at:
+
+    https://github.com/apache/commons-lang/pull/148
+]

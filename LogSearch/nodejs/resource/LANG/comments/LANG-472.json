@@ -1,0 +1,87 @@
+[So, you're saying you never see an "ok"?, Looks like this is due to loss of significance in the multiply (per the comment ;)
+
+Attached patch replaces the impl with the JDK-supplied method, maintaining the (undocumented) non-negative behavior.  Added test confirms that returned values are evenly distributed mod 2. 
+
+This problem also affects nextLong(n) where n is sufficiently large.  We should either replace the implementation with something else that works for large values of n or determine and document the upper bound., Just realized that the patch violates / changes the contract of JVMRandom (as I understand it).  If we want to maintain the static, single-underlying-Random behavior, we would need to create a static random instance and use that instance's nextLong() method in place of super.nextLong() in the patch., I'm not tied to JVMRandom. I needed it for a particular set of code, but haven't used it since., JVMRandom is removed for 3.0, along with RandomUtils, so making this a 2.x issue., Applied Phil's patch, but adjusted so that the class now uses a static Random() instance for all random number generation.
+
+URL: http://svn.apache.org/viewvc?rev=906318&view=rev
+Log:
+LANG-472 - RandomUtils.nextLong() get all even number
+
+Modified:
+   commons/proper/lang/branches/LANG_2_X/src/main/java/org/apache/commons/lang/math/JVMRandom.java
+   commons/proper/lang/branches/LANG_2_X/src/test/java/org/apache/commons/lang/math/RandomUtilsTest.java
+
+I suspect nextLong(long) probably does not generate very evenly distributed numbers.
+
+Also documented non-negative behaviour:
+
+URL: http://svn.apache.org/viewvc?rev=906319&view=rev
+Log:
+LANG-472 - Document >=0 behaviour
+
+Modified:
+   commons/proper/lang/branches/LANG_2_X/src/main/java/org/apache/commons/lang/math/JVMRandom.java
+
+, Alternative patch which just fixes the issue when n is Long.MAX_VALUE, Doh! Sorry didn't see Sebb had already fixed this - ignore me, Just reviewed Sebb's change - RandomUtils.nextLong() is now fixed because it no longer calls JVMRandom nextLong(Long.MAX_VALUE) - but instead delagates to SHARED_RANDOM.nextLong(). AFAICS calling JVMRandom nextLong(Long.MAX_VALUE)  will still see the same problem.
+
+Do we want to do anything about this (my nasty hack?), [Actually it was Phil's patch, amended to use the shared static Random instance.]
+
+One could also use Phil's solution and put:
+
+{code}
+if (n == Long.MAX_VALUE) {
+    return Math.abs(SHARED_RANDOM.nextLong());
+}
+{code}
+
+However, that only fixes the one value - as far as I can tell, nextLong(long) starts failing tests at around Long.MAX_VALUE/920 (not that there are any tests in SVN yet!)
+
+BTW, I think your hack would be more efficient as
+
+{code}
+if (n == Long.MAX_VALUE) {
+    double random = -1;
+    while (random < 0) {
+        random = Math.random();
+    }
+    return new BigDecimal(random).movePointRight(19).longValue();
+}
+{code}, It's just occurred to me that using Math.abs() to ensure non-negative numbers means that the value 0 will appear with half the expected freqency.
+
+So maybe looping whilst looking for a non-negative number would be a better solution (let's hope any run of negative numbers is not too long!), Just realised that nextInt() will never return Integer.MAX_VALUE. 
+Should it?
+
+If so, then maybe the way to do this is:
+
+{code}
+int random=SHARED_RANDOM.nextInt();
+if (random == Integer.MIN_VALUE) {
+    random = 0; // should solve problem of reduced frequency of 0
+} else {
+    random = - random;
+}
+{code}
+
+Could use the same approach for nextLong()
+
+Thoughts?, Math.abs() can return a negative number if parameter is MIN_VALUE.
+Replacing this with 0 makes it non-negative and solves problem of reduced frequency of zero.
+
+Applied to nextInt() and nextLong():
+
+URL: http://svn.apache.org/viewvc?rev=906693&view=rev
+Log:
+Math.abs(long) can return a negative number
+Fix nextInt() and nextLong() so all values 0 -> MAX_VALUE are equally likely
+
+I think the only remaining problem is the method nextLong(long) does not generate properly distributed numbers above about Long.MAX_VALUE/1000, possibly lower.
+, The behaviour of nextLong(long) has been fixed by adapting the nextInt(int) code from Harmony's Random class:
+
+URL: http://svn.apache.org/viewvc?rev=907160&view=rev
+Log:
+Revert nextInt() and nextLong() to 2.4 behaviour, i.e MAX_VALUE is not included
+Rewrite nextLong(long) based on Harmony's implementation of nextInt(int)
+
+Modified:
+   commons/proper/lang/branches/LANG_2_X/src/main/java/org/apache/commons/lang/math/JVMRandom.java]

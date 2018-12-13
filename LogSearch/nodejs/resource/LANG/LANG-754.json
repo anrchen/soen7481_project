@@ -1,0 +1,213 @@
+{
+    "expand": "operations,versionedRepresentations,editmeta,changelog,renderedFields",
+    "fields": {
+        "aggregateprogress": {
+            "percent": 0,
+            "progress": 0,
+            "total": 86400
+        },
+        "aggregatetimeestimate": 86400,
+        "aggregatetimeoriginalestimate": 86400,
+        "aggregatetimespent": null,
+        "assignee": null,
+        "components": [{
+            "id": "12313198",
+            "name": "lang.builder.*",
+            "self": "https://issues.apache.org/jira/rest/api/2/component/12313198"
+        }],
+        "created": "2011-09-19T12:46:07.000+0000",
+        "creator": {
+            "active": true,
+            "avatarUrls": {
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452",
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452"
+            },
+            "displayName": "Dominique De Vito",
+            "key": "dmdevito",
+            "name": "dmdevito",
+            "self": "https://issues.apache.org/jira/rest/api/2/user?username=dmdevito",
+            "timeZone": "Etc/UTC"
+        },
+        "customfield_10010": null,
+        "customfield_12310220": "2012-02-24T20:12:56.647+0000",
+        "customfield_12310222": "1_*:*_1_*:*_50034760144_*|*_5_*:*_1_*:*_0",
+        "customfield_12310250": null,
+        "customfield_12310290": null,
+        "customfield_12310291": null,
+        "customfield_12310300": null,
+        "customfield_12310310": "1.0",
+        "customfield_12310420": "2982",
+        "customfield_12310920": "63020",
+        "customfield_12310921": null,
+        "customfield_12311020": null,
+        "customfield_12311024": null,
+        "customfield_12311120": null,
+        "customfield_12311820": "0|i0b5lr:",
+        "customfield_12312022": null,
+        "customfield_12312023": null,
+        "customfield_12312024": null,
+        "customfield_12312026": null,
+        "customfield_12312220": null,
+        "customfield_12312320": null,
+        "customfield_12312321": null,
+        "customfield_12312322": null,
+        "customfield_12312323": null,
+        "customfield_12312324": null,
+        "customfield_12312325": null,
+        "customfield_12312326": null,
+        "customfield_12312327": null,
+        "customfield_12312328": null,
+        "customfield_12312329": null,
+        "customfield_12312330": null,
+        "customfield_12312331": null,
+        "customfield_12312332": null,
+        "customfield_12312333": null,
+        "customfield_12312334": null,
+        "customfield_12312335": null,
+        "customfield_12312336": null,
+        "customfield_12312337": null,
+        "customfield_12312338": null,
+        "customfield_12312339": null,
+        "customfield_12312340": null,
+        "customfield_12312341": null,
+        "customfield_12312520": null,
+        "customfield_12312521": "Sat Apr 20 15:18:47 UTC 2013",
+        "customfield_12312720": null,
+        "customfield_12312823": null,
+        "customfield_12312920": null,
+        "customfield_12312921": null,
+        "customfield_12312923": null,
+        "customfield_12313422": "false",
+        "customfield_12313520": null,
+        "description": "I have a simple class 'A' defined as follows:\n\n======================================\npublic class A {\n  int p1;\n  String p2;\n  B b;\n}\n======================================\n\nWhile I execute the following instructions:\nToStringBuilder builder = new ReflectionToStringBuilder(a);\nSystem.out.println(builder.toString());\n\nThe output is:\nA@3ea981ca[p1=0,p2=<null>,b=B@1ee7b241]\nthat's normal, without recursion\n\nSo, I defined my own style, for recursive toString-ing display:\n\n======================================\nclass MyStyle extends ToStringStyle {\n  private final static ToStringStyle instance = new MyStyle();\n\n  public MyStyle() {\n    setArrayContentDetail(true);\n    setUseShortClassName(true);\n    setUseClassName(true);\n    setUseIdentityHashCode(true);\n    setFieldSeparator(\", \");\n  }\n\n  public static ToStringStyle getInstance() {\n    return instance;\n  };\n\n  @Override\n  public void appendDetail(final StringBuffer buffer, final String fieldName, final Object value) {\n    if (!value.getClass().getName().startsWith(\"java\")) {\n      buffer.append(ReflectionToStringBuilder.toString(value, instance));\n    } else {\n      super.appendDetail(buffer, fieldName, value);\n    }\n  }\n\n  @Override\n  public void appendDetail(final StringBuffer buffer, final String fieldName, final Collection value) {\n    appendDetail(buffer, fieldName, value.toArray());\n  }\n\n}\n======================================\n\n\nWhen I use my custom MyStyle:\nString s = ReflectionToStringBuilder.toString(a, MyStyle.getInstance());\nSystem.out.println(s);\n\nThe output is:\nA@3ea981ca[p1=0, p2=<null>, b=byte@1ee7b241[p4=234]]\n\nSo, the name of the class 'B' is not displayed.\nI expected something like: b=B@1ee7b241[p4=234]\n\nInstead, the name of the class 'B' is replaced with 'byte'.\nI don't know why.\n",
+        "duedate": null,
+        "environment": "Linux Ubuntu\njava version \"1.6.0_24\"\nJava(TM) SE Runtime Environment (build 1.6.0_24-b07)\nJava HotSpot(TM) 64-Bit Server VM (build 19.1-b02, mixed mode)\n",
+        "fixVersions": [{
+            "archived": false,
+            "description": "Bug fixes and new features, at least requires Java 6.0",
+            "id": "12317952",
+            "name": "3.2",
+            "releaseDate": "2014-01-01",
+            "released": true,
+            "self": "https://issues.apache.org/jira/rest/api/2/version/12317952"
+        }],
+        "issuelinks": [],
+        "issuetype": {
+            "avatarId": 21133,
+            "description": "A problem which impairs or prevents the functions of the product.",
+            "iconUrl": "https://issues.apache.org/jira/secure/viewavatar?size=xsmall&avatarId=21133&avatarType=issuetype",
+            "id": "1",
+            "name": "Bug",
+            "self": "https://issues.apache.org/jira/rest/api/2/issuetype/1",
+            "subtask": false
+        },
+        "labels": [],
+        "lastViewed": null,
+        "priority": {
+            "iconUrl": "https://issues.apache.org/jira/images/icons/priorities/minor.svg",
+            "id": "4",
+            "name": "Minor",
+            "self": "https://issues.apache.org/jira/rest/api/2/priority/4"
+        },
+        "progress": {
+            "percent": 0,
+            "progress": 0,
+            "total": 86400
+        },
+        "project": {
+            "avatarUrls": {
+                "16x16": "https://issues.apache.org/jira/secure/projectavatar?size=xsmall&pid=12310481&avatarId=10011",
+                "24x24": "https://issues.apache.org/jira/secure/projectavatar?size=small&pid=12310481&avatarId=10011",
+                "32x32": "https://issues.apache.org/jira/secure/projectavatar?size=medium&pid=12310481&avatarId=10011",
+                "48x48": "https://issues.apache.org/jira/secure/projectavatar?pid=12310481&avatarId=10011"
+            },
+            "id": "12310481",
+            "key": "LANG",
+            "name": "Commons Lang",
+            "projectCategory": {
+                "description": "Apache Commons components",
+                "id": "10260",
+                "name": "Commons",
+                "self": "https://issues.apache.org/jira/rest/api/2/projectCategory/10260"
+            },
+            "self": "https://issues.apache.org/jira/rest/api/2/project/12310481"
+        },
+        "reporter": {
+            "active": true,
+            "avatarUrls": {
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452",
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452"
+            },
+            "displayName": "Dominique De Vito",
+            "key": "dmdevito",
+            "name": "dmdevito",
+            "self": "https://issues.apache.org/jira/rest/api/2/user?username=dmdevito",
+            "timeZone": "Etc/UTC"
+        },
+        "resolution": {
+            "description": "A fix for this issue is checked into the tree and tested.",
+            "id": "1",
+            "name": "Fixed",
+            "self": "https://issues.apache.org/jira/rest/api/2/resolution/1"
+        },
+        "resolutiondate": "2013-04-20T15:18:47.000+0000",
+        "status": {
+            "description": "The issue is considered finished, the resolution is correct. Issues which are not closed can be reopened.",
+            "iconUrl": "https://issues.apache.org/jira/images/icons/statuses/closed.png",
+            "id": "6",
+            "name": "Closed",
+            "self": "https://issues.apache.org/jira/rest/api/2/status/6",
+            "statusCategory": {
+                "colorName": "green",
+                "id": 3,
+                "key": "done",
+                "name": "Done",
+                "self": "https://issues.apache.org/jira/rest/api/2/statuscategory/3"
+            }
+        },
+        "subtasks": [],
+        "summary": "embedded objects are not toString-ed like top-level objects",
+        "timeestimate": 86400,
+        "timeoriginalestimate": 86400,
+        "timespent": null,
+        "updated": "2013-10-15T02:33:10.000+0000",
+        "versions": [
+            {
+                "archived": true,
+                "description": "",
+                "id": "12314743",
+                "name": "2.5",
+                "releaseDate": "2010-02-25",
+                "released": true,
+                "self": "https://issues.apache.org/jira/rest/api/2/version/12314743"
+            },
+            {
+                "archived": true,
+                "description": "August release from 3.x",
+                "id": "12317157",
+                "name": "3.0.1",
+                "releaseDate": "2011-08-09",
+                "released": true,
+                "self": "https://issues.apache.org/jira/rest/api/2/version/12317157"
+            }
+        ],
+        "votes": {
+            "hasVoted": false,
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/LANG-754/votes",
+            "votes": 0
+        },
+        "watches": {
+            "isWatching": false,
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/LANG-754/watchers",
+            "watchCount": 2
+        },
+        "workratio": 0
+    },
+    "id": "12523549",
+    "key": "LANG-754",
+    "self": "https://issues.apache.org/jira/rest/api/2/issue/12523549"
+}

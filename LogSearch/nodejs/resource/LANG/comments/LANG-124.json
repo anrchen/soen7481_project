@@ -1,0 +1,2 @@
+[It appears that this issue is already addressed according to nightly build by 
+renaming the enum package into "enums" and deprecating the enum package., 2.1 released, closing.]

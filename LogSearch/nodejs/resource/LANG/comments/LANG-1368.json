@@ -1,0 +1,5 @@
+[Can you add some test with exact cases that reproduce the issue? I tried running sequences of append with null arguments and I always got a consistent with EqualsBuilder result. , I’m sorry, but this has been lost to time.  I can add that it was using the eclipse compiler for java 8 on a Mac.  
+
+, Unfortunately I don't have any Mac machine available to test that. Please let me know if you find out some more info on this issue.
+
+And if someone is able to test that on Mac with eclipse, I guess that would be great also.]

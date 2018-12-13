@@ -1,0 +1,5 @@
+[The leading 0 means octal.
+
+09 is not valid octal, This is a trap, if you do not see the specific implementation of the method, who do not know will be treated as octal. I do not think it's a good practice., The behaviour is clearly explained in the Javadoc:
+
+http://commons.apache.org/proper/commons-lang/apidocs/org/apache/commons/lang3/math/NumberUtils.html#isNumber-java.lang.String-]

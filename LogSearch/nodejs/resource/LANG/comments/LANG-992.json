@@ -1,0 +1,35 @@
+[Yes, this was caused by the second commit for LANG-972  in revision 1566967 when the change for Octal numbers was made. I have a patch that resolves this specific issue, but perhaps the Octal change should be reverted., Attaching second version of patch, [~niallp]: your patch looks good. I see no reason to revert the octal change, just a shame we hadn't already captured this case in a unit test. Do you intend to commit your patch?, Should octal numbers be validated or not?
+Clearly a number such as 0xdefgh is invalid, because the 0x prefix unambiguosly identifies a hex number.
+However 0123 is potentially equally valid as an octal and a decimal number. 
+Which is correct depends on the context.
+
+Now the Javadoc for isNumber says "Checks whether the String a valid Java number."
+If we take that to mean that the digit string must be valid as a numeric Java literal, then clearly the leading 0 means octal.
+However, numeric literals are not Strings.
+JVM methods such as Integer.decode(String) that treat a leading 0 as meaning octal will reject a parameter that contains non-octal digits - so again that suggests octal should be validated.
+
+As far as I know, there are no standard Java methods that accept number type suffixes in Strings.
+I think these are only accepted in numeric literals.
+
+The fact that isNumber() accepts all these formats leads me to the conclusion that the intention was probably to support the same syntax as Java literals, and so the code should validate octal numbers accordingly., Actually my expectation for using that method would be that "isNumber returns true if I can use it without a NumberFormatException with Integer.parseInt(String) or Double.parseDouble(String)". Because the Java syntax and literal format is not really something which you use anywhere outside the compiler/source tools.
+
+However, I would be fine with both definitions, as long as they are added to the javadoc comment.
+
+BTW1: I have some applications where the NFE is a major slow down as I use the parse function to validate. So I do see a big reason for having a boolean validate function.
+
+BTW2: I think hex/ocatal prefixes and decimal digits are never seen in the same function, so I think having a "isInteger()" which knows about octal/hex and having a isNumber() which fails on hex and ignores trailing 0 would be a more logical thing.
+, This is a show-stopper for us - I can revert to 3.1 for the project that is affected, however need to retain 3.3.1 for other projects., @Bernd
+
+The isNumber() method currently also allows "0xABCD" and "27L" which are not allowed by the parseTTT() methods - it is not just the octal validation that would cause problems.
+
+I think one would need several new methods to validate strings intended for parse functions.
+In your case I would have thought a Regular Expression matcher would be suitable.
+I suggest you create a JIRA enhancement request with details of your use-cases.
+Note that Commons Validator provides lots of Numeric validation routines already - that may be a better solution., I have checked in the change in revision 1582585, What about 01.23 etc?
+This will be allowed by createNumber().
+Maybe the check for "." should scan the entire string., This is a possible large refactor of the isNumber functionality extracting each of the different datatypes into their own methods. Whilst this will not be as efficient as the original method, it is more maintainable and would allow for the possibility of making each of them public separately.
+
+I understand that this may be a step to far, but would be interested in hearing people's views. This does not however, cover Sebb's point about 01.23 as I do not believe that createNumber should be allowing it.
+
+If this is liked, javadoc and separate testing of each function can be added (make the method package private)., I'm starter for contribute this project and not good familiar with flow of issues. 
+I see this issue resolved in version 3.4, I say correct?, It was marked as fixed in 3.3.2, but then reopened and not closed again. So the issue remains unresolved., Thanks for your reply but When do this issue close?, Commons is completely volunteer based. Issues are closed when somebody contributes a fix. , I could not reproduce this issue in the release candidate for 3.5 with java 1.6 or java 1.7.]

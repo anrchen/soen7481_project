@@ -1,0 +1,5 @@
+[Actually, passing null in should return the ToStringStyle nullText., Fixed in CVS.
+ReflectionToStringBuilder.toString is now null-safe and returns the style's
+nullText.
+ToStringBuilder constructors are now null-safe. A new ToStringBuilder on a null
+followed by a call to toString returns ""., 2.1 released, closing.]

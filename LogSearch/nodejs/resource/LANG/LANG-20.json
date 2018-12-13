@@ -1,0 +1,196 @@
+{
+    "expand": "operations,versionedRepresentations,editmeta,changelog,renderedFields",
+    "fields": {
+        "aggregateprogress": {
+            "progress": 0,
+            "total": 0
+        },
+        "aggregatetimeestimate": null,
+        "aggregatetimeoriginalestimate": null,
+        "aggregatetimespent": null,
+        "assignee": null,
+        "components": [],
+        "created": "2003-01-11T13:27:37.000+0000",
+        "creator": {
+            "active": true,
+            "avatarUrls": {
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452",
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452"
+            },
+            "displayName": "Per Velschow",
+            "key": "per@velschow.com",
+            "name": "per@velschow.com",
+            "self": "https://issues.apache.org/jira/rest/api/2/user?username=per%40velschow.com",
+            "timeZone": "Europe/Copenhagen"
+        },
+        "customfield_10010": 15986,
+        "customfield_12310220": "2003-01-20T02:51:15.000+0000",
+        "customfield_12310222": null,
+        "customfield_12310250": null,
+        "customfield_12310290": null,
+        "customfield_12310291": null,
+        "customfield_12310300": null,
+        "customfield_12310310": "0.0",
+        "customfield_12310420": "34102",
+        "customfield_12310920": "74954",
+        "customfield_12310921": null,
+        "customfield_12311020": null,
+        "customfield_12311024": null,
+        "customfield_12311120": null,
+        "customfield_12311820": "0|i0d79r:",
+        "customfield_12312022": null,
+        "customfield_12312023": null,
+        "customfield_12312024": null,
+        "customfield_12312026": null,
+        "customfield_12312220": null,
+        "customfield_12312320": null,
+        "customfield_12312321": null,
+        "customfield_12312322": null,
+        "customfield_12312323": null,
+        "customfield_12312324": null,
+        "customfield_12312325": null,
+        "customfield_12312326": null,
+        "customfield_12312327": null,
+        "customfield_12312328": null,
+        "customfield_12312329": null,
+        "customfield_12312330": null,
+        "customfield_12312331": null,
+        "customfield_12312332": null,
+        "customfield_12312333": null,
+        "customfield_12312334": null,
+        "customfield_12312335": null,
+        "customfield_12312336": null,
+        "customfield_12312337": null,
+        "customfield_12312338": null,
+        "customfield_12312339": null,
+        "customfield_12312340": null,
+        "customfield_12312341": null,
+        "customfield_12312520": null,
+        "customfield_12312521": "Mon Jan 20 03:10:04 UTC 2003",
+        "customfield_12312720": null,
+        "customfield_12312823": null,
+        "customfield_12312920": null,
+        "customfield_12312921": null,
+        "customfield_12312923": null,
+        "customfield_12313422": "false",
+        "customfield_12313520": null,
+        "description": "ToStringBuilder.reflectionToString() enters an infinite loop when used with the \nfollowing example:\n\n/////////////////////////////\npublic class Outer {\n  Inner inner = new Inner();\n  class Inner {\n    public String toString() {\n      return ToStringBuilder.reflectionToString(this);\n    }\n  }\n  public String toString() {\n    return ToStringBuilder.reflectionToString(this);\n  }\n  public static void main(String[] args) {\n    Outer outer = new Outer();\n    System.out.println(outer);\n  }\n}\n/////////////////////////////\n\nThe reason is that the two classes refer to each other via the explicit field \ninner and the implicit field Outer.this. \n\nThe bug can be resolved by skipping the implicit fields. Is there any good \nreason for printing those anyway?\n\nI am not sure what is the best way to detect if a field is an implicit field. \nBut I patched the code myself in a way that seemed to work:\n\n/////////////////////////////\npublic static String reflectionToString(Object object, ToStringStyle style, \n        boolean outputTransients) {\n    if (object == null) {\n        throw new IllegalArgumentException(\"The object must not be null\");\n    }\n    if (style == null) {\n        style = getDefaultStyle();\n    }\n    Field[] fields = object.getClass().getDeclaredFields();\n    Field.setAccessible(fields, true);\n    ToStringBuilder builder = new ToStringBuilder(object, style);\n    for (int i = 0; i < fields.length; ++i) {\n        Field f = fields[i];\n        if (!f.getName().startsWith(\"this$\")) {\n          if (outputTransients || !Modifier.isTransient(f.getModifiers())) {\n              if (!Modifier.isStatic(f.getModifiers())) {\n                  try {\n                      builder.append(f.getName(), f.get(object));\n                      \n                  } catch (IllegalAccessException ex) {\n                      //this can't happen. Would get a Security exception \ninstead\n                      //throw a runtime exception in case the impossible \nhappens.\n                      throw new InternalError(\"Unexpected \nIllegalAccessException\");\n                  }\n              }\n          }\n        }\n    }\n    return builder.toString();\n}\n/////////////////////////////\n\nNotice the extra if statement that tests for field names starting with \"this$\". \nI don't know if this is guaranteed to work always, though.",
+        "duedate": null,
+        "environment": "Operating System: All\nPlatform: PC",
+        "fixVersions": [{
+            "archived": true,
+            "description": "",
+            "id": "12311706",
+            "name": "2.0",
+            "releaseDate": "2003-09-02",
+            "released": true,
+            "self": "https://issues.apache.org/jira/rest/api/2/version/12311706"
+        }],
+        "issuelinks": [],
+        "issuetype": {
+            "avatarId": 21133,
+            "description": "A problem which impairs or prevents the functions of the product.",
+            "iconUrl": "https://issues.apache.org/jira/secure/viewavatar?size=xsmall&avatarId=21133&avatarType=issuetype",
+            "id": "1",
+            "name": "Bug",
+            "self": "https://issues.apache.org/jira/rest/api/2/issuetype/1",
+            "subtask": false
+        },
+        "labels": [],
+        "lastViewed": null,
+        "priority": {
+            "iconUrl": "https://issues.apache.org/jira/images/icons/priorities/blocker.svg",
+            "id": "1",
+            "name": "Blocker",
+            "self": "https://issues.apache.org/jira/rest/api/2/priority/1"
+        },
+        "progress": {
+            "progress": 0,
+            "total": 0
+        },
+        "project": {
+            "avatarUrls": {
+                "16x16": "https://issues.apache.org/jira/secure/projectavatar?size=xsmall&pid=12310481&avatarId=10011",
+                "24x24": "https://issues.apache.org/jira/secure/projectavatar?size=small&pid=12310481&avatarId=10011",
+                "32x32": "https://issues.apache.org/jira/secure/projectavatar?size=medium&pid=12310481&avatarId=10011",
+                "48x48": "https://issues.apache.org/jira/secure/projectavatar?pid=12310481&avatarId=10011"
+            },
+            "id": "12310481",
+            "key": "LANG",
+            "name": "Commons Lang",
+            "projectCategory": {
+                "description": "Apache Commons components",
+                "id": "10260",
+                "name": "Commons",
+                "self": "https://issues.apache.org/jira/rest/api/2/projectCategory/10260"
+            },
+            "self": "https://issues.apache.org/jira/rest/api/2/project/12310481"
+        },
+        "reporter": {
+            "active": true,
+            "avatarUrls": {
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452",
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452"
+            },
+            "displayName": "Per Velschow",
+            "key": "per@velschow.com",
+            "name": "per@velschow.com",
+            "self": "https://issues.apache.org/jira/rest/api/2/user?username=per%40velschow.com",
+            "timeZone": "Europe/Copenhagen"
+        },
+        "resolution": {
+            "description": "A fix for this issue is checked into the tree and tested.",
+            "id": "1",
+            "name": "Fixed",
+            "self": "https://issues.apache.org/jira/rest/api/2/resolution/1"
+        },
+        "resolutiondate": "2006-05-16T12:44:16.000+0000",
+        "status": {
+            "description": "The issue is considered finished, the resolution is correct. Issues which are not closed can be reopened.",
+            "iconUrl": "https://issues.apache.org/jira/images/icons/statuses/closed.png",
+            "id": "6",
+            "name": "Closed",
+            "self": "https://issues.apache.org/jira/rest/api/2/status/6",
+            "statusCategory": {
+                "colorName": "green",
+                "id": 3,
+                "key": "done",
+                "name": "Done",
+                "self": "https://issues.apache.org/jira/rest/api/2/statuscategory/3"
+            }
+        },
+        "subtasks": [],
+        "summary": "Infinite loop in ToStringBuilder.reflectionToString for inner classes",
+        "timeestimate": null,
+        "timeoriginalestimate": null,
+        "timespent": null,
+        "updated": "2006-05-16T12:44:16.000+0000",
+        "versions": [{
+            "archived": true,
+            "description": "",
+            "id": "12311706",
+            "name": "2.0",
+            "releaseDate": "2003-09-02",
+            "released": true,
+            "self": "https://issues.apache.org/jira/rest/api/2/version/12311706"
+        }],
+        "votes": {
+            "hasVoted": false,
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/LANG-20/votes",
+            "votes": 0
+        },
+        "watches": {
+            "isWatching": false,
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/LANG-20/watchers",
+            "watchCount": 0
+        },
+        "workratio": -1
+    },
+    "id": "12340483",
+    "key": "LANG-20",
+    "self": "https://issues.apache.org/jira/rest/api/2/issue/12340483"
+}

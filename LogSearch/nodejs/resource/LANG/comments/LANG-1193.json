@@ -1,0 +1,28 @@
+[Thanks for the report.  I agree that there is a bug here.
+
+Looks like the problem was introduced as a fix for LANG-1077 (which was invalid).
+
+
+, LANG-1193 ordinalIndexOf("abc", "ab", 1) gives incorrect answer of -1
+(correct answer should be 0)
+Revert LANG-1077
+
+Project: http://git-wip-us.apache.org/repos/asf/commons-lang/repo
+Commit: http://git-wip-us.apache.org/repos/asf/commons-lang/commit/d75fe46b
+Tree: http://git-wip-us.apache.org/repos/asf/commons-lang/tree/d75fe46b
+Diff: http://git-wip-us.apache.org/repos/asf/commons-lang/diff/d75fe46b
+
+Branch: refs/heads/master
+Commit: d75fe46b8f1b0d5c27887052ee4714d6a9c7ea4b
+Parents: 15e1ea2
+Author: Sebb <sebb@apache.org>
+Authored: Fri Dec 11 13:41:22 2015 +0000
+Committer: Sebb <sebb@apache.org>
+Committed: Fri Dec 11 13:41:22 2015 +0000
+
+----------------------------------------------------------------------
+ src/changes/changes.xml                            |  2 +-
+ .../java/org/apache/commons/lang3/StringUtils.java | 15 ++++++++++++---
+ .../lang3/StringUtilsEqualsIndexOfTest.java        | 17 +++++++++++++++--
+ 3 files changed, 28 insertions(+), 6 deletions(-)
+----------------------------------------------------------------------]

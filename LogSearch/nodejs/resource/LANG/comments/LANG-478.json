@@ -1,0 +1,5 @@
+[Sounds good. We've wanted to do this once we're 1.5 dependent, which 3.0 will be., Attaching patch to move to nanoTime., svn ci -m "Applying my patch from LANG-478 - moving StopWatch to using nanoTime under the hood. "
+
+Sending        src/java/org/apache/commons/lang/time/StopWatch.java
+Transmitting file data .
+Committed revision 749114.]

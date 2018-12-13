@@ -1,0 +1,180 @@
+{
+    "expand": "operations,versionedRepresentations,editmeta,changelog,renderedFields",
+    "fields": {
+        "aggregateprogress": {
+            "progress": 0,
+            "total": 0
+        },
+        "aggregatetimeestimate": null,
+        "aggregatetimeoriginalestimate": null,
+        "aggregatetimespent": null,
+        "assignee": null,
+        "components": [],
+        "created": "2003-11-17T23:56:54.000+0000",
+        "creator": {
+            "active": true,
+            "avatarUrls": {
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452",
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452"
+            },
+            "displayName": "Paul M",
+            "key": "paul-apache@mansfield.co.uk",
+            "name": "paul-apache@mansfield.co.uk",
+            "self": "https://issues.apache.org/jira/rest/api/2/user?username=paul-apache%40mansfield.co.uk",
+            "timeZone": "Etc/UTC"
+        },
+        "customfield_10010": 24755,
+        "customfield_12310220": "2003-11-18T01:06:51.000+0000",
+        "customfield_12310222": "6_*:*_1_*:*_0_*|*_5_*:*_1_*:*_101692215678",
+        "customfield_12310250": null,
+        "customfield_12310290": null,
+        "customfield_12310291": null,
+        "customfield_12310300": null,
+        "customfield_12310310": "0.0",
+        "customfield_12310420": "146983",
+        "customfield_12310920": "74966",
+        "customfield_12310921": null,
+        "customfield_12311020": null,
+        "customfield_12311024": null,
+        "customfield_12311120": null,
+        "customfield_12311820": "0|i0d7cf:",
+        "customfield_12312022": null,
+        "customfield_12312023": null,
+        "customfield_12312024": null,
+        "customfield_12312026": null,
+        "customfield_12312220": null,
+        "customfield_12312320": null,
+        "customfield_12312321": null,
+        "customfield_12312322": null,
+        "customfield_12312323": null,
+        "customfield_12312324": null,
+        "customfield_12312325": null,
+        "customfield_12312326": null,
+        "customfield_12312327": null,
+        "customfield_12312328": null,
+        "customfield_12312329": null,
+        "customfield_12312330": null,
+        "customfield_12312331": null,
+        "customfield_12312332": null,
+        "customfield_12312333": null,
+        "customfield_12312334": null,
+        "customfield_12312335": null,
+        "customfield_12312336": null,
+        "customfield_12312337": null,
+        "customfield_12312338": null,
+        "customfield_12312339": null,
+        "customfield_12312340": null,
+        "customfield_12312341": null,
+        "customfield_12312520": null,
+        "customfield_12312521": "Sat Nov 29 23:06:18 UTC 2003",
+        "customfield_12312720": null,
+        "customfield_12312823": null,
+        "customfield_12312920": null,
+        "customfield_12312921": null,
+        "customfield_12312923": null,
+        "customfield_12313422": "false",
+        "customfield_12313520": null,
+        "description": "My program manages to generate this exception\njavac PsiStatus.java\nPsiStatus.java:59: cannot access org.apache.commons.lang.exception.\nNestableException\nfile org/apache/commons/lang/exception/NestableException.class not found\n        Connection con = Torque.getConnection(\"mypsi\");\n\nhere's a snippet of source:\n\npackage org.apache.jetspeed.portal.portlets;\n\nimport org.apache.jetspeed.portal.portlets.AbstractInstancePortlet;\nimport org.apache.turbine.util.RunData;\nimport org.apache.turbine.om.security.*;\nimport org.apache.ecs.ConcreteElement;\nimport org.apache.ecs.StringElement;\nimport org.apache.torque.*;\nimport javax.servlet.*;\nimport java.sql.*;\nimport javax.sql.*;\nimport java.text.*;\nimport java.util.*;\n\npublic class MyClass extends AbstractInstancePortlet\n{\n    public ConcreteElement getContent (RunData runData)\n    {\n        Connection con = Torque.getConnection(\"mypsi\");\n    }\n}",
+        "duedate": null,
+        "environment": "Operating System: Linux\nPlatform: Other",
+        "fixVersions": [],
+        "issuelinks": [],
+        "issuetype": {
+            "avatarId": 21133,
+            "description": "A problem which impairs or prevents the functions of the product.",
+            "iconUrl": "https://issues.apache.org/jira/secure/viewavatar?size=xsmall&avatarId=21133&avatarType=issuetype",
+            "id": "1",
+            "name": "Bug",
+            "self": "https://issues.apache.org/jira/rest/api/2/issuetype/1",
+            "subtask": false
+        },
+        "labels": [],
+        "lastViewed": null,
+        "priority": {
+            "iconUrl": "https://issues.apache.org/jira/images/icons/priorities/minor.svg",
+            "id": "4",
+            "name": "Minor",
+            "self": "https://issues.apache.org/jira/rest/api/2/priority/4"
+        },
+        "progress": {
+            "progress": 0,
+            "total": 0
+        },
+        "project": {
+            "avatarUrls": {
+                "16x16": "https://issues.apache.org/jira/secure/projectavatar?size=xsmall&pid=12310481&avatarId=10011",
+                "24x24": "https://issues.apache.org/jira/secure/projectavatar?size=small&pid=12310481&avatarId=10011",
+                "32x32": "https://issues.apache.org/jira/secure/projectavatar?size=medium&pid=12310481&avatarId=10011",
+                "48x48": "https://issues.apache.org/jira/secure/projectavatar?pid=12310481&avatarId=10011"
+            },
+            "id": "12310481",
+            "key": "LANG",
+            "name": "Commons Lang",
+            "projectCategory": {
+                "description": "Apache Commons components",
+                "id": "10260",
+                "name": "Commons",
+                "self": "https://issues.apache.org/jira/rest/api/2/projectCategory/10260"
+            },
+            "self": "https://issues.apache.org/jira/rest/api/2/project/12310481"
+        },
+        "reporter": {
+            "active": true,
+            "avatarUrls": {
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452",
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452"
+            },
+            "displayName": "Paul M",
+            "key": "paul-apache@mansfield.co.uk",
+            "name": "paul-apache@mansfield.co.uk",
+            "self": "https://issues.apache.org/jira/rest/api/2/user?username=paul-apache%40mansfield.co.uk",
+            "timeZone": "Etc/UTC"
+        },
+        "resolution": {
+            "description": "The problem is not completely described.",
+            "id": "4",
+            "name": "Incomplete",
+            "self": "https://issues.apache.org/jira/rest/api/2/resolution/4"
+        },
+        "resolutiondate": "2007-02-06T23:47:09.000+0000",
+        "status": {
+            "description": "The issue is considered finished, the resolution is correct. Issues which are not closed can be reopened.",
+            "iconUrl": "https://issues.apache.org/jira/images/icons/statuses/closed.png",
+            "id": "6",
+            "name": "Closed",
+            "self": "https://issues.apache.org/jira/rest/api/2/status/6",
+            "statusCategory": {
+                "colorName": "green",
+                "id": 3,
+                "key": "done",
+                "name": "Done",
+                "self": "https://issues.apache.org/jira/rest/api/2/statuscategory/3"
+            }
+        },
+        "subtasks": [],
+        "summary": "No usage of org.apache.commons.lang.exception.NestableException is untrue!",
+        "timeestimate": null,
+        "timeoriginalestimate": null,
+        "timespent": null,
+        "updated": "2013-10-16T08:55:06.000+0000",
+        "versions": [],
+        "votes": {
+            "hasVoted": false,
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/LANG-8/votes",
+            "votes": 0
+        },
+        "watches": {
+            "isWatching": false,
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/LANG-8/watchers",
+            "watchCount": 0
+        },
+        "workratio": -1
+    },
+    "id": "12341099",
+    "key": "LANG-8",
+    "self": "https://issues.apache.org/jira/rest/api/2/issue/12341099"
+}

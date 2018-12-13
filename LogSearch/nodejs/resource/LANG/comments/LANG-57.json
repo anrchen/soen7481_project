@@ -1,0 +1,18 @@
+[Created an attachment (id=10289)
+patch adds instanceof check to Enum.equals().
+, Does this patch work with the intended feature of the "} catch
+(ClassCastException ex) {" block? Is there a unit test that checks the "} catch
+(ClassCastException ex) {" behavior?, I changed the Enum.equals method to avoid cast exceptions.  The thought being, 
+an equality check between objects of different types should return false and 
+not raise an exception.
+
+The unit test assures a ClassCastException is not thrown when comparing objects 
+of different types.
+
+FYI, by different types I mean objects that fail an instanceof check., The issue is that it looks like the author of the code had clear intentions when
+writting the catch block, which this patch seems to circumvent. What that last
+else and catch blcok do is allow Enum instance to work even though they might
+come  from different class loaders. I think your patch might break this feature.
+I also do not think there is a unit test that validates this feature. So, that
+would be the first thing to do: add a unit test that checks that Enums from
+different class loaders can be tested., Fixed as a side effect of fixing 26876. Added a unit test for this case., 2.1 released, closing.]

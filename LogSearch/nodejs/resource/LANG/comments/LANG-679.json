@@ -1,0 +1,18 @@
+[Do you mean these examples?
+
+ StringUtils.startsWithIgnoreCase(null, null)      = true
+ StringUtils.startsWithIgnoreCase(null, "abc")     = false
+ StringUtils.startsWithIgnoreCase("abcdef", null)  = false
+ StringUtils.startsWithIgnoreCase("abcdef", "abc") = true
+ StringUtils.startsWithIgnoreCase("ABCDEF", "abc") = true
+
+If so, what's wrong with them?, No, I'm meaning these:
+
+StringUtils.startsWithIgnoreCase(null, null)      = true
+StringUtils.startsWithIgnoreCase(null, "abcdef")  = false
+StringUtils.startsWithIgnoreCase("abc", null)     = false
+StringUtils.startsWithIgnoreCase("abc", "abcdef") = true
+StringUtils.startsWithIgnoreCase("abc", "ABCDEF") = true
+
+That can be found in version 2.4
+As I understand this is fixed in more recent version, so it's can be closed ?, Duplicates LANG-460 fixed in Lang 2.5]

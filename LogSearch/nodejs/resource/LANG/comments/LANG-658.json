@@ -1,0 +1,16 @@
+[Later on, there are two instances of E5:
+
+{noformat} 
+        {"\u00E5", "&auml;"}, // ä - lowercase a, umlaut
+        {"\u00E5", "&aring;"}, // å - lowercase a, ring
+{noformat} 
+
+The latter is correct, and subsequent entries seem OK., Another duplicate entry:
+
+{noformat} 
+        {"\u00F1", "&ntilde;"}, // ñ - lowercase n, tilde
+        {"\u00F3", "&ograve;"}, // ò - lowercase o, grave accent
+        {"\u00F3", "&oacute;"}, // ó - lowercase o, acute accent
+{noformat} 
+
+first F3 entry should be F2, Now hopefully fixed., Note: ran a check comparing the values agains the ones from lang2 Entities, and the two implementations now seem to agree]

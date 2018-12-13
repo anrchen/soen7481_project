@@ -1,0 +1,30 @@
+[I tried pretty hard to try and reproduce ConcurrentModificationException in a fairly elaborate multithreaded unit test (but alas failed...).
+
+I looked at the two approaches you proposed for fixing this issue.  I believe it is not correct to expect the ReflectionToStringBuilder caller to synchronize his toString() implementation.  
+
+I believe the best place for the guard is just prior to the object being appended by the StringBuffer.  I have provided a small patch that takes care of synchronizing any Collection or Map in ToStringStyle. 
+
+Cheers, Adrian., I'll have to provide my test case that shows the failure. I'm on vacation now so it might be a couple of days., Hi Gary,
+
+No problem.  That would be great if you are able to provide a test case which is able to reliably reproduce the failure on trunk.  It might be the following weekend before I get chance to revisit if the patch doesn't resolve the issue.  Enjoy your vacation! :-)
+
+Cheers, Adrian., Attaching a test that illustrates the problem, which I don't think is solvable by the [lang] code (so probably this class should not be committed, as it will never pass).
+
+The problem is that when you circumvent a class' internal synchronization to protect fields, all bets are off in terms of data integrity or CoMod exceptions. This should be clearly documented - i.e., users should be warned that this class should not be used in concurrent applications, or at least fields protected by synchronization should be excluded.
+
+What is going on in the test case is that there are two different kinds of threads spawned concurrently - one kind uses the reflection back door opened by the builder to "inspect" an instance and the other kind mutates the instance using its synchronized methods.  Note that synchronizing the builder using the private field's monitor will not solve the problem (i.e., the first patch does not work) because what really needs to happen is that the access by the builder needs to be synchronized using the instance's monitor.  You could try to fix that by synchronizing on the instance, which would solve this example; but there is no guarantee that a class may not use its own internal locks, so there is no generic solution to this problem.
+
+My recommendation is to just document the danger associated with using reflection to access private fields in the class javadoc.
+, I've added some unit tests, mostly @Ignore tests. I added Phil's test {{ReflectionToStringBuilderConcurrencyTest.java}} from 22/Oct/11 07:11 as {{ReflectionToStringBuilderMutateInspectConcurrencyTest}} because I already have a {{ReflectionToStringBuilderConcurrencyTest}} in there.
+
+This should make it easier for people to experiment with suggestions and patches.
+
+For example, the patch {{patch-LANG762.txt}} from 22/Oct/11 01:59 does not work for on my machine.
+
+The test ReflectionToStringBuilderMutateInspectConcurrencyTest passes on my machine but I still @Ignored the test based on Phil's comments.
+
+, Looking at this again, I am pretty well convinced that [lang] is never going to be able to "fix" this issue.  Consider the case where a class uses its own private Lock instances to protect data members.  Unless you want to get into the byte code analysis business, you are not going to be able to pick this up or access the relevant locks.  Moreoever, even if you could discern and acquire the right locks, you might risk introducing deadlocks or liveness problems for the code, because the class may have lock acquisition / release order invariants that you don't know about.
+
+The risks associated with using the ReflectionToStringBuilder to access fields protected by synchronization should be documented. I would suggest just adding something like the following to the class javadoc, after the sentence that reads "This will fail under a security manager, unless the appropriate permissions are set up correctly" add "Using reflection to access private fields also circumvents any synchronization protection guarding access to private fields.  Fields that cannot safely be read at any time by toString should be excluded from the generated method, or synchronization consistent with the underlying class' lock management should be added around invocation of the method. Special care should be taken to avoid including non-threadsafe collection classes, as these classes may throw ConcurrentModificationException if modified while the toString method is executing."
+
+Above is probably too long, but something like it should be added., Better Javadocs: Committed revision 1200177., Issue documented in 3.2, but no code change made. Reading through the conversation, consensus appears to me to be to make no code change to Lang.]

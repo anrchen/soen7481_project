@@ -1,0 +1,113 @@
+[Hello Robert, 
+
+I tried the following code
+
+{code:title=Sample.java|borderStyle=solid}
+public class Sample {
+
+	public static void main(String[] args) {
+		String s = StringEscapeUtils.escapeHtml3("<div title='<%=user_data%>'>Howdy</div>");
+		System.out.println(s);
+	}
+	
+}
+{code}
+
+And it resulted in:
+
+{code}&lt;div title='&lt;%=user_data%&gt;'&gt;Howdy&lt;/div&gt;{code}
+
+Using the escapeHtml4 method code gives similar output 
+
+{code}&lt;div title='&lt;%=user_data%&gt;'&gt;Howdy&lt;/div&gt;{code}
+
+I didn't understand how to reproduce the issue, could you elaborate more or provide a test case? , Sorry for not being clear. Generally the escaping is done on user data that is quoted in the template -- you wouldn't escape the entire template. A simple example, without a template, would be
+
+{code:title=Bar.java|borderStyle=solid}
+public class Sample {
+
+  public static void main(String[] args) {
+   
+    String taint = "\' onclick=\'payload\' ";
+
+    //now we should be able to safely assign to an html attribute
+    String escaped = StringEscapeUtils.escapeHtml3(taint);
+
+    String generatedHtml = "<div title=\' " + escaped + "\'>Howdy</div>";
+    System.out.println(generatedHtml); //'<div title=' ' onclick='alert(1)' ''>Howdy</div> is unsafe for html rendering
+  }
+}
+{code}
+, It's not really clear from the Javadocs what these methods are supposed to achieve. Clearly you were expecting the methods to render safe any user input that might be directly injected into other pieces of HTML. Looking at the code, it seems they only replace named entities (for XML this includes escaping {{'}} to {{&amp;apos;}}). At the very least, we should improve the Javadocs to make it clearer what is being escaped. 
+
+If our goal is to sanitise user input, then we should consider whether escaping single quotes is the only change to make. Any such change would break compatibility with earlier versions, so I'm not sure we could address this before 4.0 (unless we are convinced it's a bug, which is hard to prove since the docs are so vague).
+
+, I was not expecting this data to be safe for arbitrary injection into html. String escaping has a well-defined meaning -- the output of this function should not be able break out of a string data context, because all characters that could be interpreted by the html parser as closing out the string data context are escaped.
+
+This is exactly the string escaping behavior of other methods in this package, and what is commonly known as string escaping. 
+
+c.f. https://tomcat.apache.org/taglibs/standard/apidocs/org/apache/taglibs/standard/util/EscapeXML.html
+
+In terms of which characters need to be escaped, HTML as well as XML only allow string data in two places: attribute values and text nodes. Control characters that denote start/end of attribute values and text nodes are well-defined and finite: single/double quote for attribute values and brackets <, >.  This assumes that the template as a whole is valid html. 
+
+Additionally, the escaping symbol should also be escaped so that the method is a bijection and an unescaping method is possible. 
+
+Finally, there is little value to a method that performs only html entity encoding -- unless you are building an html entity encoding demonstration method. The list of html entities was selected as a convenience so that html developers would not need to memorize ascii/unicode values for commonly used symbols such as e-accent, the less than sign, or the euro sign. The list of html entities is not the list of html control characters and is not relevant for an html string escaping method., bq. String escaping has a well-defined meaning – the output of this function should not be able break out of a string data context, because all characters that could be interpreted by the html parser as closing out the string data context are escaped.
+
+I don't think there's anything in the documentation that suggests the escaped data will be safe in a string data context. In fact, not describing the context is one of the many flaws in the current docs.
+
+Because the current documentation is so woefully inadequate, I don't think we can't change any behaviour here under the rationale of "it's a bug". Therefore, I see we have two things to do:
+
+ - Have a good think about the current functionality, then document it better so that people truly understand what it does and in which contexts it is useful (if any).
+
+ - Decide if we should offer other escape methods that work in a wider range of contexts (including attribute values). If our goal with these methods is to prevent XSS attacks (amongst other things), then this should be stated clearly in any resulting method documentation.
+
+I don't entirely understand why these escaping methods are in Lang anyway, so I'm not in favour of extending them further. But that's just my 2c. I'm certainly in favour of extending the current Javadoc to ensure future users don't mistake what these methods are doing., Note that the escaping that needs to be done depends on the context of the string, i.e. where it is going to be used.
+Also if a string is already partially escaped, it's very difficult to avoid accidentally escaping parts again.
+, Is there any chance we could deprecate this method? Regardless of what the original author was intending, they have now permeated the open source eco-system:
+
+a github search shows 25K hits for StringEscapeUtils.escapeHtml. Looking at the results, users are expecting html string escaping in both attribute values and html nodes, with over 14K hits in JSPs where they are manually using this function to perform security encoding.
+
+https://github.com/search?utf8=%E2%9C%93&q=StringEscapeUtils.escapeHtml&type=Code&ref=searchresults
+
+What is saving the majority of these users is the (Java) convention that html attributes be double rather than single quoted. However, in Rails, attributes are single quoted by convention, and in JS-land you see a mix. I.e. we cannot rely on users being accidentally safe when using this function.
+
+This function is also used to encode attribute values in Apache Struts. Spring MVC is not importing the package but effectively copied the code in HtmlUtils.java. 
+
+Then Grails copied Spring's encoder (c.f. package org.grails.encoder.impl) which was also picked up by Wicket (wicket-util/src/main/java/org/apache/wicket/util/string/Entities.java). 
+
+Point being, you have the vast majority of Java MVC frameworks now improperly escaping html attributes and crucially relying on their double quote conventions for security. This is a concern when they take these same libraries re-use them.
+
+Here is the Play project, which for the most part uses the StringEscapeUtils methods, except for HTML encoding.
+
+{code}
+/api/src/main/scala/play/twirl/api/Formats.scala
+
+  def escape(text: String): Html = {
+    // Using our own algorithm here because commons lang escaping wasn't designed for protecting against XSS, and there
+    // don't seem to be any other good generic escaping tools out there.
+    val sb = new StringBuilder(text.length)
+    text.foreach {
+      case '<' => sb.append("&lt;")
+      case '>' => sb.append("&gt;")
+      case '"' => sb.append("&quot;")
+      case '\'' => sb.append("&#x27;")
+      case '&' => sb.append("&amp;")
+      case c => sb += c
+    }
+    new Html(sb.toString)
+  }
+{code}
+
+It would be nice if, instead of each developer needing to roll their own escaping library, they could rely on a common string escaping library. The StringEscapeUtils does this except for the html method -- what about deprecating this method and introducing a new one -- secureHtmlEscape --  that escapes <, >, ', ", and &?
+
+I understand that encoding is context sensitive. Generally you need to perform a sequence of encodings to match the sequence of browser parsings, but the sequence is built from HTML, JS, CSS, and URI encoding operations, so there is a need for a common definition of these. Then frameworks and toolkits can perform the proper contextual encoding using these functions.
+, > Duncan: Have a good think about the current functionality, then document it better so that people truly understand what it does and in which contexts it is useful (if any).
+
++1 
+
+> Robert: what about deprecating this method and introducing a new one – secureHtmlEscape – that escapes <, >, ', ", and &?
+
++0
+
+I think adding a secureHtmlEscape method could fix this issue, but I'm not sure if that wouldn't mean that we could have further variations or methods for XML, HTML or other formats., LANG-1056 is related here to the vagueness of the Javadocs in the HTML escape methods., Note that Spring's HtmlUtils no longer seems to have this problem.]

@@ -1,0 +1,66 @@
+[I am wondering if this is not a misuse of HashCodeBuilder.
+
+Wouldn't the right usage be to define toString as transient and use the overloaded HashCodeBuilder.reflectionHashCode(this, false)?, Hi [~prenon],
+
+{quote}
+I believe that this leak can be avoided by using the system identity hash code when registering objects (as is done in HashCodeBuilder) instead of the user hash code.
+{quote}
+
+What do you mean by 'using the system identity hash code when registering objects'? I don't see any registry or any object registration code in ToStringBuilder class (in trunk; 3.2-SNAPSHOT). Could you elaborate it more or did I miss anything?
+
+{quote}
+I know the issue can be worked around by removing the toString field (and loosing a dubious "performance enhancement" hack) or by making it transient, but I think that other "mutating" toString() methods can happen in the field (sometimes for good reasons) and fixing ToStringBuilder can be of help in some cases.
+{quote}
+
+HashCodeBuilder.reflectionHashCode(this) should always calculate hash code from the current field values anyway, so I'm not sure if there can be a better way when the operation is invoked in your #hashCode() implementation and a non transient instance member is changing every time. I'm afraid "mutating" needs for some good reasons should use transient member as best practice.
+By the way, there are two other possible workarounds:
+1 -  To invoke HashCodeBuilder.reflectionHashCode(this, "toString") instead.
+2 - To invoke HashCodeBuilder#append() and HashCodeBuilder#toHashCode() only for meaningful members by yourself instead.
+
+Regards,
+
+Woonsan, Hi Woosan Ko,
+
+The registry in question is located in the ToStringStyle class (in version 2.3).
+If an object's hash code changes after it is added to that registry, then removal will not happen and the object will be leaked (i.e. kept forever in the registry).
+
+I checked the latest code and the situation is somewhat better because the registry now uses a WeakHashMap which will prevent the leak. So now if the hash code of a "registered" object changes and is not removed from the registry, the registry will not prevent it from being removed.
+
+Regards,
+Philippe.
+, Hi Philippe,
+
+Thanks a lot for the explanation!
+You're right! Indeed, I think ToStringStyle should use the system identity hash code when registering objects for cyclic reference checking like HashCodeBuilder does through IDKey class.
+(We don't have to use user hashCode() for cyclic reference checking in ToStringStyle, indeed.)
+
+Because the purpose and usages of REGISTRY in ToStringStyle seems almost the same as in HashCodeBuilder, I think we'd better change it to the following and change the related static methods similarly:
+{code}
+private static final ThreadLocal<WeakHashMap<IDKey, Object>> REGISTRY;
+{code}
+
+Cheers,
+
+Woonsan, Attaching a patch (LANG-739-patch.txt) to fix the possible registry object leak found by Philippe.
+
+ToStringStyle#REGISTRY is used only to avoid cyclic references and infinite loop problem. So, it doesn't have to use #hashCode() provided by user, but it is safer to use the system identity hash code.
+Therefore, I changed the REGISTRY to use IDKey which uses the system identity hash code instead like HashCodeBuilder does to fix this issue.
+
+Reviews are welcome!
+
+Cheers,
+
+Woonsan, Setting this to Review Patch, Had a quick look the patch. It looks good but I think it has an issue. 
+Because the only reference to the IDKey is held by the WeakHashMap, there is a risk that it gets garbage collected at any time... 
+Additionaly I think that the HashCodeBuilder does not use a WeakHashMap., Thanks a lot for the quick review, Philippe!
+Indeed, the risk with WeakHashMap doesn't seem to be necessary.
+
+So, I'm attaching a new patch (LANG-739-patch2.txt), with which I replaced WeakHashMap by HashMap.
+I think this is safe because a) ToStringStyle#appendInternal() does register/unregister in try ~ finally block, and b) ToStringStyle#appendStart() does registration and ToStringStyle#appendEnd() should follow and do the unregistration (like ToStringBuilder#reflectionToString() does this).
+Also, to show the paired registration/unregistration more clearly in b), I moved the scattered register() calls to #appendStart().
+
+Please take a review again.
+
+Cheers,
+
+Woonsan]

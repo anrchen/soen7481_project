@@ -1,0 +1,30 @@
+[any & followed by an invalid escape sequence or just a solitary "&" will have the same effect., Thanks Benjamin.
+
+I've fixed this in trunk - it would be very appreciated if you could confirm this works for you.
+
+svn ci -m "Adding tests and resolving LANG-710, reported by Benjamin Valentin. Note that this changed such that the code will now escape an unfinished entity (i.e. &#030). This matches browser behaviour. "
+Sending        src/main/java/org/apache/commons/lang3/text/translate/NumericEntityUnescaper.java
+Sending        src/test/java/org/apache/commons/lang3/text/translate/NumericEntityUnescaperTest.java
+Transmitting file data ..
+Committed revision 1142389.
+
+, I am not sure whether this is really a good idea to accept this input silently. In the end it is an HTML syntax error. While a SIOOBE is not really helpful, a java.text.ParseException seems to me mkore appropriate. WDYT?, Ignoring garbage Input seems like trouble to me too that can only make things worse. Just imagine, why is one method accepting garbage input and another not. IMO, garbage in means that you should blow up., Agreed. I was thinking of the browser accepting it, but that's only really applicable to the escape method and because browser's support weakly defined human input. An unescape method should run on already escaped code, and that code should have been escaped properly.
+
+I'll look into throwing a ParseException. , So the basic issue imo is that ParseException is a typed exception - we'd have to introduce it to the StringEscapeUtils API.
+
+I'm uncomfortable throwing a random IllegalArgumentException (or similar) when the bad data is passed in. That may be the typed-exception fan in me speaking. I don't like discovering at 4am that someone found a piece of data that caused a heretofore unknown runtime exception to occur.
+
+So we have three options:
+
+1: Leave the data unescaped because it is poorly typed.
+2: Claim that we're dealing with XHTML and throw an exception.
+3: Escape the data.
+
+All the options seem useful, but none of them seem perfect. So I've implemented all three.
+
+svn ci -m "Making unescapeHtml _NOT_ escape unfinished numeric entities by default (it ignores them); however adding options that will fire an exception or unescape the numeric entity. LANG-710"
+Sending        src/main/java/org/apache/commons/lang3/text/translate/NumericEntityUnescaper.java
+Sending        src/test/java/org/apache/commons/lang3/text/translate/NumericEntityUnescaperTest.java
+Transmitting file data ..
+Committed revision 1143641.
+, Resolving.]

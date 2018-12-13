@@ -1,0 +1,91 @@
+[The equals(...) method could check that the lengths are equal before calling regionMatches(...) as there is no point checking the contents if they differ.
+This is already done by the related equalsIgnoreCase(...) method.
+
+However the underlying method CharSequence.regionMatches(...) should ideally behave the same way as String.regionMatches(...), i.e. it should return false if the regions are different lengths., Fixed equals():
+
+Repository: commons-lang
+Updated Branches:
+  refs/heads/master fad946a1d -> 6849dfc8a
+
+
+LANG-1162 StringUtils#equals fails with Index OOBE on non-Strings with
+identical leading prefix
+
+Project: http://git-wip-us.apache.org/repos/asf/commons-lang/repo
+Commit: http://git-wip-us.apache.org/repos/asf/commons-lang/commit/6849dfc8
+Tree: http://git-wip-us.apache.org/repos/asf/commons-lang/tree/6849dfc8
+Diff: http://git-wip-us.apache.org/repos/asf/commons-lang/diff/6849dfc8
+
+TODO: fix regionMatches?, Will deal with the CharSequenceUtils.regionMatches issues as part of LANG-1163, GitHub user RamAnvesh opened a pull request:
+
+    https://github.com/apache/commons-lang/pull/181
+
+    Adding test cases for StringUtils.equals methods to cover LANG-1162/LANG-1239 etc
+
+    
+
+You can merge this pull request into a Git repository by running:
+
+    $ git pull https://github.com/RamAnvesh/commons-lang master
+
+Alternatively you can review and apply these changes as the patch at:
+
+    https://github.com/apache/commons-lang/pull/181.patch
+
+To close this pull request, make a commit to your master/trunk branch
+with (at least) the following in the commit message:
+
+    This closes #181
+    
+----
+commit b20d9b84c9d30b43c36f137b753e18950519be5e
+Author: Ram Anvesh Reddy <sudran534112@gmail.com>
+Date:   2016-07-31T15:32:45Z
+
+    Merge pull request #1 from apache/master
+    
+    Updating from apache:master
+
+commit 8dea56a0a7d20ba61f8edb49da3b0a6233252d05
+Author: Ram Anvesh Reddy <ram.kasam@ramanvesh-macbook-pro.local>
+Date:   2016-07-31T15:46:45Z
+
+    LANG-1239 : Adding test cases for StringUtils.equals
+
+----
+, Github user coveralls commented on the issue:
+
+    https://github.com/apache/commons-lang/pull/181
+  
+    
+    [![Coverage Status](https://coveralls.io/builds/7239890/badge)](https://coveralls.io/builds/7239890)
+    
+    Coverage decreased (-0.02%) to 93.411% when pulling **8dea56a0a7d20ba61f8edb49da3b0a6233252d05 on RamAnvesh:master** into **1a1fc65b04bcbe2e95d0fa300fce110e1224906e on apache:master**.
+
+, Github user coveralls commented on the issue:
+
+    https://github.com/apache/commons-lang/pull/181
+  
+    
+    [![Coverage Status](https://coveralls.io/builds/7239919/badge)](https://coveralls.io/builds/7239919)
+    
+    Coverage decreased (-0.06%) to 93.375% when pulling **b8b36dcbe67de2160329ac2db8113c601aafe628 on RamAnvesh:master** into **1a1fc65b04bcbe2e95d0fa300fce110e1224906e on apache:master**.
+
+, Github user PascalSchumacher commented on the issue:
+
+    https://github.com/apache/commons-lang/pull/181
+  
+    Hi RamAnvesh,
+    
+    thanks for the pull request.
+    
+    There are already a lot of test for `StringUtils#equals` here https://github.com/RamAnvesh/commons-lang/blob/master/src/test/java/org/apache/commons/lang3/StringUtilsEqualsIndexOfTest.java#L558
+, Github user RamAnvesh commented on the issue:
+
+    https://github.com/apache/commons-lang/pull/181
+  
+    Ouch!.. ok.. closing..
+, Github user RamAnvesh closed the pull request at:
+
+    https://github.com/apache/commons-lang/pull/181
+]

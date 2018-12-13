@@ -1,0 +1,7 @@
+[This is not a commons-lang issue. Which version of PMD that Maven tries to
+download is controlled by your installation of Maven. More specifically the
+Maven PMD plug-in. If you upgrade that plug-in to the latest version (1.7) it
+will use PMD 3.2.
+
+You can find instructions on how to upgrade your plug-in here:
+http://maven.apache.org/maven-1.x/reference/plugins/pmd/announcements/announcement-1.7.txt]

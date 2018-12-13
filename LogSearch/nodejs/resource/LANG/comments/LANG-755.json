@@ -1,0 +1,5 @@
+[Confirmed.
+
+It appears to be a JDK bug, calling cal.get(Calendar.\*) undoes the cal.clear(Calendar.\*) call. , We should definitely javadoc this. I'm not sure we can do much else. It'd be good to test on the latest JDK to see if it's been fixed.
+
+Setting a 3.2 fixversion for the javadoc as it seems like a very non-intrusive change., JDK bug. I've made a note in the javadoc of DateFormatUtils (r1299560).]

@@ -1,0 +1,140 @@
+[This example demonstrates that circular references in values, in this case, an 
+object pointing to itself, causes an infinite loop. Detecting a cycle in an 
+object graph is certainly possible but is it in the scope of the functionality 
+of this method? And if so, how should it be represented? , Maybe a safeReflectionToString(Object) method would be a good idea, which caches
+the toString-ed objects and refuses to process any Object more than once., ToStringBuilder.reflectionToString() is static and creates a new
+ToStringBuilder() on each call, with no knowledge of the previous calls. Thus
+there's no way to maintain an object graph, keep state and "remember" what
+objects have been appended to the StringBuffer. There's no way for us to know
+that the toString() method will call reflectionToString() again. Am I right?, I think you are correct since there is no object connection between 
+ToStringBuilder and an arbitrary object's toString method which may or may not 
+use ToStringBuilder. Would something like the nasty experiment below work in 
+all cases?
+
+package test;
+
+import java.util.HashMap;
+import java.util.Map;
+
+import junit.framework.TestCase;
+import org.apache.commons.lang.builder.ToStringBuilder;
+
+/**
+ * @author ggregory
+ */
+public class ToStringBuilderRTest extends TestCase {
+
+    public void testMe() {
+        System.out.println(new NodeFixture());
+        System.out.println(new NodeFixture(new NodeFixture(new NodeFixture
+())));
+        NodeFixture n = new NodeFixture();
+        n.node = n;
+        System.out.println(n);
+        System.out.println(new NodeFixture(new NodeFixture(n)));
+        assertEquals("RefectionToStringBuilder.registry.size() > 0", 
+RefectionToStringBuilder.registry.size(), 0);
+    }
+}
+
+class NodeFixture {
+    public NodeFixture node;
+    public NodeFixture() {
+    }
+    public NodeFixture(NodeFixture node) {
+        this.node = node;
+    }
+    public String toString() {
+        return new RefectionToStringBuilder(this).toString();
+    }
+}
+
+class RefectionToStringBuilder {
+    
+    static Map registry = new HashMap();
+    Object o;
+    
+    public RefectionToStringBuilder(Object o) {
+        this.o = o;
+    }
+    
+    public String toString() {
+        String s;
+        try {
+            if (registry.containsKey(o)) {
+                return "<cycle detected: " + o.getClass().getName() + "@" + 
+System.identityHashCode(o) + ">";
+            }
+            registry.put(o, null);
+            s = ToStringBuilder.reflectionToString(o);
+        } finally {
+            registry.remove(o);
+        }
+        return s;
+    }
+    
+}, It might be better to use a ThreadLocal rather than a static to hold the         registry... In fact, it wouldn't need to be a Map, but a Set (maybe a HashSet) containing all objects currently being toStringed on this thread.   Also, why bother saying "cycle detected" -- why not just return the identity       code?  Like, for a foo that points to a bar and back again:             Foo@123[bar=Bar@456[foo=Foo@123]]            That's reasonably legible.              , Thank you for your comments.
+
+>It might be better to use a ThreadLocal rather than a static to hold the 
+registry... 
+
+Sure, we could do that. This was just a quick experiment, I did not give much 
+thought as to where the registry should live.
+
+>In fact, it wouldn't need to be a Map, but a Set (maybe a HashSet) containing 
+all objects currently being toStringed on this thread.
+
+Absolutely, a Set makes sense.
+
+>Also, why bother saying "cycle detected" -- why not just return the 
+identitycode?  
+
+It is indeed to verbose, the point of toString is not to detect cycles anyway.
+
+I just updated the experiment with your sugestions. Since I have patched the 
+reflection code in the past, I'll take a stab at integrating this idea in 
+ToStringBuilder.
+
+Since the ThreadLocal will only be used by the reflection methods, it is a bit 
+wasteful to have it in ToStringBuilder instead of a subclass but creating a 
+ReflectionToStringBuilder subclass might be over the top. I would like to 
+avoid further bloating the static side of ToStringBuilder..., Created an attachment (id=5333)
+The above experiment, cleaned up.
+, Well, not "clean" cleaned-up, just including Alex's suggestions., Here's a failing unit test that I Wrote inside the existing 
+ToStringBuilderTest.  I wrote it as a->b->a instead of a->a.
+Maybe there's a need for both types of tests in the suite.
+
+    static class ReflectionTestCycleA {
+        ReflectionTestCycleB b;
+
+        public String toString() {
+           return ToStringBuilder.reflectionToString(this);
+        }
+    }
+
+    static class ReflectionTestCycleB {
+        ReflectionTestCycleA a;
+
+        public String toString() {
+           return ToStringBuilder.reflectionToString(this);
+        }
+    }
+
+    public void testReflectionCycle() throws Exception
+    {
+        ReflectionTestCycleA a = new ReflectionTestCycleA();
+        ReflectionTestCycleB b = new ReflectionTestCycleB();
+        a.b = b;
+        b.a = a;
+        assertEquals( toBaseString(a) + "[b=" + toBaseString(b) + "[a=" + 
+toBaseString(a) + "]]",
+                a.toString());
+    }
+
+, This has been fixed with:
+
+ToStringBuilder.java 1.17
+ToStringStyle.java 1.11
+ToStringBuilderTest.java 1.7
+
+A code review would be appreciated. Alex perhaps?, Reopening then closing to deal with migration bug., Reopening then closing to deal with migration bug.]

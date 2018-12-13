@@ -1,0 +1,70 @@
+[GitHub user PascalSchumacher opened a pull request:
+
+    https://github.com/apache/commons-lang/pull/239
+
+    LANG-1312: LocaleUtils#toLocale does not support language followed by…
+
+    … UN M.49 numeric-3 area code
+
+You can merge this pull request into a Git repository by running:
+
+    $ git pull https://github.com/PascalSchumacher/commons-lang lang_1312_area_code
+
+Alternatively you can review and apply these changes as the patch at:
+
+    https://github.com/apache/commons-lang/pull/239.patch
+
+To close this pull request, make a commit to your master/trunk branch
+with (at least) the following in the commit message:
+
+    This closes #239
+    
+----
+commit ce3e3e03e4d561dfae565186b431a879a9afa920
+Author: pascalschumacher <pascalschumacher@gmx.net>
+Date:   2017-02-19T19:39:05Z
+
+    LANG-1312: LocaleUtils#toLocale does not support language followed by UN M.49 numeric-3 area code
+
+----
+, Github user coveralls commented on the issue:
+
+    https://github.com/apache/commons-lang/pull/239
+  
+    
+    [![Coverage Status](https://coveralls.io/builds/10226324/badge)](https://coveralls.io/builds/10226324)
+    
+    Coverage increased (+0.02%) to 94.549% when pulling **ce3e3e03e4d561dfae565186b431a879a9afa920 on PascalSchumacher:lang_1312_area_code** into **954ade4c1ae2adc0aaac3a1dbe800495c519520c on apache:master**.
+
+, Github user coveralls commented on the issue:
+
+    https://github.com/apache/commons-lang/pull/239
+  
+    
+    [![Coverage Status](https://coveralls.io/builds/10226324/badge)](https://coveralls.io/builds/10226324)
+    
+    Coverage increased (+0.02%) to 94.549% when pulling **ce3e3e03e4d561dfae565186b431a879a9afa920 on PascalSchumacher:lang_1312_area_code** into **954ade4c1ae2adc0aaac3a1dbe800495c519520c on apache:master**.
+
+, Github user kinow commented on the issue:
+
+    https://github.com/apache/commons-lang/pull/239
+  
+    Yesterday learned something new about `String.format` via pull request #238, and now learning about [UN M.49](https://en.wikipedia.org/wiki/UN_M.49). Thanks again @PascalSchumacher :-)
+    
+    Code and test look good, checked out locally, all tests passing. +1
+, Github user PascalSchumacher commented on the issue:
+
+    https://github.com/apache/commons-lang/pull/239
+  
+    @kinow: Thanks for the review. :-)
+    
+    I also did not know about UN M.49 till yesterday. I just stumbled over this while analyzing commons-lang test failures on java 9 for https://issues.apache.org/jira/browse/LANG-1265
+, Github user kinow commented on the issue:
+
+    https://github.com/apache/commons-lang/pull/239
+  
+    Will merge it tomorrow if there's no objection (or feel free to merge it @PascalSchumacher  :-) )
+, Github user asfgit closed the pull request at:
+
+    https://github.com/apache/commons-lang/pull/239
+]

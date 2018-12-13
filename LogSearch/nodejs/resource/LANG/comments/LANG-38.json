@@ -1,0 +1,9 @@
+[Created an attachment (id=7483)
+patch to StringUtils, StringUtilsTest
+, Patch applied with changes. Thanks.
+
+I decided not to use the StringUtils.indexOf etc functions.
+I currently prefer each method doing its own stuff in StringUtils, to maximise 
+performance. This could change in the future as an internal refactoring if 
+someone performance tests the methods.
+]

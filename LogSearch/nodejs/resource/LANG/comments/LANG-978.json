@@ -1,0 +1,10 @@
+[Suggested patch to skip ParseError for early Japanese dates
+
+I think this is better than skipping the test entirely, as it works OK at present on earlier versions of Java., URL: http://svn.apache.org/r1573756
+Log:
+LANG-978 Failing tests with Java 8 b128
+
+Modified:
+    commons/proper/lang/trunk/src/changes/changes.xml
+    commons/proper/lang/trunk/src/main/java/org/apache/commons/lang3/time/DurationFormatUtils.java
+]

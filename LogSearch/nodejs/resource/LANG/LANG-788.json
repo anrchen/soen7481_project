@@ -1,0 +1,209 @@
+{
+    "expand": "operations,versionedRepresentations,editmeta,changelog,renderedFields",
+    "fields": {
+        "aggregateprogress": {
+            "progress": 0,
+            "total": 0
+        },
+        "aggregatetimeestimate": null,
+        "aggregatetimeoriginalestimate": null,
+        "aggregatetimespent": null,
+        "assignee": {
+            "active": true,
+            "avatarUrls": {
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=garydgregory&avatarId=16828",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=garydgregory&avatarId=16828",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=garydgregory&avatarId=16828",
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=garydgregory&avatarId=16828"
+            },
+            "displayName": "Gary Gregory",
+            "key": "garydgregory",
+            "name": "garydgregory",
+            "self": "https://issues.apache.org/jira/rest/api/2/user?username=garydgregory",
+            "timeZone": "America/Denver"
+        },
+        "components": [],
+        "created": "2012-02-11T12:36:48.000+0000",
+        "creator": {
+            "active": true,
+            "avatarUrls": {
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452",
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452"
+            },
+            "displayName": "René Link",
+            "key": "rene.link",
+            "name": "rene.link",
+            "self": "https://issues.apache.org/jira/rest/api/2/user?username=rene.link",
+            "timeZone": "Etc/UTC"
+        },
+        "customfield_10010": null,
+        "customfield_12310220": "2012-02-29T00:29:04.768+0000",
+        "customfield_12310222": "1_*:*_1_*:*_1562580686_*|*_5_*:*_1_*:*_0",
+        "customfield_12310250": null,
+        "customfield_12310290": null,
+        "customfield_12310291": null,
+        "customfield_12310300": null,
+        "customfield_12310310": "1.0",
+        "customfield_12310420": "227517",
+        "customfield_12310920": "74641",
+        "customfield_12310921": null,
+        "customfield_12311020": null,
+        "customfield_12311024": null,
+        "customfield_12311120": null,
+        "customfield_12311820": "0|i0d5c7:",
+        "customfield_12312022": null,
+        "customfield_12312023": null,
+        "customfield_12312024": null,
+        "customfield_12312026": null,
+        "customfield_12312220": null,
+        "customfield_12312320": null,
+        "customfield_12312321": null,
+        "customfield_12312322": null,
+        "customfield_12312323": null,
+        "customfield_12312324": null,
+        "customfield_12312325": null,
+        "customfield_12312326": null,
+        "customfield_12312327": null,
+        "customfield_12312328": null,
+        "customfield_12312329": null,
+        "customfield_12312330": null,
+        "customfield_12312331": null,
+        "customfield_12312332": null,
+        "customfield_12312333": null,
+        "customfield_12312334": null,
+        "customfield_12312335": null,
+        "customfield_12312336": null,
+        "customfield_12312337": null,
+        "customfield_12312338": null,
+        "customfield_12312339": null,
+        "customfield_12312340": null,
+        "customfield_12312341": null,
+        "customfield_12312520": null,
+        "customfield_12312521": "Wed Feb 29 14:39:49 UTC 2012",
+        "customfield_12312720": null,
+        "customfield_12312823": null,
+        "customfield_12312920": null,
+        "customfield_12312921": null,
+        "customfield_12312923": null,
+        "customfield_12313422": "false",
+        "customfield_12313520": null,
+        "description": "If a serializable object contains a reference to a primitive class, e.g. int.class or int[].class, the SerializationUtils throw a ClassNotFoundException when trying to clone that object.\n\n{noformat}\nimport org.apache.commons.lang3.SerializationUtils;\nimport org.junit.Test;\n\n\npublic class SerializationUtilsTest {\n\n\t\n\t@Test\n\tpublic void primitiveTypeClassSerialization(){\n\t\tClass<?> primitiveType = int.class;\n\t\t\n\t\tClass<?> clone = SerializationUtils.clone(primitiveType);\n\t\tassertEquals(primitiveType, clone);\n\t}\n}\n{noformat} \n\nThe problem was already reported as a java bug http://bugs.sun.com/view_bug.do?bug_id=4171142 and ObjectInputStream is fixed since java version 1.4.\nThe SerializationUtils problem arises because the SerializationUtils internally use the ClassLoaderAwareObjectInputStream that overrides the ObjectInputStream's\nresoleClass method without delegating to the super method in case of a ClassNotFoundException.\n\nI understand the intention of the ClassLoaderAwareObjectInputStream, but this implementation should also implement a fallback to the original implementation.\n\nFor example:\n{noformat}\n        protected Class<?> resolveClass(ObjectStreamClass desc) throws IOException, ClassNotFoundException {\n            String name = desc.getName();\n            try {\n                return Class.forName(name, false, classLoader);\n            } catch (ClassNotFoundException ex) {\n            \ttry {\n            \t     return Class.forName(name, false, Thread.currentThread().getContextClassLoader());\n            \t} catch (Exception e) {\n\t\t     return super.resolveClass(desc);\n\t\t}\n            }\n        }\n{noformat}\n\nHere is the code in ObjectInputStream that fixed the java bug.\n{noformat}\n    protected Class<?> resolveClass(ObjectStreamClass desc)\n\tthrows IOException, ClassNotFoundException\n    {\n\tString name = desc.getName();\n\ttry {\n\t    return Class.forName(name, false, latestUserDefinedLoader());\n\t} catch (ClassNotFoundException ex) {\n\t    Class cl = (Class) primClasses.get(name);\n\t    if (cl != null) {\n\t\treturn cl;\n\t    } else {\n\t\tthrow ex;\n\t    }\n\t}\n    }\n{noformat}\n",
+        "duedate": null,
+        "environment": null,
+        "fixVersions": [{
+            "archived": false,
+            "description": "Bug fixes and new features, at least requires Java 6.0",
+            "id": "12317952",
+            "name": "3.2",
+            "releaseDate": "2014-01-01",
+            "released": true,
+            "self": "https://issues.apache.org/jira/rest/api/2/version/12317952"
+        }],
+        "issuelinks": [],
+        "issuetype": {
+            "avatarId": 21133,
+            "description": "A problem which impairs or prevents the functions of the product.",
+            "iconUrl": "https://issues.apache.org/jira/secure/viewavatar?size=xsmall&avatarId=21133&avatarType=issuetype",
+            "id": "1",
+            "name": "Bug",
+            "self": "https://issues.apache.org/jira/rest/api/2/issuetype/1",
+            "subtask": false
+        },
+        "labels": [],
+        "lastViewed": null,
+        "priority": {
+            "iconUrl": "https://issues.apache.org/jira/images/icons/priorities/major.svg",
+            "id": "3",
+            "name": "Major",
+            "self": "https://issues.apache.org/jira/rest/api/2/priority/3"
+        },
+        "progress": {
+            "progress": 0,
+            "total": 0
+        },
+        "project": {
+            "avatarUrls": {
+                "16x16": "https://issues.apache.org/jira/secure/projectavatar?size=xsmall&pid=12310481&avatarId=10011",
+                "24x24": "https://issues.apache.org/jira/secure/projectavatar?size=small&pid=12310481&avatarId=10011",
+                "32x32": "https://issues.apache.org/jira/secure/projectavatar?size=medium&pid=12310481&avatarId=10011",
+                "48x48": "https://issues.apache.org/jira/secure/projectavatar?pid=12310481&avatarId=10011"
+            },
+            "id": "12310481",
+            "key": "LANG",
+            "name": "Commons Lang",
+            "projectCategory": {
+                "description": "Apache Commons components",
+                "id": "10260",
+                "name": "Commons",
+                "self": "https://issues.apache.org/jira/rest/api/2/projectCategory/10260"
+            },
+            "self": "https://issues.apache.org/jira/rest/api/2/project/12310481"
+        },
+        "reporter": {
+            "active": true,
+            "avatarUrls": {
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452",
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452"
+            },
+            "displayName": "René Link",
+            "key": "rene.link",
+            "name": "rene.link",
+            "self": "https://issues.apache.org/jira/rest/api/2/user?username=rene.link",
+            "timeZone": "Etc/UTC"
+        },
+        "resolution": {
+            "description": "A fix for this issue is checked into the tree and tested.",
+            "id": "1",
+            "name": "Fixed",
+            "self": "https://issues.apache.org/jira/rest/api/2/resolution/1"
+        },
+        "resolutiondate": "2012-02-29T14:39:49.000+0000",
+        "status": {
+            "description": "The issue is considered finished, the resolution is correct. Issues which are not closed can be reopened.",
+            "iconUrl": "https://issues.apache.org/jira/images/icons/statuses/closed.png",
+            "id": "6",
+            "name": "Closed",
+            "self": "https://issues.apache.org/jira/rest/api/2/status/6",
+            "statusCategory": {
+                "colorName": "green",
+                "id": 3,
+                "key": "done",
+                "name": "Done",
+                "self": "https://issues.apache.org/jira/rest/api/2/statuscategory/3"
+            }
+        },
+        "subtasks": [],
+        "summary": "SerializationUtils throws ClassNotFoundException when cloning primitive classes",
+        "timeestimate": null,
+        "timeoriginalestimate": null,
+        "timespent": null,
+        "updated": "2012-08-22T09:25:35.000+0000",
+        "versions": [{
+            "archived": false,
+            "description": "November release from 3.x",
+            "id": "12317550",
+            "name": "3.1",
+            "releaseDate": "2011-11-14",
+            "released": true,
+            "self": "https://issues.apache.org/jira/rest/api/2/version/12317550"
+        }],
+        "votes": {
+            "hasVoted": false,
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/LANG-788/votes",
+            "votes": 0
+        },
+        "watches": {
+            "isWatching": false,
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/LANG-788/watchers",
+            "watchCount": 1
+        },
+        "workratio": -1
+    },
+    "id": "12542230",
+    "key": "LANG-788",
+    "self": "https://issues.apache.org/jira/rest/api/2/issue/12542230"
+}

@@ -1,0 +1,32 @@
+[GitHub user hyandell opened a pull request:
+
+    https://github.com/apache/commons-lang/pull/116
+
+    Moving the clone inside removeAll(Object,int...);Object per LANG-1178
+
+    
+
+You can merge this pull request into a Git repository by running:
+
+    $ git pull https://github.com/hyandell/commons-lang master
+
+Alternatively you can review and apply these changes as the patch at:
+
+    https://github.com/apache/commons-lang/pull/116.patch
+
+To close this pull request, make a commit to your master/trunk branch
+with (at least) the following in the commit message:
+
+    This closes #116
+    
+----
+commit 4df139db7ad0049044458be843d107b935642e84
+Author: Henri Yandell <hyandell@amazon.com>
+Date:   2015-11-19T21:58:47Z
+
+    Moving the clone inside removeAll(Object,int...);Object per LANG-1178
+
+----
+, Pull request merged. Thanks!
+
+This issue can be resolved., You should assign to yourself and set a fix version., I would if I could, but as I'm not commons-lang committer I do not have the necessary permissions. (I just used the apache wide commit access to commons-lang to merge the pull request.), Merged by [~pascalschumacher], thanks.]

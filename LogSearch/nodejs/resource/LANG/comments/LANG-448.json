@@ -1,0 +1,5 @@
+[Patch to cause lower ascii characters to be encoded.
+
+Boils down to: if (c >= 0x7F || (c < 0x20 && c != 0x0A && c != 0x0D)), This patch is only valid, if you operate with XML 1.0. For XML 1.1 the allowed character set is different. See LANG-66 with a related change., Rewrite in LANG-505 supports the user choosing not to do this easily.
+
+LANG-515 to define how XML should be escaped by default. Or whether to support XML_1_0 and XML_1_1.]

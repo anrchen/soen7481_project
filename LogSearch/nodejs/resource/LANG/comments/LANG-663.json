@@ -1,0 +1,25 @@
+[These methods fail to reduce their arguments. This may be due to the commons-math Fraction (which seems to be the source) is always in reduced form. But commons-lang Fraction is not always reduced, and so multiplyBy must reduce its arguments, before cross-reducing the two arguments.
+, Even if both arguments are reduced, if the divisor has numerator Integer.MIN_VALUE, divideBy may fail despite the quotient being representable with positive denominator.
+
+{code:title=FractionTest.java|borderStyle=solid}
+    public void testDivide() {
+        // ...
+        f1 = Fraction.getFraction(2, 3);
+        f2 = Fraction.getFraction(Integer.MIN_VALUE, 3);
+        f = f1.divideBy(f2);
+        assertEquals(-1, f.getNumerator());
+        assertEquals(-Integer.MIN_VALUE / 2, f.getDenominator());
+{code} 
+, Effectively the same issue as MATH-251. In Commons Math they added a BigFraction that doesn't overflow. Our options would seem to be:
+
+* Dump Fraction and recommend Math.
+* Add commentary to Fraction pointing towards Math and its BigFraction.
+* Implement BigFraction.
+
+I'm still in favour of dropping Fraction from Lang and sending people over to Commons Math., Need to resolve before 3.0 release., I favor having only one Fraction class, preferably in Math.
+
+In MATH-251, the solution to overflow is using a larger number range (BigInteger). This issue (LANG-663) and  LANG-662 mention spurious overflows that need not occur when using int: The overflows mentioned here can be avoided. Of course, there are many overflows that cannot be avoided, and therefore BigFraction was a valueable addition., Oh, and seeing that method Fraction.addSub (both in Lang and Math) does all it can to ensure that spurious overflow is prevented (by using a BigInteger for an intermediate value), I wonder if the overflow of 2 / 3 divided by MIN_VALUE / 3 would be acceptable (in the Math version!), when it can be prevented too., Commons Math is a specialist library, Lang is a general purpose one. Fraction is definitely a general purpose concept, and so shoudl remain in Lang. Of course any bugs should be fixed, but remembering the general-purpose, rather than mathematical, focus., I agree - Lang needs to keep its existing basic mathematical (mainly arithmetical) classes., Resolution sounds like it'll be pointing to Math BigFraction in the javadoc of Lang Fraction., svn ci -m "Adding note that this has overflow issues and pointing to BigFraction" src/main/java/org/apache/commons/lang3/math/Fraction.java 
+Sending        src/main/java/org/apache/commons/lang3/math/Fraction.java
+Transmitting file data .
+Committed revision 1059747.
+]

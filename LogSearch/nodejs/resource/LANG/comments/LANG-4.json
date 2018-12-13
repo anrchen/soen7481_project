@@ -1,0 +1,19 @@
+[Created an attachment (id=4154)
+Patch to version 1.9
+, Created an attachment (id=4155)
+Patch to version 1.2
+, Patch applied with some modifications. Please check CVS to confirm.
+
+I would appreciate further patches for Equals, HashCode and CompareTo builders 
+if you have a chance ;-), I have looked at the mods to my patch and find that all is well with the 
+exception of the mismatch between the code and the in-line comment:
+
+//throw a runtime exception in case the impossible happens.
+
+This comment is not followed by a throw. Either the comment should be removed 
+or the throw re-inserted., I will try to take a look at Equals, HashCode and CompareTo sometimes this 
+week., Please bug id 16193 for hierarchy support in EqualsBuilder.reflectionEquals()., Please bug id 16227 for hierarchy support in CompareToBuilder.reflectionCompare
+().
+Please bug id 16228 for hierarchy support in hashCodeBuilder.reflectionHashCode
+().
+]

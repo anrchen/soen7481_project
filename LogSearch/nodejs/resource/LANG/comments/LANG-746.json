@@ -1,0 +1,8 @@
+[URL: http://svn.apache.org/viewvc?rev=1160660&view=rev
+Log:
+LANG-746 NumberUtils does not handle upper-case hex: 0X and -0X
+
+Modified:
+   commons/proper/lang/trunk/src/main/java/org/apache/commons/lang3/math/NumberUtils.java
+   commons/proper/lang/trunk/src/site/changes/changes.xml
+   commons/proper/lang/trunk/src/test/java/org/apache/commons/lang3/math/NumberUtilsTest.java]

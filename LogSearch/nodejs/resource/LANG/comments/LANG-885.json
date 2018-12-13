@@ -1,0 +1,5 @@
+[This is really a question for the user list; JIRA is not a user forum.
+
+None of the unescape methods are documented to throw Exceptions for invalid escape sequences., Note that we do have a TODO statement:
+
+// TODO: throw "illegal character: \92" as an Exception if a \ on the end of the Java (as per the compiler)?]

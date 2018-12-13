@@ -1,0 +1,247 @@
+{
+    "expand": "operations,versionedRepresentations,editmeta,changelog,renderedFields",
+    "fields": {
+        "aggregateprogress": {
+            "progress": 0,
+            "total": 0
+        },
+        "aggregatetimeestimate": null,
+        "aggregatetimeoriginalestimate": null,
+        "aggregatetimespent": null,
+        "assignee": null,
+        "components": [{
+            "id": "12313196",
+            "name": "lang.time.*",
+            "self": "https://issues.apache.org/jira/rest/api/2/component/12313196"
+        }],
+        "created": "2008-06-02T20:47:48.000+0000",
+        "creator": {
+            "active": true,
+            "avatarUrls": {
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452",
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452"
+            },
+            "displayName": "Robert Scholte",
+            "key": "rfscholte-getthere",
+            "name": "rfscholte-getthere",
+            "self": "https://issues.apache.org/jira/rest/api/2/user?username=rfscholte-getthere",
+            "timeZone": "Etc/UTC"
+        },
+        "customfield_10010": null,
+        "customfield_12310220": "2008-06-09T07:17:30.739+0000",
+        "customfield_12310222": "1_*:*_1_*:*_556182769_*|*_6_*:*_2_*:*_1319163635_*|*_4_*:*_1_*:*_11589454870",
+        "customfield_12310250": null,
+        "customfield_12310290": null,
+        "customfield_12310291": null,
+        "customfield_12310300": null,
+        "customfield_12310310": "2.0",
+        "customfield_12310420": "34040",
+        "customfield_12310920": "74748",
+        "customfield_12310921": null,
+        "customfield_12311020": null,
+        "customfield_12311024": null,
+        "customfield_12311120": null,
+        "customfield_12311820": "0|i0d5zz:",
+        "customfield_12312022": null,
+        "customfield_12312023": null,
+        "customfield_12312024": null,
+        "customfield_12312026": null,
+        "customfield_12312220": null,
+        "customfield_12312320": null,
+        "customfield_12312321": null,
+        "customfield_12312322": null,
+        "customfield_12312323": null,
+        "customfield_12312324": null,
+        "customfield_12312325": null,
+        "customfield_12312326": null,
+        "customfield_12312327": null,
+        "customfield_12312328": null,
+        "customfield_12312329": null,
+        "customfield_12312330": null,
+        "customfield_12312331": null,
+        "customfield_12312332": null,
+        "customfield_12312333": null,
+        "customfield_12312334": null,
+        "customfield_12312335": null,
+        "customfield_12312336": null,
+        "customfield_12312337": null,
+        "customfield_12312338": null,
+        "customfield_12312339": null,
+        "customfield_12312340": null,
+        "customfield_12312341": null,
+        "customfield_12312520": null,
+        "customfield_12312521": "Wed Nov 05 17:01:09 UTC 2008",
+        "customfield_12312720": null,
+        "customfield_12312823": null,
+        "customfield_12312920": null,
+        "customfield_12312921": null,
+        "customfield_12312923": null,
+        "customfield_12313422": "false",
+        "customfield_12313520": null,
+        "description": "The provided JUnit-tests test with wrong expected values\n{code:title= original DateUtilsTest.java}\ndateAmPm1 = dateTimeParser.parse(\"February 3, 2002 01:10:00.000\");\ndateAmPm2 = dateTimeParser.parse(\"February 3, 2002 11:10:00.000\");\ndateAmPm3 = dateTimeParser.parse(\"February 3, 2002 13:10:00.000\");\ndateAmPm4 = dateTimeParser.parse(\"February 3, 2002 19:10:00.000\");\n\nassertEquals(\"truncate ampm-1 failed\",\n                dateTimeParser.parse(\"February 3, 2002 00:00:00.000\"),\n                DateUtils.round(dateAmPm1, Calendar.AM_PM));\n        assertEquals(\"truncate ampm-2 failed\",\n                dateTimeParser.parse(\"February 4, 2002 00:00:00.000\"),\n                DateUtils.round(dateAmPm2, Calendar.AM_PM));\n        assertEquals(\"truncate ampm-3 failed\",\n                dateTimeParser.parse(\"February 3, 2002 12:00:00.000\"),\n                DateUtils.round(dateAmPm3, Calendar.AM_PM));\n        assertEquals(\"truncate ampm-4 failed\",\n                dateTimeParser.parse(\"February 4, 2002 12:00:00.000\"),\n                DateUtils.round(dateAmPm4, Calendar.AM_PM));\n{code}\n\nbut expected values must be\n\n{code}\ndateTimeParser.parse(\"February 3, 2002 00:00:00.000\");\ndateTimeParser.parse(\"February 3, 2002 12:00:00.000\");\ndateTimeParser.parse(\"February 3, 2002 12:00:00.000\");\ndateTimeParser.parse(\"February 4, 2002 00:00:00.000\");\n{code}\n\nAlso in the junit-comment the word 'truncate' must be replaced with 'round'",
+        "duedate": null,
+        "environment": null,
+        "fixVersions": [{
+            "archived": true,
+            "description": "",
+            "id": "12314743",
+            "name": "2.5",
+            "releaseDate": "2010-02-25",
+            "released": true,
+            "self": "https://issues.apache.org/jira/rest/api/2/version/12314743"
+        }],
+        "issuelinks": [{
+            "id": "12320475",
+            "inwardIssue": {
+                "fields": {
+                    "issuetype": {
+                        "avatarId": 21140,
+                        "description": "An improvement or enhancement to an existing feature or task.",
+                        "iconUrl": "https://issues.apache.org/jira/secure/viewavatar?size=xsmall&avatarId=21140&avatarType=issuetype",
+                        "id": "4",
+                        "name": "Improvement",
+                        "self": "https://issues.apache.org/jira/rest/api/2/issuetype/4",
+                        "subtask": false
+                    },
+                    "priority": {
+                        "iconUrl": "https://issues.apache.org/jira/images/icons/priorities/major.svg",
+                        "id": "3",
+                        "name": "Major",
+                        "self": "https://issues.apache.org/jira/rest/api/2/priority/3"
+                    },
+                    "status": {
+                        "description": "The issue is considered finished, the resolution is correct. Issues which are not closed can be reopened.",
+                        "iconUrl": "https://issues.apache.org/jira/images/icons/statuses/closed.png",
+                        "id": "6",
+                        "name": "Closed",
+                        "self": "https://issues.apache.org/jira/rest/api/2/status/6",
+                        "statusCategory": {
+                            "colorName": "green",
+                            "id": 3,
+                            "key": "done",
+                            "name": "Done",
+                            "self": "https://issues.apache.org/jira/rest/api/2/statuscategory/3"
+                        }
+                    },
+                    "summary": "Add DateUtils.ceiling() method"
+                },
+                "id": "12395021",
+                "key": "LANG-434",
+                "self": "https://issues.apache.org/jira/rest/api/2/issue/12395021"
+            },
+            "self": "https://issues.apache.org/jira/rest/api/2/issueLink/12320475",
+            "type": {
+                "id": "10001",
+                "inward": "is depended upon by",
+                "name": "dependent",
+                "outward": "depends upon",
+                "self": "https://issues.apache.org/jira/rest/api/2/issueLinkType/10001"
+            }
+        }],
+        "issuetype": {
+            "avatarId": 21133,
+            "description": "A problem which impairs or prevents the functions of the product.",
+            "iconUrl": "https://issues.apache.org/jira/secure/viewavatar?size=xsmall&avatarId=21133&avatarType=issuetype",
+            "id": "1",
+            "name": "Bug",
+            "self": "https://issues.apache.org/jira/rest/api/2/issuetype/1",
+            "subtask": false
+        },
+        "labels": [],
+        "lastViewed": null,
+        "priority": {
+            "iconUrl": "https://issues.apache.org/jira/images/icons/priorities/major.svg",
+            "id": "3",
+            "name": "Major",
+            "self": "https://issues.apache.org/jira/rest/api/2/priority/3"
+        },
+        "progress": {
+            "progress": 0,
+            "total": 0
+        },
+        "project": {
+            "avatarUrls": {
+                "16x16": "https://issues.apache.org/jira/secure/projectavatar?size=xsmall&pid=12310481&avatarId=10011",
+                "24x24": "https://issues.apache.org/jira/secure/projectavatar?size=small&pid=12310481&avatarId=10011",
+                "32x32": "https://issues.apache.org/jira/secure/projectavatar?size=medium&pid=12310481&avatarId=10011",
+                "48x48": "https://issues.apache.org/jira/secure/projectavatar?pid=12310481&avatarId=10011"
+            },
+            "id": "12310481",
+            "key": "LANG",
+            "name": "Commons Lang",
+            "projectCategory": {
+                "description": "Apache Commons components",
+                "id": "10260",
+                "name": "Commons",
+                "self": "https://issues.apache.org/jira/rest/api/2/projectCategory/10260"
+            },
+            "self": "https://issues.apache.org/jira/rest/api/2/project/12310481"
+        },
+        "reporter": {
+            "active": true,
+            "avatarUrls": {
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452",
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452"
+            },
+            "displayName": "Robert Scholte",
+            "key": "rfscholte-getthere",
+            "name": "rfscholte-getthere",
+            "self": "https://issues.apache.org/jira/rest/api/2/user?username=rfscholte-getthere",
+            "timeZone": "Etc/UTC"
+        },
+        "resolution": {
+            "description": "A fix for this issue is checked into the tree and tested.",
+            "id": "1",
+            "name": "Fixed",
+            "self": "https://issues.apache.org/jira/rest/api/2/resolution/1"
+        },
+        "resolutiondate": "2008-11-05T17:01:09.000+0000",
+        "status": {
+            "description": "The issue is considered finished, the resolution is correct. Issues which are not closed can be reopened.",
+            "iconUrl": "https://issues.apache.org/jira/images/icons/statuses/closed.png",
+            "id": "6",
+            "name": "Closed",
+            "self": "https://issues.apache.org/jira/rest/api/2/status/6",
+            "statusCategory": {
+                "colorName": "green",
+                "id": 3,
+                "key": "done",
+                "name": "Done",
+                "self": "https://issues.apache.org/jira/rest/api/2/statuscategory/3"
+            }
+        },
+        "subtasks": [],
+        "summary": "DateUtils.round doesn't work correct for Calendar.AM_PM",
+        "timeestimate": null,
+        "timeoriginalestimate": null,
+        "timespent": null,
+        "updated": "2013-05-02T02:29:13.000+0000",
+        "versions": [{
+            "archived": true,
+            "description": "Bugfix release of the Lang1 codebase",
+            "id": "12312481",
+            "name": "2.4",
+            "releaseDate": "2008-03-18",
+            "released": true,
+            "self": "https://issues.apache.org/jira/rest/api/2/version/12312481"
+        }],
+        "votes": {
+            "hasVoted": false,
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/LANG-440/votes",
+            "votes": 0
+        },
+        "watches": {
+            "isWatching": false,
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/LANG-440/watchers",
+            "watchCount": 0
+        },
+        "workratio": -1
+    },
+    "id": "12397316",
+    "key": "LANG-440",
+    "self": "https://issues.apache.org/jira/rest/api/2/issue/12397316"
+}

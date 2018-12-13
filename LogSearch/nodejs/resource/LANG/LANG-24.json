@@ -1,0 +1,200 @@
+{
+    "expand": "operations,versionedRepresentations,editmeta,changelog,renderedFields",
+    "fields": {
+        "aggregateprogress": {
+            "progress": 0,
+            "total": 0
+        },
+        "aggregatetimeestimate": null,
+        "aggregatetimeoriginalestimate": null,
+        "aggregatetimespent": null,
+        "assignee": null,
+        "components": [{
+            "id": "12313196",
+            "name": "lang.time.*",
+            "self": "https://issues.apache.org/jira/rest/api/2/component/12313196"
+        }],
+        "created": "2004-09-24T14:17:52.000+0000",
+        "creator": {
+            "active": true,
+            "avatarUrls": {
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452",
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452"
+            },
+            "displayName": "Marc Portier",
+            "key": "mpo@apache.org",
+            "name": "mpo@apache.org",
+            "self": "https://issues.apache.org/jira/rest/api/2/user?username=mpo%40apache.org",
+            "timeZone": "Etc/UTC"
+        },
+        "customfield_10010": 31395,
+        "customfield_12310220": "2004-09-30T13:26:37.000+0000",
+        "customfield_12310222": null,
+        "customfield_12310250": null,
+        "customfield_12310290": null,
+        "customfield_12310291": null,
+        "customfield_12310300": null,
+        "customfield_12310310": "0.0",
+        "customfield_12310420": "34047",
+        "customfield_12310920": "74950",
+        "customfield_12310921": null,
+        "customfield_12311020": null,
+        "customfield_12311024": null,
+        "customfield_12311120": null,
+        "customfield_12311820": "0|i0d78v:",
+        "customfield_12312022": null,
+        "customfield_12312023": null,
+        "customfield_12312024": null,
+        "customfield_12312026": null,
+        "customfield_12312220": null,
+        "customfield_12312320": null,
+        "customfield_12312321": null,
+        "customfield_12312322": null,
+        "customfield_12312323": null,
+        "customfield_12312324": null,
+        "customfield_12312325": null,
+        "customfield_12312326": null,
+        "customfield_12312327": null,
+        "customfield_12312328": null,
+        "customfield_12312329": null,
+        "customfield_12312330": null,
+        "customfield_12312331": null,
+        "customfield_12312332": null,
+        "customfield_12312333": null,
+        "customfield_12312334": null,
+        "customfield_12312335": null,
+        "customfield_12312336": null,
+        "customfield_12312337": null,
+        "customfield_12312338": null,
+        "customfield_12312339": null,
+        "customfield_12312340": null,
+        "customfield_12312341": null,
+        "customfield_12312520": null,
+        "customfield_12312521": "Wed Apr 26 13:10:57 UTC 2006",
+        "customfield_12312720": null,
+        "customfield_12312823": null,
+        "customfield_12312920": null,
+        "customfield_12312921": null,
+        "customfield_12312923": null,
+        "customfield_12313422": "false",
+        "customfield_12313520": null,
+        "description": "I'm assuming that the goal of the truncate() method in\norg.apache.commons.lang.time.DateUtils is to be a shorthand for the otherwise\ncumbersome java.util.Calendar operations of setting all lower fields to 0.\n\nIn other words, the following 2 methods are (by me) expected to yield the same:\n\n    private Date commonsTruncate(Date date)\n    {\n        return DateUtils.truncate(date, Calendar.DATE);\n    }\n\n    private Date truncate(Date date)\n    {\n        Calendar c = Calendar.getInstance();\n        c.setTime(date);\n        c.set(Calendar.HOUR_OF_DAY, 0);\n        c.set(Calendar.MINUTE, 0);\n        c.set(Calendar.SECOND, 0);\n        c.set(Calendar.MILLISECOND, 0);\n        return c.getTime();\n    }\n\nThis is generally the case, except for the very pathological case of the\nultimate biggest date Java allows you to make:\n\n    Date endOfTime = new Date(Long.MAX_VALUE); \n    // fyi: Sun Aug 17 07:12:55 CET 292278994 -- 807 millis\n\ncommons-result:  Sun Aug 17 02:00:00 CEST 292278994 \n                 // commonsTruncate(endOfTime)\nhandmade-result: Sun Aug 17 00:00:00 CEST 292278994 \n                 // truncate(endOfTime)\n(mind the 2h difference)\n\nAnother odd observation concerning this special date is that the commons-result\nWILL match the other one if we allow the commons truncate to operate on the\nresult again:\n\ncommons-double-truncate-result: \n                 Sun Aug 17 00:00:00 CEST 292278994   \n                 // truncate(truncate(endOfTime))\n\n(which is somewhat another surprise: one would expect truncation not to change a\nDate that was already truncated)\n\nmy (totally wild) guess is that this is related to timezone and DST issues\nfact being that similar effects are seen on all Date's pointing to a moment in\nthe last 2hours of the Date spectrum.\n\nI understand that this is a very hypothetical issue, nevertheless.\n\nkind regards,\n-marc=",
+        "duedate": null,
+        "environment": "Operating System: All\nPlatform: PC",
+        "fixVersions": [{
+            "archived": true,
+            "description": "",
+            "id": "12311701",
+            "name": "2.1",
+            "releaseDate": "2005-06-13",
+            "released": true,
+            "self": "https://issues.apache.org/jira/rest/api/2/version/12311701"
+        }],
+        "issuelinks": [],
+        "issuetype": {
+            "avatarId": 21133,
+            "description": "A problem which impairs or prevents the functions of the product.",
+            "iconUrl": "https://issues.apache.org/jira/secure/viewavatar?size=xsmall&avatarId=21133&avatarType=issuetype",
+            "id": "1",
+            "name": "Bug",
+            "self": "https://issues.apache.org/jira/rest/api/2/issuetype/1",
+            "subtask": false
+        },
+        "labels": [],
+        "lastViewed": null,
+        "priority": {
+            "iconUrl": "https://issues.apache.org/jira/images/icons/priorities/minor.svg",
+            "id": "4",
+            "name": "Minor",
+            "self": "https://issues.apache.org/jira/rest/api/2/priority/4"
+        },
+        "progress": {
+            "progress": 0,
+            "total": 0
+        },
+        "project": {
+            "avatarUrls": {
+                "16x16": "https://issues.apache.org/jira/secure/projectavatar?size=xsmall&pid=12310481&avatarId=10011",
+                "24x24": "https://issues.apache.org/jira/secure/projectavatar?size=small&pid=12310481&avatarId=10011",
+                "32x32": "https://issues.apache.org/jira/secure/projectavatar?size=medium&pid=12310481&avatarId=10011",
+                "48x48": "https://issues.apache.org/jira/secure/projectavatar?pid=12310481&avatarId=10011"
+            },
+            "id": "12310481",
+            "key": "LANG",
+            "name": "Commons Lang",
+            "projectCategory": {
+                "description": "Apache Commons components",
+                "id": "10260",
+                "name": "Commons",
+                "self": "https://issues.apache.org/jira/rest/api/2/projectCategory/10260"
+            },
+            "self": "https://issues.apache.org/jira/rest/api/2/project/12310481"
+        },
+        "reporter": {
+            "active": true,
+            "avatarUrls": {
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452",
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452"
+            },
+            "displayName": "Marc Portier",
+            "key": "mpo@apache.org",
+            "name": "mpo@apache.org",
+            "self": "https://issues.apache.org/jira/rest/api/2/user?username=mpo%40apache.org",
+            "timeZone": "Etc/UTC"
+        },
+        "resolution": {
+            "description": "A fix for this issue is checked into the tree and tested.",
+            "id": "1",
+            "name": "Fixed",
+            "self": "https://issues.apache.org/jira/rest/api/2/resolution/1"
+        },
+        "resolutiondate": "2009-12-16T08:51:54.000+0000",
+        "status": {
+            "description": "The issue is considered finished, the resolution is correct. Issues which are not closed can be reopened.",
+            "iconUrl": "https://issues.apache.org/jira/images/icons/statuses/closed.png",
+            "id": "6",
+            "name": "Closed",
+            "self": "https://issues.apache.org/jira/rest/api/2/status/6",
+            "statusCategory": {
+                "colorName": "green",
+                "id": 3,
+                "key": "done",
+                "name": "Done",
+                "self": "https://issues.apache.org/jira/rest/api/2/statuscategory/3"
+            }
+        },
+        "subtasks": [],
+        "summary": "[lang] DateUtils.truncate oddity at the far end of the Date spectrum",
+        "timeestimate": null,
+        "timeoriginalestimate": null,
+        "timespent": null,
+        "updated": "2009-12-16T08:51:54.000+0000",
+        "versions": [{
+            "archived": true,
+            "description": "",
+            "id": "12311706",
+            "name": "2.0",
+            "releaseDate": "2003-09-02",
+            "released": true,
+            "self": "https://issues.apache.org/jira/rest/api/2/version/12311706"
+        }],
+        "votes": {
+            "hasVoted": false,
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/LANG-24/votes",
+            "votes": 0
+        },
+        "watches": {
+            "isWatching": false,
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/LANG-24/watchers",
+            "watchCount": 0
+        },
+        "workratio": -1
+    },
+    "id": "12341747",
+    "key": "LANG-24",
+    "self": "https://issues.apache.org/jira/rest/api/2/issue/12341747"
+}

@@ -1,0 +1,4 @@
+[I used 
+String a = StringUtils.leftPad("abcd", 10, "0");
+instead and it worked (a pad string and not a pad character), Could you be compiling and runing with two different versions of the jar?, I can't see this being anything other than Gary's suggestion of a
+compile/runtime mismatch between jars.]

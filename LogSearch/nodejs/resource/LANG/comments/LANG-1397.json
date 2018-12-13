@@ -1,0 +1,73 @@
+[GitHub user tasanuma opened a pull request:
+
+    https://github.com/apache/commons-lang/pull/330
+
+    LANG-1397: WordUtils.wrap throws StringIndexOutOfBoundsException when wrapLength is Integer.MAX_VALUE
+
+    There is a bug of WordUtils. WordUtils in commons-text has the same bug. I will work on it after merging this pull request.
+    
+    This is my first contribute to this project. I confirmed `mvn clean verify` succeeds. If there is any problem, please let me know.
+
+You can merge this pull request into a Git repository by running:
+
+    $ git pull https://github.com/tasanuma/commons-lang LANG-1397-WordUtils
+
+Alternatively you can review and apply these changes as the patch at:
+
+    https://github.com/apache/commons-lang/pull/330.patch
+
+To close this pull request, make a commit to your master/trunk branch
+with (at least) the following in the commit message:
+
+    This closes #330
+    
+----
+commit 2a5c0f0d22f465020314bb029eb758917595a7eb
+Author: Takanobu Asanuma <tasanuma@...>
+Date:   2018-05-16T08:06:03Z
+
+    fix a bug of WordUtils
+
+----
+, Github user coveralls commented on the issue:
+
+    https://github.com/apache/commons-lang/pull/330
+  
+    
+    [![Coverage Status](https://coveralls.io/builds/17007638/badge)](https://coveralls.io/builds/17007638)
+    
+    Coverage increased (+0.007%) to 95.242% when pulling **2a5c0f0d22f465020314bb029eb758917595a7eb on tasanuma:LANG-1397-WordUtils** into **961e4a821b66b27c77418dece6017e3fe912fa56 on apache:master**.
+
+, Github user coveralls commented on the issue:
+
+    https://github.com/apache/commons-lang/pull/330
+  
+    
+    [![Coverage Status](https://coveralls.io/builds/17007638/badge)](https://coveralls.io/builds/17007638)
+    
+    Coverage increased (+0.007%) to 95.242% when pulling **2a5c0f0d22f465020314bb029eb758917595a7eb on tasanuma:LANG-1397-WordUtils** into **961e4a821b66b27c77418dece6017e3fe912fa56 on apache:master**.
+
+, Github user PascalSchumacher commented on the issue:
+
+    https://github.com/apache/commons-lang/pull/330
+  
+    Thanks for the pull request!
+    
+    I would be nice if you could amend the commit to add the issue id and description at the beginning of the commit message.
+    
+    Thanks!
+, Github user tasanuma commented on the issue:
+
+    https://github.com/apache/commons-lang/pull/330
+  
+    Thanks for your advice, @PascalSchumacher! I updated the pull request addressing it.
+, Note: I just realized that {{WordUtils}} in Commons Lang is deprecated in favor of Commons Text. , In Git master. Please verify and close this ticket and associated PR.
+, Github user tasanuma commented on the issue:
+
+    https://github.com/apache/commons-lang/pull/330
+  
+    This pull request is merged by https://github.com/apache/commons-lang/commit/09ef69c5b51115300da6df43690cd455d83c8027. Thanks for committing it, @garydgregory!
+, Github user tasanuma closed the pull request at:
+
+    https://github.com/apache/commons-lang/pull/330
+, I've just closed the PR. Thanks [~garydgregory]!, 3.8 Released.]

@@ -1,0 +1,25 @@
+[Could you please provide a unit test patch that demonstrates the problem?
+
+A patch to fix would be welcome as well! :)
+
+Gary, Sure. Please, find attached a patch for the test suite that arises the issue.
+
+Later I'd try to provide a patch for the issue itself, since a quick look is not enough because the current code implements a very cryptic algorithm with too many magic numbers in it, Please, find attached a patch for solving the issue with the method LocaleUtils.toLocale() and ISO 639-3 codes, including:
+
+* Completely re-implementation of the locale parsing, due the complexity for adapt the new feature in the current code.
+
+* Implementation compliant with the current tests at LocaleUtilsTest. An invalid assert has been removed.
+
+* Added new test for testing 3-chars locale
+
+* Added a new methof StringUtils.occurrences() which I commonly need, and I needed for this path, although at the end I needed the splited array, so not used in the submitted version. So it could be removed if you don't find it relevant., Hello Sergio,
+
+I've reviewed your patch. You're using tabs to intend your code. At commons we uses spaces instead, since the representation of the tab character varies between different editors. I've corrected this.
+
+The new method {{StringUtils.occurences(String, String)}} seems to duplicate {{StringUtils.countMatches(CharSequence, CharSequence)}}. I've removed it. Your new method caused {{StringUtilsTest.testStringUtilsCharSequenceContract()}} to fail. It's always good to run {{mvn clean test}} before creating a patch, to be sure everything still works.
+
+All tests pass now. I've committed your patch in rev. 1557378.
+
+Thanks for contributing!, I believe this ticket should be reconsidered for reopening. The current implementation that was introduced here does not support language code sub tags, instead only allowing three parameters.
+
+You can see the specification for sub tags [here|https://tools.ietf.org/html/bcp47#section-4]. Oracle documentation for sub tag extensions can be found [here|https://docs.oracle.com/javase/tutorial/i18n/locale/extensions.html].]

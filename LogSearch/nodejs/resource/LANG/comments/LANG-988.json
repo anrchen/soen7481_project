@@ -1,0 +1,13 @@
+[Yes, the user guide is now contained within the Javadoc summary of the {{org.apache.commons.lang3}} package. This change was made during January of this year (see LANG-939). The contents are identical to what was originally found on the website.
+
+As an alternative to raising an issue for such a question, you are also welcome to contact the [mailing lists|https://commons.apache.org/proper/commons-lang/mail-lists.html].
+
+bq. Oh, and IMHO the website should be a component in jira.
+
+That's probably a good idea., Hello Martin,
+
+what kind of information are you looking for? The user guide just contained descriptions of the classes we have in commons. This seemed like a natural fit for the package descriptions of the individual packages. I'm open for improvement of the website documentation, but I'm currently not sure how that could look like.
+
+bq. Oh, and IMHO the website should be a component in jura.
+
+I've created a new component in jira and added this ticket to it., I think this issue can be closed - the original question is answered. If changes are desired for the user guide, they can be described in a new improvement issue., Maybe we should remove the "User Guide" page on the website or put some useful content there... I've though about something that gives you a better overview over the functionality provided in [LANG] alongside some code examples.]

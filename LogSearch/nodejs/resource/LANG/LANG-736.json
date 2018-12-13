@@ -1,0 +1,213 @@
+{
+    "expand": "operations,versionedRepresentations,editmeta,changelog,renderedFields",
+    "fields": {
+        "aggregateprogress": {
+            "progress": 0,
+            "total": 0
+        },
+        "aggregatetimeestimate": null,
+        "aggregatetimeoriginalestimate": null,
+        "aggregatetimespent": null,
+        "assignee": {
+            "active": true,
+            "avatarUrls": {
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=garydgregory&avatarId=16828",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=garydgregory&avatarId=16828",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=garydgregory&avatarId=16828",
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=garydgregory&avatarId=16828"
+            },
+            "displayName": "Gary Gregory",
+            "key": "garydgregory",
+            "name": "garydgregory",
+            "self": "https://issues.apache.org/jira/rest/api/2/user?username=garydgregory",
+            "timeZone": "America/Denver"
+        },
+        "components": [{
+            "id": "12313203",
+            "name": "lang.*",
+            "self": "https://issues.apache.org/jira/rest/api/2/component/12313203"
+        }],
+        "created": "2011-08-02T18:19:53.000+0000",
+        "creator": {
+            "active": true,
+            "avatarUrls": {
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=garydgregory&avatarId=16828",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=garydgregory&avatarId=16828",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=garydgregory&avatarId=16828",
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=garydgregory&avatarId=16828"
+            },
+            "displayName": "Gary Gregory",
+            "key": "garydgregory",
+            "name": "garydgregory",
+            "self": "https://issues.apache.org/jira/rest/api/2/user?username=garydgregory",
+            "timeZone": "America/Denver"
+        },
+        "customfield_10010": null,
+        "customfield_12310220": "2011-08-05T06:20:03.377+0000",
+        "customfield_12310222": "1_*:*_1_*:*_1194434320_*|*_5_*:*_1_*:*_0",
+        "customfield_12310250": null,
+        "customfield_12310290": null,
+        "customfield_12310291": null,
+        "customfield_12310300": null,
+        "customfield_12310310": "1.0",
+        "customfield_12310420": "64913",
+        "customfield_12310920": "74660",
+        "customfield_12310921": null,
+        "customfield_12311020": null,
+        "customfield_12311024": null,
+        "customfield_12311120": null,
+        "customfield_12311820": "0|i0d5gf:",
+        "customfield_12312022": null,
+        "customfield_12312023": null,
+        "customfield_12312024": null,
+        "customfield_12312026": null,
+        "customfield_12312220": null,
+        "customfield_12312320": null,
+        "customfield_12312321": null,
+        "customfield_12312322": null,
+        "customfield_12312323": null,
+        "customfield_12312324": null,
+        "customfield_12312325": null,
+        "customfield_12312326": null,
+        "customfield_12312327": null,
+        "customfield_12312328": null,
+        "customfield_12312329": null,
+        "customfield_12312330": null,
+        "customfield_12312331": null,
+        "customfield_12312332": null,
+        "customfield_12312333": null,
+        "customfield_12312334": null,
+        "customfield_12312335": null,
+        "customfield_12312336": null,
+        "customfield_12312337": null,
+        "customfield_12312338": null,
+        "customfield_12312339": null,
+        "customfield_12312340": null,
+        "customfield_12312341": null,
+        "customfield_12312520": null,
+        "customfield_12312521": "Tue Aug 16 14:07:08 UTC 2011",
+        "customfield_12312720": null,
+        "customfield_12312823": null,
+        "customfield_12312920": null,
+        "customfield_12312921": null,
+        "customfield_12312923": null,
+        "customfield_12313422": "false",
+        "customfield_12313520": null,
+        "description": "CharUtils static final array CHAR_STRING is not needed to compute CHAR_STRING_ARRAY.\n\nThis:\n\n{code:java}\n    private static final String CHAR_STRING = \n        \"\\u0000\\u0001\\u0002\\u0003\\u0004\\u0005\\u0006\\u0007\" +\n        \"\\b\\t\\n\\u000b\\f\\r\\u000e\\u000f\" +\n        \"\\u0010\\u0011\\u0012\\u0013\\u0014\\u0015\\u0016\\u0017\" +\n        \"\\u0018\\u0019\\u001a\\u001b\\u001c\\u001d\\u001e\\u001f\" +\n        \"\\u0020\\u0021\\\"\\u0023\\u0024\\u0025\\u0026\\u0027\" +\n        \"\\u0028\\u0029\\u002a\\u002b\\u002c\\u002d\\u002e\\u002f\" +\n        \"\\u0030\\u0031\\u0032\\u0033\\u0034\\u0035\\u0036\\u0037\" +\n        \"\\u0038\\u0039\\u003a\\u003b\\u003c\\u003d\\u003e\\u003f\" +\n        \"\\u0040\\u0041\\u0042\\u0043\\u0044\\u0045\\u0046\\u0047\" +\n        \"\\u0048\\u0049\\u004a\\u004b\\u004c\\u004d\\u004e\\u004f\" +\n        \"\\u0050\\u0051\\u0052\\u0053\\u0054\\u0055\\u0056\\u0057\" +\n        \"\\u0058\\u0059\\u005a\\u005b\\\\\\u005d\\u005e\\u005f\" +\n        \"\\u0060\\u0061\\u0062\\u0063\\u0064\\u0065\\u0066\\u0067\" +\n        \"\\u0068\\u0069\\u006a\\u006b\\u006c\\u006d\\u006e\\u006f\" +\n        \"\\u0070\\u0071\\u0072\\u0073\\u0074\\u0075\\u0076\\u0077\" +\n        \"\\u0078\\u0079\\u007a\\u007b\\u007c\\u007d\\u007e\\u007f\";\n\n// snip\n\n        for (int i = 127; i >= 0; i--) {\n            CHAR_STRING_ARRAY[i] = CHAR_STRING.substring(i, i + 1);\n        }\n{code}\n\nCan be recoded as:\n{code:java}\n        for (char c = 0; c < CHAR_STRING_ARRAY.length; c++) {\n            CHAR_STRING_ARRAY[c] = String.valueOf(c);\n        }\n{code}\n\nWith the lang 3.0 code, using the Oracle Java 5 String impl, the 128 Strings share the underlying CHAR_STRING char[] because of the way Sun implemented String#substring(int,int).\n\nThe proposed implementation does not reply on this private implementation detail but creates one char[1] array per String. \n\nThoughts?",
+        "duedate": null,
+        "environment": null,
+        "fixVersions": [{
+            "archived": false,
+            "description": "November release from 3.x",
+            "id": "12317550",
+            "name": "3.1",
+            "releaseDate": "2011-11-14",
+            "released": true,
+            "self": "https://issues.apache.org/jira/rest/api/2/version/12317550"
+        }],
+        "issuelinks": [],
+        "issuetype": {
+            "avatarId": 21133,
+            "description": "A problem which impairs or prevents the functions of the product.",
+            "iconUrl": "https://issues.apache.org/jira/secure/viewavatar?size=xsmall&avatarId=21133&avatarType=issuetype",
+            "id": "1",
+            "name": "Bug",
+            "self": "https://issues.apache.org/jira/rest/api/2/issuetype/1",
+            "subtask": false
+        },
+        "labels": [],
+        "lastViewed": null,
+        "priority": {
+            "iconUrl": "https://issues.apache.org/jira/images/icons/priorities/major.svg",
+            "id": "3",
+            "name": "Major",
+            "self": "https://issues.apache.org/jira/rest/api/2/priority/3"
+        },
+        "progress": {
+            "progress": 0,
+            "total": 0
+        },
+        "project": {
+            "avatarUrls": {
+                "16x16": "https://issues.apache.org/jira/secure/projectavatar?size=xsmall&pid=12310481&avatarId=10011",
+                "24x24": "https://issues.apache.org/jira/secure/projectavatar?size=small&pid=12310481&avatarId=10011",
+                "32x32": "https://issues.apache.org/jira/secure/projectavatar?size=medium&pid=12310481&avatarId=10011",
+                "48x48": "https://issues.apache.org/jira/secure/projectavatar?pid=12310481&avatarId=10011"
+            },
+            "id": "12310481",
+            "key": "LANG",
+            "name": "Commons Lang",
+            "projectCategory": {
+                "description": "Apache Commons components",
+                "id": "10260",
+                "name": "Commons",
+                "self": "https://issues.apache.org/jira/rest/api/2/projectCategory/10260"
+            },
+            "self": "https://issues.apache.org/jira/rest/api/2/project/12310481"
+        },
+        "reporter": {
+            "active": true,
+            "avatarUrls": {
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=garydgregory&avatarId=16828",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=garydgregory&avatarId=16828",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=garydgregory&avatarId=16828",
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=garydgregory&avatarId=16828"
+            },
+            "displayName": "Gary Gregory",
+            "key": "garydgregory",
+            "name": "garydgregory",
+            "self": "https://issues.apache.org/jira/rest/api/2/user?username=garydgregory",
+            "timeZone": "America/Denver"
+        },
+        "resolution": {
+            "description": "A fix for this issue is checked into the tree and tested.",
+            "id": "1",
+            "name": "Fixed",
+            "self": "https://issues.apache.org/jira/rest/api/2/resolution/1"
+        },
+        "resolutiondate": "2011-08-16T14:07:08.000+0000",
+        "status": {
+            "description": "The issue is considered finished, the resolution is correct. Issues which are not closed can be reopened.",
+            "iconUrl": "https://issues.apache.org/jira/images/icons/statuses/closed.png",
+            "id": "6",
+            "name": "Closed",
+            "self": "https://issues.apache.org/jira/rest/api/2/status/6",
+            "statusCategory": {
+                "colorName": "green",
+                "id": 3,
+                "key": "done",
+                "name": "Done",
+                "self": "https://issues.apache.org/jira/rest/api/2/statuscategory/3"
+            }
+        },
+        "subtasks": [],
+        "summary": "CharUtils static final array CHAR_STRING is not needed to compute CHAR_STRING_ARRAY",
+        "timeestimate": null,
+        "timeoriginalestimate": null,
+        "timespent": null,
+        "updated": "2011-11-09T04:16:57.000+0000",
+        "versions": [{
+            "archived": true,
+            "description": "JDK 1.5 focused version of Lang",
+            "id": "12311714",
+            "name": "3.0",
+            "releaseDate": "2011-07-19",
+            "released": true,
+            "self": "https://issues.apache.org/jira/rest/api/2/version/12311714"
+        }],
+        "votes": {
+            "hasVoted": false,
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/LANG-736/votes",
+            "votes": 0
+        },
+        "watches": {
+            "isWatching": false,
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/LANG-736/watchers",
+            "watchCount": 0
+        },
+        "workratio": -1
+    },
+    "id": "12517679",
+    "key": "LANG-736",
+    "self": "https://issues.apache.org/jira/rest/api/2/issue/12517679"
+}

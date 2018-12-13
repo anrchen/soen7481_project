@@ -1,0 +1,107 @@
+[Patches welcome!, CLA emailed. I can't assign to myself, but I fork and create a PR., GitHub user datalorax opened a pull request:
+
+    https://github.com/apache/commons-lang/pull/65
+
+    #LANG-1114 TypeUtils.equals is broken for WildcardType
+
+    TypeUtils.equals is broken for WildcardType, when compared with non-wildcard type.
+    
+    It was broken because it was returning true! Now returns false. Also added test to cover the issue.
+
+You can merge this pull request into a Git repository by running:
+
+    $ git pull https://github.com/datalorax/commons-lang bug/LANG-1114-TypeUtils.ParameterizedType#equals_does_not_work_with_wildcard_types
+
+Alternatively you can review and apply these changes as the patch at:
+
+    https://github.com/apache/commons-lang/pull/65.patch
+
+To close this pull request, make a commit to your master/trunk branch
+with (at least) the following in the commit message:
+
+    This closes #65
+    
+----
+commit b053737c2e64303cfcaca0fb07c1f13d352a7b8e
+Author: The Datalorax <datalorax@gmail.com>
+Date:   2015-04-18T21:14:06Z
+
+    #LANG-1114 TypeUtils.equals is broken for WildcardType, when compared with non-wildcard type.
+    
+    It was broken because it was returning true! Now returns false. Also added test to highlight issue.
+
+----
+, PR https://github.com/apache/commons-lang/pull/65 added to cover this., I've now had an email from James Carman saying my CLA has been received. Could you please tell me how I get permissions to assign this Jira to myself?, Hello [~BigAndy],
+
+we usually don't assign special permissions to contirbutors. It's just to much managment overhead for us. Usually the committer who reviews the patch assigns the issue to himself so that everybody can see who is working on an issue.
+
+We're currently in the middle of a SVN -> git migration. I'll apply your patch after that has finished.
+
+Thank you!, Hello [~BigAndy],
+
+we usually don't assign special permissions to contirbutors. It's just to much managment overhead for us. Usually the committer who reviews the patch assigns the issue to himself so that everybody can see who is working on an issue.
+
+We're currently in the middle of a SVN -> git migration. I'll apply your patch after that has finished.
+
+Thank you!, OK, good to know. New to all of this!, Github user asfgit closed the pull request at:
+
+    https://github.com/apache/commons-lang/pull/65
+, GitHub user datalorax reopened a pull request:
+
+    https://github.com/apache/commons-lang/pull/65
+
+    #LANG-1114 TypeUtils.equals is broken for WildcardType
+
+    TypeUtils.equals is broken for WildcardType, when compared with non-wildcard type.
+    
+    It was broken because it was returning true! Now returns false. Also added test to cover the issue.
+
+You can merge this pull request into a Git repository by running:
+
+    $ git pull https://github.com/datalorax/commons-lang bug/LANG-1114-TypeUtils.ParameterizedType#equals_does_not_work_with_wildcard_types
+
+Alternatively you can review and apply these changes as the patch at:
+
+    https://github.com/apache/commons-lang/pull/65.patch
+
+To close this pull request, make a commit to your master/trunk branch
+with (at least) the following in the commit message:
+
+    This closes #65
+    
+----
+commit b053737c2e64303cfcaca0fb07c1f13d352a7b8e
+Author: The Datalorax <datalorax@gmail.com>
+Date:   2015-04-18T21:14:06Z
+
+    #LANG-1114 TypeUtils.equals is broken for WildcardType, when compared with non-wildcard type.
+    
+    It was broken because it was returning true! Now returns false. Also added test to highlight issue.
+
+commit d55588f1cb7775d655c0cde091899b2443854617
+Author: The Datalorax <datalorax@gmail.com>
+Date:   2015-04-18T22:00:34Z
+
+    #LANG-1114 Update changes.xml with fix
+
+----
+, Github user britter commented on the pull request:
+
+    https://github.com/apache/commons-lang/pull/65#issuecomment-96796890
+  
+    @datalorax Commons Lang has been migrated from svn to git. Because of this the main branch has been renamed to 'master'. Can you please rebase your work against the master branch? Thank you!
+, Sure., No worries. (Btw, I notice a comment above about reopening the pull request - this was not my intent!).
+, Github user britter commented on the pull request:
+
+    https://github.com/apache/commons-lang/pull/65#issuecomment-97171431
+  
+    Hello @datalorax it looks like rebasing did not work the way we wanted. The diff shows more then 500 touched filed. Maybe it's easier to close this PR and recreate it against the master branch. Sorry for the inconvenience!
+, Github user datalorax commented on the pull request:
+
+    https://github.com/apache/commons-lang/pull/65#issuecomment-97187550
+  
+    Sorry (this is a bit embarrassing!), I was just playing around with the rebase and didn't mean to raise a PR against this.
+, Github user datalorax closed the pull request at:
+
+    https://github.com/apache/commons-lang/pull/65
+, Fixed in 640953167adf3580a2c21077d78e7e7ce84ead03]

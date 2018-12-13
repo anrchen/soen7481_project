@@ -1,0 +1,215 @@
+{
+    "expand": "operations,versionedRepresentations,editmeta,changelog,renderedFields",
+    "fields": {
+        "aggregateprogress": {
+            "percent": 0,
+            "progress": 0,
+            "total": 172800
+        },
+        "aggregatetimeestimate": 172800,
+        "aggregatetimeoriginalestimate": 172800,
+        "aggregatetimespent": null,
+        "assignee": {
+            "active": true,
+            "avatarUrls": {
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=charles_honton%40intuit.com&avatarId=23130",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=charles_honton%40intuit.com&avatarId=23130",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=charles_honton%40intuit.com&avatarId=23130",
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=charles_honton%40intuit.com&avatarId=23130"
+            },
+            "displayName": "Charles Honton",
+            "key": "charles_honton@intuit.com",
+            "name": "chonton",
+            "self": "https://issues.apache.org/jira/rest/api/2/user?username=chonton",
+            "timeZone": "America/Los_Angeles"
+        },
+        "components": [{
+            "id": "12313196",
+            "name": "lang.time.*",
+            "self": "https://issues.apache.org/jira/rest/api/2/component/12313196"
+        }],
+        "created": "2017-09-28T22:32:25.000+0000",
+        "creator": {
+            "active": true,
+            "avatarUrls": {
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452",
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452"
+            },
+            "displayName": "Keith Boone",
+            "key": "kwboone",
+            "name": "kwboone",
+            "self": "https://issues.apache.org/jira/rest/api/2/user?username=kwboone",
+            "timeZone": "America/New_York"
+        },
+        "customfield_10010": null,
+        "customfield_12310220": "2017-10-02T03:00:00.875+0000",
+        "customfield_12310222": "1_*:*_1_*:*_1020426343_*|*_5_*:*_1_*:*_0",
+        "customfield_12310250": null,
+        "customfield_12310290": null,
+        "customfield_12310291": null,
+        "customfield_12310300": null,
+        "customfield_12310310": "0.0",
+        "customfield_12310420": "9223372036854775807",
+        "customfield_12310920": "9223372036854775807",
+        "customfield_12310921": null,
+        "customfield_12311020": null,
+        "customfield_12311024": null,
+        "customfield_12311120": null,
+        "customfield_12311820": "0|i3korz:",
+        "customfield_12312022": null,
+        "customfield_12312023": null,
+        "customfield_12312024": null,
+        "customfield_12312026": null,
+        "customfield_12312220": null,
+        "customfield_12312320": null,
+        "customfield_12312321": null,
+        "customfield_12312322": null,
+        "customfield_12312323": null,
+        "customfield_12312324": null,
+        "customfield_12312325": null,
+        "customfield_12312326": null,
+        "customfield_12312327": null,
+        "customfield_12312328": null,
+        "customfield_12312329": null,
+        "customfield_12312330": null,
+        "customfield_12312331": null,
+        "customfield_12312332": null,
+        "customfield_12312333": null,
+        "customfield_12312334": null,
+        "customfield_12312335": null,
+        "customfield_12312336": null,
+        "customfield_12312337": null,
+        "customfield_12312338": null,
+        "customfield_12312339": null,
+        "customfield_12312340": null,
+        "customfield_12312341": null,
+        "customfield_12312520": null,
+        "customfield_12312521": "Tue Oct 10 17:59:31 UTC 2017",
+        "customfield_12312720": "package org.apache.commons.lang3.time;\n\nimport java.util.TimeZone;\nimport java.util.concurrent.ConcurrentMap;\nimport java.util.concurrent.ConcurrentHashMap;\n\n/**\n * <p>TimeZoneCache is a thread-safe cache and retriever for TimeZone objects.<\/p>\n *\n * <p>To obtain a TimeZone, use {@link TimeZoneCache.getTimeZone(String tid).  If no instance\n * if found in the cache, an instance will be created by calling TimeZone.getTimeZone().\n * Otherwise, the instance with the matching tid will be obtained from TimeZone.getTimeZone(),\n * stored in the cache and returned.<\/p>\n *\n * <p>TimeZone.getTimeZone() is a synchronized static method, which can cause thread \n * contention under high load. If you must use a large number of time formatter or parser \n * objects, this class can be used to avoid repeated construction and synchronization \n * blocking.<\/p>\n * <code>\n *     TimeZone tz = TimeZoneCache.getInstance(\"UTC\");\n * <\/code>\n *\n * @see FastDateParser, FastDateFormatter\n */\npublic class TimeZoneCache {\n\t/* A cache of the currently known TimeZones */\n\tprivate final static ConcurrentMap<String, TimeZone> timeZoneCache = new ConcurrentHashMap<String, TimeZone>(7);\n\t\n\tpublic static TimeZone getTimeZone(String tid) {\n\t\tTimeZone tz = timeZoneCache.get(tid);\n\t\tif (tz == null) {\n\t\t\ttz = TimeZone.getTimeZone(tid);\n\t\t\ttimeZoneCache.put(tid, tz);\n\t\t}\n\t\treturn tz;\n\t}\n}\n",
+        "customfield_12312823": null,
+        "customfield_12312920": null,
+        "customfield_12312921": null,
+        "customfield_12312923": null,
+        "customfield_12313422": "false",
+        "customfield_12313520": null,
+        "description": "Under heavy load we are seeing contention in FastDateParser.parse() on calls to TimeZone.getTimeZone().  TimeZone.getTimeZone() is a synchronized static in the Oracle JVM.\n\nOur proposed solution is to add a class TimeZoneCache containing a single method getTimeZone() which gets the requested time zone from a ConcurrentMap, and if not present, looks it up via TimeZone.getTimeZone() and caches it before returning it.\n\nThen replace calls to TimeZone.getTimeZone() in FastDateParser ( and whereever else) to calls to TimeZoneCache.getTimeZone().  \n\nThe reason to add a separate class is because it can also be used by other applications which heavily parse or format or do other things where TimeZone is repeatedly needed.\n\nUnder extreme load we have seen an 50:1 improvement in calls to FastDateParser.parse().  This saves about a ms/call in our test environment, and reduces contention.\n\n\n",
+        "duedate": null,
+        "environment": "Windows",
+        "fixVersions": [{
+            "archived": false,
+            "description": "Feature and bugfix release",
+            "id": "12340849",
+            "name": "3.7",
+            "releaseDate": "2017-11-04",
+            "released": true,
+            "self": "https://issues.apache.org/jira/rest/api/2/version/12340849"
+        }],
+        "issuelinks": [],
+        "issuetype": {
+            "avatarId": 21133,
+            "description": "A problem which impairs or prevents the functions of the product.",
+            "iconUrl": "https://issues.apache.org/jira/secure/viewavatar?size=xsmall&avatarId=21133&avatarType=issuetype",
+            "id": "1",
+            "name": "Bug",
+            "self": "https://issues.apache.org/jira/rest/api/2/issuetype/1",
+            "subtask": false
+        },
+        "labels": [],
+        "lastViewed": null,
+        "priority": {
+            "iconUrl": "https://issues.apache.org/jira/images/icons/priorities/major.svg",
+            "id": "3",
+            "name": "Major",
+            "self": "https://issues.apache.org/jira/rest/api/2/priority/3"
+        },
+        "progress": {
+            "percent": 0,
+            "progress": 0,
+            "total": 172800
+        },
+        "project": {
+            "avatarUrls": {
+                "16x16": "https://issues.apache.org/jira/secure/projectavatar?size=xsmall&pid=12310481&avatarId=10011",
+                "24x24": "https://issues.apache.org/jira/secure/projectavatar?size=small&pid=12310481&avatarId=10011",
+                "32x32": "https://issues.apache.org/jira/secure/projectavatar?size=medium&pid=12310481&avatarId=10011",
+                "48x48": "https://issues.apache.org/jira/secure/projectavatar?pid=12310481&avatarId=10011"
+            },
+            "id": "12310481",
+            "key": "LANG",
+            "name": "Commons Lang",
+            "projectCategory": {
+                "description": "Apache Commons components",
+                "id": "10260",
+                "name": "Commons",
+                "self": "https://issues.apache.org/jira/rest/api/2/projectCategory/10260"
+            },
+            "self": "https://issues.apache.org/jira/rest/api/2/project/12310481"
+        },
+        "reporter": {
+            "active": true,
+            "avatarUrls": {
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452",
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452"
+            },
+            "displayName": "Keith Boone",
+            "key": "kwboone",
+            "name": "kwboone",
+            "self": "https://issues.apache.org/jira/rest/api/2/user?username=kwboone",
+            "timeZone": "America/New_York"
+        },
+        "resolution": {
+            "description": "A fix for this issue is checked into the tree and tested.",
+            "id": "1",
+            "name": "Fixed",
+            "self": "https://issues.apache.org/jira/rest/api/2/resolution/1"
+        },
+        "resolutiondate": "2017-10-10T17:59:31.000+0000",
+        "status": {
+            "description": "The issue is considered finished, the resolution is correct. Issues which are not closed can be reopened.",
+            "iconUrl": "https://issues.apache.org/jira/images/icons/statuses/closed.png",
+            "id": "6",
+            "name": "Closed",
+            "self": "https://issues.apache.org/jira/rest/api/2/status/6",
+            "statusCategory": {
+                "colorName": "green",
+                "id": 3,
+                "key": "done",
+                "name": "Done",
+                "self": "https://issues.apache.org/jira/rest/api/2/statuscategory/3"
+            }
+        },
+        "subtasks": [],
+        "summary": "TimeZone.getTimeZone() in FastDateParser causes resource contention",
+        "timeestimate": 172800,
+        "timeoriginalestimate": 172800,
+        "timespent": null,
+        "updated": "2017-11-10T16:41:08.000+0000",
+        "versions": [{
+            "archived": false,
+            "description": "Feature and bugfix release, requires at least Java 7",
+            "id": "12338238",
+            "name": "3.6",
+            "releaseDate": "2017-06-08",
+            "released": true,
+            "self": "https://issues.apache.org/jira/rest/api/2/version/12338238"
+        }],
+        "votes": {
+            "hasVoted": false,
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/LANG-1355/votes",
+            "votes": 0
+        },
+        "watches": {
+            "isWatching": false,
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/LANG-1355/watchers",
+            "watchCount": 4
+        },
+        "workratio": 0
+    },
+    "id": "13105890",
+    "key": "LANG-1355",
+    "self": "https://issues.apache.org/jira/rest/api/2/issue/13105890"
+}

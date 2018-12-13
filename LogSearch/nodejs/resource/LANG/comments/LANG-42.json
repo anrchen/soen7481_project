@@ -1,0 +1,5 @@
+[Created an attachment (id=13983)
+Patch includes a testcase that proves existence of the bug / that it's fixed,
+and fixes the bug in the source.
+, See also COM-1843., This appears to be already fixed in CVS and should be in the nightly build. I've
+added the test case in a new method testNpeForNullElement()., *** COM-2001 has been marked as a duplicate of this bug. ***]

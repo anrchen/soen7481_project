@@ -1,0 +1,23 @@
+[I think this is due to FastDateFormat's:
+
+        if (mTimeZoneForced) {
+            calendar = (Calendar) calendar.clone();
+            calendar.setTimeZone(mTimeZone);
+        }
+
+If I call getTime() before that, then the code works. If however I wait until after that to call getTime(), it does not work. The calendar before and after report themselves to be equal, and their toString contains the same information in both cases, yet something must not be getting lazy-initialized and then lost in the clone., Thanks for the report Jeff. I've inserted a getTime() into FastDateFormat that fixes your test case, and hopefully extends to the general problem.
+
+svn ci -m "Fixing LANG-538 - you need to call getTime() on a calendar sometimes to get it in the right state, otherwise the timezone gets out of whack. " src
+Sending        src/java/org/apache/commons/lang3/time/FastDateFormat.java
+Sending        src/test/org/apache/commons/lang3/time/FastDateFormatTest.java
+Transmitting file data ..
+Committed revision 891542.
+, Hi. This bug is existing in version 3.3.1. The "assertEquals("dateTime", dateTime, format.format(cal));" from the test above returns the following error:
+org.junit.ComparisonFailure: dateTime expected:<2009-10-16T[16]:42:16.000Z> but was:<2009-10-16T[08]:42:16.000Z>
+
+Reproduced whit Sun Java version: 1.6.0_45 and 1.7.0_21 on Fedora 17 (Linux 3.9.10-100.fc17.i686.PAE).
+
+I will try to clone this issue.
+
+
+]

@@ -1,0 +1,1938 @@
+<start>
+Summary of configuration for Project: Lang
+--------------------------------------------------------------------------------
+    Script dir: /Users/mac/Documents/GitHub/SOEN7481/defects4j/framework
+      Base dir: /Users/mac/Documents/GitHub/SOEN7481/defects4j
+    Major root: /Users/mac/Documents/GitHub/SOEN7481/defects4j/major
+      Repo dir: /Users/mac/Documents/GitHub/SOEN7481/defects4j/project_repos
+--------------------------------------------------------------------------------
+    Project ID: Lang
+       Program: commons-lang
+    Build file: /Users/mac/Documents/GitHub/SOEN7481/defects4j/framework/build-scripts/Lang/Lang.build.xml
+--------------------------------------------------------------------------------
+           Vcs: Vcs::Git
+    Repository: /Users/mac/Documents/GitHub/SOEN7481/defects4j/project_repos/commons-lang.git
+     Commit db: /Users/mac/Documents/GitHub/SOEN7481/defects4j/framework/projects/Lang/commit-db
+Number of bugs: 65
+--------------------------------------------------------------------------------
+
+Summary for Bug: 1
+--------------------------------------------------------------------------------
+Root cause in triggering tests:
+ - org.apache.commons.lang3.math.NumberUtilsTest::TestLang747
+   --> java.lang.NumberFormatException: For input string: "80000000"
+--------------------------------------------------------------------------------
+List of modified sources:
+ - org.apache.commons.lang3.math.NumberUtils
+--------------------------------------------------------------------------------
+<end>
+<start>
+Summary of configuration for Project: Lang
+--------------------------------------------------------------------------------
+    Script dir: /Users/mac/Documents/GitHub/SOEN7481/defects4j/framework
+      Base dir: /Users/mac/Documents/GitHub/SOEN7481/defects4j
+    Major root: /Users/mac/Documents/GitHub/SOEN7481/defects4j/major
+      Repo dir: /Users/mac/Documents/GitHub/SOEN7481/defects4j/project_repos
+--------------------------------------------------------------------------------
+    Project ID: Lang
+       Program: commons-lang
+    Build file: /Users/mac/Documents/GitHub/SOEN7481/defects4j/framework/build-scripts/Lang/Lang.build.xml
+--------------------------------------------------------------------------------
+           Vcs: Vcs::Git
+    Repository: /Users/mac/Documents/GitHub/SOEN7481/defects4j/project_repos/commons-lang.git
+     Commit db: /Users/mac/Documents/GitHub/SOEN7481/defects4j/framework/projects/Lang/commit-db
+Number of bugs: 65
+--------------------------------------------------------------------------------
+
+Summary for Bug: 2
+--------------------------------------------------------------------------------
+Root cause in triggering tests:
+ - org.apache.commons.lang3.LocaleUtilsTest::testParseAllLocales
+   --> junit.framework.AssertionFailedError: Failed 2 test(s)
+--------------------------------------------------------------------------------
+List of modified sources:
+ - org.apache.commons.lang3.LocaleUtils
+--------------------------------------------------------------------------------
+<end>
+<start>
+Summary of configuration for Project: Lang
+--------------------------------------------------------------------------------
+    Script dir: /Users/mac/Documents/GitHub/SOEN7481/defects4j/framework
+      Base dir: /Users/mac/Documents/GitHub/SOEN7481/defects4j
+    Major root: /Users/mac/Documents/GitHub/SOEN7481/defects4j/major
+      Repo dir: /Users/mac/Documents/GitHub/SOEN7481/defects4j/project_repos
+--------------------------------------------------------------------------------
+    Project ID: Lang
+       Program: commons-lang
+    Build file: /Users/mac/Documents/GitHub/SOEN7481/defects4j/framework/build-scripts/Lang/Lang.build.xml
+--------------------------------------------------------------------------------
+           Vcs: Vcs::Git
+    Repository: /Users/mac/Documents/GitHub/SOEN7481/defects4j/project_repos/commons-lang.git
+     Commit db: /Users/mac/Documents/GitHub/SOEN7481/defects4j/framework/projects/Lang/commit-db
+Number of bugs: 65
+--------------------------------------------------------------------------------
+
+Summary for Bug: 3
+--------------------------------------------------------------------------------
+Root cause in triggering tests:
+ - org.apache.commons.lang3.math.NumberUtilsTest::testStringCreateNumberEnsureNoPrecisionLoss
+   --> junit.framework.AssertionFailedError
+--------------------------------------------------------------------------------
+List of modified sources:
+ - org.apache.commons.lang3.math.NumberUtils
+--------------------------------------------------------------------------------
+<end>
+<start>
+Summary of configuration for Project: Lang
+--------------------------------------------------------------------------------
+    Script dir: /Users/mac/Documents/GitHub/SOEN7481/defects4j/framework
+      Base dir: /Users/mac/Documents/GitHub/SOEN7481/defects4j
+    Major root: /Users/mac/Documents/GitHub/SOEN7481/defects4j/major
+      Repo dir: /Users/mac/Documents/GitHub/SOEN7481/defects4j/project_repos
+--------------------------------------------------------------------------------
+    Project ID: Lang
+       Program: commons-lang
+    Build file: /Users/mac/Documents/GitHub/SOEN7481/defects4j/framework/build-scripts/Lang/Lang.build.xml
+--------------------------------------------------------------------------------
+           Vcs: Vcs::Git
+    Repository: /Users/mac/Documents/GitHub/SOEN7481/defects4j/project_repos/commons-lang.git
+     Commit db: /Users/mac/Documents/GitHub/SOEN7481/defects4j/framework/projects/Lang/commit-db
+Number of bugs: 65
+--------------------------------------------------------------------------------
+
+Summary for Bug: 4
+--------------------------------------------------------------------------------
+Root cause in triggering tests:
+ - org.apache.commons.lang3.text.translate.LookupTranslatorTest::testLang882
+   --> junit.framework.AssertionFailedError: Incorrect codepoint consumption expected:<3> but was:<0>
+--------------------------------------------------------------------------------
+List of modified sources:
+ - org.apache.commons.lang3.text.translate.LookupTranslator
+--------------------------------------------------------------------------------
+<end>
+<start>
+Summary of configuration for Project: Lang
+--------------------------------------------------------------------------------
+    Script dir: /Users/mac/Documents/GitHub/SOEN7481/defects4j/framework
+      Base dir: /Users/mac/Documents/GitHub/SOEN7481/defects4j
+    Major root: /Users/mac/Documents/GitHub/SOEN7481/defects4j/major
+      Repo dir: /Users/mac/Documents/GitHub/SOEN7481/defects4j/project_repos
+--------------------------------------------------------------------------------
+    Project ID: Lang
+       Program: commons-lang
+    Build file: /Users/mac/Documents/GitHub/SOEN7481/defects4j/framework/build-scripts/Lang/Lang.build.xml
+--------------------------------------------------------------------------------
+           Vcs: Vcs::Git
+    Repository: /Users/mac/Documents/GitHub/SOEN7481/defects4j/project_repos/commons-lang.git
+     Commit db: /Users/mac/Documents/GitHub/SOEN7481/defects4j/framework/projects/Lang/commit-db
+Number of bugs: 65
+--------------------------------------------------------------------------------
+
+Summary for Bug: 5
+--------------------------------------------------------------------------------
+Root cause in triggering tests:
+ - org.apache.commons.lang3.LocaleUtilsTest::testLang865
+   --> java.lang.IllegalArgumentException: Invalid locale format: _GB
+--------------------------------------------------------------------------------
+List of modified sources:
+ - org.apache.commons.lang3.LocaleUtils
+--------------------------------------------------------------------------------
+<end>
+<start>
+Summary of configuration for Project: Lang
+--------------------------------------------------------------------------------
+    Script dir: /Users/mac/Documents/GitHub/SOEN7481/defects4j/framework
+      Base dir: /Users/mac/Documents/GitHub/SOEN7481/defects4j
+    Major root: /Users/mac/Documents/GitHub/SOEN7481/defects4j/major
+      Repo dir: /Users/mac/Documents/GitHub/SOEN7481/defects4j/project_repos
+--------------------------------------------------------------------------------
+    Project ID: Lang
+       Program: commons-lang
+    Build file: /Users/mac/Documents/GitHub/SOEN7481/defects4j/framework/build-scripts/Lang/Lang.build.xml
+--------------------------------------------------------------------------------
+           Vcs: Vcs::Git
+    Repository: /Users/mac/Documents/GitHub/SOEN7481/defects4j/project_repos/commons-lang.git
+     Commit db: /Users/mac/Documents/GitHub/SOEN7481/defects4j/framework/projects/Lang/commit-db
+Number of bugs: 65
+--------------------------------------------------------------------------------
+
+Summary for Bug: 6
+--------------------------------------------------------------------------------
+Root cause in triggering tests:
+ - org.apache.commons.lang3.StringUtilsTest::testEscapeSurrogatePairs
+   --> java.lang.StringIndexOutOfBoundsException: String index out of range: 2
+--------------------------------------------------------------------------------
+List of modified sources:
+ - org.apache.commons.lang3.text.translate.CharSequenceTranslator
+--------------------------------------------------------------------------------
+<end>
+<start>
+Summary of configuration for Project: Lang
+--------------------------------------------------------------------------------
+    Script dir: /Users/mac/Documents/GitHub/SOEN7481/defects4j/framework
+      Base dir: /Users/mac/Documents/GitHub/SOEN7481/defects4j
+    Major root: /Users/mac/Documents/GitHub/SOEN7481/defects4j/major
+      Repo dir: /Users/mac/Documents/GitHub/SOEN7481/defects4j/project_repos
+--------------------------------------------------------------------------------
+    Project ID: Lang
+       Program: commons-lang
+    Build file: /Users/mac/Documents/GitHub/SOEN7481/defects4j/framework/build-scripts/Lang/Lang.build.xml
+--------------------------------------------------------------------------------
+           Vcs: Vcs::Git
+    Repository: /Users/mac/Documents/GitHub/SOEN7481/defects4j/project_repos/commons-lang.git
+     Commit db: /Users/mac/Documents/GitHub/SOEN7481/defects4j/framework/projects/Lang/commit-db
+Number of bugs: 65
+--------------------------------------------------------------------------------
+
+Summary for Bug: 7
+--------------------------------------------------------------------------------
+Root cause in triggering tests:
+ - org.apache.commons.lang3.math.NumberUtilsTest::testCreateNumber
+   --> junit.framework.AssertionFailedError: Expected NumberFormatException
+--------------------------------------------------------------------------------
+List of modified sources:
+ - org.apache.commons.lang3.math.NumberUtils
+--------------------------------------------------------------------------------
+<end>
+<start>
+Summary of configuration for Project: Lang
+--------------------------------------------------------------------------------
+    Script dir: /Users/mac/Documents/GitHub/SOEN7481/defects4j/framework
+      Base dir: /Users/mac/Documents/GitHub/SOEN7481/defects4j
+    Major root: /Users/mac/Documents/GitHub/SOEN7481/defects4j/major
+      Repo dir: /Users/mac/Documents/GitHub/SOEN7481/defects4j/project_repos
+--------------------------------------------------------------------------------
+    Project ID: Lang
+       Program: commons-lang
+    Build file: /Users/mac/Documents/GitHub/SOEN7481/defects4j/framework/build-scripts/Lang/Lang.build.xml
+--------------------------------------------------------------------------------
+           Vcs: Vcs::Git
+    Repository: /Users/mac/Documents/GitHub/SOEN7481/defects4j/project_repos/commons-lang.git
+     Commit db: /Users/mac/Documents/GitHub/SOEN7481/defects4j/framework/projects/Lang/commit-db
+Number of bugs: 65
+--------------------------------------------------------------------------------
+
+Summary for Bug: 8
+--------------------------------------------------------------------------------
+Root cause in triggering tests:
+ - org.apache.commons.lang3.time.FastDateFormat_PrinterTest::testCalendarTimezoneRespected
+   --> junit.framework.AssertionFailedError: expected:<8:33PM [LIN]T> but was:<8:33PM [PS]T>
+ - org.apache.commons.lang3.time.FastDatePrinterTest::testCalendarTimezoneRespected
+   --> junit.framework.AssertionFailedError: expected:<8:33PM [LIN]T> but was:<8:33PM [PS]T>
+--------------------------------------------------------------------------------
+List of modified sources:
+ - org.apache.commons.lang3.time.FastDatePrinter
+--------------------------------------------------------------------------------
+<end>
+<start>
+Summary of configuration for Project: Lang
+--------------------------------------------------------------------------------
+    Script dir: /Users/mac/Documents/GitHub/SOEN7481/defects4j/framework
+      Base dir: /Users/mac/Documents/GitHub/SOEN7481/defects4j
+    Major root: /Users/mac/Documents/GitHub/SOEN7481/defects4j/major
+      Repo dir: /Users/mac/Documents/GitHub/SOEN7481/defects4j/project_repos
+--------------------------------------------------------------------------------
+    Project ID: Lang
+       Program: commons-lang
+    Build file: /Users/mac/Documents/GitHub/SOEN7481/defects4j/framework/build-scripts/Lang/Lang.build.xml
+--------------------------------------------------------------------------------
+           Vcs: Vcs::Git
+    Repository: /Users/mac/Documents/GitHub/SOEN7481/defects4j/project_repos/commons-lang.git
+     Commit db: /Users/mac/Documents/GitHub/SOEN7481/defects4j/framework/projects/Lang/commit-db
+Number of bugs: 65
+--------------------------------------------------------------------------------
+
+Summary for Bug: 9
+--------------------------------------------------------------------------------
+Root cause in triggering tests:
+ - org.apache.commons.lang3.time.FastDateFormat_ParserTest::testLANG_832
+   --> junit.framework.AssertionFailedError: Parsed dates should be equal expected:<null> but was:<Fri Jan 02 21:00:00 PST 1970>
+ - org.apache.commons.lang3.time.FastDateParserTest::testLANG_832
+   --> junit.framework.AssertionFailedError: Expected FDF failure, but got Fri Jan 02 21:00:00 PST 1970 for ['d'd',d3] using d(\p{IsNd}++)
+--------------------------------------------------------------------------------
+List of modified sources:
+ - org.apache.commons.lang3.time.FastDateParser
+--------------------------------------------------------------------------------
+<end>
+<start>
+Summary of configuration for Project: Lang
+--------------------------------------------------------------------------------
+    Script dir: /Users/mac/Documents/GitHub/SOEN7481/defects4j/framework
+      Base dir: /Users/mac/Documents/GitHub/SOEN7481/defects4j
+    Major root: /Users/mac/Documents/GitHub/SOEN7481/defects4j/major
+      Repo dir: /Users/mac/Documents/GitHub/SOEN7481/defects4j/project_repos
+--------------------------------------------------------------------------------
+    Project ID: Lang
+       Program: commons-lang
+    Build file: /Users/mac/Documents/GitHub/SOEN7481/defects4j/framework/build-scripts/Lang/Lang.build.xml
+--------------------------------------------------------------------------------
+           Vcs: Vcs::Git
+    Repository: /Users/mac/Documents/GitHub/SOEN7481/defects4j/project_repos/commons-lang.git
+     Commit db: /Users/mac/Documents/GitHub/SOEN7481/defects4j/framework/projects/Lang/commit-db
+Number of bugs: 65
+--------------------------------------------------------------------------------
+
+Summary for Bug: 10
+--------------------------------------------------------------------------------
+Root cause in triggering tests:
+ - org.apache.commons.lang3.time.FastDateFormat_ParserTest::testLANG_831
+   --> junit.framework.AssertionFailedError: Parsed dates should be equal expected:<null> but was:<Mon Mar 02 21:00:00 PST 1970>
+ - org.apache.commons.lang3.time.FastDateParserTest::testLANG_831
+   --> junit.framework.AssertionFailedError: Expected FDF failure, but got Mon Mar 02 21:00:00 PST 1970 for [M E,3  Tue] using (\p{IsNd}++)\s*+(Fri|Friday|Mon|Monday|Sat|Saturday|Sun|Sunday|Thu|Thursday|Tue|Tuesday|Wed|Wednesday)
+--------------------------------------------------------------------------------
+List of modified sources:
+ - org.apache.commons.lang3.time.FastDateParser
+--------------------------------------------------------------------------------
+<end>
+<start>
+Summary of configuration for Project: Lang
+--------------------------------------------------------------------------------
+    Script dir: /Users/mac/Documents/GitHub/SOEN7481/defects4j/framework
+      Base dir: /Users/mac/Documents/GitHub/SOEN7481/defects4j
+    Major root: /Users/mac/Documents/GitHub/SOEN7481/defects4j/major
+      Repo dir: /Users/mac/Documents/GitHub/SOEN7481/defects4j/project_repos
+--------------------------------------------------------------------------------
+    Project ID: Lang
+       Program: commons-lang
+    Build file: /Users/mac/Documents/GitHub/SOEN7481/defects4j/framework/build-scripts/Lang/Lang.build.xml
+--------------------------------------------------------------------------------
+           Vcs: Vcs::Git
+    Repository: /Users/mac/Documents/GitHub/SOEN7481/defects4j/project_repos/commons-lang.git
+     Commit db: /Users/mac/Documents/GitHub/SOEN7481/defects4j/framework/projects/Lang/commit-db
+Number of bugs: 65
+--------------------------------------------------------------------------------
+
+Summary for Bug: 11
+--------------------------------------------------------------------------------
+Root cause in triggering tests:
+ - org.apache.commons.lang3.RandomStringUtilsTest::testLANG807
+   --> junit.framework.AssertionFailedError: Message (n must be positive) must contain 'start'
+--------------------------------------------------------------------------------
+List of modified sources:
+ - org.apache.commons.lang3.RandomStringUtils
+--------------------------------------------------------------------------------
+<end>
+<start>
+Summary of configuration for Project: Lang
+--------------------------------------------------------------------------------
+    Script dir: /Users/mac/Documents/GitHub/SOEN7481/defects4j/framework
+      Base dir: /Users/mac/Documents/GitHub/SOEN7481/defects4j
+    Major root: /Users/mac/Documents/GitHub/SOEN7481/defects4j/major
+      Repo dir: /Users/mac/Documents/GitHub/SOEN7481/defects4j/project_repos
+--------------------------------------------------------------------------------
+    Project ID: Lang
+       Program: commons-lang
+    Build file: /Users/mac/Documents/GitHub/SOEN7481/defects4j/framework/build-scripts/Lang/Lang.build.xml
+--------------------------------------------------------------------------------
+           Vcs: Vcs::Git
+    Repository: /Users/mac/Documents/GitHub/SOEN7481/defects4j/project_repos/commons-lang.git
+     Commit db: /Users/mac/Documents/GitHub/SOEN7481/defects4j/framework/projects/Lang/commit-db
+Number of bugs: 65
+--------------------------------------------------------------------------------
+
+Summary for Bug: 12
+--------------------------------------------------------------------------------
+Root cause in triggering tests:
+ - org.apache.commons.lang3.RandomStringUtilsTest::testExceptions
+   --> java.lang.ArrayIndexOutOfBoundsException: 1789438052
+ - org.apache.commons.lang3.RandomStringUtilsTest::testLANG805
+   --> java.lang.ArrayIndexOutOfBoundsException: 1450739475
+--------------------------------------------------------------------------------
+List of modified sources:
+ - org.apache.commons.lang3.RandomStringUtils
+--------------------------------------------------------------------------------
+<end>
+<start>
+Summary of configuration for Project: Lang
+--------------------------------------------------------------------------------
+    Script dir: /Users/mac/Documents/GitHub/SOEN7481/defects4j/framework
+      Base dir: /Users/mac/Documents/GitHub/SOEN7481/defects4j
+    Major root: /Users/mac/Documents/GitHub/SOEN7481/defects4j/major
+      Repo dir: /Users/mac/Documents/GitHub/SOEN7481/defects4j/project_repos
+--------------------------------------------------------------------------------
+    Project ID: Lang
+       Program: commons-lang
+    Build file: /Users/mac/Documents/GitHub/SOEN7481/defects4j/framework/build-scripts/Lang/Lang.build.xml
+--------------------------------------------------------------------------------
+           Vcs: Vcs::Git
+    Repository: /Users/mac/Documents/GitHub/SOEN7481/defects4j/project_repos/commons-lang.git
+     Commit db: /Users/mac/Documents/GitHub/SOEN7481/defects4j/framework/projects/Lang/commit-db
+Number of bugs: 65
+--------------------------------------------------------------------------------
+
+Summary for Bug: 13
+--------------------------------------------------------------------------------
+Root cause in triggering tests:
+ - org.apache.commons.lang3.SerializationUtilsTest::testPrimitiveTypeClassSerialization
+   --> org.apache.commons.lang3.SerializationException: ClassNotFoundException while reading cloned object data
+--------------------------------------------------------------------------------
+List of modified sources:
+ - org.apache.commons.lang3.SerializationUtils
+--------------------------------------------------------------------------------
+<end>
+<start>
+Summary of configuration for Project: Lang
+--------------------------------------------------------------------------------
+    Script dir: /Users/mac/Documents/GitHub/SOEN7481/defects4j/framework
+      Base dir: /Users/mac/Documents/GitHub/SOEN7481/defects4j
+    Major root: /Users/mac/Documents/GitHub/SOEN7481/defects4j/major
+      Repo dir: /Users/mac/Documents/GitHub/SOEN7481/defects4j/project_repos
+--------------------------------------------------------------------------------
+    Project ID: Lang
+       Program: commons-lang
+    Build file: /Users/mac/Documents/GitHub/SOEN7481/defects4j/framework/build-scripts/Lang/Lang.build.xml
+--------------------------------------------------------------------------------
+           Vcs: Vcs::Git
+    Repository: /Users/mac/Documents/GitHub/SOEN7481/defects4j/project_repos/commons-lang.git
+     Commit db: /Users/mac/Documents/GitHub/SOEN7481/defects4j/framework/projects/Lang/commit-db
+Number of bugs: 65
+--------------------------------------------------------------------------------
+
+Summary for Bug: 14
+--------------------------------------------------------------------------------
+Root cause in triggering tests:
+ - org.apache.commons.lang3.StringUtilsEqualsIndexOfTest::testEquals
+   --> junit.framework.AssertionFailedError
+--------------------------------------------------------------------------------
+List of modified sources:
+ - org.apache.commons.lang3.StringUtils
+--------------------------------------------------------------------------------
+<end>
+<start>
+Summary of configuration for Project: Lang
+--------------------------------------------------------------------------------
+    Script dir: /Users/mac/Documents/GitHub/SOEN7481/defects4j/framework
+      Base dir: /Users/mac/Documents/GitHub/SOEN7481/defects4j
+    Major root: /Users/mac/Documents/GitHub/SOEN7481/defects4j/major
+      Repo dir: /Users/mac/Documents/GitHub/SOEN7481/defects4j/project_repos
+--------------------------------------------------------------------------------
+    Project ID: Lang
+       Program: commons-lang
+    Build file: /Users/mac/Documents/GitHub/SOEN7481/defects4j/framework/build-scripts/Lang/Lang.build.xml
+--------------------------------------------------------------------------------
+           Vcs: Vcs::Git
+    Repository: /Users/mac/Documents/GitHub/SOEN7481/defects4j/project_repos/commons-lang.git
+     Commit db: /Users/mac/Documents/GitHub/SOEN7481/defects4j/framework/projects/Lang/commit-db
+Number of bugs: 65
+--------------------------------------------------------------------------------
+
+Summary for Bug: 15
+--------------------------------------------------------------------------------
+Root cause in triggering tests:
+ - org.apache.commons.lang3.reflect.TypeUtilsTest::testGetTypeArguments
+   --> junit.framework.AssertionFailedError: expected:<2> but was:<0>
+ - org.apache.commons.lang3.reflect.TypeUtilsTest::testIsAssignable
+   --> junit.framework.AssertionFailedError: type class org.apache.commons.lang3.reflect.TypeUtilsTest$Thing not assignable to org.apache.commons.lang3.reflect.TypeUtilsTest.org.apache.commons.lang3.reflect.TypeUtilsTest$This<java.lang.String, java.lang.String>!
+--------------------------------------------------------------------------------
+List of modified sources:
+ - org.apache.commons.lang3.reflect.TypeUtils
+--------------------------------------------------------------------------------
+<end>
+<start>
+Summary of configuration for Project: Lang
+--------------------------------------------------------------------------------
+    Script dir: /Users/mac/Documents/GitHub/SOEN7481/defects4j/framework
+      Base dir: /Users/mac/Documents/GitHub/SOEN7481/defects4j
+    Major root: /Users/mac/Documents/GitHub/SOEN7481/defects4j/major
+      Repo dir: /Users/mac/Documents/GitHub/SOEN7481/defects4j/project_repos
+--------------------------------------------------------------------------------
+    Project ID: Lang
+       Program: commons-lang
+    Build file: /Users/mac/Documents/GitHub/SOEN7481/defects4j/framework/build-scripts/Lang/Lang.build.xml
+--------------------------------------------------------------------------------
+           Vcs: Vcs::Git
+    Repository: /Users/mac/Documents/GitHub/SOEN7481/defects4j/project_repos/commons-lang.git
+     Commit db: /Users/mac/Documents/GitHub/SOEN7481/defects4j/framework/projects/Lang/commit-db
+Number of bugs: 65
+--------------------------------------------------------------------------------
+
+Summary for Bug: 16
+--------------------------------------------------------------------------------
+Root cause in triggering tests:
+ - org.apache.commons.lang3.math.NumberUtilsTest::testCreateNumber
+   --> java.lang.NumberFormatException: 0Xfade is not a valid number.
+--------------------------------------------------------------------------------
+List of modified sources:
+ - org.apache.commons.lang3.math.NumberUtils
+--------------------------------------------------------------------------------
+<end>
+<start>
+Summary of configuration for Project: Lang
+--------------------------------------------------------------------------------
+    Script dir: /Users/mac/Documents/GitHub/SOEN7481/defects4j/framework
+      Base dir: /Users/mac/Documents/GitHub/SOEN7481/defects4j
+    Major root: /Users/mac/Documents/GitHub/SOEN7481/defects4j/major
+      Repo dir: /Users/mac/Documents/GitHub/SOEN7481/defects4j/project_repos
+--------------------------------------------------------------------------------
+    Project ID: Lang
+       Program: commons-lang
+    Build file: /Users/mac/Documents/GitHub/SOEN7481/defects4j/framework/build-scripts/Lang/Lang.build.xml
+--------------------------------------------------------------------------------
+           Vcs: Vcs::Git
+    Repository: /Users/mac/Documents/GitHub/SOEN7481/defects4j/project_repos/commons-lang.git
+     Commit db: /Users/mac/Documents/GitHub/SOEN7481/defects4j/framework/projects/Lang/commit-db
+Number of bugs: 65
+--------------------------------------------------------------------------------
+
+Summary for Bug: 17
+--------------------------------------------------------------------------------
+Root cause in triggering tests:
+ - org.apache.commons.lang3.StringEscapeUtilsTest::testLang720
+   --> junit.framework.ComparisonFailure: expected:<𠮷[A]> but was:<𠮷[?]>
+--------------------------------------------------------------------------------
+List of modified sources:
+ - org.apache.commons.lang3.text.translate.CharSequenceTranslator
+--------------------------------------------------------------------------------
+<end>
+<start>
+Summary of configuration for Project: Lang
+--------------------------------------------------------------------------------
+    Script dir: /Users/mac/Documents/GitHub/SOEN7481/defects4j/framework
+      Base dir: /Users/mac/Documents/GitHub/SOEN7481/defects4j
+    Major root: /Users/mac/Documents/GitHub/SOEN7481/defects4j/major
+      Repo dir: /Users/mac/Documents/GitHub/SOEN7481/defects4j/project_repos
+--------------------------------------------------------------------------------
+    Project ID: Lang
+       Program: commons-lang
+    Build file: /Users/mac/Documents/GitHub/SOEN7481/defects4j/framework/build-scripts/Lang/Lang.build.xml
+--------------------------------------------------------------------------------
+           Vcs: Vcs::Git
+    Repository: /Users/mac/Documents/GitHub/SOEN7481/defects4j/project_repos/commons-lang.git
+     Commit db: /Users/mac/Documents/GitHub/SOEN7481/defects4j/framework/projects/Lang/commit-db
+Number of bugs: 65
+--------------------------------------------------------------------------------
+
+Summary for Bug: 18
+--------------------------------------------------------------------------------
+Root cause in triggering tests:
+ - org.apache.commons.lang3.time.FastDateFormatTest::testFormat
+   --> junit.framework.ComparisonFailure: expected:<AD AD AD AD 2003 [2003 03 20]03 January Jan 01 1 ...> but was:<AD AD AD AD 2003 [03 03 ]03 January Jan 01 1 ...>
+--------------------------------------------------------------------------------
+List of modified sources:
+ - org.apache.commons.lang3.time.FastDateFormat
+--------------------------------------------------------------------------------
+<end>
+<start>
+Summary of configuration for Project: Lang
+--------------------------------------------------------------------------------
+    Script dir: /Users/mac/Documents/GitHub/SOEN7481/defects4j/framework
+      Base dir: /Users/mac/Documents/GitHub/SOEN7481/defects4j
+    Major root: /Users/mac/Documents/GitHub/SOEN7481/defects4j/major
+      Repo dir: /Users/mac/Documents/GitHub/SOEN7481/defects4j/project_repos
+--------------------------------------------------------------------------------
+    Project ID: Lang
+       Program: commons-lang
+    Build file: /Users/mac/Documents/GitHub/SOEN7481/defects4j/framework/build-scripts/Lang/Lang.build.xml
+--------------------------------------------------------------------------------
+           Vcs: Vcs::Git
+    Repository: /Users/mac/Documents/GitHub/SOEN7481/defects4j/project_repos/commons-lang.git
+     Commit db: /Users/mac/Documents/GitHub/SOEN7481/defects4j/framework/projects/Lang/commit-db
+Number of bugs: 65
+--------------------------------------------------------------------------------
+
+Summary for Bug: 19
+--------------------------------------------------------------------------------
+Root cause in triggering tests:
+ - org.apache.commons.lang3.text.translate.NumericEntityUnescaperTest::testUnfinishedEntity
+   --> java.lang.StringIndexOutOfBoundsException: String index out of range: 19
+ - org.apache.commons.lang3.text.translate.NumericEntityUnescaperTest::testOutOfBounds
+   --> java.lang.StringIndexOutOfBoundsException: String index out of range: 7
+--------------------------------------------------------------------------------
+List of modified sources:
+ - org.apache.commons.lang3.text.translate.NumericEntityUnescaper
+--------------------------------------------------------------------------------
+<end>
+<start>
+Summary of configuration for Project: Lang
+--------------------------------------------------------------------------------
+    Script dir: /Users/mac/Documents/GitHub/SOEN7481/defects4j/framework
+      Base dir: /Users/mac/Documents/GitHub/SOEN7481/defects4j
+    Major root: /Users/mac/Documents/GitHub/SOEN7481/defects4j/major
+      Repo dir: /Users/mac/Documents/GitHub/SOEN7481/defects4j/project_repos
+--------------------------------------------------------------------------------
+    Project ID: Lang
+       Program: commons-lang
+    Build file: /Users/mac/Documents/GitHub/SOEN7481/defects4j/framework/build-scripts/Lang/Lang.build.xml
+--------------------------------------------------------------------------------
+           Vcs: Vcs::Git
+    Repository: /Users/mac/Documents/GitHub/SOEN7481/defects4j/project_repos/commons-lang.git
+     Commit db: /Users/mac/Documents/GitHub/SOEN7481/defects4j/framework/projects/Lang/commit-db
+Number of bugs: 65
+--------------------------------------------------------------------------------
+
+Summary for Bug: 20
+--------------------------------------------------------------------------------
+Root cause in triggering tests:
+ - org.apache.commons.lang3.StringUtilsTest::testJoin_ArrayChar
+   --> java.lang.NullPointerException
+ - org.apache.commons.lang3.StringUtilsTest::testJoin_Objectarray
+   --> java.lang.NullPointerException
+--------------------------------------------------------------------------------
+List of modified sources:
+ - org.apache.commons.lang3.StringUtils
+--------------------------------------------------------------------------------
+<end>
+<start>
+Summary of configuration for Project: Lang
+--------------------------------------------------------------------------------
+    Script dir: /Users/mac/Documents/GitHub/SOEN7481/defects4j/framework
+      Base dir: /Users/mac/Documents/GitHub/SOEN7481/defects4j
+    Major root: /Users/mac/Documents/GitHub/SOEN7481/defects4j/major
+      Repo dir: /Users/mac/Documents/GitHub/SOEN7481/defects4j/project_repos
+--------------------------------------------------------------------------------
+    Project ID: Lang
+       Program: commons-lang
+    Build file: /Users/mac/Documents/GitHub/SOEN7481/defects4j/framework/build-scripts/Lang/Lang.build.xml
+--------------------------------------------------------------------------------
+           Vcs: Vcs::Git
+    Repository: /Users/mac/Documents/GitHub/SOEN7481/defects4j/project_repos/commons-lang.git
+     Commit db: /Users/mac/Documents/GitHub/SOEN7481/defects4j/framework/projects/Lang/commit-db
+Number of bugs: 65
+--------------------------------------------------------------------------------
+
+Summary for Bug: 21
+--------------------------------------------------------------------------------
+Root cause in triggering tests:
+ - org.apache.commons.lang3.time.DateUtilsTest::testIsSameLocalTime_Cal
+   --> junit.framework.AssertionFailedError: LANG-677
+--------------------------------------------------------------------------------
+List of modified sources:
+ - org.apache.commons.lang3.time.DateUtils
+--------------------------------------------------------------------------------
+<end>
+<start>
+Summary of configuration for Project: Lang
+--------------------------------------------------------------------------------
+    Script dir: /Users/mac/Documents/GitHub/SOEN7481/defects4j/framework
+      Base dir: /Users/mac/Documents/GitHub/SOEN7481/defects4j
+    Major root: /Users/mac/Documents/GitHub/SOEN7481/defects4j/major
+      Repo dir: /Users/mac/Documents/GitHub/SOEN7481/defects4j/project_repos
+--------------------------------------------------------------------------------
+    Project ID: Lang
+       Program: commons-lang
+    Build file: /Users/mac/Documents/GitHub/SOEN7481/defects4j/framework/build-scripts/Lang/Lang.build.xml
+--------------------------------------------------------------------------------
+           Vcs: Vcs::Git
+    Repository: /Users/mac/Documents/GitHub/SOEN7481/defects4j/project_repos/commons-lang.git
+     Commit db: /Users/mac/Documents/GitHub/SOEN7481/defects4j/framework/projects/Lang/commit-db
+Number of bugs: 65
+--------------------------------------------------------------------------------
+
+Summary for Bug: 22
+--------------------------------------------------------------------------------
+Root cause in triggering tests:
+ - org.apache.commons.lang3.math.FractionTest::testReducedFactory_int_int
+   --> junit.framework.AssertionFailedError: expected:<-1073741824> but was:<-2147483648>
+ - org.apache.commons.lang3.math.FractionTest::testReduce
+   --> junit.framework.AssertionFailedError: expected:<-1073741824> but was:<-2147483648>
+--------------------------------------------------------------------------------
+List of modified sources:
+ - org.apache.commons.lang3.math.Fraction
+--------------------------------------------------------------------------------
+<end>
+<start>
+Summary of configuration for Project: Lang
+--------------------------------------------------------------------------------
+    Script dir: /Users/mac/Documents/GitHub/SOEN7481/defects4j/framework
+      Base dir: /Users/mac/Documents/GitHub/SOEN7481/defects4j
+    Major root: /Users/mac/Documents/GitHub/SOEN7481/defects4j/major
+      Repo dir: /Users/mac/Documents/GitHub/SOEN7481/defects4j/project_repos
+--------------------------------------------------------------------------------
+    Project ID: Lang
+       Program: commons-lang
+    Build file: /Users/mac/Documents/GitHub/SOEN7481/defects4j/framework/build-scripts/Lang/Lang.build.xml
+--------------------------------------------------------------------------------
+           Vcs: Vcs::Git
+    Repository: /Users/mac/Documents/GitHub/SOEN7481/defects4j/project_repos/commons-lang.git
+     Commit db: /Users/mac/Documents/GitHub/SOEN7481/defects4j/framework/projects/Lang/commit-db
+Number of bugs: 65
+--------------------------------------------------------------------------------
+
+Summary for Bug: 23
+--------------------------------------------------------------------------------
+Root cause in triggering tests:
+ - org.apache.commons.lang3.text.ExtendedMessageFormatTest::testEqualsHashcode
+   --> junit.framework.AssertionFailedError: registry, hashcode()
+--------------------------------------------------------------------------------
+List of modified sources:
+ - org.apache.commons.lang3.text.ExtendedMessageFormat
+--------------------------------------------------------------------------------
+<end>
+<start>
+Summary of configuration for Project: Lang
+--------------------------------------------------------------------------------
+    Script dir: /Users/mac/Documents/GitHub/SOEN7481/defects4j/framework
+      Base dir: /Users/mac/Documents/GitHub/SOEN7481/defects4j
+    Major root: /Users/mac/Documents/GitHub/SOEN7481/defects4j/major
+      Repo dir: /Users/mac/Documents/GitHub/SOEN7481/defects4j/project_repos
+--------------------------------------------------------------------------------
+    Project ID: Lang
+       Program: commons-lang
+    Build file: /Users/mac/Documents/GitHub/SOEN7481/defects4j/framework/build-scripts/Lang/Lang.build.xml
+--------------------------------------------------------------------------------
+           Vcs: Vcs::Git
+    Repository: /Users/mac/Documents/GitHub/SOEN7481/defects4j/project_repos/commons-lang.git
+     Commit db: /Users/mac/Documents/GitHub/SOEN7481/defects4j/framework/projects/Lang/commit-db
+Number of bugs: 65
+--------------------------------------------------------------------------------
+
+Summary for Bug: 24
+--------------------------------------------------------------------------------
+Root cause in triggering tests:
+ - org.apache.commons.lang3.math.NumberUtilsTest::testIsNumber
+   --> junit.framework.AssertionFailedError: isNumber(String) LANG-664 failed
+--------------------------------------------------------------------------------
+List of modified sources:
+ - org.apache.commons.lang3.math.NumberUtils
+--------------------------------------------------------------------------------
+<end>
+<start>
+Summary of configuration for Project: Lang
+--------------------------------------------------------------------------------
+    Script dir: /Users/mac/Documents/GitHub/SOEN7481/defects4j/framework
+      Base dir: /Users/mac/Documents/GitHub/SOEN7481/defects4j
+    Major root: /Users/mac/Documents/GitHub/SOEN7481/defects4j/major
+      Repo dir: /Users/mac/Documents/GitHub/SOEN7481/defects4j/project_repos
+--------------------------------------------------------------------------------
+    Project ID: Lang
+       Program: commons-lang
+    Build file: /Users/mac/Documents/GitHub/SOEN7481/defects4j/framework/build-scripts/Lang/Lang.build.xml
+--------------------------------------------------------------------------------
+           Vcs: Vcs::Git
+    Repository: /Users/mac/Documents/GitHub/SOEN7481/defects4j/project_repos/commons-lang.git
+     Commit db: /Users/mac/Documents/GitHub/SOEN7481/defects4j/framework/projects/Lang/commit-db
+Number of bugs: 65
+--------------------------------------------------------------------------------
+
+Summary for Bug: 25
+--------------------------------------------------------------------------------
+Root cause in triggering tests:
+ - org.apache.commons.lang3.text.translate.EntityArraysTest::testISO8859_1_ESCAPE
+   --> junit.framework.AssertionFailedError: One or more errors detected
+--------------------------------------------------------------------------------
+List of modified sources:
+ - org.apache.commons.lang3.text.translate.EntityArrays
+--------------------------------------------------------------------------------
+<end>
+<start>
+Summary of configuration for Project: Lang
+--------------------------------------------------------------------------------
+    Script dir: /Users/mac/Documents/GitHub/SOEN7481/defects4j/framework
+      Base dir: /Users/mac/Documents/GitHub/SOEN7481/defects4j
+    Major root: /Users/mac/Documents/GitHub/SOEN7481/defects4j/major
+      Repo dir: /Users/mac/Documents/GitHub/SOEN7481/defects4j/project_repos
+--------------------------------------------------------------------------------
+    Project ID: Lang
+       Program: commons-lang
+    Build file: /Users/mac/Documents/GitHub/SOEN7481/defects4j/framework/build-scripts/Lang/Lang.build.xml
+--------------------------------------------------------------------------------
+           Vcs: Vcs::Git
+    Repository: /Users/mac/Documents/GitHub/SOEN7481/defects4j/project_repos/commons-lang.git
+     Commit db: /Users/mac/Documents/GitHub/SOEN7481/defects4j/framework/projects/Lang/commit-db
+Number of bugs: 65
+--------------------------------------------------------------------------------
+
+Summary for Bug: 26
+--------------------------------------------------------------------------------
+Root cause in triggering tests:
+ - org.apache.commons.lang3.time.FastDateFormatTest::testLang645
+   --> junit.framework.ComparisonFailure: expected:<fredag, week [53]> but was:<fredag, week [01]>
+--------------------------------------------------------------------------------
+List of modified sources:
+ - org.apache.commons.lang3.time.FastDateFormat
+--------------------------------------------------------------------------------
+<end>
+<start>
+Summary of configuration for Project: Lang
+--------------------------------------------------------------------------------
+    Script dir: /Users/mac/Documents/GitHub/SOEN7481/defects4j/framework
+      Base dir: /Users/mac/Documents/GitHub/SOEN7481/defects4j
+    Major root: /Users/mac/Documents/GitHub/SOEN7481/defects4j/major
+      Repo dir: /Users/mac/Documents/GitHub/SOEN7481/defects4j/project_repos
+--------------------------------------------------------------------------------
+    Project ID: Lang
+       Program: commons-lang
+    Build file: /Users/mac/Documents/GitHub/SOEN7481/defects4j/framework/build-scripts/Lang/Lang.build.xml
+--------------------------------------------------------------------------------
+           Vcs: Vcs::Git
+    Repository: /Users/mac/Documents/GitHub/SOEN7481/defects4j/project_repos/commons-lang.git
+     Commit db: /Users/mac/Documents/GitHub/SOEN7481/defects4j/framework/projects/Lang/commit-db
+Number of bugs: 65
+--------------------------------------------------------------------------------
+
+Summary for Bug: 27
+--------------------------------------------------------------------------------
+Root cause in triggering tests:
+ - org.apache.commons.lang3.math.NumberUtilsTest::testCreateNumber
+   --> java.lang.StringIndexOutOfBoundsException: String index out of range: 4
+--------------------------------------------------------------------------------
+List of modified sources:
+ - org.apache.commons.lang3.math.NumberUtils
+--------------------------------------------------------------------------------
+<end>
+<start>
+Summary of configuration for Project: Lang
+--------------------------------------------------------------------------------
+    Script dir: /Users/mac/Documents/GitHub/SOEN7481/defects4j/framework
+      Base dir: /Users/mac/Documents/GitHub/SOEN7481/defects4j
+    Major root: /Users/mac/Documents/GitHub/SOEN7481/defects4j/major
+      Repo dir: /Users/mac/Documents/GitHub/SOEN7481/defects4j/project_repos
+--------------------------------------------------------------------------------
+    Project ID: Lang
+       Program: commons-lang
+    Build file: /Users/mac/Documents/GitHub/SOEN7481/defects4j/framework/build-scripts/Lang/Lang.build.xml
+--------------------------------------------------------------------------------
+           Vcs: Vcs::Git
+    Repository: /Users/mac/Documents/GitHub/SOEN7481/defects4j/project_repos/commons-lang.git
+     Commit db: /Users/mac/Documents/GitHub/SOEN7481/defects4j/framework/projects/Lang/commit-db
+Number of bugs: 65
+--------------------------------------------------------------------------------
+
+Summary for Bug: 28
+--------------------------------------------------------------------------------
+Root cause in triggering tests:
+ - org.apache.commons.lang3.text.translate.NumericEntityUnescaperTest::testSupplementaryUnescaping
+   --> junit.framework.ComparisonFailure: Failed to unescape numeric entities supplementary characters expected:<[𐰢]> but was:<[ఢ]>
+--------------------------------------------------------------------------------
+List of modified sources:
+ - org.apache.commons.lang3.text.translate.NumericEntityUnescaper
+--------------------------------------------------------------------------------
+<end>
+<start>
+Summary of configuration for Project: Lang
+--------------------------------------------------------------------------------
+    Script dir: /Users/mac/Documents/GitHub/SOEN7481/defects4j/framework
+      Base dir: /Users/mac/Documents/GitHub/SOEN7481/defects4j
+    Major root: /Users/mac/Documents/GitHub/SOEN7481/defects4j/major
+      Repo dir: /Users/mac/Documents/GitHub/SOEN7481/defects4j/project_repos
+--------------------------------------------------------------------------------
+    Project ID: Lang
+       Program: commons-lang
+    Build file: /Users/mac/Documents/GitHub/SOEN7481/defects4j/framework/build-scripts/Lang/Lang.build.xml
+--------------------------------------------------------------------------------
+           Vcs: Vcs::Git
+    Repository: /Users/mac/Documents/GitHub/SOEN7481/defects4j/project_repos/commons-lang.git
+     Commit db: /Users/mac/Documents/GitHub/SOEN7481/defects4j/framework/projects/Lang/commit-db
+Number of bugs: 65
+--------------------------------------------------------------------------------
+
+Summary for Bug: 29
+--------------------------------------------------------------------------------
+Root cause in triggering tests:
+ - org.apache.commons.lang3.SystemUtilsTest::testJavaVersionAsInt
+   --> junit.framework.AssertionFailedError: expected:<0> but was:<0.0>
+--------------------------------------------------------------------------------
+List of modified sources:
+ - org.apache.commons.lang3.SystemUtils
+--------------------------------------------------------------------------------
+<end>
+<start>
+Summary of configuration for Project: Lang
+--------------------------------------------------------------------------------
+    Script dir: /Users/mac/Documents/GitHub/SOEN7481/defects4j/framework
+      Base dir: /Users/mac/Documents/GitHub/SOEN7481/defects4j
+    Major root: /Users/mac/Documents/GitHub/SOEN7481/defects4j/major
+      Repo dir: /Users/mac/Documents/GitHub/SOEN7481/defects4j/project_repos
+--------------------------------------------------------------------------------
+    Project ID: Lang
+       Program: commons-lang
+    Build file: /Users/mac/Documents/GitHub/SOEN7481/defects4j/framework/build-scripts/Lang/Lang.build.xml
+--------------------------------------------------------------------------------
+           Vcs: Vcs::Git
+    Repository: /Users/mac/Documents/GitHub/SOEN7481/defects4j/project_repos/commons-lang.git
+     Commit db: /Users/mac/Documents/GitHub/SOEN7481/defects4j/framework/projects/Lang/commit-db
+Number of bugs: 65
+--------------------------------------------------------------------------------
+
+Summary for Bug: 30
+--------------------------------------------------------------------------------
+Root cause in triggering tests:
+ - org.apache.commons.lang3.StringUtilsEqualsIndexOfTest::testContainsNone_CharArrayWithSupplementaryChars
+   --> junit.framework.AssertionFailedError: expected:<true> but was:<false>
+ - org.apache.commons.lang3.StringUtilsEqualsIndexOfTest::testContainsNone_StringWithSupplementaryChars
+   --> junit.framework.AssertionFailedError: expected:<true> but was:<false>
+ - org.apache.commons.lang3.StringUtilsEqualsIndexOfTest::testContainsAny_StringCharArrayWithBadSupplementaryChars
+   --> junit.framework.AssertionFailedError: expected:<false> but was:<true>
+ - org.apache.commons.lang3.StringUtilsEqualsIndexOfTest::testIndexOfAnyBut_StringStringWithSupplementaryChars
+   --> junit.framework.AssertionFailedError: expected:<2> but was:<3>
+ - org.apache.commons.lang3.StringUtilsEqualsIndexOfTest::testContainsAny_StringWithBadSupplementaryChars
+   --> junit.framework.AssertionFailedError: expected:<false> but was:<true>
+ - org.apache.commons.lang3.StringUtilsEqualsIndexOfTest::testIndexOfAny_StringCharArrayWithSupplementaryChars
+   --> junit.framework.AssertionFailedError: expected:<2> but was:<0>
+ - org.apache.commons.lang3.StringUtilsEqualsIndexOfTest::testIndexOfAnyBut_StringCharArrayWithSupplementaryChars
+   --> junit.framework.AssertionFailedError: expected:<2> but was:<3>
+ - org.apache.commons.lang3.StringUtilsEqualsIndexOfTest::testContainsNone_StringWithBadSupplementaryChars
+   --> junit.framework.AssertionFailedError: expected:<true> but was:<false>
+ - org.apache.commons.lang3.StringUtilsEqualsIndexOfTest::testIndexOfAny_StringStringWithSupplementaryChars
+   --> junit.framework.AssertionFailedError: expected:<2> but was:<0>
+ - org.apache.commons.lang3.StringUtilsEqualsIndexOfTest::testContainsNone_CharArrayWithBadSupplementaryChars
+   --> junit.framework.AssertionFailedError: expected:<true> but was:<false>
+--------------------------------------------------------------------------------
+List of modified sources:
+ - org.apache.commons.lang3.StringUtils
+--------------------------------------------------------------------------------
+<end>
+<start>
+Summary of configuration for Project: Lang
+--------------------------------------------------------------------------------
+    Script dir: /Users/mac/Documents/GitHub/SOEN7481/defects4j/framework
+      Base dir: /Users/mac/Documents/GitHub/SOEN7481/defects4j
+    Major root: /Users/mac/Documents/GitHub/SOEN7481/defects4j/major
+      Repo dir: /Users/mac/Documents/GitHub/SOEN7481/defects4j/project_repos
+--------------------------------------------------------------------------------
+    Project ID: Lang
+       Program: commons-lang
+    Build file: /Users/mac/Documents/GitHub/SOEN7481/defects4j/framework/build-scripts/Lang/Lang.build.xml
+--------------------------------------------------------------------------------
+           Vcs: Vcs::Git
+    Repository: /Users/mac/Documents/GitHub/SOEN7481/defects4j/project_repos/commons-lang.git
+     Commit db: /Users/mac/Documents/GitHub/SOEN7481/defects4j/framework/projects/Lang/commit-db
+Number of bugs: 65
+--------------------------------------------------------------------------------
+
+Summary for Bug: 31
+--------------------------------------------------------------------------------
+Root cause in triggering tests:
+ - org.apache.commons.lang3.StringUtilsEqualsIndexOfTest::testContainsAnyCharArrayWithSupplementaryChars
+   --> junit.framework.AssertionFailedError: expected:<false> but was:<true>
+ - org.apache.commons.lang3.StringUtilsEqualsIndexOfTest::testContainsAnyStringWithSupplementaryChars
+   --> junit.framework.AssertionFailedError: expected:<false> but was:<true>
+--------------------------------------------------------------------------------
+List of modified sources:
+ - org.apache.commons.lang3.StringUtils
+--------------------------------------------------------------------------------
+<end>
+<start>
+Summary of configuration for Project: Lang
+--------------------------------------------------------------------------------
+    Script dir: /Users/mac/Documents/GitHub/SOEN7481/defects4j/framework
+      Base dir: /Users/mac/Documents/GitHub/SOEN7481/defects4j
+    Major root: /Users/mac/Documents/GitHub/SOEN7481/defects4j/major
+      Repo dir: /Users/mac/Documents/GitHub/SOEN7481/defects4j/project_repos
+--------------------------------------------------------------------------------
+    Project ID: Lang
+       Program: commons-lang
+    Build file: /Users/mac/Documents/GitHub/SOEN7481/defects4j/framework/build-scripts/Lang/Lang.build.xml
+--------------------------------------------------------------------------------
+           Vcs: Vcs::Git
+    Repository: /Users/mac/Documents/GitHub/SOEN7481/defects4j/project_repos/commons-lang.git
+     Commit db: /Users/mac/Documents/GitHub/SOEN7481/defects4j/framework/projects/Lang/commit-db
+Number of bugs: 65
+--------------------------------------------------------------------------------
+
+Summary for Bug: 32
+--------------------------------------------------------------------------------
+Root cause in triggering tests:
+ - org.apache.commons.lang3.builder.HashCodeBuilderTest::testReflectionObjectCycle
+   --> junit.framework.AssertionFailedError: Expected: <null> but was: []
+--------------------------------------------------------------------------------
+List of modified sources:
+ - org.apache.commons.lang3.builder.HashCodeBuilder
+--------------------------------------------------------------------------------
+<end>
+<start>
+Summary of configuration for Project: Lang
+--------------------------------------------------------------------------------
+    Script dir: /Users/mac/Documents/GitHub/SOEN7481/defects4j/framework
+      Base dir: /Users/mac/Documents/GitHub/SOEN7481/defects4j
+    Major root: /Users/mac/Documents/GitHub/SOEN7481/defects4j/major
+      Repo dir: /Users/mac/Documents/GitHub/SOEN7481/defects4j/project_repos
+--------------------------------------------------------------------------------
+    Project ID: Lang
+       Program: commons-lang
+    Build file: /Users/mac/Documents/GitHub/SOEN7481/defects4j/framework/build-scripts/Lang/Lang.build.xml
+--------------------------------------------------------------------------------
+           Vcs: Vcs::Git
+    Repository: /Users/mac/Documents/GitHub/SOEN7481/defects4j/project_repos/commons-lang.git
+     Commit db: /Users/mac/Documents/GitHub/SOEN7481/defects4j/framework/projects/Lang/commit-db
+Number of bugs: 65
+--------------------------------------------------------------------------------
+
+Summary for Bug: 33
+--------------------------------------------------------------------------------
+Root cause in triggering tests:
+ - org.apache.commons.lang3.ClassUtilsTest::testToClass_object
+   --> java.lang.NullPointerException
+--------------------------------------------------------------------------------
+List of modified sources:
+ - org.apache.commons.lang3.ClassUtils
+--------------------------------------------------------------------------------
+<end>
+<start>
+Summary of configuration for Project: Lang
+--------------------------------------------------------------------------------
+    Script dir: /Users/mac/Documents/GitHub/SOEN7481/defects4j/framework
+      Base dir: /Users/mac/Documents/GitHub/SOEN7481/defects4j
+    Major root: /Users/mac/Documents/GitHub/SOEN7481/defects4j/major
+      Repo dir: /Users/mac/Documents/GitHub/SOEN7481/defects4j/project_repos
+--------------------------------------------------------------------------------
+    Project ID: Lang
+       Program: commons-lang
+    Build file: /Users/mac/Documents/GitHub/SOEN7481/defects4j/framework/build-scripts/Lang/Lang.build.xml
+--------------------------------------------------------------------------------
+           Vcs: Vcs::Git
+    Repository: /Users/mac/Documents/GitHub/SOEN7481/defects4j/project_repos/commons-lang.git
+     Commit db: /Users/mac/Documents/GitHub/SOEN7481/defects4j/framework/projects/Lang/commit-db
+Number of bugs: 65
+--------------------------------------------------------------------------------
+
+Summary for Bug: 34
+--------------------------------------------------------------------------------
+Root cause in triggering tests:
+ - org.apache.commons.lang3.builder.ToStringBuilderTest::testObjectCycle
+   --> junit.framework.AssertionFailedError: Expected: <null> but was: []
+ - org.apache.commons.lang3.builder.ToStringBuilderTest::testReflectionHierarchy
+   --> junit.framework.AssertionFailedError: Expected: <null> but was: []
+ - org.apache.commons.lang3.builder.ToStringBuilderTest::testSelfInstanceTwoVarsReflectionObjectCycle
+   --> junit.framework.AssertionFailedError: Expected: <null> but was: []
+ - org.apache.commons.lang3.builder.ToStringBuilderTest::testReflectionArrayCycle
+   --> junit.framework.AssertionFailedError: Expected: <null> but was: []
+ - org.apache.commons.lang3.builder.ToStringBuilderTest::testReflectionLongArrayArray
+   --> junit.framework.AssertionFailedError: Expected: <null> but was: []
+ - org.apache.commons.lang3.builder.ToStringBuilderTest::testReflectionArrayArrayCycle
+   --> junit.framework.AssertionFailedError: Expected: <null> but was: []
+ - org.apache.commons.lang3.builder.ToStringBuilderTest::testReflectionFloatArray
+   --> junit.framework.AssertionFailedError: Expected: <null> but was: []
+ - org.apache.commons.lang3.builder.ToStringBuilderTest::testReflectionDoubleArrayArray
+   --> junit.framework.AssertionFailedError: Expected: <null> but was: []
+ - org.apache.commons.lang3.builder.ToStringBuilderTest::testReflectionBooleanArray
+   --> junit.framework.AssertionFailedError: Expected: <null> but was: []
+ - org.apache.commons.lang3.builder.ToStringBuilderTest::testReflectionyteArray
+   --> junit.framework.AssertionFailedError: Expected: <null> but was: []
+ - org.apache.commons.lang3.builder.ToStringBuilderTest::testReflectionDoubleArray
+   --> junit.framework.AssertionFailedError: Expected: <null> but was: []
+ - org.apache.commons.lang3.builder.ToStringBuilderTest::testReflectionIntArrayArray
+   --> junit.framework.AssertionFailedError: Expected: <null> but was: []
+ - org.apache.commons.lang3.builder.ToStringBuilderTest::testReflectionLongArray
+   --> junit.framework.AssertionFailedError: Expected: <null> but was: []
+ - org.apache.commons.lang3.builder.ToStringBuilderTest::testReflectionhortArrayArray
+   --> junit.framework.AssertionFailedError: Expected: <null> but was: []
+ - org.apache.commons.lang3.builder.ToStringBuilderTest::testReflectionObjectArray
+   --> junit.framework.AssertionFailedError: Expected: <null> but was: []
+ - org.apache.commons.lang3.builder.ToStringBuilderTest::testReflectionObjectCycle
+   --> junit.framework.AssertionFailedError: Expected: <null> but was: []
+ - org.apache.commons.lang3.builder.ToStringBuilderTest::testReflectionBooleanArrayArray
+   --> junit.framework.AssertionFailedError: Expected: <null> but was: []
+ - org.apache.commons.lang3.builder.ToStringBuilderTest::testSimpleReflectionObjectCycle
+   --> junit.framework.AssertionFailedError: Expected: <null> but was: []
+ - org.apache.commons.lang3.builder.ToStringBuilderTest::testReflectionByteArrayArray
+   --> junit.framework.AssertionFailedError: Expected: <null> but was: []
+ - org.apache.commons.lang3.builder.ToStringBuilderTest::testReflectionArrayCycleLevel2
+   --> junit.framework.AssertionFailedError: Expected: <null> but was: []
+ - org.apache.commons.lang3.builder.ToStringBuilderTest::testReflectionArrayAndObjectCycle
+   --> junit.framework.AssertionFailedError: Expected: <null> but was: []
+ - org.apache.commons.lang3.builder.ToStringBuilderTest::testReflectionCharArrayArray
+   --> junit.framework.AssertionFailedError: Expected: <null> but was: []
+ - org.apache.commons.lang3.builder.ToStringBuilderTest::testReflectionShortArray
+   --> junit.framework.AssertionFailedError: Expected: <null> but was: []
+ - org.apache.commons.lang3.builder.ToStringBuilderTest::testSelfInstanceVarReflectionObjectCycle
+   --> junit.framework.AssertionFailedError: Expected: <null> but was: []
+ - org.apache.commons.lang3.builder.ToStringBuilderTest::testReflectionIntArray
+   --> junit.framework.AssertionFailedError: Expected: <null> but was: []
+ - org.apache.commons.lang3.builder.ToStringBuilderTest::testReflectionCharArray
+   --> junit.framework.AssertionFailedError: Expected: <null> but was: []
+ - org.apache.commons.lang3.builder.ToStringBuilderTest::testReflectionFloatArrayArray
+   --> junit.framework.AssertionFailedError: Expected: <null> but was: []
+--------------------------------------------------------------------------------
+List of modified sources:
+ - org.apache.commons.lang3.builder.ToStringStyle
+--------------------------------------------------------------------------------
+<end>
+<start>
+Summary of configuration for Project: Lang
+--------------------------------------------------------------------------------
+    Script dir: /Users/mac/Documents/GitHub/SOEN7481/defects4j/framework
+      Base dir: /Users/mac/Documents/GitHub/SOEN7481/defects4j
+    Major root: /Users/mac/Documents/GitHub/SOEN7481/defects4j/major
+      Repo dir: /Users/mac/Documents/GitHub/SOEN7481/defects4j/project_repos
+--------------------------------------------------------------------------------
+    Project ID: Lang
+       Program: commons-lang
+    Build file: /Users/mac/Documents/GitHub/SOEN7481/defects4j/framework/build-scripts/Lang/Lang.build.xml
+--------------------------------------------------------------------------------
+           Vcs: Vcs::Git
+    Repository: /Users/mac/Documents/GitHub/SOEN7481/defects4j/project_repos/commons-lang.git
+     Commit db: /Users/mac/Documents/GitHub/SOEN7481/defects4j/framework/projects/Lang/commit-db
+Number of bugs: 65
+--------------------------------------------------------------------------------
+
+Summary for Bug: 35
+--------------------------------------------------------------------------------
+Root cause in triggering tests:
+ - org.apache.commons.lang3.ArrayUtilsAddTest::testLANG571
+   --> java.lang.ClassCastException: [Ljava.lang.Object; cannot be cast to [Ljava.lang.String;
+--------------------------------------------------------------------------------
+List of modified sources:
+ - org.apache.commons.lang3.ArrayUtils
+--------------------------------------------------------------------------------
+<end>
+<start>
+Summary of configuration for Project: Lang
+--------------------------------------------------------------------------------
+    Script dir: /Users/mac/Documents/GitHub/SOEN7481/defects4j/framework
+      Base dir: /Users/mac/Documents/GitHub/SOEN7481/defects4j
+    Major root: /Users/mac/Documents/GitHub/SOEN7481/defects4j/major
+      Repo dir: /Users/mac/Documents/GitHub/SOEN7481/defects4j/project_repos
+--------------------------------------------------------------------------------
+    Project ID: Lang
+       Program: commons-lang
+    Build file: /Users/mac/Documents/GitHub/SOEN7481/defects4j/framework/build-scripts/Lang/Lang.build.xml
+--------------------------------------------------------------------------------
+           Vcs: Vcs::Git
+    Repository: /Users/mac/Documents/GitHub/SOEN7481/defects4j/project_repos/commons-lang.git
+     Commit db: /Users/mac/Documents/GitHub/SOEN7481/defects4j/framework/projects/Lang/commit-db
+Number of bugs: 65
+--------------------------------------------------------------------------------
+
+Summary for Bug: 36
+--------------------------------------------------------------------------------
+Root cause in triggering tests:
+ - org.apache.commons.lang3.math.NumberUtilsTest::testCreateNumber
+   --> java.lang.NumberFormatException: 2. is not a valid number.
+ - org.apache.commons.lang3.math.NumberUtilsTest::testIsNumber
+   --> junit.framework.AssertionFailedError: isNumber(String) LANG-521 failed
+--------------------------------------------------------------------------------
+List of modified sources:
+ - org.apache.commons.lang3.math.NumberUtils
+--------------------------------------------------------------------------------
+<end>
+<start>
+Summary of configuration for Project: Lang
+--------------------------------------------------------------------------------
+    Script dir: /Users/mac/Documents/GitHub/SOEN7481/defects4j/framework
+      Base dir: /Users/mac/Documents/GitHub/SOEN7481/defects4j
+    Major root: /Users/mac/Documents/GitHub/SOEN7481/defects4j/major
+      Repo dir: /Users/mac/Documents/GitHub/SOEN7481/defects4j/project_repos
+--------------------------------------------------------------------------------
+    Project ID: Lang
+       Program: commons-lang
+    Build file: /Users/mac/Documents/GitHub/SOEN7481/defects4j/framework/build-scripts/Lang/Lang.build.xml
+--------------------------------------------------------------------------------
+           Vcs: Vcs::Git
+    Repository: /Users/mac/Documents/GitHub/SOEN7481/defects4j/project_repos/commons-lang.git
+     Commit db: /Users/mac/Documents/GitHub/SOEN7481/defects4j/framework/projects/Lang/commit-db
+Number of bugs: 65
+--------------------------------------------------------------------------------
+
+Summary for Bug: 37
+--------------------------------------------------------------------------------
+Root cause in triggering tests:
+ - org.apache.commons.lang3.ArrayUtilsAddTest::testJira567
+   --> java.lang.ArrayStoreException
+--------------------------------------------------------------------------------
+List of modified sources:
+ - org.apache.commons.lang3.ArrayUtils
+--------------------------------------------------------------------------------
+<end>
+<start>
+Summary of configuration for Project: Lang
+--------------------------------------------------------------------------------
+    Script dir: /Users/mac/Documents/GitHub/SOEN7481/defects4j/framework
+      Base dir: /Users/mac/Documents/GitHub/SOEN7481/defects4j
+    Major root: /Users/mac/Documents/GitHub/SOEN7481/defects4j/major
+      Repo dir: /Users/mac/Documents/GitHub/SOEN7481/defects4j/project_repos
+--------------------------------------------------------------------------------
+    Project ID: Lang
+       Program: commons-lang
+    Build file: /Users/mac/Documents/GitHub/SOEN7481/defects4j/framework/build-scripts/Lang/Lang.build.xml
+--------------------------------------------------------------------------------
+           Vcs: Vcs::Git
+    Repository: /Users/mac/Documents/GitHub/SOEN7481/defects4j/project_repos/commons-lang.git
+     Commit db: /Users/mac/Documents/GitHub/SOEN7481/defects4j/framework/projects/Lang/commit-db
+Number of bugs: 65
+--------------------------------------------------------------------------------
+
+Summary for Bug: 38
+--------------------------------------------------------------------------------
+Root cause in triggering tests:
+ - org.apache.commons.lang3.time.FastDateFormatTest::testLang538
+   --> junit.framework.ComparisonFailure: dateTime expected:<2009-10-16T[16]:42:16.000Z> but was:<2009-10-16T[08]:42:16.000Z>
+--------------------------------------------------------------------------------
+List of modified sources:
+ - org.apache.commons.lang3.time.FastDateFormat
+--------------------------------------------------------------------------------
+<end>
+<start>
+Summary of configuration for Project: Lang
+--------------------------------------------------------------------------------
+    Script dir: /Users/mac/Documents/GitHub/SOEN7481/defects4j/framework
+      Base dir: /Users/mac/Documents/GitHub/SOEN7481/defects4j
+    Major root: /Users/mac/Documents/GitHub/SOEN7481/defects4j/major
+      Repo dir: /Users/mac/Documents/GitHub/SOEN7481/defects4j/project_repos
+--------------------------------------------------------------------------------
+    Project ID: Lang
+       Program: commons-lang
+    Build file: /Users/mac/Documents/GitHub/SOEN7481/defects4j/framework/build-scripts/Lang/Lang.build.xml
+--------------------------------------------------------------------------------
+           Vcs: Vcs::Git
+    Repository: /Users/mac/Documents/GitHub/SOEN7481/defects4j/project_repos/commons-lang.git
+     Commit db: /Users/mac/Documents/GitHub/SOEN7481/defects4j/framework/projects/Lang/commit-db
+Number of bugs: 65
+--------------------------------------------------------------------------------
+
+Summary for Bug: 39
+--------------------------------------------------------------------------------
+Root cause in triggering tests:
+ - org.apache.commons.lang3.StringUtilsTest::testReplace_StringStringArrayStringArray
+   --> java.lang.NullPointerException
+--------------------------------------------------------------------------------
+List of modified sources:
+ - org.apache.commons.lang3.StringUtils
+--------------------------------------------------------------------------------
+<end>
+<start>
+Summary of configuration for Project: Lang
+--------------------------------------------------------------------------------
+    Script dir: /Users/mac/Documents/GitHub/SOEN7481/defects4j/framework
+      Base dir: /Users/mac/Documents/GitHub/SOEN7481/defects4j
+    Major root: /Users/mac/Documents/GitHub/SOEN7481/defects4j/major
+      Repo dir: /Users/mac/Documents/GitHub/SOEN7481/defects4j/project_repos
+--------------------------------------------------------------------------------
+    Project ID: Lang
+       Program: commons-lang
+    Build file: /Users/mac/Documents/GitHub/SOEN7481/defects4j/framework/build-scripts/Lang/Lang.build.xml
+--------------------------------------------------------------------------------
+           Vcs: Vcs::Git
+    Repository: /Users/mac/Documents/GitHub/SOEN7481/defects4j/project_repos/commons-lang.git
+     Commit db: /Users/mac/Documents/GitHub/SOEN7481/defects4j/framework/projects/Lang/commit-db
+Number of bugs: 65
+--------------------------------------------------------------------------------
+
+Summary for Bug: 40
+--------------------------------------------------------------------------------
+Root cause in triggering tests:
+ - org.apache.commons.lang.StringUtilsEqualsIndexOfTest::testContainsIgnoreCase_LocaleIndependence
+   --> junit.framework.AssertionFailedError: en: 0 ß SS
+--------------------------------------------------------------------------------
+List of modified sources:
+ - org.apache.commons.lang.StringUtils
+--------------------------------------------------------------------------------
+<end>
+<start>
+Summary of configuration for Project: Lang
+--------------------------------------------------------------------------------
+    Script dir: /Users/mac/Documents/GitHub/SOEN7481/defects4j/framework
+      Base dir: /Users/mac/Documents/GitHub/SOEN7481/defects4j
+    Major root: /Users/mac/Documents/GitHub/SOEN7481/defects4j/major
+      Repo dir: /Users/mac/Documents/GitHub/SOEN7481/defects4j/project_repos
+--------------------------------------------------------------------------------
+    Project ID: Lang
+       Program: commons-lang
+    Build file: /Users/mac/Documents/GitHub/SOEN7481/defects4j/framework/build-scripts/Lang/Lang.build.xml
+--------------------------------------------------------------------------------
+           Vcs: Vcs::Git
+    Repository: /Users/mac/Documents/GitHub/SOEN7481/defects4j/project_repos/commons-lang.git
+     Commit db: /Users/mac/Documents/GitHub/SOEN7481/defects4j/framework/projects/Lang/commit-db
+Number of bugs: 65
+--------------------------------------------------------------------------------
+
+Summary for Bug: 41
+--------------------------------------------------------------------------------
+Root cause in triggering tests:
+ - org.apache.commons.lang.ClassUtilsTest::test_getShortClassName_Class
+   --> junit.framework.ComparisonFailure: expected:<String[[]]> but was:<String[;]>
+ - org.apache.commons.lang.ClassUtilsTest::test_getPackageName_Class
+   --> java.lang.NullPointerException
+--------------------------------------------------------------------------------
+List of modified sources:
+ - org.apache.commons.lang.ClassUtils
+--------------------------------------------------------------------------------
+<end>
+<start>
+Summary of configuration for Project: Lang
+--------------------------------------------------------------------------------
+    Script dir: /Users/mac/Documents/GitHub/SOEN7481/defects4j/framework
+      Base dir: /Users/mac/Documents/GitHub/SOEN7481/defects4j
+    Major root: /Users/mac/Documents/GitHub/SOEN7481/defects4j/major
+      Repo dir: /Users/mac/Documents/GitHub/SOEN7481/defects4j/project_repos
+--------------------------------------------------------------------------------
+    Project ID: Lang
+       Program: commons-lang
+    Build file: /Users/mac/Documents/GitHub/SOEN7481/defects4j/framework/build-scripts/Lang/Lang.build.xml
+--------------------------------------------------------------------------------
+           Vcs: Vcs::Git
+    Repository: /Users/mac/Documents/GitHub/SOEN7481/defects4j/project_repos/commons-lang.git
+     Commit db: /Users/mac/Documents/GitHub/SOEN7481/defects4j/framework/projects/Lang/commit-db
+Number of bugs: 65
+--------------------------------------------------------------------------------
+
+Summary for Bug: 42
+--------------------------------------------------------------------------------
+Root cause in triggering tests:
+ - org.apache.commons.lang.StringEscapeUtilsTest::testEscapeHtmlHighUnicode
+   --> junit.framework.ComparisonFailure: High unicode was not escaped correctly expected:<&#[119650];> but was:<&#[55348;&#57186];>
+--------------------------------------------------------------------------------
+List of modified sources:
+ - org.apache.commons.lang.Entities
+--------------------------------------------------------------------------------
+<end>
+<start>
+Summary of configuration for Project: Lang
+--------------------------------------------------------------------------------
+    Script dir: /Users/mac/Documents/GitHub/SOEN7481/defects4j/framework
+      Base dir: /Users/mac/Documents/GitHub/SOEN7481/defects4j
+    Major root: /Users/mac/Documents/GitHub/SOEN7481/defects4j/major
+      Repo dir: /Users/mac/Documents/GitHub/SOEN7481/defects4j/project_repos
+--------------------------------------------------------------------------------
+    Project ID: Lang
+       Program: commons-lang
+    Build file: /Users/mac/Documents/GitHub/SOEN7481/defects4j/framework/build-scripts/Lang/Lang.build.xml
+--------------------------------------------------------------------------------
+           Vcs: Vcs::Git
+    Repository: /Users/mac/Documents/GitHub/SOEN7481/defects4j/project_repos/commons-lang.git
+     Commit db: /Users/mac/Documents/GitHub/SOEN7481/defects4j/framework/projects/Lang/commit-db
+Number of bugs: 65
+--------------------------------------------------------------------------------
+
+Summary for Bug: 43
+--------------------------------------------------------------------------------
+Root cause in triggering tests:
+ - org.apache.commons.lang.text.ExtendedMessageFormatTest::testEscapedQuote_LANG_477
+   --> java.lang.OutOfMemoryError: Java heap space
+--------------------------------------------------------------------------------
+List of modified sources:
+ - org.apache.commons.lang.text.ExtendedMessageFormat
+--------------------------------------------------------------------------------
+<end>
+<start>
+Summary of configuration for Project: Lang
+--------------------------------------------------------------------------------
+    Script dir: /Users/mac/Documents/GitHub/SOEN7481/defects4j/framework
+      Base dir: /Users/mac/Documents/GitHub/SOEN7481/defects4j
+    Major root: /Users/mac/Documents/GitHub/SOEN7481/defects4j/major
+      Repo dir: /Users/mac/Documents/GitHub/SOEN7481/defects4j/project_repos
+--------------------------------------------------------------------------------
+    Project ID: Lang
+       Program: commons-lang
+    Build file: /Users/mac/Documents/GitHub/SOEN7481/defects4j/framework/build-scripts/Lang/Lang.build.xml
+--------------------------------------------------------------------------------
+           Vcs: Vcs::Git
+    Repository: /Users/mac/Documents/GitHub/SOEN7481/defects4j/project_repos/commons-lang.git
+     Commit db: /Users/mac/Documents/GitHub/SOEN7481/defects4j/framework/projects/Lang/commit-db
+Number of bugs: 65
+--------------------------------------------------------------------------------
+
+Summary for Bug: 44
+--------------------------------------------------------------------------------
+Root cause in triggering tests:
+ - org.apache.commons.lang.NumberUtilsTest::testLang457
+   --> java.lang.StringIndexOutOfBoundsException: String index out of range: 0
+--------------------------------------------------------------------------------
+List of modified sources:
+ - org.apache.commons.lang.NumberUtils
+--------------------------------------------------------------------------------
+<end>
+<start>
+Summary of configuration for Project: Lang
+--------------------------------------------------------------------------------
+    Script dir: /Users/mac/Documents/GitHub/SOEN7481/defects4j/framework
+      Base dir: /Users/mac/Documents/GitHub/SOEN7481/defects4j
+    Major root: /Users/mac/Documents/GitHub/SOEN7481/defects4j/major
+      Repo dir: /Users/mac/Documents/GitHub/SOEN7481/defects4j/project_repos
+--------------------------------------------------------------------------------
+    Project ID: Lang
+       Program: commons-lang
+    Build file: /Users/mac/Documents/GitHub/SOEN7481/defects4j/framework/build-scripts/Lang/Lang.build.xml
+--------------------------------------------------------------------------------
+           Vcs: Vcs::Git
+    Repository: /Users/mac/Documents/GitHub/SOEN7481/defects4j/project_repos/commons-lang.git
+     Commit db: /Users/mac/Documents/GitHub/SOEN7481/defects4j/framework/projects/Lang/commit-db
+Number of bugs: 65
+--------------------------------------------------------------------------------
+
+Summary for Bug: 45
+--------------------------------------------------------------------------------
+Root cause in triggering tests:
+ - org.apache.commons.lang.WordUtilsTest::testAbbreviate
+   --> java.lang.StringIndexOutOfBoundsException: String index out of range: 15
+--------------------------------------------------------------------------------
+List of modified sources:
+ - org.apache.commons.lang.WordUtils
+--------------------------------------------------------------------------------
+<end>
+<start>
+Summary of configuration for Project: Lang
+--------------------------------------------------------------------------------
+    Script dir: /Users/mac/Documents/GitHub/SOEN7481/defects4j/framework
+      Base dir: /Users/mac/Documents/GitHub/SOEN7481/defects4j
+    Major root: /Users/mac/Documents/GitHub/SOEN7481/defects4j/major
+      Repo dir: /Users/mac/Documents/GitHub/SOEN7481/defects4j/project_repos
+--------------------------------------------------------------------------------
+    Project ID: Lang
+       Program: commons-lang
+    Build file: /Users/mac/Documents/GitHub/SOEN7481/defects4j/framework/build-scripts/Lang/Lang.build.xml
+--------------------------------------------------------------------------------
+           Vcs: Vcs::Git
+    Repository: /Users/mac/Documents/GitHub/SOEN7481/defects4j/project_repos/commons-lang.git
+     Commit db: /Users/mac/Documents/GitHub/SOEN7481/defects4j/framework/projects/Lang/commit-db
+Number of bugs: 65
+--------------------------------------------------------------------------------
+
+Summary for Bug: 46
+--------------------------------------------------------------------------------
+Root cause in triggering tests:
+ - org.apache.commons.lang.StringEscapeUtilsTest::testEscapeJavaWithSlash
+   --> junit.framework.ComparisonFailure: expected:<...tring with a slash ([]/) in it> but was:<...tring with a slash ([\]/) in it>
+--------------------------------------------------------------------------------
+List of modified sources:
+ - org.apache.commons.lang.StringEscapeUtils
+--------------------------------------------------------------------------------
+<end>
+<start>
+Summary of configuration for Project: Lang
+--------------------------------------------------------------------------------
+    Script dir: /Users/mac/Documents/GitHub/SOEN7481/defects4j/framework
+      Base dir: /Users/mac/Documents/GitHub/SOEN7481/defects4j
+    Major root: /Users/mac/Documents/GitHub/SOEN7481/defects4j/major
+      Repo dir: /Users/mac/Documents/GitHub/SOEN7481/defects4j/project_repos
+--------------------------------------------------------------------------------
+    Project ID: Lang
+       Program: commons-lang
+    Build file: /Users/mac/Documents/GitHub/SOEN7481/defects4j/framework/build-scripts/Lang/Lang.build.xml
+--------------------------------------------------------------------------------
+           Vcs: Vcs::Git
+    Repository: /Users/mac/Documents/GitHub/SOEN7481/defects4j/project_repos/commons-lang.git
+     Commit db: /Users/mac/Documents/GitHub/SOEN7481/defects4j/framework/projects/Lang/commit-db
+Number of bugs: 65
+--------------------------------------------------------------------------------
+
+Summary for Bug: 47
+--------------------------------------------------------------------------------
+Root cause in triggering tests:
+ - org.apache.commons.lang.text.StrBuilderTest::testLang412Left
+   --> java.lang.NullPointerException
+ - org.apache.commons.lang.text.StrBuilderTest::testLang412Right
+   --> java.lang.NullPointerException
+--------------------------------------------------------------------------------
+List of modified sources:
+ - org.apache.commons.lang.text.StrBuilder
+--------------------------------------------------------------------------------
+<end>
+<start>
+Summary of configuration for Project: Lang
+--------------------------------------------------------------------------------
+    Script dir: /Users/mac/Documents/GitHub/SOEN7481/defects4j/framework
+      Base dir: /Users/mac/Documents/GitHub/SOEN7481/defects4j
+    Major root: /Users/mac/Documents/GitHub/SOEN7481/defects4j/major
+      Repo dir: /Users/mac/Documents/GitHub/SOEN7481/defects4j/project_repos
+--------------------------------------------------------------------------------
+    Project ID: Lang
+       Program: commons-lang
+    Build file: /Users/mac/Documents/GitHub/SOEN7481/defects4j/framework/build-scripts/Lang/Lang.build.xml
+--------------------------------------------------------------------------------
+           Vcs: Vcs::Git
+    Repository: /Users/mac/Documents/GitHub/SOEN7481/defects4j/project_repos/commons-lang.git
+     Commit db: /Users/mac/Documents/GitHub/SOEN7481/defects4j/framework/projects/Lang/commit-db
+Number of bugs: 65
+--------------------------------------------------------------------------------
+
+Summary for Bug: 48
+--------------------------------------------------------------------------------
+Root cause in triggering tests:
+ - org.apache.commons.lang.builder.EqualsBuilderTest::testBigDecimal
+   --> junit.framework.AssertionFailedError
+--------------------------------------------------------------------------------
+List of modified sources:
+ - org.apache.commons.lang.builder.EqualsBuilder
+--------------------------------------------------------------------------------
+<end>
+<start>
+Summary of configuration for Project: Lang
+--------------------------------------------------------------------------------
+    Script dir: /Users/mac/Documents/GitHub/SOEN7481/defects4j/framework
+      Base dir: /Users/mac/Documents/GitHub/SOEN7481/defects4j
+    Major root: /Users/mac/Documents/GitHub/SOEN7481/defects4j/major
+      Repo dir: /Users/mac/Documents/GitHub/SOEN7481/defects4j/project_repos
+--------------------------------------------------------------------------------
+    Project ID: Lang
+       Program: commons-lang
+    Build file: /Users/mac/Documents/GitHub/SOEN7481/defects4j/framework/build-scripts/Lang/Lang.build.xml
+--------------------------------------------------------------------------------
+           Vcs: Vcs::Git
+    Repository: /Users/mac/Documents/GitHub/SOEN7481/defects4j/project_repos/commons-lang.git
+     Commit db: /Users/mac/Documents/GitHub/SOEN7481/defects4j/framework/projects/Lang/commit-db
+Number of bugs: 65
+--------------------------------------------------------------------------------
+
+Summary for Bug: 49
+--------------------------------------------------------------------------------
+Root cause in triggering tests:
+ - org.apache.commons.lang.math.FractionTest::testReduce
+   --> junit.framework.AssertionFailedError: expected:<1> but was:<100>
+--------------------------------------------------------------------------------
+List of modified sources:
+ - org.apache.commons.lang.math.Fraction
+--------------------------------------------------------------------------------
+<end>
+<start>
+Summary of configuration for Project: Lang
+--------------------------------------------------------------------------------
+    Script dir: /Users/mac/Documents/GitHub/SOEN7481/defects4j/framework
+      Base dir: /Users/mac/Documents/GitHub/SOEN7481/defects4j
+    Major root: /Users/mac/Documents/GitHub/SOEN7481/defects4j/major
+      Repo dir: /Users/mac/Documents/GitHub/SOEN7481/defects4j/project_repos
+--------------------------------------------------------------------------------
+    Project ID: Lang
+       Program: commons-lang
+    Build file: /Users/mac/Documents/GitHub/SOEN7481/defects4j/framework/build-scripts/Lang/Lang.build.xml
+--------------------------------------------------------------------------------
+           Vcs: Vcs::Git
+    Repository: /Users/mac/Documents/GitHub/SOEN7481/defects4j/project_repos/commons-lang.git
+     Commit db: /Users/mac/Documents/GitHub/SOEN7481/defects4j/framework/projects/Lang/commit-db
+Number of bugs: 65
+--------------------------------------------------------------------------------
+
+Summary for Bug: 50
+--------------------------------------------------------------------------------
+Root cause in triggering tests:
+ - org.apache.commons.lang.time.FastDateFormatTest::test_changeDefault_Locale_DateInstance
+   --> junit.framework.AssertionFailedError: expected same:<de_DE> was not:<en_US>
+ - org.apache.commons.lang.time.FastDateFormatTest::test_changeDefault_Locale_DateTimeInstance
+   --> junit.framework.AssertionFailedError: expected same:<de_DE> was not:<en_US>
+--------------------------------------------------------------------------------
+List of modified sources:
+ - org.apache.commons.lang.time.FastDateFormat
+--------------------------------------------------------------------------------
+<end>
+<start>
+Summary of configuration for Project: Lang
+--------------------------------------------------------------------------------
+    Script dir: /Users/mac/Documents/GitHub/SOEN7481/defects4j/framework
+      Base dir: /Users/mac/Documents/GitHub/SOEN7481/defects4j
+    Major root: /Users/mac/Documents/GitHub/SOEN7481/defects4j/major
+      Repo dir: /Users/mac/Documents/GitHub/SOEN7481/defects4j/project_repos
+--------------------------------------------------------------------------------
+    Project ID: Lang
+       Program: commons-lang
+    Build file: /Users/mac/Documents/GitHub/SOEN7481/defects4j/framework/build-scripts/Lang/Lang.build.xml
+--------------------------------------------------------------------------------
+           Vcs: Vcs::Git
+    Repository: /Users/mac/Documents/GitHub/SOEN7481/defects4j/project_repos/commons-lang.git
+     Commit db: /Users/mac/Documents/GitHub/SOEN7481/defects4j/framework/projects/Lang/commit-db
+Number of bugs: 65
+--------------------------------------------------------------------------------
+
+Summary for Bug: 51
+--------------------------------------------------------------------------------
+Root cause in triggering tests:
+ - org.apache.commons.lang.BooleanUtilsTest::test_toBoolean_String
+   --> java.lang.StringIndexOutOfBoundsException: String index out of range: 3
+--------------------------------------------------------------------------------
+List of modified sources:
+ - org.apache.commons.lang.BooleanUtils
+--------------------------------------------------------------------------------
+<end>
+<start>
+Summary of configuration for Project: Lang
+--------------------------------------------------------------------------------
+    Script dir: /Users/mac/Documents/GitHub/SOEN7481/defects4j/framework
+      Base dir: /Users/mac/Documents/GitHub/SOEN7481/defects4j
+    Major root: /Users/mac/Documents/GitHub/SOEN7481/defects4j/major
+      Repo dir: /Users/mac/Documents/GitHub/SOEN7481/defects4j/project_repos
+--------------------------------------------------------------------------------
+    Project ID: Lang
+       Program: commons-lang
+    Build file: /Users/mac/Documents/GitHub/SOEN7481/defects4j/framework/build-scripts/Lang/Lang.build.xml
+--------------------------------------------------------------------------------
+           Vcs: Vcs::Git
+    Repository: /Users/mac/Documents/GitHub/SOEN7481/defects4j/project_repos/commons-lang.git
+     Commit db: /Users/mac/Documents/GitHub/SOEN7481/defects4j/framework/projects/Lang/commit-db
+Number of bugs: 65
+--------------------------------------------------------------------------------
+
+Summary for Bug: 52
+--------------------------------------------------------------------------------
+Root cause in triggering tests:
+ - org.apache.commons.lang.StringEscapeUtilsTest::testEscapeJavaScript
+   --> junit.framework.ComparisonFailure: expected:<...ipt>alert(\'aaa\');<[\]/script>\';> but was:<...ipt>alert(\'aaa\');<[]/script>\';>
+--------------------------------------------------------------------------------
+List of modified sources:
+ - org.apache.commons.lang.StringEscapeUtils
+--------------------------------------------------------------------------------
+<end>
+<start>
+Summary of configuration for Project: Lang
+--------------------------------------------------------------------------------
+    Script dir: /Users/mac/Documents/GitHub/SOEN7481/defects4j/framework
+      Base dir: /Users/mac/Documents/GitHub/SOEN7481/defects4j
+    Major root: /Users/mac/Documents/GitHub/SOEN7481/defects4j/major
+      Repo dir: /Users/mac/Documents/GitHub/SOEN7481/defects4j/project_repos
+--------------------------------------------------------------------------------
+    Project ID: Lang
+       Program: commons-lang
+    Build file: /Users/mac/Documents/GitHub/SOEN7481/defects4j/framework/build-scripts/Lang/Lang.build.xml
+--------------------------------------------------------------------------------
+           Vcs: Vcs::Git
+    Repository: /Users/mac/Documents/GitHub/SOEN7481/defects4j/project_repos/commons-lang.git
+     Commit db: /Users/mac/Documents/GitHub/SOEN7481/defects4j/framework/projects/Lang/commit-db
+Number of bugs: 65
+--------------------------------------------------------------------------------
+
+Summary for Bug: 53
+--------------------------------------------------------------------------------
+Root cause in triggering tests:
+ - org.apache.commons.lang.time.DateUtilsTest::testRoundLang346
+   --> junit.framework.AssertionFailedError: Minute Round Up Failed expected:<Mon Jul 02 08:09:00 PDT 2007> but was:<Mon Jul 02 08:01:00 PDT 2007>
+--------------------------------------------------------------------------------
+List of modified sources:
+ - org.apache.commons.lang.time.DateUtils
+--------------------------------------------------------------------------------
+<end>
+<start>
+Summary of configuration for Project: Lang
+--------------------------------------------------------------------------------
+    Script dir: /Users/mac/Documents/GitHub/SOEN7481/defects4j/framework
+      Base dir: /Users/mac/Documents/GitHub/SOEN7481/defects4j
+    Major root: /Users/mac/Documents/GitHub/SOEN7481/defects4j/major
+      Repo dir: /Users/mac/Documents/GitHub/SOEN7481/defects4j/project_repos
+--------------------------------------------------------------------------------
+    Project ID: Lang
+       Program: commons-lang
+    Build file: /Users/mac/Documents/GitHub/SOEN7481/defects4j/framework/build-scripts/Lang/Lang.build.xml
+--------------------------------------------------------------------------------
+           Vcs: Vcs::Git
+    Repository: /Users/mac/Documents/GitHub/SOEN7481/defects4j/project_repos/commons-lang.git
+     Commit db: /Users/mac/Documents/GitHub/SOEN7481/defects4j/framework/projects/Lang/commit-db
+Number of bugs: 65
+--------------------------------------------------------------------------------
+
+Summary for Bug: 54
+--------------------------------------------------------------------------------
+Root cause in triggering tests:
+ - org.apache.commons.lang.LocaleUtilsTest::testLang328
+   --> java.lang.IllegalArgumentException: Invalid locale format: fr__POSIX
+--------------------------------------------------------------------------------
+List of modified sources:
+ - org.apache.commons.lang.LocaleUtils
+--------------------------------------------------------------------------------
+<end>
+<start>
+Summary of configuration for Project: Lang
+--------------------------------------------------------------------------------
+    Script dir: /Users/mac/Documents/GitHub/SOEN7481/defects4j/framework
+      Base dir: /Users/mac/Documents/GitHub/SOEN7481/defects4j
+    Major root: /Users/mac/Documents/GitHub/SOEN7481/defects4j/major
+      Repo dir: /Users/mac/Documents/GitHub/SOEN7481/defects4j/project_repos
+--------------------------------------------------------------------------------
+    Project ID: Lang
+       Program: commons-lang
+    Build file: /Users/mac/Documents/GitHub/SOEN7481/defects4j/framework/build-scripts/Lang/Lang.build.xml
+--------------------------------------------------------------------------------
+           Vcs: Vcs::Git
+    Repository: /Users/mac/Documents/GitHub/SOEN7481/defects4j/project_repos/commons-lang.git
+     Commit db: /Users/mac/Documents/GitHub/SOEN7481/defects4j/framework/projects/Lang/commit-db
+Number of bugs: 65
+--------------------------------------------------------------------------------
+
+Summary for Bug: 55
+--------------------------------------------------------------------------------
+Root cause in triggering tests:
+ - org.apache.commons.lang.time.StopWatchTest::testLang315
+   --> junit.framework.AssertionFailedError
+--------------------------------------------------------------------------------
+List of modified sources:
+ - org.apache.commons.lang.time.StopWatch
+--------------------------------------------------------------------------------
+<end>
+<start>
+Summary of configuration for Project: Lang
+--------------------------------------------------------------------------------
+    Script dir: /Users/mac/Documents/GitHub/SOEN7481/defects4j/framework
+      Base dir: /Users/mac/Documents/GitHub/SOEN7481/defects4j
+    Major root: /Users/mac/Documents/GitHub/SOEN7481/defects4j/major
+      Repo dir: /Users/mac/Documents/GitHub/SOEN7481/defects4j/project_repos
+--------------------------------------------------------------------------------
+    Project ID: Lang
+       Program: commons-lang
+    Build file: /Users/mac/Documents/GitHub/SOEN7481/defects4j/framework/build-scripts/Lang/Lang.build.xml
+--------------------------------------------------------------------------------
+           Vcs: Vcs::Git
+    Repository: /Users/mac/Documents/GitHub/SOEN7481/defects4j/project_repos/commons-lang.git
+     Commit db: /Users/mac/Documents/GitHub/SOEN7481/defects4j/framework/projects/Lang/commit-db
+Number of bugs: 65
+--------------------------------------------------------------------------------
+
+Summary for Bug: 56
+--------------------------------------------------------------------------------
+Root cause in triggering tests:
+ - org.apache.commons.lang.time.FastDateFormatTest::testLang303
+   --> org.apache.commons.lang.SerializationException: java.io.NotSerializableException: org.apache.commons.lang.time.FastDateFormat$PaddedNumberField
+--------------------------------------------------------------------------------
+List of modified sources:
+ - org.apache.commons.lang.time.FastDateFormat
+--------------------------------------------------------------------------------
+<end>
+<start>
+Summary of configuration for Project: Lang
+--------------------------------------------------------------------------------
+    Script dir: /Users/mac/Documents/GitHub/SOEN7481/defects4j/framework
+      Base dir: /Users/mac/Documents/GitHub/SOEN7481/defects4j
+    Major root: /Users/mac/Documents/GitHub/SOEN7481/defects4j/major
+      Repo dir: /Users/mac/Documents/GitHub/SOEN7481/defects4j/project_repos
+--------------------------------------------------------------------------------
+    Project ID: Lang
+       Program: commons-lang
+    Build file: /Users/mac/Documents/GitHub/SOEN7481/defects4j/framework/build-scripts/Lang/Lang.build.xml
+--------------------------------------------------------------------------------
+           Vcs: Vcs::Git
+    Repository: /Users/mac/Documents/GitHub/SOEN7481/defects4j/project_repos/commons-lang.git
+     Commit db: /Users/mac/Documents/GitHub/SOEN7481/defects4j/framework/projects/Lang/commit-db
+Number of bugs: 65
+--------------------------------------------------------------------------------
+
+Summary for Bug: 57
+--------------------------------------------------------------------------------
+Root cause in triggering tests:
+ - org.apache.commons.lang.LocaleUtilsTest::testAvailableLocaleSet
+   --> java.lang.NullPointerException
+ - org.apache.commons.lang.LocaleUtilsTest::testIsAvailableLocale
+   --> java.lang.NullPointerException
+ - org.apache.commons.lang.LocaleUtilsTest::testAvailableLocaleList
+   --> java.lang.NullPointerException
+ - org.apache.commons.lang.LocaleUtilsTest::testCountriesByLanguage
+   --> java.lang.NullPointerException
+ - org.apache.commons.lang.LocaleUtilsTest::testLocaleLookupList_LocaleLocale
+   --> java.lang.NullPointerException
+ - org.apache.commons.lang.LocaleUtilsTest::testLanguagesByCountry
+   --> java.lang.NullPointerException
+ - org.apache.commons.lang.LocaleUtilsTest::testToLocale_1Part
+   --> java.lang.NullPointerException
+ - org.apache.commons.lang.LocaleUtilsTest::testToLocale_2Part
+   --> java.lang.NullPointerException
+ - org.apache.commons.lang.LocaleUtilsTest::testToLocale_3Part
+   --> java.lang.NullPointerException
+ - org.apache.commons.lang.LocaleUtilsTest::testLocaleLookupList_Locale
+   --> java.lang.NullPointerException
+ - org.apache.commons.lang.LocaleUtilsTest::testConstructor
+   --> java.lang.NullPointerException
+--------------------------------------------------------------------------------
+List of modified sources:
+ - org.apache.commons.lang.LocaleUtils
+--------------------------------------------------------------------------------
+<end>
+<start>
+Summary of configuration for Project: Lang
+--------------------------------------------------------------------------------
+    Script dir: /Users/mac/Documents/GitHub/SOEN7481/defects4j/framework
+      Base dir: /Users/mac/Documents/GitHub/SOEN7481/defects4j
+    Major root: /Users/mac/Documents/GitHub/SOEN7481/defects4j/major
+      Repo dir: /Users/mac/Documents/GitHub/SOEN7481/defects4j/project_repos
+--------------------------------------------------------------------------------
+    Project ID: Lang
+       Program: commons-lang
+    Build file: /Users/mac/Documents/GitHub/SOEN7481/defects4j/framework/build-scripts/Lang/Lang.build.xml
+--------------------------------------------------------------------------------
+           Vcs: Vcs::Git
+    Repository: /Users/mac/Documents/GitHub/SOEN7481/defects4j/project_repos/commons-lang.git
+     Commit db: /Users/mac/Documents/GitHub/SOEN7481/defects4j/framework/projects/Lang/commit-db
+Number of bugs: 65
+--------------------------------------------------------------------------------
+
+Summary for Bug: 58
+--------------------------------------------------------------------------------
+Root cause in triggering tests:
+ - org.apache.commons.lang.math.NumberUtilsTest::testLang300
+   --> java.lang.NumberFormatException: 1l is not a valid number.
+--------------------------------------------------------------------------------
+List of modified sources:
+ - org.apache.commons.lang.math.NumberUtils
+--------------------------------------------------------------------------------
+<end>
+<start>
+Summary of configuration for Project: Lang
+--------------------------------------------------------------------------------
+    Script dir: /Users/mac/Documents/GitHub/SOEN7481/defects4j/framework
+      Base dir: /Users/mac/Documents/GitHub/SOEN7481/defects4j
+    Major root: /Users/mac/Documents/GitHub/SOEN7481/defects4j/major
+      Repo dir: /Users/mac/Documents/GitHub/SOEN7481/defects4j/project_repos
+--------------------------------------------------------------------------------
+    Project ID: Lang
+       Program: commons-lang
+    Build file: /Users/mac/Documents/GitHub/SOEN7481/defects4j/framework/build-scripts/Lang/Lang.build.xml
+--------------------------------------------------------------------------------
+           Vcs: Vcs::Git
+    Repository: /Users/mac/Documents/GitHub/SOEN7481/defects4j/project_repos/commons-lang.git
+     Commit db: /Users/mac/Documents/GitHub/SOEN7481/defects4j/framework/projects/Lang/commit-db
+Number of bugs: 65
+--------------------------------------------------------------------------------
+
+Summary for Bug: 59
+--------------------------------------------------------------------------------
+Root cause in triggering tests:
+ - org.apache.commons.lang.text.StrBuilderAppendInsertTest::testLang299
+   --> java.lang.ArrayIndexOutOfBoundsException
+--------------------------------------------------------------------------------
+List of modified sources:
+ - org.apache.commons.lang.text.StrBuilder
+--------------------------------------------------------------------------------
+<end>
+<start>
+Summary of configuration for Project: Lang
+--------------------------------------------------------------------------------
+    Script dir: /Users/mac/Documents/GitHub/SOEN7481/defects4j/framework
+      Base dir: /Users/mac/Documents/GitHub/SOEN7481/defects4j
+    Major root: /Users/mac/Documents/GitHub/SOEN7481/defects4j/major
+      Repo dir: /Users/mac/Documents/GitHub/SOEN7481/defects4j/project_repos
+--------------------------------------------------------------------------------
+    Project ID: Lang
+       Program: commons-lang
+    Build file: /Users/mac/Documents/GitHub/SOEN7481/defects4j/framework/build-scripts/Lang/Lang.build.xml
+--------------------------------------------------------------------------------
+           Vcs: Vcs::Git
+    Repository: /Users/mac/Documents/GitHub/SOEN7481/defects4j/project_repos/commons-lang.git
+     Commit db: /Users/mac/Documents/GitHub/SOEN7481/defects4j/framework/projects/Lang/commit-db
+Number of bugs: 65
+--------------------------------------------------------------------------------
+
+Summary for Bug: 60
+--------------------------------------------------------------------------------
+Root cause in triggering tests:
+ - org.apache.commons.lang.text.StrBuilderTest::testLang295
+   --> junit.framework.AssertionFailedError: The contains(char) method is looking beyond the end of the string
+--------------------------------------------------------------------------------
+List of modified sources:
+ - org.apache.commons.lang.text.StrBuilder
+--------------------------------------------------------------------------------
+<end>
+<start>
+Summary of configuration for Project: Lang
+--------------------------------------------------------------------------------
+    Script dir: /Users/mac/Documents/GitHub/SOEN7481/defects4j/framework
+      Base dir: /Users/mac/Documents/GitHub/SOEN7481/defects4j
+    Major root: /Users/mac/Documents/GitHub/SOEN7481/defects4j/major
+      Repo dir: /Users/mac/Documents/GitHub/SOEN7481/defects4j/project_repos
+--------------------------------------------------------------------------------
+    Project ID: Lang
+       Program: commons-lang
+    Build file: /Users/mac/Documents/GitHub/SOEN7481/defects4j/framework/build-scripts/Lang/Lang.build.xml
+--------------------------------------------------------------------------------
+           Vcs: Vcs::Git
+    Repository: /Users/mac/Documents/GitHub/SOEN7481/defects4j/project_repos/commons-lang.git
+     Commit db: /Users/mac/Documents/GitHub/SOEN7481/defects4j/framework/projects/Lang/commit-db
+Number of bugs: 65
+--------------------------------------------------------------------------------
+
+Summary for Bug: 61
+--------------------------------------------------------------------------------
+Root cause in triggering tests:
+ - org.apache.commons.lang.text.StrBuilderTest::testIndexOfLang294
+   --> junit.framework.AssertionFailedError: expected:<-1> but was:<6>
+ - org.apache.commons.lang.text.StrBuilderTest::testLang294
+   --> java.lang.ArrayIndexOutOfBoundsException
+--------------------------------------------------------------------------------
+List of modified sources:
+ - org.apache.commons.lang.text.StrBuilder
+--------------------------------------------------------------------------------
+<end>
+<start>
+Summary of configuration for Project: Lang
+--------------------------------------------------------------------------------
+    Script dir: /Users/mac/Documents/GitHub/SOEN7481/defects4j/framework
+      Base dir: /Users/mac/Documents/GitHub/SOEN7481/defects4j
+    Major root: /Users/mac/Documents/GitHub/SOEN7481/defects4j/major
+      Repo dir: /Users/mac/Documents/GitHub/SOEN7481/defects4j/project_repos
+--------------------------------------------------------------------------------
+    Project ID: Lang
+       Program: commons-lang
+    Build file: /Users/mac/Documents/GitHub/SOEN7481/defects4j/framework/build-scripts/Lang/Lang.build.xml
+--------------------------------------------------------------------------------
+           Vcs: Vcs::Git
+    Repository: /Users/mac/Documents/GitHub/SOEN7481/defects4j/project_repos/commons-lang.git
+     Commit db: /Users/mac/Documents/GitHub/SOEN7481/defects4j/framework/projects/Lang/commit-db
+Number of bugs: 65
+--------------------------------------------------------------------------------
+
+Summary for Bug: 62
+--------------------------------------------------------------------------------
+Root cause in triggering tests:
+ - org.apache.commons.lang.EntitiesTest::testNumberOverflow
+   --> junit.framework.ComparisonFailure: expected:<[&#12345678;]> but was:<[慎]>
+--------------------------------------------------------------------------------
+List of modified sources:
+ - org.apache.commons.lang.Entities
+--------------------------------------------------------------------------------
+<end>
+<start>
+Summary of configuration for Project: Lang
+--------------------------------------------------------------------------------
+    Script dir: /Users/mac/Documents/GitHub/SOEN7481/defects4j/framework
+      Base dir: /Users/mac/Documents/GitHub/SOEN7481/defects4j
+    Major root: /Users/mac/Documents/GitHub/SOEN7481/defects4j/major
+      Repo dir: /Users/mac/Documents/GitHub/SOEN7481/defects4j/project_repos
+--------------------------------------------------------------------------------
+    Project ID: Lang
+       Program: commons-lang
+    Build file: /Users/mac/Documents/GitHub/SOEN7481/defects4j/framework/build-scripts/Lang/Lang.build.xml
+--------------------------------------------------------------------------------
+           Vcs: Vcs::Git
+    Repository: /Users/mac/Documents/GitHub/SOEN7481/defects4j/project_repos/commons-lang.git
+     Commit db: /Users/mac/Documents/GitHub/SOEN7481/defects4j/framework/projects/Lang/commit-db
+Number of bugs: 65
+--------------------------------------------------------------------------------
+
+Summary for Bug: 63
+--------------------------------------------------------------------------------
+Root cause in triggering tests:
+ - org.apache.commons.lang.time.DurationFormatUtilsTest::testJiraLang281
+   --> junit.framework.ComparisonFailure: expected:<[09]> but was:<[-2]>
+--------------------------------------------------------------------------------
+List of modified sources:
+ - org.apache.commons.lang.time.DurationFormatUtils
+--------------------------------------------------------------------------------
+<end>
+<start>
+Summary of configuration for Project: Lang
+--------------------------------------------------------------------------------
+    Script dir: /Users/mac/Documents/GitHub/SOEN7481/defects4j/framework
+      Base dir: /Users/mac/Documents/GitHub/SOEN7481/defects4j
+    Major root: /Users/mac/Documents/GitHub/SOEN7481/defects4j/major
+      Repo dir: /Users/mac/Documents/GitHub/SOEN7481/defects4j/project_repos
+--------------------------------------------------------------------------------
+    Project ID: Lang
+       Program: commons-lang
+    Build file: /Users/mac/Documents/GitHub/SOEN7481/defects4j/framework/build-scripts/Lang/Lang.build.xml
+--------------------------------------------------------------------------------
+           Vcs: Vcs::Git
+    Repository: /Users/mac/Documents/GitHub/SOEN7481/defects4j/project_repos/commons-lang.git
+     Commit db: /Users/mac/Documents/GitHub/SOEN7481/defects4j/framework/projects/Lang/commit-db
+Number of bugs: 65
+--------------------------------------------------------------------------------
+
+Summary for Bug: 64
+--------------------------------------------------------------------------------
+Root cause in triggering tests:
+ - org.apache.commons.lang.enums.ValuedEnumTest::testCompareTo_otherEnumType
+   --> junit.framework.AssertionFailedError
+--------------------------------------------------------------------------------
+List of modified sources:
+ - org.apache.commons.lang.enums.ValuedEnum
+--------------------------------------------------------------------------------
+<end>
+<start>
+Summary of configuration for Project: Lang
+--------------------------------------------------------------------------------
+    Script dir: /Users/mac/Documents/GitHub/SOEN7481/defects4j/framework
+      Base dir: /Users/mac/Documents/GitHub/SOEN7481/defects4j
+    Major root: /Users/mac/Documents/GitHub/SOEN7481/defects4j/major
+      Repo dir: /Users/mac/Documents/GitHub/SOEN7481/defects4j/project_repos
+--------------------------------------------------------------------------------
+    Project ID: Lang
+       Program: commons-lang
+    Build file: /Users/mac/Documents/GitHub/SOEN7481/defects4j/framework/build-scripts/Lang/Lang.build.xml
+--------------------------------------------------------------------------------
+           Vcs: Vcs::Git
+    Repository: /Users/mac/Documents/GitHub/SOEN7481/defects4j/project_repos/commons-lang.git
+     Commit db: /Users/mac/Documents/GitHub/SOEN7481/defects4j/framework/projects/Lang/commit-db
+Number of bugs: 65
+--------------------------------------------------------------------------------
+
+Summary for Bug: 65
+--------------------------------------------------------------------------------
+Root cause in triggering tests:
+ - org.apache.commons.lang.time.DateUtilsTest::testTruncateLang59
+   --> junit.framework.AssertionFailedError: Truncate Calendar.SECOND expected:<Sun Oct 31 01:02:03 MDT 2004> but was:<Sun Oct 31 01:02:03 MST 2004>
+--------------------------------------------------------------------------------
+List of modified sources:
+ - org.apache.commons.lang.time.DateUtils
+--------------------------------------------------------------------------------
+<end>

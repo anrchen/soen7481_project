@@ -1,0 +1,60 @@
+[GitHub user PascalSchumacher opened a pull request:
+
+    https://github.com/apache/commons-lang/pull/183
+
+    LANG-1261: ArrayUtils#contains ArrayUtils#indexOf should compare obje…
+
+    …cts with different types
+
+You can merge this pull request into a Git repository by running:
+
+    $ git pull https://github.com/PascalSchumacher/commons-lang LANG_1261
+
+Alternatively you can review and apply these changes as the patch at:
+
+    https://github.com/apache/commons-lang/pull/183.patch
+
+To close this pull request, make a commit to your master/trunk branch
+with (at least) the following in the commit message:
+
+    This closes #183
+    
+----
+commit 82a54681e2e7ffbb21fbc7de4b252f0749201f12
+Author: pascalschumacher <pascalschumacher@gmx.net>
+Date:   2016-08-23T17:22:55Z
+
+    LANG-1261: ArrayUtils#contains ArrayUtils#indexOf should compare objects with different types
+
+----
+, Github user coveralls commented on the issue:
+
+    https://github.com/apache/commons-lang/pull/183
+  
+    
+    [![Coverage Status](https://coveralls.io/builds/7572398/badge)](https://coveralls.io/builds/7572398)
+    
+    Coverage increased (+0.02%) to 93.483% when pulling **82a54681e2e7ffbb21fbc7de4b252f0749201f12 on PascalSchumacher:LANG_1261** into **f30c4607a2b6dcc7dc4476d321fc1de32ce9b780 on apache:master**.
+
+, Github user coveralls commented on the issue:
+
+    https://github.com/apache/commons-lang/pull/183
+  
+    
+    [![Coverage Status](https://coveralls.io/builds/7572948/badge)](https://coveralls.io/builds/7572948)
+    
+    Coverage increased (+0.02%) to 93.49% when pulling **d004551983ea3efac4fb8b8cf22d74e9938fd457 on PascalSchumacher:LANG_1261** into **f30c4607a2b6dcc7dc4476d321fc1de32ce9b780 on apache:master**.
+
+, Github user coveralls commented on the issue:
+
+    https://github.com/apache/commons-lang/pull/183
+  
+    
+    [![Coverage Status](https://coveralls.io/builds/7676541/badge)](https://coveralls.io/builds/7676541)
+    
+    Coverage increased (+0.02%) to 93.477% when pulling **1f56bd103d53c8c6ba7502c6586c26be01bfdb80 on PascalSchumacher:LANG_1261** into **c7c85ee39892df3ca007c6596c41654865be7e43 on apache:master**.
+
+, Github user asfgit closed the pull request at:
+
+    https://github.com/apache/commons-lang/pull/183
+, Fixed in 42f2058c83f256d8654b349d5249d6f59920f88b]

@@ -1,0 +1,43 @@
+[Patches with unit tests are welcome! , GitHub user pbrose opened a pull request:
+
+    https://github.com/apache/commons-lang/pull/130
+
+    [LANG-1205] NumberUtils.createNumber() behaves inconsistently with Nu…
+
+    …mberUtils.isNumber()
+
+You can merge this pull request into a Git repository by running:
+
+    $ git pull https://github.com/pbrose/commons-lang LANG-1205
+
+Alternatively you can review and apply these changes as the patch at:
+
+    https://github.com/apache/commons-lang/pull/130.patch
+
+To close this pull request, make a commit to your master/trunk branch
+with (at least) the following in the commit message:
+
+    This closes #130
+    
+----
+commit 568b1ded1bb6c11bfcf4f86767b52fb4ee5e125b
+Author: patrick.brose <patrick.brose@mailbox.tu-berlin.de>
+Date:   2016-03-17T14:23:57Z
+
+    [LANG-1205] NumberUtils.createNumber() behaves inconsistently with NumberUtils.isNumber()
+
+----
+, This bug only worked with doubles or floats that have two trailing characters. The reason is that one trailing character was stripped off the source string and used for identifying the data type. This left one trailing character in the substring which was used in Double.valueOf(substring) or Float.valueOf(substring). Instead, one should use Double.valueOf(source string) or Float.valueOf(source string), which throws the expected NumberFormatException.
+
+FYI: Long does not have the same problem because here Long.decode() is used instead of Long.valueOf().
+
+Pull request:
+https://github.com/apache/commons-lang/pull/130, commit b877fb9abef4a19eec9cc7329acbd433648b8f7b, Github user asfgit closed the pull request at:
+
+    https://github.com/apache/commons-lang/pull/130
+, Github user PascalSchumacher commented on the pull request:
+
+    https://github.com/apache/commons-lang/pull/130#issuecomment-217714251
+  
+    Thanks! :+1: Commit has been merged: https://github.com/apache/commons-lang/commit/b877fb9abef4a19eec9cc7329acbd433648b8f7b
+]

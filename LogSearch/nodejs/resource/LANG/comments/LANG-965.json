@@ -1,0 +1,200 @@
+[The attached patch tries so solve the mentioned accessibility leak by restoring the original accessibility of a particular field in case it has been modified by readField/writeField., I'll have a look at the patch this weekend., Hello [~andd],
+
+your patch looks promising. However there are some things I don't understand :)
+
+* Restoring accessibility in {{readField(Object, String, boolean)}} and {{writeField(Object, String, Object, boolean)}} looks redundant to me, since those methods delegate to the other read/writeField methods, which already handle the accessibility.
+* I don't understand the changes in the tests you made. The tests should be changed to verify that the accessibility of a field been read or written is the same as before, but instead you call {{setAccessible(true)}} serveral times. Can you elaborate why?
+
+TIA!
+Benedikt, Hello Benedikt,
+
+sorry for inconvenience. Let me clarify:
+
+- Restoring accessibility in {{readField(Object, String, boolean)}} and {{writeField(Object, String, Object, boolean)}} is necessary, because getField() gets called in these two methods. getField() may change the accessibility of the field. Since getField() guarantees, according to its javadoc, to return "an accessible {@link Field} by name" it was not an option to restore the accessibility within this method. Therefore it needs to be restored in the above mentioned read/write methods separately.
+
+- The original tests failed after the "accessibility leak" has been fixed. In the corresponding assert statement the field was filled with an expected value for assertion although it might not be accessible. Before, they only succeeded because of the leak. You can reproduce this by applying the patch for the FieldUtil class and use the original tests. So the changes to the tests do not test the restoring of the accessibility, they just guarantee, that the tests work like before.
+
+Let me know, if any uncertainty remains.
+
+BR
+André, Hello André,
+
+bq. Therefore it needs to be restored in the above mentioned read/write methods separately.
+
+Okay, makes sense. Maybe we should add a comment in JavaDoc, that users have to take care of restoring accessibility when using {{getField()}}...
+
+bq. The original tests failed after the "accessibility leak" has been fixed. 
+
+Nice :-) However I think it would be better to use {{FieldUtils.readField()}} to check if the field has been set correctly and to assert that the field is not accessible after the call to {{writeField()}}. WDYT?
+
+Another thing that caught my eye:
+
+{code:java}
+            // restore accessibility if previously changed
+            if (forceAccess && !Modifier.isPublic(field.getModifiers()))
+                field.setAccessible(false);
+{code}
+
+1. missing curly brackets ;-) We use curly brackets even for one line blocks.
+2. I'm not sure whether {{!Modifier.isPublic(field.getModifiers()))}} really is the same as {{Field.isAccessible() == false}}. Reading through the JavaDoc of {{Field.setAccessible(boolean)}} sounds like it is a difference. But I don't know. It think it would be better to get the field via {{getField(cls, fieldName, false)}}, store the accessibility, do all neccessary operations and then restore the original state. This way you only need to restore the accessibility once., Hi Benedikt,
+
+bq. Maybe we should add a comment in JavaDoc, that users have to take care of restoring accessibility when using getField()...
+
+Yes, adding a comment in the corresponding JavaDoc is a good idea and will raise the attention for a potential "accessibility leak" a bit more. Should I change the JavaDoc accordingly as part of this issue or should this be a dedicated issue and patch?
+
+bq. However I think it would be better to use FieldUtils.readField() to check if the field has been set correctly and to assert that the field is not accessible after the call to writeField(). WDYT?
+
+I think the author of the original test code wanted to use "pure" Java for the assertion. The correct behavior of {{Field.get()}} is guaranteed by the JDK while {{FieldUtils.readField()}} is not (since this method is tested in the same test class and execution order of jUnit tests might be random). So from my understanding the avoidance of a method of the class under test to test another method within the class under test is on purpose. So my intention here was really to use the minimum amount of changes to the original code to keep the tests green and this one-liner was the shortest solution.
+
+Maybe this is a smell that tests for the correct restoring of the accessibility is missing? O:) I will add further tests to assert that accessibility is restored correctly. This should not be tested implicitly within the {{testWrite…()}}. Ok?
+
+bq. 1. missing curly brackets ;-) We use curly brackets even for one line blocks.
+
+Sorry, you are write. I will change this.
+
+bq. 2. I'm not sure whether {{!Modifier.isPublic(field.getModifiers()))}} really is the same as {{Field.isAccessible() == false}}. Reading through the JavaDoc of {{Field.setAccessible(boolean)}} sounds like it is a difference. But I don't know. It think it would be better to get the field via {{getField(cls, fieldName, false)}}, store the accessibility, do all neccessary operations and then restore the original state. This way you only need to restore the accessibility once.
+
+The reason for the usage of {{Modifier.isPublic()}} is the used workaround for JDK 1.3 in {{getField()}} (see line 107). The accessibility of the field is only set to true, when forceAccess is true and the modifier is public. That’s why I need to check both before evantually restoring accessibility to false. But I totally agree with you, that it looks confusing. I don’t know if we can solve this without jeopardizing the workaround.
+
+Sorry if the patch is that confusing, but I really spent a lot of time to understand the original code and then tried to use a minimum amount of changes to fix issue #965. Thus, I am afraid some of your remarks address the original code as well. :-/
+
+See you,
+André, Hello André,
+
+bq. Should I change the JavaDoc accordingly as part of this issue or should this be a dedicated issue and patch?
+
+a new issue for this small change is a bit overkill. Just add it to your patch.
+
+bq. I think the author of the original test code wanted to use "pure" Java for the assertion. The correct behavior of Field.get() is guaranteed by the JDK while FieldUtils.readField() is not [...]
+
+yes, but correctness of {{readField()}} is asserted by individual unit tests for that method, so I think it's okay to use it in the test for {{writeField()}} if this makes the test code easier to understand.
+
+bq. I will add further tests to assert that accessibility is restored correctly. This should not be tested implicitly within the testWrite…(). Ok?
+
+I'm fine with what ever apporach you take ({{Field.get() or readField()}}, as long as we have have test code that really asserts that the accessibility is restored.
+
+bq. The reason for the usage of Modifier.isPublic() is the used workaround for JDK 1.3 in getField() (see line 107).
+
+I'm not sure I've mae myself clear enough. I'll try to explain better :-) My critique is, that the code for restoring accessibility is duplicated, although the one {{writeField()}} calls the other. So the idea is use {{getField}} with forceAccess = false to retrieve the field. This will return the field, even if it is not accessible. After that you can simply call the other {{writeField()}} and pass the forceAccess parameter into it. That method in turn will handle restoring of the accessibility flag for you.
+
+bq. Sorry if the patch is that confusing, but I really spent a lot of time to understand the original code and then tried to use a minimum amount of changes to fix issue #965. Thus, I am afraid some of your remarks address the original code as well. :-/
+
+no problem :) this code base has a long history and parts of it are confusing. We're currently building up a shared understanding of the code in question and you're doing a good job here., Hello Benedikt,
+
+many thanks for your remarks.
+
+bq. a new issue for this small change is a bit overkill. Just add it to your patch.
+
+Done.
+
+bq. yes, but correctness of readField() is asserted by individual unit tests for that method, so I think it's okay to use it in the test for writeField() if this makes the test code easier to understand.
+
+Done. It's really more readable like this.
+
+bq. So the idea is use getField with forceAccess = false to retrieve the field. This will return the field, even if it is not accessible. After that you can simply call the other writeField() and pass the forceAccess parameter into it. That method in turn will handle restoring of the accessibility flag for you.
+
+I changed this as well and the code looked really nice ;-) ... but unfortunately it broke the tests, because this changed the required behavior of the method :-(
+
+"forceAccess" is a little bit misleading here, because it does not mean "always assure setAccessible(true)" is called, it rather means "break the scope" or more precisely "also search superclasses for this field". So when trying to read or write a field with the proposed implementation, the field could not be found anymore if it is specified in a superclass.
+
+After that I investigated the code of {{FieldUtils}} more and discovered that my patch does not cover all accessibility changes :-( It seems the accessibility is changed literally everywhere ;-) I followed a lot of paths and finally came to the conclusion that my original approach of "use the minimum amount of code changes" is not sufficient to cope with this problem.
+
+So I will work on a more elaborated patch. Just want to inform you that this might take a while, because the underlying issue is more complex than I initially expected O:-)  
+
+Best regards,
+André, Hello André,
+
+yes I see, it's the continue statement in line 112 that breaks stuff. Making this dependend upon forceAccess doesn't make sense to me. Feel free to refactor this, but keep in mind: Method signatures must not be changed to preserve backwards compatibility. Instead we have to deprecate methods if we can't fix them internally and then provide an alternative implementation (with a different signature).
+
+Benedikt, Ok, after some further analysis my understanding is as follows:
+
+o accessibility is changed explicitly in
+   - {{readField(final Field field, final Object target, final boolean forceAccess)}} and
+   - {{writeField(final Field field, final Object target, final Object value, final boolean forceAccess)}}
+
+o furthermore, accessibility may be changed implicitly in every read/write method which needs to resolve a field by name first, when calling
+   - {{getField(final Class<?> cls, final String fieldName, final boolean forceAccess)}} or
+   - {{getDeclaredField(final Class<?> cls, final String fieldName, final boolean forceAccess)}}
+
+So my proposal is to have only one place where accessibility is changed, which will simplify restoring of accessibility a lot. Therefore I added two methods for the internal resolution of fields, which do not modify accessibility. I made those two methods private, so public API is not changed.
+, Possible simplification:
+
+{code}
++        final boolean originalAccessibility = field.isAccessible();
+         if (forceAccess && !field.isAccessible()) {
+{code}
+
+could be written as
+
+{code}
++        final boolean originalAccessibility = field.isAccessible();
+         if (forceAccess && !originalAccessibility) {
+{code}
+
+Alternatively, just set a flag when accessibility is forced:
+
+{code}
+boolean wasInaccessible = false;
+if (forceAccess && !field.isAccessible()) {
+    wasInaccessible = true;
+   ...
+}
+
+...
+     finally {
+         if (wasInaccessible) {
+            field.setAccessible(false);
+        }
+     }
+{code}
+
+This avoids a redundant setAccessible() call where the accessibility was not changed
+, This needs more thought. There is a fundamental problem with getField, since neither the user nor we can tell if the accessibility has been changed after we have handed the field out of the API. My opinion is, to get this right we will have to implement something like:
+
+{code:java}
+FieldUtils.doWithField("fieldName", true, new FieldAccessCallback(Field theField) {
+   // user can do something with the field here
+});
+{code}
+
+In doWithField we can restore the accessibility after we have called the callback., I don't understand. 
+
+Surely the issue here is methods that need to temporarily change the accessible flag in order to work ought to restore the original accessibility status?
+
+If the user subsequently changes the status, so what?
+
+I don't follow how fixing the original issue can affect users., The problem is with the getField method, which is used by read/writeField methods. When calling getField with forceAccess = true, the user of the method does not know whether accessibility of the Field has been changed. Simply calling setAccessible(false) doesn't work because the field may have been accessible before. So the user cannot restore the accessibility to it's initial state. That is why I was think of some kind of callback, so that FieldUtils can restore accessibility after handing the field to the user., I see.
+An alternative would be for the getField Method to return both the Field and whether the accessibility had to be changed.
+
+e.g. the method could accept a MutableBoolean parameter. Or it could return a (Field, boolean) class.
+
+Obviously this is an API change so could only be used from the wrapper classes, but it could be re-used from the existing getField method(s)., Why do we care so much about the original state? The critical point is setting the accessible, because of a SecurityManager. Therefore it should only be called if necessary. However, since the JDK methods return always a new instance of Field (or Method or Constructor), the state is modified for this particular instance only., Github user PascalSchumacher commented on a diff in the pull request:
+
+    https://github.com/apache/commons-lang/pull/141#discussion_r65721245
+  
+    --- Diff: src/main/java/org/apache/commons/lang3/reflect/MethodUtils.java ---
+    @@ -142,21 +193,57 @@ public static Object invokeMethod(final Object object, final String methodName,
+          * @throws InvocationTargetException wraps an exception thrown by the method invoked
+          * @throws IllegalAccessException if the requested method is not accessible via reflection
+          */
+    -    public static Object invokeMethod(final Object object, final String methodName,
+    +    public static Object invokeMethod(final Object object, final boolean forceAccess, final String methodName,
+                 Object[] args, Class<?>[] parameterTypes)
+                 throws NoSuchMethodException, IllegalAccessException,
+                 InvocationTargetException {
+             parameterTypes = ArrayUtils.nullToEmpty(parameterTypes);
+             args = ArrayUtils.nullToEmpty(args);
+    -        final Method method = getMatchingAccessibleMethod(object.getClass(),
+    -                methodName, parameterTypes);
+    +        
+    +        final String messagePrefix;
+    +        final Method method;
+    +        if (forceAccess) {
+    +            messagePrefix = "No such method: ";
+    +            method = getMatchingMethod(object.getClass(), methodName, parameterTypes);
+    +            if (method != null) {
+    +                method.setAccessible(true);
+    --- End diff --
+    
+    For `FieldUtils` there is this jira issue: https://issues.apache.org/jira/browse/LANG-965?jql=project%20%3D%20LANG%20AND%20status%20%3D%20Open%20ORDER%20BY%20priority%20DESC "FieldUtils methods leak accessible flags" with requests that the visibility of a field should be restored after the field is written. Maybe the visibility of the method should also be restored after it is invoked? What do think? 
+, I'm closing this as "Won't Fix" because (as Joerg said) setAccessible only modifies the behavior of the Field object not of the actual underlying field of the object. ]

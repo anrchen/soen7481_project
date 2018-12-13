@@ -1,0 +1,175 @@
+{
+    "expand": "operations,versionedRepresentations,editmeta,changelog,renderedFields",
+    "fields": {
+        "aggregateprogress": {
+            "progress": 0,
+            "total": 0
+        },
+        "aggregatetimeestimate": null,
+        "aggregatetimeoriginalestimate": null,
+        "aggregatetimespent": null,
+        "assignee": null,
+        "components": [],
+        "created": "2017-06-23T15:39:26.000+0000",
+        "creator": {
+            "active": true,
+            "avatarUrls": {
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452",
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452"
+            },
+            "displayName": "Kevin Binswanger",
+            "key": "kbinswanger",
+            "name": "KBinswanger",
+            "self": "https://issues.apache.org/jira/rest/api/2/user?username=KBinswanger",
+            "timeZone": "America/Chicago"
+        },
+        "customfield_10010": null,
+        "customfield_12310220": "2017-06-24T17:00:31.232+0000",
+        "customfield_12310222": null,
+        "customfield_12310250": null,
+        "customfield_12310290": null,
+        "customfield_12310291": null,
+        "customfield_12310300": null,
+        "customfield_12310310": "0.0",
+        "customfield_12310420": "9223372036854775807",
+        "customfield_12310920": "9223372036854775807",
+        "customfield_12310921": null,
+        "customfield_12311020": null,
+        "customfield_12311024": null,
+        "customfield_12311120": null,
+        "customfield_12311820": "0|i3go7j:",
+        "customfield_12312022": null,
+        "customfield_12312023": null,
+        "customfield_12312024": null,
+        "customfield_12312026": null,
+        "customfield_12312220": null,
+        "customfield_12312320": null,
+        "customfield_12312321": null,
+        "customfield_12312322": null,
+        "customfield_12312323": null,
+        "customfield_12312324": null,
+        "customfield_12312325": null,
+        "customfield_12312326": null,
+        "customfield_12312327": null,
+        "customfield_12312328": null,
+        "customfield_12312329": null,
+        "customfield_12312330": null,
+        "customfield_12312331": null,
+        "customfield_12312332": null,
+        "customfield_12312333": null,
+        "customfield_12312334": null,
+        "customfield_12312335": null,
+        "customfield_12312336": null,
+        "customfield_12312337": null,
+        "customfield_12312338": null,
+        "customfield_12312339": null,
+        "customfield_12312340": null,
+        "customfield_12312341": null,
+        "customfield_12312520": null,
+        "customfield_12312521": "Mon Aug 20 17:22:07 UTC 2018",
+        "customfield_12312720": null,
+        "customfield_12312823": null,
+        "customfield_12312920": null,
+        "customfield_12312921": null,
+        "customfield_12312923": null,
+        "customfield_12313422": "false",
+        "customfield_12313520": null,
+        "description": "If you use EqualsBuilder.appendSuper(super.equals(Object)) on an Object whose direct supertype is Object, it will succeed if and only if the two references are the same (because that's what Object.equals does).\n\nReading it out loud, this is obvious, but I think the Javadoc for EqualsBuilder encourages you to make this mistake. In particular, here's some text in the summary of the Javadoc:\n{quote}Typical use for the code is as follows:{quote}\n{code}\n public boolean equals(Object obj) {\n   if (obj == null) { return false; }\n   if (obj == this) { return true; }\n   if (obj.getClass() != getClass()) {\n     return false;\n   }\n   MyClass rhs = (MyClass) obj;\n   return new EqualsBuilder()\n                 .appendSuper(super.equals(obj))\n                 .append(field1, rhs.field1)\n                 .append(field2, rhs.field2)\n                 .append(field3, rhs.field3)\n                 .isEquals();\n  }{code}\n\nThere's also no mention of this in the javadocs for the appendSuper() method itself.\n\nMy suggestion is to fix the example at the beginning. The way HashCodeBuilder does this, which I think is the best, is to leave appendSuper out of the example and adds this line after: {quote}If required, the superclass hashCode() can be added using appendSuper(int).{quote}\n\n\nFor completeness, here's a snippet of code that illustrates this problem.\n{code}\npublic class Thing {\n    public String text;\n\n    @Override\n    public boolean equals(final Object other) {\n        if (other == null) {\n            return false;\n        }\n        if (other == this) {\n            return true;\n        }\n        if (other.getClass() != getClass()) {\n            return false;\n        }\n        final Thing thing = (Thing) other;\n        return new EqualsBuilder()\n                .appendSuper(super.equals(other))\n                .append(text, thing.text)\n                .isEquals();\n    }\n}{code}",
+        "duedate": null,
+        "environment": null,
+        "fixVersions": [],
+        "issuelinks": [],
+        "issuetype": {
+            "avatarId": 21133,
+            "description": "A problem which impairs or prevents the functions of the product.",
+            "iconUrl": "https://issues.apache.org/jira/secure/viewavatar?size=xsmall&avatarId=21133&avatarType=issuetype",
+            "id": "1",
+            "name": "Bug",
+            "self": "https://issues.apache.org/jira/rest/api/2/issuetype/1",
+            "subtask": false
+        },
+        "labels": [],
+        "lastViewed": null,
+        "priority": {
+            "iconUrl": "https://issues.apache.org/jira/images/icons/priorities/minor.svg",
+            "id": "4",
+            "name": "Minor",
+            "self": "https://issues.apache.org/jira/rest/api/2/priority/4"
+        },
+        "progress": {
+            "progress": 0,
+            "total": 0
+        },
+        "project": {
+            "avatarUrls": {
+                "16x16": "https://issues.apache.org/jira/secure/projectavatar?size=xsmall&pid=12310481&avatarId=10011",
+                "24x24": "https://issues.apache.org/jira/secure/projectavatar?size=small&pid=12310481&avatarId=10011",
+                "32x32": "https://issues.apache.org/jira/secure/projectavatar?size=medium&pid=12310481&avatarId=10011",
+                "48x48": "https://issues.apache.org/jira/secure/projectavatar?pid=12310481&avatarId=10011"
+            },
+            "id": "12310481",
+            "key": "LANG",
+            "name": "Commons Lang",
+            "projectCategory": {
+                "description": "Apache Commons components",
+                "id": "10260",
+                "name": "Commons",
+                "self": "https://issues.apache.org/jira/rest/api/2/projectCategory/10260"
+            },
+            "self": "https://issues.apache.org/jira/rest/api/2/project/12310481"
+        },
+        "reporter": {
+            "active": true,
+            "avatarUrls": {
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452",
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452"
+            },
+            "displayName": "Kevin Binswanger",
+            "key": "kbinswanger",
+            "name": "KBinswanger",
+            "self": "https://issues.apache.org/jira/rest/api/2/user?username=KBinswanger",
+            "timeZone": "America/Chicago"
+        },
+        "resolution": null,
+        "resolutiondate": null,
+        "status": {
+            "description": "The issue is open and ready for the assignee to start work on it.",
+            "iconUrl": "https://issues.apache.org/jira/images/icons/statuses/open.png",
+            "id": "1",
+            "name": "Open",
+            "self": "https://issues.apache.org/jira/rest/api/2/status/1",
+            "statusCategory": {
+                "colorName": "blue-gray",
+                "id": 2,
+                "key": "new",
+                "name": "To Do",
+                "self": "https://issues.apache.org/jira/rest/api/2/statuscategory/2"
+            }
+        },
+        "subtasks": [],
+        "summary": "equalsBuilder.appendSuper() has incorrect behavior if the object you call equals() on is a direct supertype of Object",
+        "timeestimate": null,
+        "timeoriginalestimate": null,
+        "timespent": null,
+        "updated": "2018-08-20T17:22:07.000+0000",
+        "versions": [],
+        "votes": {
+            "hasVoted": false,
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/LANG-1341/votes",
+            "votes": 0
+        },
+        "watches": {
+            "isWatching": false,
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/LANG-1341/watchers",
+            "watchCount": 3
+        },
+        "workratio": -1
+    },
+    "id": "13082158",
+    "key": "LANG-1341",
+    "self": "https://issues.apache.org/jira/rest/api/2/issue/13082158"
+}

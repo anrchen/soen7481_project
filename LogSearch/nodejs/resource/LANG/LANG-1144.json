@@ -1,0 +1,224 @@
+{
+    "expand": "operations,versionedRepresentations,editmeta,changelog,renderedFields",
+    "fields": {
+        "aggregateprogress": {
+            "progress": 0,
+            "total": 0
+        },
+        "aggregatetimeestimate": null,
+        "aggregatetimeoriginalestimate": null,
+        "aggregatetimespent": null,
+        "assignee": {
+            "active": true,
+            "avatarUrls": {
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=garydgregory&avatarId=16828",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=garydgregory&avatarId=16828",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=garydgregory&avatarId=16828",
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=garydgregory&avatarId=16828"
+            },
+            "displayName": "Gary Gregory",
+            "key": "garydgregory",
+            "name": "garydgregory",
+            "self": "https://issues.apache.org/jira/rest/api/2/user?username=garydgregory",
+            "timeZone": "America/Denver"
+        },
+        "components": [{
+            "id": "12313202",
+            "name": "lang.concurrent.*",
+            "self": "https://issues.apache.org/jira/rest/api/2/component/12313202"
+        }],
+        "created": "2015-06-10T20:07:28.000+0000",
+        "creator": {
+            "active": true,
+            "avatarUrls": {
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452",
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452"
+            },
+            "displayName": "Waldemar Maier",
+            "key": "waldemar",
+            "name": "waldemar",
+            "self": "https://issues.apache.org/jira/rest/api/2/user?username=waldemar",
+            "timeZone": "Europe/Berlin"
+        },
+        "customfield_10010": null,
+        "customfield_12310220": "2015-06-11T20:03:44.899+0000",
+        "customfield_12310222": "1_*:*_1_*:*_43277404622_*|*_5_*:*_1_*:*_0",
+        "customfield_12310250": null,
+        "customfield_12310290": null,
+        "customfield_12310291": null,
+        "customfield_12310300": null,
+        "customfield_12310310": "2.0",
+        "customfield_12310420": "9223372036854775807",
+        "customfield_12310920": "9223372036854775807",
+        "customfield_12310921": null,
+        "customfield_12311020": null,
+        "customfield_12311024": null,
+        "customfield_12311120": null,
+        "customfield_12311820": "0|i2fwbj:",
+        "customfield_12312022": null,
+        "customfield_12312023": null,
+        "customfield_12312024": null,
+        "customfield_12312026": null,
+        "customfield_12312220": null,
+        "customfield_12312320": null,
+        "customfield_12312321": null,
+        "customfield_12312322": null,
+        "customfield_12312323": null,
+        "customfield_12312324": null,
+        "customfield_12312325": null,
+        "customfield_12312326": null,
+        "customfield_12312327": null,
+        "customfield_12312328": null,
+        "customfield_12312329": null,
+        "customfield_12312330": null,
+        "customfield_12312331": null,
+        "customfield_12312332": null,
+        "customfield_12312333": null,
+        "customfield_12312334": null,
+        "customfield_12312335": null,
+        "customfield_12312336": null,
+        "customfield_12312337": null,
+        "customfield_12312338": null,
+        "customfield_12312339": null,
+        "customfield_12312340": null,
+        "customfield_12312341": null,
+        "customfield_12312520": null,
+        "customfield_12312521": "Sun Oct 23 17:37:32 UTC 2016",
+        "customfield_12312720": null,
+        "customfield_12312823": null,
+        "customfield_12312920": null,
+        "customfield_12312921": null,
+        "customfield_12312923": null,
+        "customfield_12313422": "false",
+        "customfield_12313520": null,
+        "description": "It is possible to create a construct, that allows multiple calls of LazyInitializer.initialize, when calculations (which can be very expensive) return null as result. \nIn the Javadoc is described that the initialize method will be called only on the first access\n\n{code:java}\n    /**\n     * Creates and initializes the object managed by this {@code\n     * LazyInitializer}. This method is called by {@link #get()} when the object\n     * is accessed for the first time. An implementation can focus on the\n     * creation of the object. No synchronization is needed, as this is already\n     * handled by {@code get()}.\n     *\n     * @return the managed data object\n     * @throws ConcurrentException if an error occurs during object creation\n     */\n    protected abstract T initialize() throws ConcurrentException;\n{code}\n\nThe Junit Test can be something like this:\n*(fix can be appplied from attached patch-file)*\n{code:java}\npackage edu.test;\n\nimport static org.junit.Assert.assertEquals;\n\nimport org.apache.commons.lang3.concurrent.ConcurrentException;\nimport org.apache.commons.lang3.concurrent.LazyInitializer;\nimport org.junit.Test;\n\npublic class LazyInitializerTest {\n\n  private int lazyinitCounter = 0;\n\n  private LazyInitializer<Object> lazyIinit = new LazyInitializer<Object>() {\n\n    @Override\n    protected Object initialize() throws ConcurrentException {\n      lazyinitCounter++;\n      return doSomeVeryExpensiveOperations();\n    }\n  };\n  \n  \n  private Object doSomeVeryExpensiveOperations() {\n    // do db calls\n    // do some complex math calculations\n    // the result of them all is null\n    return null;\n  }\n  \n  \n  @Test\n  public void testInitialization() throws Exception {\n    lazyIinit.get();\n    lazyIinit.get();\n    assertEquals(\"Multiple call of LazyInitializer#initialize\", 1, lazyinitCounter);\n  }\n\n}\n\n\n{code}",
+        "duedate": null,
+        "environment": "Java 1.8 on Windows 7 x64",
+        "fixVersions": [{
+            "archived": false,
+            "description": "Feature and bugfix release, requires at least Java 7",
+            "id": "12338238",
+            "name": "3.6",
+            "releaseDate": "2017-06-08",
+            "released": true,
+            "self": "https://issues.apache.org/jira/rest/api/2/version/12338238"
+        }],
+        "issuelinks": [],
+        "issuetype": {
+            "avatarId": 21133,
+            "description": "A problem which impairs or prevents the functions of the product.",
+            "iconUrl": "https://issues.apache.org/jira/secure/viewavatar?size=xsmall&avatarId=21133&avatarType=issuetype",
+            "id": "1",
+            "name": "Bug",
+            "self": "https://issues.apache.org/jira/rest/api/2/issuetype/1",
+            "subtask": false
+        },
+        "labels": [],
+        "lastViewed": null,
+        "priority": {
+            "iconUrl": "https://issues.apache.org/jira/images/icons/priorities/major.svg",
+            "id": "3",
+            "name": "Major",
+            "self": "https://issues.apache.org/jira/rest/api/2/priority/3"
+        },
+        "progress": {
+            "progress": 0,
+            "total": 0
+        },
+        "project": {
+            "avatarUrls": {
+                "16x16": "https://issues.apache.org/jira/secure/projectavatar?size=xsmall&pid=12310481&avatarId=10011",
+                "24x24": "https://issues.apache.org/jira/secure/projectavatar?size=small&pid=12310481&avatarId=10011",
+                "32x32": "https://issues.apache.org/jira/secure/projectavatar?size=medium&pid=12310481&avatarId=10011",
+                "48x48": "https://issues.apache.org/jira/secure/projectavatar?pid=12310481&avatarId=10011"
+            },
+            "id": "12310481",
+            "key": "LANG",
+            "name": "Commons Lang",
+            "projectCategory": {
+                "description": "Apache Commons components",
+                "id": "10260",
+                "name": "Commons",
+                "self": "https://issues.apache.org/jira/rest/api/2/projectCategory/10260"
+            },
+            "self": "https://issues.apache.org/jira/rest/api/2/project/12310481"
+        },
+        "reporter": {
+            "active": true,
+            "avatarUrls": {
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452",
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452"
+            },
+            "displayName": "Waldemar Maier",
+            "key": "waldemar",
+            "name": "waldemar",
+            "self": "https://issues.apache.org/jira/rest/api/2/user?username=waldemar",
+            "timeZone": "Europe/Berlin"
+        },
+        "resolution": {
+            "description": "A fix for this issue is checked into the tree and tested.",
+            "id": "1",
+            "name": "Fixed",
+            "self": "https://issues.apache.org/jira/rest/api/2/resolution/1"
+        },
+        "resolutiondate": "2016-10-23T17:37:32.000+0000",
+        "status": {
+            "description": "The issue is considered finished, the resolution is correct. Issues which are not closed can be reopened.",
+            "iconUrl": "https://issues.apache.org/jira/images/icons/statuses/closed.png",
+            "id": "6",
+            "name": "Closed",
+            "self": "https://issues.apache.org/jira/rest/api/2/status/6",
+            "statusCategory": {
+                "colorName": "green",
+                "id": 3,
+                "key": "done",
+                "name": "Done",
+                "self": "https://issues.apache.org/jira/rest/api/2/statuscategory/3"
+            }
+        },
+        "subtasks": [],
+        "summary": "Multiple calls of org.apache.commons.lang3.concurrent.LazyInitializer.initialize() are possible",
+        "timeestimate": null,
+        "timeoriginalestimate": null,
+        "timespent": null,
+        "updated": "2017-06-12T12:04:47.000+0000",
+        "versions": [
+            {
+                "archived": false,
+                "description": "Feature and bugfix release",
+                "id": "12326513",
+                "name": "3.4",
+                "releaseDate": "2015-04-06",
+                "released": true,
+                "self": "https://issues.apache.org/jira/rest/api/2/version/12326513"
+            },
+            {
+                "archived": false,
+                "description": "New features including Java 9 support",
+                "id": "12331955",
+                "name": "3.5",
+                "releaseDate": "2016-10-14",
+                "released": true,
+                "self": "https://issues.apache.org/jira/rest/api/2/version/12331955"
+            }
+        ],
+        "votes": {
+            "hasVoted": false,
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/LANG-1144/votes",
+            "votes": 0
+        },
+        "watches": {
+            "isWatching": false,
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/LANG-1144/watchers",
+            "watchCount": 3
+        },
+        "workratio": -1
+    },
+    "id": "12836937",
+    "key": "LANG-1144",
+    "self": "https://issues.apache.org/jira/rest/api/2/issue/12836937"
+}

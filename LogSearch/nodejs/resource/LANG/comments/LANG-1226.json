@@ -1,0 +1,41 @@
+[Ugh, my initial impression is that I'd like to have a {{normalizeSpace()}} that works à la Java spaces and another {{normalizeXmlSpace()}} that works à la XML., See LANG-1227 - any XML methods need to be sensitive to the XML spec version.
+Maybe such methods belong in the XMLCharacter class.
+StringUtils could have a wrapper that delegates to it.
+
+e.g.
+
+StringUtils.normalizeXmlSpace(String input, XMLCharacter#enum XML version) {
+    return XMLCharacter.getInstance(version).normalizeSpace(input);
+}, GitHub user PascalSchumacher opened a pull request:
+
+    https://github.com/apache/commons-lang/pull/150
+
+    LANG-1226: StringUtils#normalizeSpace does not trim the string anymore
+
+    
+
+You can merge this pull request into a Git repository by running:
+
+    $ git pull https://github.com/PascalSchumacher/commons-lang normalizeSpace_trim
+
+Alternatively you can review and apply these changes as the patch at:
+
+    https://github.com/apache/commons-lang/pull/150.patch
+
+To close this pull request, make a commit to your master/trunk branch
+with (at least) the following in the commit message:
+
+    This closes #150
+    
+----
+commit b2b926ae5b8cb01e6ea415e5d040c10b9d4d206f
+Author: pascalschumacher <pascalschumacher@gmx.net>
+Date:   2016-05-21T16:13:03Z
+
+    LANG-1226: StringUtils#normalizeSpace does not trim the string anymore
+
+----
+, Github user asfgit closed the pull request at:
+
+    https://github.com/apache/commons-lang/pull/150
+]

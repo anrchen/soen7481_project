@@ -1,0 +1,21 @@
+[I've dropped the 'iConstant *' part. None of the other appends cover that. I've noted that you have to check the java.lang.Boolean javadoc for the 1231/1237 part - I'm not sure what other detail could be offered; feel free to propose anything if you can think of what you'd like to see there.
+
+I've added the following to the class javadoc:
+
++ * The following is the approach taken. When appending a data field, the current total is multiplied by the 
++ * multiplier then a relevant value 
++ * for that data type is added. For example, if the current hashCode is 17, and the multiplier is 37, then 
++ * appending the integer 45 will create a hashcode of 674, namely 17 * 37 + 45. 
+
+Please reopen if you think more should be done.
+
+, Here is a copy of the javadoc I included in the hashCode patch I created for LANG-411 to include information about the java.lang.Boolean handling:
+
+<p>
+* This is in contrast to out-of-the-box <code>java.lang.Boolean.hashCode</code> handling, which computes
+* a <code>hashCode</code> value of <code>1231</code> for <code>java.lang.Boolean</code> instances
+* that represent <code>true</code> or <code>1237</code> for <code>java.lang.Boolean</code> instances
+* that represent <code>false</code>.
+* </p>
+
+It doesn't seem to warrant reopening the issue, however, if you agree that this added javadoc is useful, I guess it would be a quick reopen and close to add this bit of content. I will be happy to reopen the issue and create a patch with the additional javadoc if you like., I've updated the Javadoc with your text.]

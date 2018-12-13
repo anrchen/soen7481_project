@@ -1,0 +1,5 @@
+[Looks good - but the patch doesn't work. I think Gary and Matt made changes just after you did this and it's thrown things off.
+
+Could you update and repatch or commit?, commit -m "LANG-410 - Ambiguous / confusing names in StringUtils replace* methods" src/java/org/apache/commons/lang/StringUtils.java
+   Committed revision 627588.
+]

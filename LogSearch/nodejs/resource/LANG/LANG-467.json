@@ -1,0 +1,247 @@
+{
+    "expand": "operations,versionedRepresentations,editmeta,changelog,renderedFields",
+    "fields": {
+        "aggregateprogress": {
+            "progress": 0,
+            "total": 0
+        },
+        "aggregatetimeestimate": null,
+        "aggregatetimeoriginalestimate": null,
+        "aggregatetimespent": null,
+        "assignee": null,
+        "components": [{
+            "id": "12313198",
+            "name": "lang.builder.*",
+            "self": "https://issues.apache.org/jira/rest/api/2/component/12313198"
+        }],
+        "created": "2008-10-27T09:53:57.000+0000",
+        "creator": {
+            "active": true,
+            "avatarUrls": {
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452",
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452"
+            },
+            "displayName": "David Jones",
+            "key": "davey.jones",
+            "name": "davey.jones",
+            "self": "https://issues.apache.org/jira/rest/api/2/user?username=davey.jones",
+            "timeZone": "Etc/UTC"
+        },
+        "customfield_10010": null,
+        "customfield_12310220": "2008-10-27T15:54:30.829+0000",
+        "customfield_12310222": "1_*:*_1_*:*_33092205646_*|*_6_*:*_1_*:*_0",
+        "customfield_12310250": null,
+        "customfield_12310290": null,
+        "customfield_12310291": null,
+        "customfield_12310300": null,
+        "customfield_12310310": "0.0",
+        "customfield_12310420": "34126",
+        "customfield_12310920": "74739",
+        "customfield_12310921": null,
+        "customfield_12311020": null,
+        "customfield_12311024": null,
+        "customfield_12311120": null,
+        "customfield_12311820": "0|i0d5xz:",
+        "customfield_12312022": null,
+        "customfield_12312023": null,
+        "customfield_12312024": null,
+        "customfield_12312026": null,
+        "customfield_12312220": null,
+        "customfield_12312320": null,
+        "customfield_12312321": null,
+        "customfield_12312322": null,
+        "customfield_12312323": null,
+        "customfield_12312324": null,
+        "customfield_12312325": null,
+        "customfield_12312326": null,
+        "customfield_12312327": null,
+        "customfield_12312328": null,
+        "customfield_12312329": null,
+        "customfield_12312330": null,
+        "customfield_12312331": null,
+        "customfield_12312332": null,
+        "customfield_12312333": null,
+        "customfield_12312334": null,
+        "customfield_12312335": null,
+        "customfield_12312336": null,
+        "customfield_12312337": null,
+        "customfield_12312338": null,
+        "customfield_12312339": null,
+        "customfield_12312340": null,
+        "customfield_12312341": null,
+        "customfield_12312520": null,
+        "customfield_12312521": "Sat Nov 14 10:10:43 UTC 2009",
+        "customfield_12312720": null,
+        "customfield_12312823": null,
+        "customfield_12312920": null,
+        "customfield_12312921": null,
+        "customfield_12312923": null,
+        "customfield_12313422": "false",
+        "customfield_12313520": null,
+        "description": "A POJO with a BigDecimal field and equals() and hashCode() methods implemented using EqualsBuilder and HashCodeBuilder breaks the general contract of Object.hashCode();\n\nEqualsBuilder treats BigDecimal specially by comparing it using BigDecimal.compareTo() == 0 rather than BigDecimal.equals()\nUsing BigDecimal.compareTo() ignores the scale of the BigDecimal()\n\nHowever the append(Object o) method of HashCodeBuilder uses BigDecimal.hashCode() in the case that o is a BigDecimal, which takes the scale into account when generating the hashCode.\n\nThe following test case shows the problem!\n{code:title=TestApacheCommonsLangHashCodeBuilder.java|borderStyle=solid}\n// package declaration and imports not shown\npublic class TestApacheCommonsLangHashCodeBuilder extends TestCase {\n    \n    public void testHashCode() {\n        MyPojo myPojo1 = new MyPojo(new String(\"foo\"), new BigDecimal(\"10.2\"));\n        MyPojo myPojo2 = new MyPojo(new String(\"foo\"), new BigDecimal(\"10.20\"));\n        \n        // equals method ignores the scale of the big decimal\n        // so this test passes\n        assertTrue(myPojo1.equals(myPojo2));\n        \n        // however in the case the equals returns true the\n        // hashCode must be the same according to the contract\n        // TEST FAILS AT THIS LINE\n        assertEquals(myPojo1.hashCode(), myPojo2.hashCode());\n    }\n    \n    private class MyPojo {\n        private String name;\n        private BigDecimal value;\n        \n        public MyPojo(String name, BigDecimal value) {\n            this.name = name;\n            this.value = value;\n        }\n        \n        public String getName() {\n            return name;\n        }\n        public BigDecimal getValue() {\n            return value;\n        }\n        /**\n         * equals method implemented using EqualsBuilder \n         * as documented by apache commons\n         */\n        @Override public boolean equals(Object obj) {\n            if(this == obj) {\n                return true;\n            }\n            \n            if(!(obj instanceof MyPojo)) {\n                return false;\n            }\n            \n            MyPojo other = (MyPojo) obj;\n            return new EqualsBuilder()\n                .append(name, other.getName())\n                .append(value, other.getValue())\n                .isEquals();\n        }\n        \n        /**\n         * hashCode method implemented using HashCodeBuilder\n         * as documented by apache commons\n         */\n        @Override public int hashCode() {\n            HashCodeBuilder hcb = new HashCodeBuilder(17, 31);\n            return hcb\n                .append(name)\n                .append(value)\n                .toHashCode();\n        }\n    }\n}\n{code}\n\nNote that the only reason I haven't provided a patch is because I could not think of one which I thought was reasonable.\n\n*Option 1*\nAlways set the scale to some value and then get the hashCode()\nExample change in HashCodeBuilder.append(Object) add the following:\n{code}\nelse if (object instanceof BigDecimal) {\n\tappend(((BigDecimal) object).setScale(DEFAULT_BIGDECIMAL_SCALE, RoundingMode.DOWN).hashCode());\n}\n{code}\nHowever what is a reasonable scale for calculating this hashCode? I cannot see a reasonanble scale to choose, that depends on the circumstance\n\n*Option 2*\nstripTrailingZeros() before calculating the hashCode()\nExample change in HashCodeBuilder.append(Object) add the following:\n{code}\nelse if (object instanceof BigDecimal) {\n\tappend(((BigDecimal) object).stripTrailingZeros().hashCode());\n}\n{code}\nThe performance of this method under different circumstances is not documented.\n\n*Option 3*\nDocument the problem and propose that the client solves the problem.\nFor example change HashCodeBuilder documentation as follows\n{code}\n/*\n * ...\n * public class Person {\n *   String name;\n *   int age;\n *   boolean smoker;\n *   BigDecimal netWorth;\n *   ...\n *\n *   public int hashCode() {\n *     // you pick a hard-coded, randomly chosen, non-zero, odd number\n *     // ideally different for each class\n *     return new HashCodeBuilder(17, 37).\n *       append(name).\n *       append(age).\n *       append(smoker).\n *       // take special care when using BigDecimal as scale takes \n *       // is included in the hashCode calculation breaking hashCode contract\n *       // choose a scale which is reasonable for hashCode calculation\n *       append(netWorth == null ? null : netWorth.setScale(2)).\n *       toHashCode();\n *   }\n * }\n * ...\n */\n{code}\n",
+        "duedate": null,
+        "environment": null,
+        "fixVersions": [{
+            "archived": true,
+            "description": "",
+            "id": "12314743",
+            "name": "2.5",
+            "releaseDate": "2010-02-25",
+            "released": true,
+            "self": "https://issues.apache.org/jira/rest/api/2/version/12314743"
+        }],
+        "issuelinks": [{
+            "id": "12422740",
+            "outwardIssue": {
+                "fields": {
+                    "issuetype": {
+                        "avatarId": 21141,
+                        "description": "A new feature of the product, which has yet to be developed.",
+                        "iconUrl": "https://issues.apache.org/jira/secure/viewavatar?size=xsmall&avatarId=21141&avatarType=issuetype",
+                        "id": "2",
+                        "name": "New Feature",
+                        "self": "https://issues.apache.org/jira/rest/api/2/issuetype/2",
+                        "subtask": false
+                    },
+                    "priority": {
+                        "iconUrl": "https://issues.apache.org/jira/images/icons/priorities/trivial.svg",
+                        "id": "5",
+                        "name": "Trivial",
+                        "self": "https://issues.apache.org/jira/rest/api/2/priority/5"
+                    },
+                    "status": {
+                        "description": "The issue is open and ready for the assignee to start work on it.",
+                        "iconUrl": "https://issues.apache.org/jira/images/icons/statuses/open.png",
+                        "id": "1",
+                        "name": "Open",
+                        "self": "https://issues.apache.org/jira/rest/api/2/status/1",
+                        "statusCategory": {
+                            "colorName": "blue-gray",
+                            "id": 2,
+                            "key": "new",
+                            "name": "To Do",
+                            "self": "https://issues.apache.org/jira/rest/api/2/statuscategory/2"
+                        }
+                    },
+                    "summary": "Manages Comparable in EqualsBuilder"
+                },
+                "id": "12820159",
+                "key": "LANG-1113",
+                "self": "https://issues.apache.org/jira/rest/api/2/issue/12820159"
+            },
+            "self": "https://issues.apache.org/jira/rest/api/2/issueLink/12422740",
+            "type": {
+                "id": "10030",
+                "inward": "is related to",
+                "name": "Reference",
+                "outward": "relates to",
+                "self": "https://issues.apache.org/jira/rest/api/2/issueLinkType/10030"
+            }
+        }],
+        "issuetype": {
+            "avatarId": 21133,
+            "description": "A problem which impairs or prevents the functions of the product.",
+            "iconUrl": "https://issues.apache.org/jira/secure/viewavatar?size=xsmall&avatarId=21133&avatarType=issuetype",
+            "id": "1",
+            "name": "Bug",
+            "self": "https://issues.apache.org/jira/rest/api/2/issuetype/1",
+            "subtask": false
+        },
+        "labels": [],
+        "lastViewed": null,
+        "priority": {
+            "iconUrl": "https://issues.apache.org/jira/images/icons/priorities/major.svg",
+            "id": "3",
+            "name": "Major",
+            "self": "https://issues.apache.org/jira/rest/api/2/priority/3"
+        },
+        "progress": {
+            "progress": 0,
+            "total": 0
+        },
+        "project": {
+            "avatarUrls": {
+                "16x16": "https://issues.apache.org/jira/secure/projectavatar?size=xsmall&pid=12310481&avatarId=10011",
+                "24x24": "https://issues.apache.org/jira/secure/projectavatar?size=small&pid=12310481&avatarId=10011",
+                "32x32": "https://issues.apache.org/jira/secure/projectavatar?size=medium&pid=12310481&avatarId=10011",
+                "48x48": "https://issues.apache.org/jira/secure/projectavatar?pid=12310481&avatarId=10011"
+            },
+            "id": "12310481",
+            "key": "LANG",
+            "name": "Commons Lang",
+            "projectCategory": {
+                "description": "Apache Commons components",
+                "id": "10260",
+                "name": "Commons",
+                "self": "https://issues.apache.org/jira/rest/api/2/projectCategory/10260"
+            },
+            "self": "https://issues.apache.org/jira/rest/api/2/project/12310481"
+        },
+        "reporter": {
+            "active": true,
+            "avatarUrls": {
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452",
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452"
+            },
+            "displayName": "David Jones",
+            "key": "davey.jones",
+            "name": "davey.jones",
+            "self": "https://issues.apache.org/jira/rest/api/2/user?username=davey.jones",
+            "timeZone": "Etc/UTC"
+        },
+        "resolution": {
+            "description": "A fix for this issue is checked into the tree and tested.",
+            "id": "1",
+            "name": "Fixed",
+            "self": "https://issues.apache.org/jira/rest/api/2/resolution/1"
+        },
+        "resolutiondate": "2009-11-14T10:10:43.000+0000",
+        "status": {
+            "description": "The issue is considered finished, the resolution is correct. Issues which are not closed can be reopened.",
+            "iconUrl": "https://issues.apache.org/jira/images/icons/statuses/closed.png",
+            "id": "6",
+            "name": "Closed",
+            "self": "https://issues.apache.org/jira/rest/api/2/status/6",
+            "statusCategory": {
+                "colorName": "green",
+                "id": 3,
+                "key": "done",
+                "name": "Done",
+                "self": "https://issues.apache.org/jira/rest/api/2/statuscategory/3"
+            }
+        },
+        "subtasks": [],
+        "summary": "EqualsBuilder and HashCodeBuilder treat java.math.BigDecimal inconsistantly and break general contract of hashCode",
+        "timeestimate": null,
+        "timeoriginalestimate": null,
+        "timespent": null,
+        "updated": "2015-04-27T20:23:13.000+0000",
+        "versions": [{
+            "archived": true,
+            "description": "Bugfix release of the Lang1 codebase",
+            "id": "12312481",
+            "name": "2.4",
+            "releaseDate": "2008-03-18",
+            "released": true,
+            "self": "https://issues.apache.org/jira/rest/api/2/version/12312481"
+        }],
+        "votes": {
+            "hasVoted": false,
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/LANG-467/votes",
+            "votes": 1
+        },
+        "watches": {
+            "isWatching": false,
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/LANG-467/watchers",
+            "watchCount": 1
+        },
+        "workratio": -1
+    },
+    "id": "12407261",
+    "key": "LANG-467",
+    "self": "https://issues.apache.org/jira/rest/api/2/issue/12407261"
+}

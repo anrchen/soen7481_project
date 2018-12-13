@@ -1,0 +1,6 @@
+[Moving to 3.0.2 as it's not pressing.
+
+What about other JDK implementations? The way you word things sounds as though you're relying on a Sun feature., Actually, I read the report as "the *current* lang code relies on a Sun feature, and should be changed.", Yes, I would prefer to see:
+
+- simpler code IMO (like my proposal) instead of something looks odd and is undocumented in our code, or
+- document our current code and explain why it works, and on what JREs it works., New code looks good. Simpler +1., In SVN.]

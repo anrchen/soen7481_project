@@ -1,0 +1,821 @@
+[What is the format you are using?  What is the micro-benchmark code that you are running?, The format we are using most often is ISO8601, but would expect to see others based on offsets from UTC/GMT.
+
+I'm not using a microbenchmark framework but do have a small program that I used to test the variations below.  It spawns a hundred threads that repeatedly hit the calls in question and times the results a couple of ways.
+
+This test creates higher load than what we would expect in normal use, but was good enough to give me an idea what we might experience with it, as I was able to create a situation showing the effects of the contention with this.
+
+Note: InstantType comes from http://hapifhir.io, but is basically a data type that when copied, converts an Instant from a Date back to a string of the appropriate precision, and when constructed, parses the given string into a Date object (and saves the precision of the original string).  The copy operation was in the stack trace of the locked threads we saw in our performance testing beneath calls to FastDateParser.parse().  Note: Some code in hapifhir.io also pays a penalty for its own internal use of TimeZone.getTimeZone() (in calls to a Date Formatter), which is in part why I felt this needed to be an externally available API.
+
+   Keith 
+
+import java.lang.management.ManagementFactory;
+import java.lang.management.ThreadMXBean;
+import java.util.Date;
+
+import org.hl7.fhir.instance.model.InstantType;
+
+public class TimeZoneTester implements Runnable {
+	private static int done = 0;
+	private static Thread t[] = null;
+	private static TimeZoneTester tester[] = null;
+	private static long total;
+	
+	long timer = 0;
+	long cpuTimer = 0;
+	
+	public static void main(String args[]) {
+		 int numThreads = args.length > 0 ? Integer.parseInt(args[0]) : 4;
+		 
+		 t = new Thread[numThreads];
+		 tester = new TimeZoneTester[numThreads];
+		 
+		 // Warm it up
+		 runThisStuff(numThreads);
+
+		 // Let it rip
+		 runThisStuff(numThreads);
+		 long sumTimer = 0, sumCPUTimer = 0;
+		 for (int i = 0; i < numThreads; i++) {
+			 System.out.printf("%6d\t%10d\t%10d\n", i, tester[i].timer, tester[i].cpuTimer);
+			 sumTimer += tester[i].timer;
+			 sumCPUTimer += tester[i].cpuTimer;
+		 }
+		 System.out.printf("Total\t%10d\t%10d\n", sumTimer, sumCPUTimer);
+		 System.out.printf("Actual\t%10d\n", total);
+		 System.out.printf("Master\t%10d\n", currentCPUTime());
+	}
+	
+	static void runThisStuff(int numThreads) {
+		 done = numThreads;
+
+		 // Create all the threads.
+		 for (int i = 0; i < t.length; i++) {
+			 t[i] = new Thread(tester[i] = new TimeZoneTester());
+			 t[i].setName("TimeZoneTester-" + i);
+		 }
+		 
+		 
+		 total = System.nanoTime();
+		 for (int i = 0; i < t.length; i++) {
+			 t[i].start();
+		 }
+		 while (done != 0) {
+			try {
+				Thread.sleep(3000);
+			} catch (InterruptedException e) {
+			}
+			System.out.printf("%d threads running\n", done);
+		 }
+		 total = System.nanoTime() - total;
+	}
+	
+	public void run() {
+		timer = System.nanoTime();
+		InstantType i = new InstantType(new Date());
+		for (int loop = 0; loop < 100000; loop++) {
+			// Force use of parser
+			i = i.copy();
+		}
+		timer = System.nanoTime() - timer;
+		cpuTimer = currentCPUTime();
+		synchronized (TimeZoneTester.class) {
+			--done;
+		}
+	}
+	
+	private static final ThreadMXBean THREADING = ManagementFactory.getThreadMXBean();
+	private static final boolean IS_THREAD_CPU_SUPPORTED = THREADING.isThreadCpuTimeSupported();
+	
+	public static final long currentCPUTime() {
+		return IS_THREAD_CPU_SUPPORTED ? THREADING.getCurrentThreadCpuTime() : 0;
+	}
+
+}
+, In the JDK7 implementation, synchronized method java.util.TimeZone.getTimeZone(String id) ultimately invokes sun.util.calendar.ZoneInfo.getZoneInfo(String id) which consults a ConcurrentHashMap for the zone corresponding with the id.  For "custom time zone IDs", after this call is invoked and no Olson/IANA timezone is found, the custom TimeZone instance is created and returned.  This custom TimeZone instance is never cached.
+
+I suggest that the logic be to first check if the timezone id is a "custom time zone IDs".  If so, create and return the custom TimeZone instance; otherwise invoke the java.util.TimeZone.getTimeZone(String id) method.  All "custom time zone IDs" will not hold the synchronized section open., GitHub user chonton opened a pull request:
+
+    https://github.com/apache/commons-lang/pull/296
+
+    LANG-1355: Add FastTimeZone to decrease TimeZone.getTimezone latency
+
+    Adding FastTimeZone to decrease latency of timezone lookups.   I'll hold this PR open for 48 hours for commons committers' comments.  Thanks!
+
+You can merge this pull request into a Git repository by running:
+
+    $ git pull https://github.com/chonton/commons-lang LANG-1355
+
+Alternatively you can review and apply these changes as the patch at:
+
+    https://github.com/apache/commons-lang/pull/296.patch
+
+To close this pull request, make a commit to your master/trunk branch
+with (at least) the following in the commit message:
+
+    This closes #296
+    
+----
+commit a703646e949c277c5249c87e08486d2b7a69cb34
+Author: Chas Honton <chas@apache.org>
+Date:   2017-10-09T01:54:17Z
+
+    LANG-1355: Add FasTimeZone to decrease TimeZone.getTimezone latency
+
+commit 7670979033076f354af7e4cf852709d5403ffbd4
+Author: Chas Honton <chas@apache.org>
+Date:   2017-10-09T02:18:01Z
+
+    Replace all TimeZone.getTimeZone(UTC) wiht FastTimeZone.getGmtTimeZone()
+
+----
+, Github user coveralls commented on the issue:
+
+    https://github.com/apache/commons-lang/pull/296
+  
+    
+    [![Coverage Status](https://coveralls.io/builds/13625524/badge)](https://coveralls.io/builds/13625524)
+    
+    Coverage decreased (-0.01%) to 95.198% when pulling **7670979033076f354af7e4cf852709d5403ffbd4 on chonton:LANG-1355** into **00feb98f807cf44c993296052726043a90d70b7e on apache:master**.
+
+, Github user coveralls commented on the issue:
+
+    https://github.com/apache/commons-lang/pull/296
+  
+    
+    [![Coverage Status](https://coveralls.io/builds/13642621/badge)](https://coveralls.io/builds/13642621)
+    
+    Coverage decreased (-0.01%) to 95.192% when pulling **0476df2d4276da567e5f6bbf64813e9fff0fa7d5 on chonton:LANG-1355** into **15d5503215a4cd1efc1ae6659d82194a22ebee9b on apache:master**.
+
+, Github user PascalSchumacher commented on the issue:
+
+    https://github.com/apache/commons-lang/pull/296
+  
+    Looks good imho. 👍 
+, Github user kinow commented on a diff in the pull request:
+
+    https://github.com/apache/commons-lang/pull/296#discussion_r143664742
+  
+    --- Diff: src/main/java/org/apache/commons/lang3/time/GmtTimeZone.java ---
+    @@ -0,0 +1,103 @@
+    +/*
+    + * Licensed to the Apache Software Foundation (ASF) under one or more
+    + * contributor license agreements.  See the NOTICE file distributed with
+    + * this work for additional information regarding copyright ownership.
+    + * The ASF licenses this file to You under the Apache License, Version 2.0
+    + * (the "License"); you may not use this file except in compliance with
+    + * the License.  You may obtain a copy of the License at
+    + *
+    + *      http://www.apache.org/licenses/LICENSE-2.0
+    + *
+    + * Unless required by applicable law or agreed to in writing, software
+    + * distributed under the License is distributed on an "AS IS" BASIS,
+    + * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+    + * See the License for the specific language governing permissions and
+    + * limitations under the License.
+    + */
+    +package org.apache.commons.lang3.time;
+    +
+    +import java.util.Date;
+    +import java.util.TimeZone;
+    +
+    +/**
+    + * Custom timezone that contains offset from GMT.
+    + *
+    + * @since 3.7
+    + */
+    +class GmtTimeZone extends TimeZone {
+    --- End diff --
+    
+    TimeZone is Serializabe. Do we need to add a serialVersionUID here?
+, Github user kinow commented on a diff in the pull request:
+
+    https://github.com/apache/commons-lang/pull/296#discussion_r143660909
+  
+    --- Diff: src/main/java/org/apache/commons/lang3/time/FastTimeZone.java ---
+    @@ -0,0 +1,90 @@
+    +/*
+    + * Licensed to the Apache Software Foundation (ASF) under one or more
+    + * contributor license agreements.  See the NOTICE file distributed with
+    + * this work for additional information regarding copyright ownership.
+    + * The ASF licenses this file to You under the Apache License, Version 2.0
+    + * (the "License"); you may not use this file except in compliance with
+    + * the License.  You may obtain a copy of the License at
+    + *
+    + *      http://www.apache.org/licenses/LICENSE-2.0
+    + *
+    + * Unless required by applicable law or agreed to in writing, software
+    + * distributed under the License is distributed on an "AS IS" BASIS,
+    + * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+    + * See the License for the specific language governing permissions and
+    + * limitations under the License.
+    + */
+    +package org.apache.commons.lang3.time;
+    +
+    +import java.util.TimeZone;
+    +import java.util.regex.Matcher;
+    +import java.util.regex.Pattern;
+    +
+    +/**
+    + * Faster methods to produce custom time zones.
+    + *
+    + * @since 3.7
+    + */
+    +public class FastTimeZone {
+    +
+    +    private static final TimeZone GREENWICH = new GmtTimeZone(false, 0, 0);
+    +
+    +    /**
+    +     * Get the GMT TimeZone.
+    +     * @return A TimeZone with a raw offset of zero.
+    +     */
+    +    public static TimeZone getGmtTimeZone() {
+    +        return GREENWICH;
+    +    }
+    +
+    +    /**
+    +     * Get a TimeZone, looking first for GMT custom ids, then falling back to Olson ids.
+    +     * A GMT custom id has an optional prefix of GMT, followed by sign, hours digit(s), optional
+    +     * colon(':'), and optional minutes digits: <em>[GMT] (+|-) Hours [[:] Minutes]</em>
+    +     *
+    +     * @param id A GMT custom id or Olsen id
+    +     * @return A timezone
+    +     */
+    +    public static TimeZone getTimeZone(String id) {
+    +        TimeZone tz = getGmtTimeZone(id);
+    +        if (tz != null) {
+    +            return tz;
+    +        }
+    +        return TimeZone.getTimeZone(id);
+    +    }
+    +
+    +    private static final Pattern GMT_PATTERN = Pattern.compile("^(?:(?i)GMT)?([+-])?(\\d\\d?)?(:?(\\d\\d?))?$");
+    +
+    +    /**
+    +     * Get a TimeZone with GMT offsets.  A GMT offset must be either 'Z' or match
+    +     * (GMT)? hh?(:?mm?)?, where h and m are digits representing hours and minutes.
+    --- End diff --
+    
+    Maybe instead of
+    
+    > A GMT offset must be either 'Z' or match (GMT)? hh?(:?mm?)?
+    
+    It should be
+    
+    > A GMT offset must be 'Z', or 'UTC', or match (GMT)? hh?(:?mm?)?
+    
+    ?
+    
+
+, Github user kinow commented on a diff in the pull request:
+
+    https://github.com/apache/commons-lang/pull/296#discussion_r143663160
+  
+    --- Diff: src/main/java/org/apache/commons/lang3/time/FastTimeZone.java ---
+    @@ -0,0 +1,90 @@
+    +/*
+    + * Licensed to the Apache Software Foundation (ASF) under one or more
+    + * contributor license agreements.  See the NOTICE file distributed with
+    + * this work for additional information regarding copyright ownership.
+    + * The ASF licenses this file to You under the Apache License, Version 2.0
+    + * (the "License"); you may not use this file except in compliance with
+    + * the License.  You may obtain a copy of the License at
+    + *
+    + *      http://www.apache.org/licenses/LICENSE-2.0
+    + *
+    + * Unless required by applicable law or agreed to in writing, software
+    + * distributed under the License is distributed on an "AS IS" BASIS,
+    + * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+    + * See the License for the specific language governing permissions and
+    + * limitations under the License.
+    + */
+    +package org.apache.commons.lang3.time;
+    +
+    +import java.util.TimeZone;
+    +import java.util.regex.Matcher;
+    +import java.util.regex.Pattern;
+    +
+    +/**
+    + * Faster methods to produce custom time zones.
+    + *
+    + * @since 3.7
+    + */
+    +public class FastTimeZone {
+    --- End diff --
+    
+    Do we need a private constructor to prevent instantiation of FastTimeZone? It seems to contain only static methods. Not sure if that's the intended design. But noticed it while looking at the cobertura report (which is looking great).
+, Github user kinow commented on a diff in the pull request:
+
+    https://github.com/apache/commons-lang/pull/296#discussion_r143667156
+  
+    --- Diff: src/test/java/org/apache/commons/lang3/time/GmtTimeZoneTest.java ---
+    @@ -0,0 +1,80 @@
+    +/*
+    + * Licensed to the Apache Software Foundation (ASF) under one or more
+    + * contributor license agreements.  See the NOTICE file distributed with
+    + * this work for additional information regarding copyright ownership.
+    + * The ASF licenses this file to You under the Apache License, Version 2.0
+    + * (the "License"); you may not use this file except in compliance with
+    + * the License.  You may obtain a copy of the License at
+    + *
+    + *      http://www.apache.org/licenses/LICENSE-2.0
+    + *
+    + * Unless required by applicable law or agreed to in writing, software
+    + * distributed under the License is distributed on an "AS IS" BASIS,
+    + * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+    + * See the License for the specific language governing permissions and
+    + * limitations under the License.
+    + */
+    +package org.apache.commons.lang3.time;
+    +
+    +import org.junit.Assert;
+    +import org.junit.Test;
+    +
+    +/**
+    + * Tests for GmtTimeZone
+    + */
+    +public class GmtTimeZoneTest {
+    +
+    +    @Test(expected = IllegalArgumentException.class)
+    +    public void hoursOutOfRange() {
+    +        new GmtTimeZone(false, 24, 0);
+    +    }
+    +
+    +    @Test
+    +    public void hoursInRange() {
+    +        Assert.assertEquals(23 * 60 * 60 * 1000, new GmtTimeZone(false, 23, 0).getRawOffset());
+    +    }
+    +
+    +    @Test(expected = IllegalArgumentException.class)
+    +    public void minutesOutOfRange() {
+    +        Assert.assertEquals(0, new GmtTimeZone(false, 60, 0));
+    --- End diff --
+    
+    This test is wrong. Its title states that the minutes will be out of range, but the hour is actually out of range (60). Minute is 0, but never gets checked.
+, Github user kinow commented on a diff in the pull request:
+
+    https://github.com/apache/commons-lang/pull/296#discussion_r143667312
+  
+    --- Diff: src/test/java/org/apache/commons/lang3/time/GmtTimeZoneTest.java ---
+    @@ -0,0 +1,80 @@
+    +/*
+    + * Licensed to the Apache Software Foundation (ASF) under one or more
+    + * contributor license agreements.  See the NOTICE file distributed with
+    + * this work for additional information regarding copyright ownership.
+    + * The ASF licenses this file to You under the Apache License, Version 2.0
+    + * (the "License"); you may not use this file except in compliance with
+    + * the License.  You may obtain a copy of the License at
+    + *
+    + *      http://www.apache.org/licenses/LICENSE-2.0
+    + *
+    + * Unless required by applicable law or agreed to in writing, software
+    + * distributed under the License is distributed on an "AS IS" BASIS,
+    + * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+    + * See the License for the specific language governing permissions and
+    + * limitations under the License.
+    + */
+    +package org.apache.commons.lang3.time;
+    +
+    +import org.junit.Assert;
+    +import org.junit.Test;
+    +
+    +/**
+    + * Tests for GmtTimeZone
+    + */
+    +public class GmtTimeZoneTest {
+    +
+    +    @Test(expected = IllegalArgumentException.class)
+    +    public void hoursOutOfRange() {
+    +        new GmtTimeZone(false, 24, 0);
+    +    }
+    +
+    +    @Test
+    +    public void hoursInRange() {
+    +        Assert.assertEquals(23 * 60 * 60 * 1000, new GmtTimeZone(false, 23, 0).getRawOffset());
+    +    }
+    +
+    +    @Test(expected = IllegalArgumentException.class)
+    +    public void minutesOutOfRange() {
+    +        Assert.assertEquals(0, new GmtTimeZone(false, 60, 0));
+    +    }
+    +
+    +    @Test
+    +    public void minutesInRange() {
+    +        Assert.assertEquals(59 * 60 * 1000, new GmtTimeZone(false, 0, 59).getRawOffset());
+    +    }
+    +
+    +    @Test
+    +    public void getOffset() {
+    +        Assert.assertEquals(0, new GmtTimeZone(false, 0, 0).getOffset(234304));
+    +    }
+    +
+    +    @Test(expected = UnsupportedOperationException.class)
+    +    public void setRawOffset() {
+    +        new GmtTimeZone(false, 0, 0).setRawOffset(0);
+    +    }
+    +
+    +    @Test
+    +    public void getRawOffset() {
+    +        Assert.assertEquals(0, new GmtTimeZone(false, 0, 0).getRawOffset());
+    +    }
+    +
+    +    @Test
+    +    public void getID() {
+    +        Assert.assertEquals("GMT+00:00", new GmtTimeZone(false, 0, 0).getID());
+    +        Assert.assertEquals("GMT+01:02", new GmtTimeZone(false, 1, 2).getID());
+    +        Assert.assertEquals("GMT+11:22", new GmtTimeZone(false, 11, 22).getID());
+    +        Assert.assertEquals("GMT-01:02", new GmtTimeZone(true, 1, 2).getID());
+    +        Assert.assertEquals("GMT-11:22", new GmtTimeZone(true, 11, 22).getID());
+    +    }
+    +
+    +    @Test
+    +    public void useDaylightTime() {
+    +        Assert.assertFalse(new GmtTimeZone(false, 0, 0).useDaylightTime());
+    +    }
+    +
+    +    @Test
+    +    public void inDaylightTime() {
+    +        Assert.assertFalse(new GmtTimeZone(false, 0, 0).useDaylightTime());
+    +    }
+    --- End diff --
+    
+    Maybe add something like
+    
+    ```
+    @Test
+        public void testToString() {
+            Assert.assertEquals("[GmtTimeZone id=\"GMT+23:00\",offset=82800000]", new GmtTimeZone(false, 23, 0).toString());
+        }
+    
+        @Test
+        public void testGetOffset() {
+            Assert.assertEquals(82800000, new GmtTimeZone(false, 23, 0).getOffset(1, 1, 1, 1, 1, 1));
+        }
+    ```
+    
+    With these two tests we reach 100% for GmtTimeZone.
+, Github user chonton commented on a diff in the pull request:
+
+    https://github.com/apache/commons-lang/pull/296#discussion_r143748823
+  
+    --- Diff: src/main/java/org/apache/commons/lang3/time/FastTimeZone.java ---
+    @@ -0,0 +1,90 @@
+    +/*
+    + * Licensed to the Apache Software Foundation (ASF) under one or more
+    + * contributor license agreements.  See the NOTICE file distributed with
+    + * this work for additional information regarding copyright ownership.
+    + * The ASF licenses this file to You under the Apache License, Version 2.0
+    + * (the "License"); you may not use this file except in compliance with
+    + * the License.  You may obtain a copy of the License at
+    + *
+    + *      http://www.apache.org/licenses/LICENSE-2.0
+    + *
+    + * Unless required by applicable law or agreed to in writing, software
+    + * distributed under the License is distributed on an "AS IS" BASIS,
+    + * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+    + * See the License for the specific language governing permissions and
+    + * limitations under the License.
+    + */
+    +package org.apache.commons.lang3.time;
+    +
+    +import java.util.TimeZone;
+    +import java.util.regex.Matcher;
+    +import java.util.regex.Pattern;
+    +
+    +/**
+    + * Faster methods to produce custom time zones.
+    + *
+    + * @since 3.7
+    + */
+    +public class FastTimeZone {
+    --- End diff --
+    
+    done
+, Github user chonton commented on a diff in the pull request:
+
+    https://github.com/apache/commons-lang/pull/296#discussion_r143748869
+  
+    --- Diff: src/main/java/org/apache/commons/lang3/time/FastTimeZone.java ---
+    @@ -0,0 +1,90 @@
+    +/*
+    + * Licensed to the Apache Software Foundation (ASF) under one or more
+    + * contributor license agreements.  See the NOTICE file distributed with
+    + * this work for additional information regarding copyright ownership.
+    + * The ASF licenses this file to You under the Apache License, Version 2.0
+    + * (the "License"); you may not use this file except in compliance with
+    + * the License.  You may obtain a copy of the License at
+    + *
+    + *      http://www.apache.org/licenses/LICENSE-2.0
+    + *
+    + * Unless required by applicable law or agreed to in writing, software
+    + * distributed under the License is distributed on an "AS IS" BASIS,
+    + * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+    + * See the License for the specific language governing permissions and
+    + * limitations under the License.
+    + */
+    +package org.apache.commons.lang3.time;
+    +
+    +import java.util.TimeZone;
+    +import java.util.regex.Matcher;
+    +import java.util.regex.Pattern;
+    +
+    +/**
+    + * Faster methods to produce custom time zones.
+    + *
+    + * @since 3.7
+    + */
+    +public class FastTimeZone {
+    +
+    +    private static final TimeZone GREENWICH = new GmtTimeZone(false, 0, 0);
+    +
+    +    /**
+    +     * Get the GMT TimeZone.
+    +     * @return A TimeZone with a raw offset of zero.
+    +     */
+    +    public static TimeZone getGmtTimeZone() {
+    +        return GREENWICH;
+    +    }
+    +
+    +    /**
+    +     * Get a TimeZone, looking first for GMT custom ids, then falling back to Olson ids.
+    +     * A GMT custom id has an optional prefix of GMT, followed by sign, hours digit(s), optional
+    +     * colon(':'), and optional minutes digits: <em>[GMT] (+|-) Hours [[:] Minutes]</em>
+    +     *
+    +     * @param id A GMT custom id or Olsen id
+    +     * @return A timezone
+    +     */
+    +    public static TimeZone getTimeZone(String id) {
+    +        TimeZone tz = getGmtTimeZone(id);
+    +        if (tz != null) {
+    +            return tz;
+    +        }
+    +        return TimeZone.getTimeZone(id);
+    +    }
+    +
+    +    private static final Pattern GMT_PATTERN = Pattern.compile("^(?:(?i)GMT)?([+-])?(\\d\\d?)?(:?(\\d\\d?))?$");
+    +
+    +    /**
+    +     * Get a TimeZone with GMT offsets.  A GMT offset must be either 'Z' or match
+    +     * (GMT)? hh?(:?mm?)?, where h and m are digits representing hours and minutes.
+    --- End diff --
+    
+    done
+, Github user chonton commented on a diff in the pull request:
+
+    https://github.com/apache/commons-lang/pull/296#discussion_r143748954
+  
+    --- Diff: src/main/java/org/apache/commons/lang3/time/GmtTimeZone.java ---
+    @@ -0,0 +1,103 @@
+    +/*
+    + * Licensed to the Apache Software Foundation (ASF) under one or more
+    + * contributor license agreements.  See the NOTICE file distributed with
+    + * this work for additional information regarding copyright ownership.
+    + * The ASF licenses this file to You under the Apache License, Version 2.0
+    + * (the "License"); you may not use this file except in compliance with
+    + * the License.  You may obtain a copy of the License at
+    + *
+    + *      http://www.apache.org/licenses/LICENSE-2.0
+    + *
+    + * Unless required by applicable law or agreed to in writing, software
+    + * distributed under the License is distributed on an "AS IS" BASIS,
+    + * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+    + * See the License for the specific language governing permissions and
+    + * limitations under the License.
+    + */
+    +package org.apache.commons.lang3.time;
+    +
+    +import java.util.Date;
+    +import java.util.TimeZone;
+    +
+    +/**
+    + * Custom timezone that contains offset from GMT.
+    + *
+    + * @since 3.7
+    + */
+    +class GmtTimeZone extends TimeZone {
+    --- End diff --
+    
+    great catch! done
+, Github user chonton commented on a diff in the pull request:
+
+    https://github.com/apache/commons-lang/pull/296#discussion_r143749105
+  
+    --- Diff: src/test/java/org/apache/commons/lang3/time/GmtTimeZoneTest.java ---
+    @@ -0,0 +1,80 @@
+    +/*
+    + * Licensed to the Apache Software Foundation (ASF) under one or more
+    + * contributor license agreements.  See the NOTICE file distributed with
+    + * this work for additional information regarding copyright ownership.
+    + * The ASF licenses this file to You under the Apache License, Version 2.0
+    + * (the "License"); you may not use this file except in compliance with
+    + * the License.  You may obtain a copy of the License at
+    + *
+    + *      http://www.apache.org/licenses/LICENSE-2.0
+    + *
+    + * Unless required by applicable law or agreed to in writing, software
+    + * distributed under the License is distributed on an "AS IS" BASIS,
+    + * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+    + * See the License for the specific language governing permissions and
+    + * limitations under the License.
+    + */
+    +package org.apache.commons.lang3.time;
+    +
+    +import org.junit.Assert;
+    +import org.junit.Test;
+    +
+    +/**
+    + * Tests for GmtTimeZone
+    + */
+    +public class GmtTimeZoneTest {
+    +
+    +    @Test(expected = IllegalArgumentException.class)
+    +    public void hoursOutOfRange() {
+    +        new GmtTimeZone(false, 24, 0);
+    +    }
+    +
+    +    @Test
+    +    public void hoursInRange() {
+    +        Assert.assertEquals(23 * 60 * 60 * 1000, new GmtTimeZone(false, 23, 0).getRawOffset());
+    +    }
+    +
+    +    @Test(expected = IllegalArgumentException.class)
+    +    public void minutesOutOfRange() {
+    +        Assert.assertEquals(0, new GmtTimeZone(false, 60, 0));
+    --- End diff --
+    
+    great catch! thanks.
+    done.
+, Github user chonton commented on a diff in the pull request:
+
+    https://github.com/apache/commons-lang/pull/296#discussion_r143749142
+  
+    --- Diff: src/test/java/org/apache/commons/lang3/time/GmtTimeZoneTest.java ---
+    @@ -0,0 +1,80 @@
+    +/*
+    + * Licensed to the Apache Software Foundation (ASF) under one or more
+    + * contributor license agreements.  See the NOTICE file distributed with
+    + * this work for additional information regarding copyright ownership.
+    + * The ASF licenses this file to You under the Apache License, Version 2.0
+    + * (the "License"); you may not use this file except in compliance with
+    + * the License.  You may obtain a copy of the License at
+    + *
+    + *      http://www.apache.org/licenses/LICENSE-2.0
+    + *
+    + * Unless required by applicable law or agreed to in writing, software
+    + * distributed under the License is distributed on an "AS IS" BASIS,
+    + * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+    + * See the License for the specific language governing permissions and
+    + * limitations under the License.
+    + */
+    +package org.apache.commons.lang3.time;
+    +
+    +import org.junit.Assert;
+    +import org.junit.Test;
+    +
+    +/**
+    + * Tests for GmtTimeZone
+    + */
+    +public class GmtTimeZoneTest {
+    +
+    +    @Test(expected = IllegalArgumentException.class)
+    +    public void hoursOutOfRange() {
+    +        new GmtTimeZone(false, 24, 0);
+    +    }
+    +
+    +    @Test
+    +    public void hoursInRange() {
+    +        Assert.assertEquals(23 * 60 * 60 * 1000, new GmtTimeZone(false, 23, 0).getRawOffset());
+    +    }
+    +
+    +    @Test(expected = IllegalArgumentException.class)
+    +    public void minutesOutOfRange() {
+    +        Assert.assertEquals(0, new GmtTimeZone(false, 60, 0));
+    +    }
+    +
+    +    @Test
+    +    public void minutesInRange() {
+    +        Assert.assertEquals(59 * 60 * 1000, new GmtTimeZone(false, 0, 59).getRawOffset());
+    +    }
+    +
+    +    @Test
+    +    public void getOffset() {
+    +        Assert.assertEquals(0, new GmtTimeZone(false, 0, 0).getOffset(234304));
+    +    }
+    +
+    +    @Test(expected = UnsupportedOperationException.class)
+    +    public void setRawOffset() {
+    +        new GmtTimeZone(false, 0, 0).setRawOffset(0);
+    +    }
+    +
+    +    @Test
+    +    public void getRawOffset() {
+    +        Assert.assertEquals(0, new GmtTimeZone(false, 0, 0).getRawOffset());
+    +    }
+    +
+    +    @Test
+    +    public void getID() {
+    +        Assert.assertEquals("GMT+00:00", new GmtTimeZone(false, 0, 0).getID());
+    +        Assert.assertEquals("GMT+01:02", new GmtTimeZone(false, 1, 2).getID());
+    +        Assert.assertEquals("GMT+11:22", new GmtTimeZone(false, 11, 22).getID());
+    +        Assert.assertEquals("GMT-01:02", new GmtTimeZone(true, 1, 2).getID());
+    +        Assert.assertEquals("GMT-11:22", new GmtTimeZone(true, 11, 22).getID());
+    +    }
+    +
+    +    @Test
+    +    public void useDaylightTime() {
+    +        Assert.assertFalse(new GmtTimeZone(false, 0, 0).useDaylightTime());
+    +    }
+    +
+    +    @Test
+    +    public void inDaylightTime() {
+    +        Assert.assertFalse(new GmtTimeZone(false, 0, 0).useDaylightTime());
+    +    }
+    --- End diff --
+    
+    done
+, Github user coveralls commented on the issue:
+
+    https://github.com/apache/commons-lang/pull/296
+  
+    
+    [![Coverage Status](https://coveralls.io/builds/13650527/badge)](https://coveralls.io/builds/13650527)
+    
+    Coverage decreased (-0.007%) to 95.199% when pulling **db5c0a208e26bbae13d1bd4700049e330569aa3b on chonton:LANG-1355** into **15d5503215a4cd1efc1ae6659d82194a22ebee9b on apache:master**.
+
+, Github user PascalSchumacher commented on a diff in the pull request:
+
+    https://github.com/apache/commons-lang/pull/296#discussion_r143781416
+  
+    --- Diff: src/main/java/org/apache/commons/lang3/time/FastTimeZone.java ---
+    @@ -39,10 +43,11 @@ public static TimeZone getGmtTimeZone() {
+     
+         /**
+          * Get a TimeZone, looking first for GMT custom ids, then falling back to Olson ids.
+    -     * A GMT custom id has an optional prefix of GMT, followed by sign, hours digit(s), optional
+    -     * colon(':'), and optional minutes digits: <em>[GMT] (+|-) Hours [[:] Minutes]</em>
+    +     * A GMT custom id can be 'Z', or 'UTC', or has an optional prefix of GMT,
+    +     * followed by sign, hours digit(s), optional colon(':'), and optional minutes digits.
+    +     * i.e. <em>[GMT] (+|-) Hours [[:] Minutes]</em>
+          *
+    -     * @param id A GMT custom id or Olsen id
+    +     * @param id A GMT custom id (or Olson id
+    --- End diff --
+    
+    Nitpick: either a superfluous `(` or a missing `)`
+, Github user garydgregory commented on a diff in the pull request:
+
+    https://github.com/apache/commons-lang/pull/296#discussion_r143804862
+  
+    --- Diff: src/main/java/org/apache/commons/lang3/time/FastTimeZone.java ---
+    @@ -0,0 +1,95 @@
+    +/*
+    + * Licensed to the Apache Software Foundation (ASF) under one or more
+    + * contributor license agreements.  See the NOTICE file distributed with
+    + * this work for additional information regarding copyright ownership.
+    + * The ASF licenses this file to You under the Apache License, Version 2.0
+    + * (the "License"); you may not use this file except in compliance with
+    + * the License.  You may obtain a copy of the License at
+    + *
+    + *      http://www.apache.org/licenses/LICENSE-2.0
+    + *
+    + * Unless required by applicable law or agreed to in writing, software
+    + * distributed under the License is distributed on an "AS IS" BASIS,
+    + * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+    + * See the License for the specific language governing permissions and
+    + * limitations under the License.
+    + */
+    +package org.apache.commons.lang3.time;
+    +
+    +import java.util.TimeZone;
+    +import java.util.regex.Matcher;
+    +import java.util.regex.Pattern;
+    +
+    +/**
+    + * Faster methods to produce custom time zones.
+    + *
+    + * @since 3.7
+    + */
+    +public class FastTimeZone {
+    +
+    +    private static final TimeZone GREENWICH = new GmtTimeZone(false, 0, 0);
+    +
+    +    // do not instantiate
+    +    private FastTimeZone() {
+    +    }
+    +
+    +    /**
+    +     * Get the GMT TimeZone.
+    +     * @return A TimeZone with a raw offset of zero.
+    +     */
+    +    public static TimeZone getGmtTimeZone() {
+    +        return GREENWICH;
+    +    }
+    +
+    +    /**
+    +     * Get a TimeZone, looking first for GMT custom ids, then falling back to Olson ids.
+    --- End diff --
+    
+    In future patches, you can use the active voice for Javadocs: "Gets a TimeZone..." instead of "Get...". :-)
+, Github user asfgit closed the pull request at:
+
+    https://github.com/apache/commons-lang/pull/296
+, In git master, please verify and close.]

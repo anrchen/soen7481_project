@@ -1,0 +1,59 @@
+[That does not make sense based on the tests we have the behavior with other params:
+
+{{StringUtils.isAnyEmpty(null)}} is the same as {{StringUtils.isAnyEmpty([null])}}, an array with one element, a null.
+
+Note that {{StringUtils.isAnyEmpty([null, "foo"]) returns {{true}}.
+
+You might be confusing:
+- StringUtils.isAnyEmpty((String[]) null) return false, this actually passes a null
+- {{StringUtils.isAnyEmpty(null)}} is the same as {{StringUtils.isAnyEmpty([null])}}, an array with one element, a null
+ , Maybe better to specify this behavior appropriately in javadoc. Because it's confusing at the moment., I updated the Javadoc in git master. Please verify and close.
+
+If anyone of you would like to participate and volunteer to improve the Javadoc for the other methods in this class, please provide a PR on GitHub at [https://github.com/apache/commons-lang]
+
+Thank you!
+
+Gary, GitHub user coms opened a pull request:
+
+    https://github.com/apache/commons-lang/pull/326
+
+    [LANG-1391] Improve Javadoc for StringUtils methods
+
+    Improved Javadoc for null cases. Methods: StringUtils.isNoneEmpty, StringUtils.isAnyBlank, StringUtils.isNoneBlank.
+
+You can merge this pull request into a Git repository by running:
+
+    $ git pull https://github.com/coms/commons-lang master
+
+Alternatively you can review and apply these changes as the patch at:
+
+    https://github.com/apache/commons-lang/pull/326.patch
+
+To close this pull request, make a commit to your master/trunk branch
+with (at least) the following in the commit message:
+
+    This closes #326
+    
+----
+commit 235b485e3a7a8cc60b6884357ecef4fd6bca0abd
+Author: Oleg Chubaryov <oleg.chubaryov@...>
+Date:   2018-04-24T22:26:29Z
+
+    Improve Javadoc for StringUtils methods
+
+----
+, I've just created PR: [https://github.com/apache/commons-lang/pull/326]
+
+Thank you!, Github user coveralls commented on the issue:
+
+    https://github.com/apache/commons-lang/pull/326
+  
+    
+    [![Coverage Status](https://coveralls.io/builds/16680481/badge)](https://coveralls.io/builds/16680481)
+    
+    Coverage remained the same at 95.14% when pulling **235b485e3a7a8cc60b6884357ecef4fd6bca0abd on coms:master** into **58a8f12b443d7cbc16ec00b8841138ee55ee6630 on apache:master**.
+
+, [~oleg.chubaryov]: Patch applied. Thank you., Github user coms closed the pull request at:
+
+    https://github.com/apache/commons-lang/pull/326
+]

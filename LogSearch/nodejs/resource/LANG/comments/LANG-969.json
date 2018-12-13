@@ -1,0 +1,16 @@
+[Looks like a bug, probably a cut and paste error. This should be fixed in 4.0 since we cannot break binary compatibility., I don't think Exceptions are part of the method signature.
+
+AFAIK, this would only break source compatibility, Clirr does not complain, so it is OK to break source compatibility for 3.3?, I would say breaking source compatibility is OK, provided that this is clearly documented in the release notes.
+
+It's not a big deal to fix the source., Thank you for the report Matt, good catch!
+
+{noformat}
+commit -m "<action issue="LANG-969" type="fix" dev="ggregory" due-to="Matt Bishop">StringUtils.toEncodedString(byte[], Charset) needlessly throws UnsupportedEncodingException</action>" C:/vcs/svn/apache/commons/trunks-proper/lang/src/changes/changes.xml C:/vcs/svn/apache/commons/trunks-proper/lang/src/main/java/org/apache/commons/lang3/StringUtils.java
+    Sending        C:/vcs/svn/apache/commons/trunks-proper/lang/src/changes/changes.xml
+    Sending        C:/vcs/svn/apache/commons/trunks-proper/lang/src/main/java/org/apache/commons/lang3/StringUtils.java
+    Transmitting file data ...
+    Committed revision 1566489.
+{noformat}
+, bq. I would say breaking source compatibility is OK, provided that this is clearly documented in the release notes.
+
+Do you have an idea where we can put a reminder to add this to the release notes? I'm afraid that we forget this when we roll out the release., The changes.xml doc has a description section., Okay, so we don't need additional prose like we had for for 3.2.]

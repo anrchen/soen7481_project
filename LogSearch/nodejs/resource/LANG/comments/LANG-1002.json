@@ -1,0 +1,16 @@
+[Very odd indeed. The intent is clearly documented in the unit test. So this is just completely wrong. Changing it would break runtime compatibility but what else to do? Create new contants with no T's calls ISO8601_.... instead of ISO...?, Gary, I fail to find the intent here: http://commons.apache.org/proper/commons-lang/xref-test/org/apache/commons/lang3/time/DateFormatUtilsTest.html#L154. To which intent are you referring?, Gary, I think we can do the following here to minimize impact.
+
+1. Create a new ticket which will address the entire problem in Commons Lang 4 cleanly, i.e., remove {{NO_T}} formats and make the other formats correct.
+2. Lang 3 has to remain as-is -- unfortunately, but we deprecate can {{NO_T}} formats and change the Javadocs of the others saying that the format will change in 4.0.
+
+Introducing new constants like {{ISO_8601_...}} would require do add them for all formats to have a uniform use. I think this is overhead.
+
+What do you think?, [~garydgregory], it has been already more than a year. I'd like to finalize this issue now. Please read my previous comment.
+I'd like to remove all invalid static patterns in 4.0 and deprecate them in 3.x., Hi,
+
+without getting into the details here, I think we should:
+* provide constants with the correct values
+* provide additional constants the differ from the standards constants if they are useful.
+
+Deprecating incorrect constants to remove them later on is okay to me. Changes the value of incorrect constants and document this in the RELEASE-NOTES is also okay to me., Charles, you might want to set the fix version. The change looks fine., Recently looked at the commit and some note about it. The naming {{ISO8601_...}} isn't quite good because it is ISO 8601 and *not* ISO8601. Thus, it should be {{ISO_8601_...}}. If no one really opposes, I would add a subsequent commit which fixes that., Are these new constants?
+If so, fine by me to rename them - they are easier to read, and underscores are available quite cheaply these days..., Yes, they are., Changes pushed to [6d3796e64bdd5f3f4857bfca6982e6ecf98a2b33|https://git-wip-us.apache.org/repos/asf?p=commons-lang.git;a=commit;h=6d3796e64bdd5f3f4857bfca6982e6ecf98a2b33].]

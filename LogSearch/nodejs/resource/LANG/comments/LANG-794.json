@@ -1,0 +1,40 @@
+[Wondering why we mess with the version. http://www.milesdennis.com/2010/05/detecting-which-os-is-running-in-java.html seems to imply that osName matches nicely on Windows to the properties we want to set., Looks like that blog page has moved to: http://milesdennis.blogspot.co.uk/2010/05/detecting-which-os-is-running-in-java.html., I agree with [~bayard], on Windows commons-lang should use the value of os.name to determine the version. Take a look at http://hg.openjdk.java.net/jdk8u/jdk8u40/jdk/file/tip/src/windows/native/java/lang/java_props_md.c for possible values., Patches welcome!, GitHub user hzpz opened a pull request:
+
+    https://github.com/apache/commons-lang/pull/60
+
+    LANG-794: Use os.name only when determining Windows versions
+
+    As suggested in previous JIRA comments and according to some other sources (see http://lopica.sourceforge.net/os.html and http://hg.openjdk.java.net/jdk7u/jdk7u/jdk/file/tip/src/windows/native/java/lang/java_props_md.c for example) the Windows version can be determined by os.name alone. I also added a constant for Windows Server 2012.
+
+You can merge this pull request into a Git repository by running:
+
+    $ git pull https://github.com/hzpz/commons-lang LANG-794
+
+Alternatively you can review and apply these changes as the patch at:
+
+    https://github.com/apache/commons-lang/pull/60.patch
+
+To close this pull request, make a commit to your master/trunk branch
+with (at least) the following in the commit message:
+
+    This closes #60
+    
+----
+commit 7e4205a22339deebd5d7215282e9a3ec72a847ed
+Author: hzpz <mailantimo@gmx.de>
+Date:   2015-03-28T22:11:23Z
+
+    LANG-794: Use os.name only when determining Windows versions
+
+----
+, {code}
+$ svn ci -m "LANG-794: SystemUtils.IS_OS_WINDOWS_2008, VISTA are incorrect. This also fixes #60 from github. Thanks to Timo Kockert."
+Sending        RELEASE-NOTES.txt
+Sending        src/changes/changes.xml
+Sending        src/main/java/org/apache/commons/lang3/SystemUtils.java
+Transmitting file data ...
+Committed revision 1671040.
+{code}, Github user asfgit closed the pull request at:
+
+    https://github.com/apache/commons-lang/pull/60
+]

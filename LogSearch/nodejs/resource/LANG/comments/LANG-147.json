@@ -1,0 +1,17 @@
+[Created an attachment (id=6881)
+Patch in StringUtils.chopNewLine(String)
+, Created an attachment (id=6882)
+Test case of the method
+, Test applied, confirmed, fix applied and confirmed.
+
+Thanks Mark and Fredrik., patch and test case should handle empty string. 
+
+change from:
+
+if (lastIdx == 0)
+
+to
+
+if (lastIdx <= 0), Both test and code changed.
+
+Thanks.]

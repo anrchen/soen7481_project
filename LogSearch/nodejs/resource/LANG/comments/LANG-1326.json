@@ -1,0 +1,39 @@
+[GitHub user arbasha opened a pull request:
+
+    https://github.com/apache/commons-lang/pull/267
+
+    LANG-1326 - Fixed isAllEmpty and isAllBlank
+
+    If the description of https://issues.apache.org/jira/browse/LANG-1271 is what is the agreed behavior, then I believe isAllEmpty and isAllBlank method should be updated as well. Please let me know if i'm missing something on this.
+
+You can merge this pull request into a Git repository by running:
+
+    $ git pull https://github.com/arbasha/commons-lang bug_fix
+
+Alternatively you can review and apply these changes as the patch at:
+
+    https://github.com/apache/commons-lang/pull/267.patch
+
+To close this pull request, make a commit to your master/trunk branch
+with (at least) the following in the commit message:
+
+    This closes #267
+    
+----
+commit 35ba1e2f344d87f77f2782a188ea436cbe596a53
+Author: Basha <arbasha@paypalcorp.com>
+Date:   2017-04-29T19:18:24Z
+
+    LANG-1326 - Fixed isAllEmpty and isAllBlank
+
+----
+, Github user coveralls commented on the issue:
+
+    https://github.com/apache/commons-lang/pull/267
+  
+    
+    [![Coverage Status](https://coveralls.io/builds/11304534/badge)](https://coveralls.io/builds/11304534)
+    
+    Coverage remained the same at 94.655% when pulling **35ba1e2f344d87f77f2782a188ea436cbe596a53 on arbasha:bug_fix** into **c8e648b92cc133a604b5e1f4da1ced943788e64b on apache:master**.
+
+]

@@ -1,0 +1,5 @@
+[Created an attachment (id=5317)
+Patch for ToStringBuilder.java version 1.14
+, Created an attachment (id=5318)
+Patch for ToStringBuilderTest.java version 1.4
+, These patches add support for arrays to ToStringBuilder.reflectionToString()., Applied patches.]

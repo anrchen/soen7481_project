@@ -1,0 +1,19 @@
+[Agreed - synchronizing the variable seems the best thing to do., Patch that liberally splashes synchronized around the variable., Patch looks safe., svn ci -m "Applying the synchronization from LANG-369" src/java/org/apache/commons/lang/exception/ExceptionUtils.java
+
+Sending        src/java/org/apache/commons/lang/exception/ExceptionUtils.java
+Transmitting file data .
+Committed revision 594278., I think the wrong lock object is used in the synchronization.
+
+The code uses the CAUSE_METHOD_NAMES object as the lock and then changes it in the synchronized block, i.e. the lock object is changed.
+
+This occurs in removeCauseMethodName() and addCauseMethodName().
+
+Either lock on the class, or use a dummy static final Object as the lock.
+
+This applies to 2.4 branch and trunk
+, Patch which adds static final Object as a lock., Applied patch:
+
+URL: http://svn.apache.org/viewvc?rev=755391&view=rev
+Log:
+LANG-369 - must use fixed object as lock target
+]

@@ -1,0 +1,7 @@
+[Patch for LANG-979. No tests added as this fixes an exception handling message., {code}
+$ git merge --no-ff LANG-979
+Merge made by the 'recursive' strategy.
+ src/changes/changes.xml                                       | 1 +
+ src/main/java/org/apache/commons/lang3/reflect/TypeUtils.java | 2 +-
+ 2 files changed, 2 insertions(+), 1 deletion(-)
+{code}]

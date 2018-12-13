@@ -1,0 +1,7 @@
+[Makes sense that this should be Serializable given that StringBuilder and StringBuffer are.
+
+svn ci -m "Making StrBuilder Serializable per LANG-764"
+Sending        src/main/java/org/apache/commons/lang3/text/StrBuilder.java
+Transmitting file data .
+Committed revision 1225111.
+]

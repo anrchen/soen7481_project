@@ -1,0 +1,40 @@
+[The javadocs specifically state that 
+
+{panel}
+An empty String ("") will return true.
+{panel}
+
+So, I think we should close this one.  This is desired behavior apparently., but later in javadoc says
+
+Returns:
+    true if only contains digits, and is non-null
+
+so, you shure we can close it?, Yes, the javadocs specifically mention the empty string case.  So, it is desired behavior (or at least was when the author wrote it).  
+
+Also, there could be code out there that depends on this behavior.  Changing it now would be a regression bug., closing, but ill rewrite it for myself, because empty string is not numeric :) cya, Note that null is different from the empty string.
+
+Most of the isType() methods in this class work the same way: after checking for null, they check to make sure there are no illegal characters in the String.
+
+An empty String has no characters, so cannot contain an illegal character.
+
+If you want to ensure that the String is non-empty, use StringUtils.isNotEmpty().
+, > If you want to ensure that the String is non-empty, use StringUtils.isNotEmpty().
+thats ok
+
+but i need to check GET parameter. and i dont want put it in 2 conditions, i just want call  StringUtils.isNumeric(myGetParameter) and get valid answer. 
+
+so my 	opinion, StringUtils.isNumerric("") should return false. if it so, then we dont need additionall conditions for result 	approve, Maybe the method could be better named isNotNonNumeric()?  :)
+, just put there 1 more condition for empty string )))) thats be nice., The existing behaviour is consistent with the other methods. 
+And as James notes, any change would break existing code.
+
+So IMO, WONTFIX is the correct resolution. Sorry Artem but backwards compatibility and consistency are very important in widely-used libs like commons-lang.
+
+I guess that a new method, isNumericValue(String) could be added to implement the requested behaviour. But I'm not sure it is worth it.
+, ok, Actually given that the behavior is documented I would argue that the truly correct resolution would have been INVALID.  But I don't feel strongly enough about it to reopen and re-resolve the issue., For anyone wandering around, you can use org.apache.commons.lang.math.NumberUtils.isDigits(String) or isNumber(String) instead (see [javadoc|http://commons.apache.org/lang/api-2.4/org/apache/commons/lang/math/NumberUtils.html#isDigits%28java.lang.String%29] ), Must admit I don't see why isNumeric, isAlphanumeric, isAlpha return true for "". , Yeah, that does not make sense. I wonder if the intent of the author of that Javadoc comment was to just document behavior. , Reopening to consider changing this functionality in 3.0. , +1 to fix. The "does not contain illegal chars" semantic should be captured in a different method if at all IMO. , I was recently frustrated by the apparent nonsensicality of {{StringUtils.isNumeric("") == true}} as well, and this despite my having added a comment to this issue those approximately 3 years ago.  :P  +1 from me to change this behavior., svn ci -m "Resolving LANG-428 - Changing StringUtils.isAlpha, isAlphanumeric and isNumeric to return false when passed an empty String. Documenting this in the changes report and in the upgrade article. Also fixing a Javadoc c+p error in isNumericSpace and isAlphanumericSpace. "
+Sending        src/main/java/org/apache/commons/lang3/StringUtils.java
+Sending        src/site/changes/changes.xml
+Sending        src/site/xdoc/article3_0.xml
+Sending        src/test/java/org/apache/commons/lang3/StringUtilsIsTest.java
+Transmitting file data ....
+Committed revision 1075673.
+]

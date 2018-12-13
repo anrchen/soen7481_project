@@ -1,0 +1,47 @@
+[GitHub user ueshin opened a pull request:
+
+    https://github.com/apache/commons-lang/pull/180
+
+    LANG-1251: SerializationUtils.ClassLoaderAwareObjectInputStream should use static initializer to initialize primitiveTypes map.
+
+    `SerializationUtils.ClassLoaderAwareObjectInputStream` should use static initializer to initialize `primitiveTypes` map because initializing the map in the constructor of `ClassLoaderAwareObjectInputStream` would break thread safety. `java.util.HashMap` is not thread safe.
+
+You can merge this pull request into a Git repository by running:
+
+    $ git pull https://github.com/ueshin/apache-commons-lang issues/LANG-1251
+
+Alternatively you can review and apply these changes as the patch at:
+
+    https://github.com/apache/commons-lang/pull/180.patch
+
+To close this pull request, make a commit to your master/trunk branch
+with (at least) the following in the commit message:
+
+    This closes #180
+    
+----
+commit c8cf32f8f242f8a2b17865fee58b71c04db6b908
+Author: Takuya UESHIN <ueshin@happy-camper.st>
+Date:   2016-07-27T05:00:46Z
+
+    Modify to use static initializer to initialize primitiveTypes map.
+
+----
+, Github user coveralls commented on the issue:
+
+    https://github.com/apache/commons-lang/pull/180
+  
+    
+    [![Coverage Status](https://coveralls.io/builds/7179409/badge)](https://coveralls.io/builds/7179409)
+    
+    Coverage decreased (-0.06%) to 93.382% when pulling **c8cf32f8f242f8a2b17865fee58b71c04db6b908 on ueshin:issues/LANG-1251** into **bd9adbb637a8a4aa5eb61c6fde2c576d0ab3c4fa on apache:master**.
+
+, Github user asfgit closed the pull request at:
+
+    https://github.com/apache/commons-lang/pull/180
+, Github user PascalSchumacher commented on the issue:
+
+    https://github.com/apache/commons-lang/pull/180
+  
+    Thanks! :+1: 
+, Pull request merged. Thanks for reporting and thanks for fixing.]

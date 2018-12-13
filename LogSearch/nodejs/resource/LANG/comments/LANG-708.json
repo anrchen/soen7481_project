@@ -1,0 +1,9 @@
+[It seems that StringEscapeUtils.escapeJavaScript(value) from 2 commons.lang 2.1 does not have this problem with same string., Once you have created a JIRA issue, you can use More Actions / Attach Files to attach files.
+
+Please could you do so with the test data? It's difficult to use as it is.
+
+The issue text could then be editted to remove the inline data.
+
+Thanks very much., drop both files to same dir and run Test.java as main class - it would print result of conversion with 3.0 and 2.1 to system out - 3.0 will have described problem, 2.1 will not (both libs should be added as project deps)., With LANG-720 fixed, lang3 trunk no longer cuts off the end of the string., Setting fix version to 3.0.1.
+
+Setting resolution to Fixed; I think we should treat this as a different bug entry to LANG-720, even if the same code change fixed it. It's a notably different symptom and worth calling out.]

@@ -1,0 +1,11 @@
+[Attaching patch for the record., Renaming ticket to fix this issue in other SU methods., Noting that fixing this isn't a change in binary compatibly; so we can release without it. That said - needs working on., Is the work complete on this?
+
+I have ported the changes back to the 2.x branch (I copied the Character.isHighSurrogate(char) method from Apache Harmony into CharUtils), I am pretty sure that I did not complete the task. Lots of nooks and crannies..., Is the work thats been done so far OK to go into a release? I'm wondering whether I should revert it from the 2.x branch before releasing 2.6 or is whats been done in trunk (and ported to 2.x) good to go?, Looks like the following condition could be taken out of the loop:
+
+CharUtils.isHighSurrogate(ch)
+
+as there's no point rechecking it for each search character.
+
+I don't know if the code is otherwise correct.
+
+, What is there is good to go but I did not cover all of our APIs. , Moving to 3.1 as not a backwards incompatibility.]

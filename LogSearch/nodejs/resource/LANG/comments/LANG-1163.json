@@ -1,0 +1,12 @@
+[Repository: commons-lang
+Updated Branches:
+  refs/heads/master 68acbc803 -> e8a2c2972
+
+
+LANG-1163 There are no tests for CharSequenceUtils.regionMatches
+
+Project: http://git-wip-us.apache.org/repos/asf/commons-lang/repo
+Commit: http://git-wip-us.apache.org/repos/asf/commons-lang/commit/e8a2c297
+Tree: http://git-wip-us.apache.org/repos/asf/commons-lang/tree/e8a2c297
+Diff: http://git-wip-us.apache.org/repos/asf/commons-lang/diff/e8a2c297
+]

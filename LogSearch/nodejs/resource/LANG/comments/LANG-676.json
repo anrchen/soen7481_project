@@ -1,0 +1,9 @@
+[I think this issue is invalid. There's nothing wrong with methods that return Boolean objects, which could be null. The method, after all, is toBooleanObject. An object can be null., 
+So it's someone's own fault if they do the following?
+
+  boolean b = BooleanUtils.toBooleanObject(3, 1, 2, 3);
+, Absolutely., No other comments, so I'll close this as wontfix., Could perhaps add a short note to the Javadoc warning about the possible behaviour under autoboxing?, svn ci -m "Adding note on potential NPE if autoboxing occurs per LANG-676"
+Sending        src/main/java/org/apache/commons/lang3/BooleanUtils.java
+Transmitting file data .
+Committed revision 1067606.
+]

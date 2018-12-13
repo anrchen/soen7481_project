@@ -1,0 +1,5 @@
+[Attached are examples of how to detect and correct the issue., I was wondering why two identical strings (not being the same object though, as they were database lookup results) were considered different. I think equals() definitely needs to be checked also., Submitted a pull request on GitHub.com.
+I hope this is the correct procedure.  Please advise., Setting this to review patch. I'll try to have a look tonight., Fixed in http://svn.apache.org/r1654137., Github user asfgit closed the pull request at:
+
+    https://github.com/apache/commons-lang/pull/41
+]

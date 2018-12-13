@@ -1,0 +1,12 @@
+[Thanks!
+
+Fixed in r1643038
+
+http://svn.apache.org/viewvc?view=revision&revision=r1643038, URL: http://svn.apache.org/r1643038
+Log:
+LANG-1072 Duplicated "0x" check in createBigInteger in NumberUtils
+
+Modified:
+    commons/proper/lang/trunk/src/changes/changes.xml
+    commons/proper/lang/trunk/src/main/java/org/apache/commons/lang3/math/NumberUtils.java
+    commons/proper/lang/trunk/src/test/java/org/apache/commons/lang3/math/NumberUtilsTest.java]

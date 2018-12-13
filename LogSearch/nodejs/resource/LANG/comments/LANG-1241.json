@@ -1,0 +1,18 @@
+[[~sebb@apache.org]'s commit [d75fe46|https://github.com/apache/commons-lang/commit/d75fe46b8f1b0d5c27887052ee4714d6a9c7ea4b] reverts LANG-1077 which was closed as invalid. So what's considered broken here?, No longer a problem, now that LANG-1077 has been reverted.
+
+Repository: commons-lang
+Updated Branches:
+  refs/heads/master f08c4f6ae -> 7fd021d82
+
+
+LANG-1241 StringUtils.ordinalIndexOf broken
+
+Show that the method is no longer broken, now that LANG-1077 has been
+reverted
+
+Project: http://git-wip-us.apache.org/repos/asf/commons-lang/repo
+Commit: http://git-wip-us.apache.org/repos/asf/commons-lang/commit/7fd021d8
+Tree: http://git-wip-us.apache.org/repos/asf/commons-lang/tree/7fd021d8
+Diff: http://git-wip-us.apache.org/repos/asf/commons-lang/diff/7fd021d8, [~nmanley], [~sebb@apache.org] I was not aware that LANG-1077 has been reverted, else I would not have created this issue. Thanks for clarifying.
+
+]

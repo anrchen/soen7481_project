@@ -1,0 +1,80 @@
+[Assign to me if there is any work to do., Created an attachment (id=12229)
+New class.
+, IMHO:
+1) This should be a class, not an interface. Interfaces represent an API to an 
+object, not a set of constants. (see SystemUtils)
+
+2) These constants could fit on SystemUtils, eg ENCODING_UTF_8.
+OR
+The class name should be changed (it doesn't scan well due to the plural, 
+CharacterEncodingNames.UTF_8 kindof implies UTF8 is multiple names.
+
+3) I believe that there is a problem with encoding names in some earlier  JDKs, 
+where you must use "UTF8" not "UTF-8". I believe all accept the short form.
+
+4) Maybe a new class here does make sense if we add methods to it.
+
+public class CharacterEncodingUtils {
+// constants
+ public static final UTF_8 = "UTF8"
+
+ // methods
+ public static String changeEncoding(str, from, to);
+ }
+...
+}, "1) This should be a class, not an interface. Interfaces represent an API to an 
+object, not a set of constants. (see SystemUtils)"
+
+Agreed.
+
+"The class name should be changed (it doesn't scan well due to the plural, 
+CharacterEncodingNames.UTF_8 kindof implies UTF8 is multiple names."
+
+This second pass calls the class CharacterEncoding and adds one method
+isSupported(String). You now read: CharacterEncoding.UTF_8 which is a little better.
+
+"3) I believe that there is a problem with encoding names in some earlier  JDKs, 
+where you must use "UTF8" not "UTF-8". I believe all accept the short form."
+
+"UTF-8" works on 1.1.8_10, 1.2.2_017 and 1.3.1_11. Please see the new unit test.
+Obviously, the method testMustBeSupportedJava1_3_1 does not pass on <1.3.1. 
+
+"4) Maybe a new class here does make sense if we add methods to it."
+
+I am keeping it as a separate class for now with the method noted above. A
+method to "change the encoding" (toEncoding()?) I am not doing yet as I would
+like to consider this possibly in the [codec] realm but maybe not. ;-), Created an attachment (id=12242)
+Class CharacterEncoding
+, Created an attachment (id=12243)
+Class CharacterEncodingTest
+, The attachement:
+
+07/26/04 22:47  New class.   (text/plain)
+
+is now obsolete., Created an attachment (id=12245)
+CharacterEncodingTest version "2".
+, I noted initially, that I commited this to CVS, but I did not to benefit from an
+initial review in this ticket. If approriate, it is ready for more tweakage and
+I can put it in CVS., Comitted to CVS for further comments., My gut is to go with Stephen's SystemUtils suggestion or add more methods to
+justify a new class., I think I see your POV but it feels to me like SystemUtils then becomes a bit of
+dumping ground for this piece of functionality. The char encodings are not
+something you'd expect to find in the java.lang.System class. 
+
+A separate class is more precise and also follows in the Java 1.4 direction. 
+
+I did not add extra methods to do this and that on purpose, a la XP, as I did
+not need them and did not want to waste time (a la XP ;-) then and in future
+maintenance. If someone says "I need a foo() method there", I'd be happy to add it., I believe we should add a change method:
+
+changeEncoding(str, fromEncoding, toEncoding)
+
+Then the class seems to fit., I could see a:
+
+String toString(string, newEncoding)
+
+but how does a "from" encoding work? The String object already is encoded (in
+Unicode). Since a String is immutable and a new String object is created
+"toString" would seem to make more sense. , I found a comment about UTF-8 being bad on JDK1.1 prior to 1.1.8 somewhere 
+IIRC. Since thats pre [lang] supported JDKs, I am now happy with this.
+
+Closing, so we can move on., 2.1 released, closing.]

@@ -1,0 +1,84 @@
+[Attaching a unit test proving the problem. I am not sure through there it should be fixed., The month name Strings are returned by {{java.util.Calendar.getDisplayNames(int, int, Locale)}}. I am not sure it would be a good idea to try to perform additional processing on those values. This is all done programatically. There might be room for adding more values based on an optional resource bundle which matches up with the French locale.
+
+What do you all (the reported [~markus17] and the community) think?, A quick look at the code reveals all sorts of "strategies" (a.o. {{ABBREVIATED_YEAR_STRATEGY}}). Hence (IIUC), the design considered not quite correct input, and could perhaps be extended with a prospective {{ABBREVIATED_MONTH_MISSING_DOT}} (?)., Hello Gary, Gilles, 
+
+I was thinking to be more lenient not only for missing dots in some month forms, but also sometimes optional or mandatory punctuation depending on Locale.
+
+To give an example, we receive date formats from all over the web in the strangest forms. It is easy for us to preprocess AM and PM (stripping punctuation or whitespace), or timezone abbreviations, so it fits for the locale. But, it is not possible (or very hard) to preprocess how some locale's treat their abbreviated literals, we can't add or strip dots without knowing which month (or weekday) we are dealing with.
+
+I did some work on FastDateParser.appendDisplayNames() to strip punctuation or append the regex question mark to punctuation, but that broke things elsewhere, so that was clearly not a good idea.
+, If the problem/issue/fix is not well-defined, you might want to post to the "dev" ML (using prefix "[Lang][Text]" on the "Subject:" line)., GitHub user chonton opened a pull request:
+
+    https://github.com/apache/commons-lang/pull/331
+
+    LANG-1380: FastDateParser too strict on abbreviated short month symbols
+
+    I'm interested in feedback.  Particularly from recent committers - @garydgregory @britter @PascalSchumacher @sebbASF 
+    thanks
+
+
+You can merge this pull request into a Git repository by running:
+
+    $ git pull https://github.com/chonton/commons-lang LANG-1380
+
+Alternatively you can review and apply these changes as the patch at:
+
+    https://github.com/apache/commons-lang/pull/331.patch
+
+To close this pull request, make a commit to your master/trunk branch
+with (at least) the following in the commit message:
+
+    This closes #331
+    
+----
+commit 8c114fa865156fa4341390e66e42ca0cf3c494c8
+Author: Chas Honton <chas@...>
+Date:   2018-05-19T01:29:26Z
+
+    LANG-1380: FastDateParser too strict on abbreviated short month symbols
+
+----
+, Github user sebbASF commented on the issue:
+
+    https://github.com/apache/commons-lang/pull/331
+  
+    The change is hard to review as it contains at least one unrelated change and some code re-arrangement.
+    
+    Would it be possible to provide a PR that addresses only the proposed change?
+, Github user coveralls commented on the issue:
+
+    https://github.com/apache/commons-lang/pull/331
+  
+    
+    [![Coverage Status](https://coveralls.io/builds/17069311/badge)](https://coveralls.io/builds/17069311)
+    
+    Coverage decreased (-0.004%) to 95.229% when pulling **b09d26f12bd4bfd1456d876f56fb8d6986a88a26 on chonton:LANG-1380** into **09ef69c5b51115300da6df43690cd455d83c8027 on apache:master**.
+
+, Github user coveralls commented on the issue:
+
+    https://github.com/apache/commons-lang/pull/331
+  
+    
+    [![Coverage Status](https://coveralls.io/builds/17069311/badge)](https://coveralls.io/builds/17069311)
+    
+    Coverage decreased (-0.004%) to 95.229% when pulling **b09d26f12bd4bfd1456d876f56fb8d6986a88a26 on chonton:LANG-1380** into **09ef69c5b51115300da6df43690cd455d83c8027 on apache:master**.
+
+, Github user PascalSchumacher commented on the issue:
+
+    https://github.com/apache/commons-lang/pull/331
+  
+    +1
+, Github user PascalSchumacher commented on the issue:
+
+    https://github.com/apache/commons-lang/pull/331
+  
+    @chonton No further review comments by anyone, so I guess this is good to merge?
+, Github user chonton commented on the issue:
+
+    https://github.com/apache/commons-lang/pull/331
+  
+    closed with commit f56931c176fef5e164b681c740746aebdccccec3
+, Github user chonton closed the pull request at:
+
+    https://github.com/apache/commons-lang/pull/331
+, Thanks!, 3.8 Released.]

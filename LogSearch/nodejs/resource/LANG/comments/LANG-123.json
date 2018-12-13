@@ -1,0 +1,4 @@
+[Definitely unclear. Reading the comment, I'm not sure I know what the code does :), Javadoc enhanced in svn 394555
+
+We might want to consider deprecating these iterator methods as being a bit
+rubbish though.]

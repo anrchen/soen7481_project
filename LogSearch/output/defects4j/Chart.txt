@@ -1,0 +1,865 @@
+<start>
+Summary of configuration for Project: Chart
+--------------------------------------------------------------------------------
+    Script dir: /Users/mac/Documents/GitHub/SOEN7481/defects4j/framework
+      Base dir: /Users/mac/Documents/GitHub/SOEN7481/defects4j
+    Major root: /Users/mac/Documents/GitHub/SOEN7481/defects4j/major
+      Repo dir: /Users/mac/Documents/GitHub/SOEN7481/defects4j/project_repos
+--------------------------------------------------------------------------------
+    Project ID: Chart
+       Program: jfreechart
+    Build file: /Users/mac/Documents/GitHub/SOEN7481/defects4j/framework/build-scripts/Chart/Chart.build.xml
+--------------------------------------------------------------------------------
+           Vcs: Vcs::Svn
+    Repository: file:///Users/mac/Documents/GitHub/SOEN7481/defects4j/project_repos/jfreechart/trunk
+     Commit db: /Users/mac/Documents/GitHub/SOEN7481/defects4j/framework/projects/Chart/commit-db
+Number of bugs: 26
+--------------------------------------------------------------------------------
+
+Summary for Bug: 1
+--------------------------------------------------------------------------------
+Root cause in triggering tests:
+ - org.jfree.chart.renderer.category.junit.AbstractCategoryItemRendererTests::test2947660
+   --> junit.framework.AssertionFailedError: expected:<1> but was:<0>
+--------------------------------------------------------------------------------
+List of modified sources:
+ - org.jfree.chart.renderer.category.AbstractCategoryItemRenderer
+--------------------------------------------------------------------------------
+<end>
+<start>
+Summary of configuration for Project: Chart
+--------------------------------------------------------------------------------
+    Script dir: /Users/mac/Documents/GitHub/SOEN7481/defects4j/framework
+      Base dir: /Users/mac/Documents/GitHub/SOEN7481/defects4j
+    Major root: /Users/mac/Documents/GitHub/SOEN7481/defects4j/major
+      Repo dir: /Users/mac/Documents/GitHub/SOEN7481/defects4j/project_repos
+--------------------------------------------------------------------------------
+    Project ID: Chart
+       Program: jfreechart
+    Build file: /Users/mac/Documents/GitHub/SOEN7481/defects4j/framework/build-scripts/Chart/Chart.build.xml
+--------------------------------------------------------------------------------
+           Vcs: Vcs::Svn
+    Repository: file:///Users/mac/Documents/GitHub/SOEN7481/defects4j/project_repos/jfreechart/trunk
+     Commit db: /Users/mac/Documents/GitHub/SOEN7481/defects4j/framework/projects/Chart/commit-db
+Number of bugs: 26
+--------------------------------------------------------------------------------
+
+Summary for Bug: 2
+--------------------------------------------------------------------------------
+Root cause in triggering tests:
+ - org.jfree.data.general.junit.DatasetUtilitiesTests::testBug2849731_2
+   --> java.lang.NullPointerException
+ - org.jfree.data.general.junit.DatasetUtilitiesTests::testBug2849731_3
+   --> java.lang.NullPointerException
+--------------------------------------------------------------------------------
+List of modified sources:
+ - org.jfree.data.general.DatasetUtilities
+--------------------------------------------------------------------------------
+<end>
+<start>
+Summary of configuration for Project: Chart
+--------------------------------------------------------------------------------
+    Script dir: /Users/mac/Documents/GitHub/SOEN7481/defects4j/framework
+      Base dir: /Users/mac/Documents/GitHub/SOEN7481/defects4j
+    Major root: /Users/mac/Documents/GitHub/SOEN7481/defects4j/major
+      Repo dir: /Users/mac/Documents/GitHub/SOEN7481/defects4j/project_repos
+--------------------------------------------------------------------------------
+    Project ID: Chart
+       Program: jfreechart
+    Build file: /Users/mac/Documents/GitHub/SOEN7481/defects4j/framework/build-scripts/Chart/Chart.build.xml
+--------------------------------------------------------------------------------
+           Vcs: Vcs::Svn
+    Repository: file:///Users/mac/Documents/GitHub/SOEN7481/defects4j/project_repos/jfreechart/trunk
+     Commit db: /Users/mac/Documents/GitHub/SOEN7481/defects4j/framework/projects/Chart/commit-db
+Number of bugs: 26
+--------------------------------------------------------------------------------
+
+Summary for Bug: 3
+--------------------------------------------------------------------------------
+Root cause in triggering tests:
+ - org.jfree.data.time.junit.TimeSeriesTests::testCreateCopy3
+   --> junit.framework.AssertionFailedError: expected:<101.0> but was:<102.0>
+--------------------------------------------------------------------------------
+List of modified sources:
+ - org.jfree.data.time.TimeSeries
+--------------------------------------------------------------------------------
+<end>
+<start>
+Summary of configuration for Project: Chart
+--------------------------------------------------------------------------------
+    Script dir: /Users/mac/Documents/GitHub/SOEN7481/defects4j/framework
+      Base dir: /Users/mac/Documents/GitHub/SOEN7481/defects4j
+    Major root: /Users/mac/Documents/GitHub/SOEN7481/defects4j/major
+      Repo dir: /Users/mac/Documents/GitHub/SOEN7481/defects4j/project_repos
+--------------------------------------------------------------------------------
+    Project ID: Chart
+       Program: jfreechart
+    Build file: /Users/mac/Documents/GitHub/SOEN7481/defects4j/framework/build-scripts/Chart/Chart.build.xml
+--------------------------------------------------------------------------------
+           Vcs: Vcs::Svn
+    Repository: file:///Users/mac/Documents/GitHub/SOEN7481/defects4j/project_repos/jfreechart/trunk
+     Commit db: /Users/mac/Documents/GitHub/SOEN7481/defects4j/framework/projects/Chart/commit-db
+Number of bugs: 26
+--------------------------------------------------------------------------------
+
+Summary for Bug: 4
+--------------------------------------------------------------------------------
+Root cause in triggering tests:
+ - org.jfree.chart.axis.junit.LogAxisTests::testXYAutoRange1
+   --> java.lang.NullPointerException
+ - org.jfree.chart.axis.junit.LogAxisTests::testXYAutoRange2
+   --> java.lang.NullPointerException
+ - org.jfree.chart.axis.junit.NumberAxisTests::testXYAutoRange1
+   --> java.lang.NullPointerException
+ - org.jfree.chart.axis.junit.NumberAxisTests::testXYAutoRange2
+   --> java.lang.NullPointerException
+ - org.jfree.chart.axis.junit.ValueAxisTests::testAxisMargins
+   --> java.lang.NullPointerException
+ - org.jfree.chart.junit.JFreeChartTests::testSerialization4
+   --> java.lang.NullPointerException
+ - org.jfree.chart.junit.ScatterPlotTests::testDrawWithNullInfo
+   --> java.lang.NullPointerException
+ - org.jfree.chart.junit.ScatterPlotTests::testSetSeriesToolTipGenerator
+   --> java.lang.NullPointerException
+ - org.jfree.chart.junit.ScatterPlotTests::testReplaceDataset
+   --> java.lang.NullPointerException
+ - org.jfree.chart.junit.TimeSeriesChartTests::testDrawWithNullInfo
+   --> java.lang.NullPointerException
+ - org.jfree.chart.junit.TimeSeriesChartTests::testSetSeriesToolTipGenerator
+   --> java.lang.NullPointerException
+ - org.jfree.chart.junit.TimeSeriesChartTests::testReplaceDataset
+   --> java.lang.NullPointerException
+ - org.jfree.chart.junit.XYAreaChartTests::testDrawWithNullInfo
+   --> java.lang.NullPointerException
+ - org.jfree.chart.junit.XYAreaChartTests::testSetSeriesToolTipGenerator
+   --> java.lang.NullPointerException
+ - org.jfree.chart.junit.XYAreaChartTests::testReplaceDataset
+   --> java.lang.NullPointerException
+ - org.jfree.chart.junit.XYStepAreaChartTests::testDrawWithNullInfo
+   --> java.lang.NullPointerException
+ - org.jfree.chart.junit.XYStepAreaChartTests::testSetSeriesToolTipGenerator
+   --> java.lang.NullPointerException
+ - org.jfree.chart.junit.XYStepAreaChartTests::testReplaceDataset
+   --> java.lang.NullPointerException
+ - org.jfree.chart.junit.XYStepChartTests::testDrawWithNullInfo
+   --> java.lang.NullPointerException
+ - org.jfree.chart.junit.XYStepChartTests::testSetSeriesToolTipGenerator
+   --> java.lang.NullPointerException
+ - org.jfree.chart.junit.XYStepChartTests::testReplaceDataset
+   --> java.lang.NullPointerException
+ - org.jfree.chart.plot.junit.XYPlotTests::testDrawRangeGridlines
+   --> java.lang.NullPointerException
+--------------------------------------------------------------------------------
+List of modified sources:
+ - org.jfree.chart.plot.XYPlot
+--------------------------------------------------------------------------------
+<end>
+<start>
+Summary of configuration for Project: Chart
+--------------------------------------------------------------------------------
+    Script dir: /Users/mac/Documents/GitHub/SOEN7481/defects4j/framework
+      Base dir: /Users/mac/Documents/GitHub/SOEN7481/defects4j
+    Major root: /Users/mac/Documents/GitHub/SOEN7481/defects4j/major
+      Repo dir: /Users/mac/Documents/GitHub/SOEN7481/defects4j/project_repos
+--------------------------------------------------------------------------------
+    Project ID: Chart
+       Program: jfreechart
+    Build file: /Users/mac/Documents/GitHub/SOEN7481/defects4j/framework/build-scripts/Chart/Chart.build.xml
+--------------------------------------------------------------------------------
+           Vcs: Vcs::Svn
+    Repository: file:///Users/mac/Documents/GitHub/SOEN7481/defects4j/project_repos/jfreechart/trunk
+     Commit db: /Users/mac/Documents/GitHub/SOEN7481/defects4j/framework/projects/Chart/commit-db
+Number of bugs: 26
+--------------------------------------------------------------------------------
+
+Summary for Bug: 5
+--------------------------------------------------------------------------------
+Root cause in triggering tests:
+ - org.jfree.data.xy.junit.XYSeriesTests::testBug1955483
+   --> java.lang.IndexOutOfBoundsException: Index: -1, Size: 1
+--------------------------------------------------------------------------------
+List of modified sources:
+ - org.jfree.data.xy.XYSeries
+--------------------------------------------------------------------------------
+<end>
+<start>
+Summary of configuration for Project: Chart
+--------------------------------------------------------------------------------
+    Script dir: /Users/mac/Documents/GitHub/SOEN7481/defects4j/framework
+      Base dir: /Users/mac/Documents/GitHub/SOEN7481/defects4j
+    Major root: /Users/mac/Documents/GitHub/SOEN7481/defects4j/major
+      Repo dir: /Users/mac/Documents/GitHub/SOEN7481/defects4j/project_repos
+--------------------------------------------------------------------------------
+    Project ID: Chart
+       Program: jfreechart
+    Build file: /Users/mac/Documents/GitHub/SOEN7481/defects4j/framework/build-scripts/Chart/Chart.build.xml
+--------------------------------------------------------------------------------
+           Vcs: Vcs::Svn
+    Repository: file:///Users/mac/Documents/GitHub/SOEN7481/defects4j/project_repos/jfreechart/trunk
+     Commit db: /Users/mac/Documents/GitHub/SOEN7481/defects4j/framework/projects/Chart/commit-db
+Number of bugs: 26
+--------------------------------------------------------------------------------
+
+Summary for Bug: 6
+--------------------------------------------------------------------------------
+Root cause in triggering tests:
+ - org.jfree.chart.util.junit.ShapeListTests::testSerialization
+   --> junit.framework.AssertionFailedError: expected:<org.jfree.chart.util.ShapeList@130360b1> but was:<org.jfree.chart.util.ShapeList@c167f282>
+ - org.jfree.chart.util.junit.ShapeListTests::testEquals
+   --> junit.framework.AssertionFailedError
+--------------------------------------------------------------------------------
+List of modified sources:
+ - org.jfree.chart.util.ShapeList
+--------------------------------------------------------------------------------
+<end>
+<start>
+Summary of configuration for Project: Chart
+--------------------------------------------------------------------------------
+    Script dir: /Users/mac/Documents/GitHub/SOEN7481/defects4j/framework
+      Base dir: /Users/mac/Documents/GitHub/SOEN7481/defects4j
+    Major root: /Users/mac/Documents/GitHub/SOEN7481/defects4j/major
+      Repo dir: /Users/mac/Documents/GitHub/SOEN7481/defects4j/project_repos
+--------------------------------------------------------------------------------
+    Project ID: Chart
+       Program: jfreechart
+    Build file: /Users/mac/Documents/GitHub/SOEN7481/defects4j/framework/build-scripts/Chart/Chart.build.xml
+--------------------------------------------------------------------------------
+           Vcs: Vcs::Svn
+    Repository: file:///Users/mac/Documents/GitHub/SOEN7481/defects4j/project_repos/jfreechart/trunk
+     Commit db: /Users/mac/Documents/GitHub/SOEN7481/defects4j/framework/projects/Chart/commit-db
+Number of bugs: 26
+--------------------------------------------------------------------------------
+
+Summary for Bug: 7
+--------------------------------------------------------------------------------
+Root cause in triggering tests:
+ - org.jfree.data.time.junit.TimePeriodValuesTests::testGetMaxMiddleIndex
+   --> junit.framework.AssertionFailedError: expected:<1> but was:<3>
+--------------------------------------------------------------------------------
+List of modified sources:
+ - org.jfree.data.time.TimePeriodValues
+--------------------------------------------------------------------------------
+<end>
+<start>
+Summary of configuration for Project: Chart
+--------------------------------------------------------------------------------
+    Script dir: /Users/mac/Documents/GitHub/SOEN7481/defects4j/framework
+      Base dir: /Users/mac/Documents/GitHub/SOEN7481/defects4j
+    Major root: /Users/mac/Documents/GitHub/SOEN7481/defects4j/major
+      Repo dir: /Users/mac/Documents/GitHub/SOEN7481/defects4j/project_repos
+--------------------------------------------------------------------------------
+    Project ID: Chart
+       Program: jfreechart
+    Build file: /Users/mac/Documents/GitHub/SOEN7481/defects4j/framework/build-scripts/Chart/Chart.build.xml
+--------------------------------------------------------------------------------
+           Vcs: Vcs::Svn
+    Repository: file:///Users/mac/Documents/GitHub/SOEN7481/defects4j/project_repos/jfreechart/trunk
+     Commit db: /Users/mac/Documents/GitHub/SOEN7481/defects4j/framework/projects/Chart/commit-db
+Number of bugs: 26
+--------------------------------------------------------------------------------
+
+Summary for Bug: 8
+--------------------------------------------------------------------------------
+Root cause in triggering tests:
+ - org.jfree.data.time.junit.WeekTests::testConstructor
+   --> junit.framework.AssertionFailedError: expected:<35> but was:<34>
+--------------------------------------------------------------------------------
+List of modified sources:
+ - org.jfree.data.time.Week
+--------------------------------------------------------------------------------
+<end>
+<start>
+Summary of configuration for Project: Chart
+--------------------------------------------------------------------------------
+    Script dir: /Users/mac/Documents/GitHub/SOEN7481/defects4j/framework
+      Base dir: /Users/mac/Documents/GitHub/SOEN7481/defects4j
+    Major root: /Users/mac/Documents/GitHub/SOEN7481/defects4j/major
+      Repo dir: /Users/mac/Documents/GitHub/SOEN7481/defects4j/project_repos
+--------------------------------------------------------------------------------
+    Project ID: Chart
+       Program: jfreechart
+    Build file: /Users/mac/Documents/GitHub/SOEN7481/defects4j/framework/build-scripts/Chart/Chart.build.xml
+--------------------------------------------------------------------------------
+           Vcs: Vcs::Svn
+    Repository: file:///Users/mac/Documents/GitHub/SOEN7481/defects4j/project_repos/jfreechart/trunk
+     Commit db: /Users/mac/Documents/GitHub/SOEN7481/defects4j/framework/projects/Chart/commit-db
+Number of bugs: 26
+--------------------------------------------------------------------------------
+
+Summary for Bug: 9
+--------------------------------------------------------------------------------
+Root cause in triggering tests:
+ - org.jfree.data.time.junit.TimeSeriesTests::testBug1864222
+   --> java.lang.IllegalArgumentException: Requires start <= end.
+--------------------------------------------------------------------------------
+List of modified sources:
+ - org.jfree.data.time.TimeSeries
+--------------------------------------------------------------------------------
+<end>
+<start>
+Summary of configuration for Project: Chart
+--------------------------------------------------------------------------------
+    Script dir: /Users/mac/Documents/GitHub/SOEN7481/defects4j/framework
+      Base dir: /Users/mac/Documents/GitHub/SOEN7481/defects4j
+    Major root: /Users/mac/Documents/GitHub/SOEN7481/defects4j/major
+      Repo dir: /Users/mac/Documents/GitHub/SOEN7481/defects4j/project_repos
+--------------------------------------------------------------------------------
+    Project ID: Chart
+       Program: jfreechart
+    Build file: /Users/mac/Documents/GitHub/SOEN7481/defects4j/framework/build-scripts/Chart/Chart.build.xml
+--------------------------------------------------------------------------------
+           Vcs: Vcs::Svn
+    Repository: file:///Users/mac/Documents/GitHub/SOEN7481/defects4j/project_repos/jfreechart/trunk
+     Commit db: /Users/mac/Documents/GitHub/SOEN7481/defects4j/framework/projects/Chart/commit-db
+Number of bugs: 26
+--------------------------------------------------------------------------------
+
+Summary for Bug: 10
+--------------------------------------------------------------------------------
+Root cause in triggering tests:
+ - org.jfree.chart.imagemap.junit.StandardToolTipTagFragmentGeneratorTests::testGenerateURLFragment
+   --> junit.framework.ComparisonFailure: expected:< title="Series [&quot;A&quot;], 100.0" alt=""> but was:< title="Series ["A"], 100.0" alt="">
+--------------------------------------------------------------------------------
+List of modified sources:
+ - org.jfree.chart.imagemap.DynamicDriveToolTipTagFragmentGenerator
+ - org.jfree.chart.imagemap.OverLIBToolTipTagFragmentGenerator
+ - org.jfree.chart.imagemap.StandardToolTipTagFragmentGenerator
+--------------------------------------------------------------------------------
+<end>
+<start>
+Summary of configuration for Project: Chart
+--------------------------------------------------------------------------------
+    Script dir: /Users/mac/Documents/GitHub/SOEN7481/defects4j/framework
+      Base dir: /Users/mac/Documents/GitHub/SOEN7481/defects4j
+    Major root: /Users/mac/Documents/GitHub/SOEN7481/defects4j/major
+      Repo dir: /Users/mac/Documents/GitHub/SOEN7481/defects4j/project_repos
+--------------------------------------------------------------------------------
+    Project ID: Chart
+       Program: jfreechart
+    Build file: /Users/mac/Documents/GitHub/SOEN7481/defects4j/framework/build-scripts/Chart/Chart.build.xml
+--------------------------------------------------------------------------------
+           Vcs: Vcs::Svn
+    Repository: file:///Users/mac/Documents/GitHub/SOEN7481/defects4j/project_repos/jfreechart/trunk
+     Commit db: /Users/mac/Documents/GitHub/SOEN7481/defects4j/framework/projects/Chart/commit-db
+Number of bugs: 26
+--------------------------------------------------------------------------------
+
+Summary for Bug: 11
+--------------------------------------------------------------------------------
+Root cause in triggering tests:
+ - org.jfree.chart.util.junit.ShapeUtilitiesTests::testEqualGeneralPaths
+   --> junit.framework.AssertionFailedError
+--------------------------------------------------------------------------------
+List of modified sources:
+ - org.jfree.chart.util.ShapeUtilities
+ - org.jfree.chart.util.SerialUtilities
+--------------------------------------------------------------------------------
+<end>
+<start>
+Summary of configuration for Project: Chart
+--------------------------------------------------------------------------------
+    Script dir: /Users/mac/Documents/GitHub/SOEN7481/defects4j/framework
+      Base dir: /Users/mac/Documents/GitHub/SOEN7481/defects4j
+    Major root: /Users/mac/Documents/GitHub/SOEN7481/defects4j/major
+      Repo dir: /Users/mac/Documents/GitHub/SOEN7481/defects4j/project_repos
+--------------------------------------------------------------------------------
+    Project ID: Chart
+       Program: jfreechart
+    Build file: /Users/mac/Documents/GitHub/SOEN7481/defects4j/framework/build-scripts/Chart/Chart.build.xml
+--------------------------------------------------------------------------------
+           Vcs: Vcs::Svn
+    Repository: file:///Users/mac/Documents/GitHub/SOEN7481/defects4j/project_repos/jfreechart/trunk
+     Commit db: /Users/mac/Documents/GitHub/SOEN7481/defects4j/framework/projects/Chart/commit-db
+Number of bugs: 26
+--------------------------------------------------------------------------------
+
+Summary for Bug: 12
+--------------------------------------------------------------------------------
+Root cause in triggering tests:
+ - org.jfree.chart.plot.junit.MultiplePiePlotTests::testConstructor
+   --> junit.framework.AssertionFailedError
+--------------------------------------------------------------------------------
+List of modified sources:
+ - org.jfree.chart.plot.MultiplePiePlot
+--------------------------------------------------------------------------------
+<end>
+<start>
+Summary of configuration for Project: Chart
+--------------------------------------------------------------------------------
+    Script dir: /Users/mac/Documents/GitHub/SOEN7481/defects4j/framework
+      Base dir: /Users/mac/Documents/GitHub/SOEN7481/defects4j
+    Major root: /Users/mac/Documents/GitHub/SOEN7481/defects4j/major
+      Repo dir: /Users/mac/Documents/GitHub/SOEN7481/defects4j/project_repos
+--------------------------------------------------------------------------------
+    Project ID: Chart
+       Program: jfreechart
+    Build file: /Users/mac/Documents/GitHub/SOEN7481/defects4j/framework/build-scripts/Chart/Chart.build.xml
+--------------------------------------------------------------------------------
+           Vcs: Vcs::Svn
+    Repository: file:///Users/mac/Documents/GitHub/SOEN7481/defects4j/project_repos/jfreechart/trunk
+     Commit db: /Users/mac/Documents/GitHub/SOEN7481/defects4j/framework/projects/Chart/commit-db
+Number of bugs: 26
+--------------------------------------------------------------------------------
+
+Summary for Bug: 13
+--------------------------------------------------------------------------------
+Root cause in triggering tests:
+ - org.jfree.chart.block.junit.BorderArrangementTests::testSizingWithWidthConstraint
+   --> java.lang.IllegalArgumentException: Range(double, double): require lower (0.0) <= upper (-2.3000000000000007).
+--------------------------------------------------------------------------------
+List of modified sources:
+ - org.jfree.chart.block.BorderArrangement
+--------------------------------------------------------------------------------
+<end>
+<start>
+Summary of configuration for Project: Chart
+--------------------------------------------------------------------------------
+    Script dir: /Users/mac/Documents/GitHub/SOEN7481/defects4j/framework
+      Base dir: /Users/mac/Documents/GitHub/SOEN7481/defects4j
+    Major root: /Users/mac/Documents/GitHub/SOEN7481/defects4j/major
+      Repo dir: /Users/mac/Documents/GitHub/SOEN7481/defects4j/project_repos
+--------------------------------------------------------------------------------
+    Project ID: Chart
+       Program: jfreechart
+    Build file: /Users/mac/Documents/GitHub/SOEN7481/defects4j/framework/build-scripts/Chart/Chart.build.xml
+--------------------------------------------------------------------------------
+           Vcs: Vcs::Svn
+    Repository: file:///Users/mac/Documents/GitHub/SOEN7481/defects4j/project_repos/jfreechart/trunk
+     Commit db: /Users/mac/Documents/GitHub/SOEN7481/defects4j/framework/projects/Chart/commit-db
+Number of bugs: 26
+--------------------------------------------------------------------------------
+
+Summary for Bug: 14
+--------------------------------------------------------------------------------
+Root cause in triggering tests:
+ - org.jfree.chart.plot.junit.CategoryPlotTests::testRemoveRangeMarker
+   --> java.lang.NullPointerException
+ - org.jfree.chart.plot.junit.CategoryPlotTests::testRemoveDomainMarker
+   --> java.lang.NullPointerException
+ - org.jfree.chart.plot.junit.XYPlotTests::testRemoveRangeMarker
+   --> java.lang.NullPointerException
+ - org.jfree.chart.plot.junit.XYPlotTests::testRemoveDomainMarker
+   --> java.lang.NullPointerException
+--------------------------------------------------------------------------------
+List of modified sources:
+ - org.jfree.chart.plot.XYPlot
+ - org.jfree.chart.plot.CategoryPlot
+--------------------------------------------------------------------------------
+<end>
+<start>
+Summary of configuration for Project: Chart
+--------------------------------------------------------------------------------
+    Script dir: /Users/mac/Documents/GitHub/SOEN7481/defects4j/framework
+      Base dir: /Users/mac/Documents/GitHub/SOEN7481/defects4j
+    Major root: /Users/mac/Documents/GitHub/SOEN7481/defects4j/major
+      Repo dir: /Users/mac/Documents/GitHub/SOEN7481/defects4j/project_repos
+--------------------------------------------------------------------------------
+    Project ID: Chart
+       Program: jfreechart
+    Build file: /Users/mac/Documents/GitHub/SOEN7481/defects4j/framework/build-scripts/Chart/Chart.build.xml
+--------------------------------------------------------------------------------
+           Vcs: Vcs::Svn
+    Repository: file:///Users/mac/Documents/GitHub/SOEN7481/defects4j/project_repos/jfreechart/trunk
+     Commit db: /Users/mac/Documents/GitHub/SOEN7481/defects4j/framework/projects/Chart/commit-db
+Number of bugs: 26
+--------------------------------------------------------------------------------
+
+Summary for Bug: 15
+--------------------------------------------------------------------------------
+Root cause in triggering tests:
+ - org.jfree.chart.plot.junit.PiePlot3DTests::testDrawWithNullDataset
+   --> junit.framework.AssertionFailedError
+--------------------------------------------------------------------------------
+List of modified sources:
+ - org.jfree.chart.plot.PiePlot
+--------------------------------------------------------------------------------
+<end>
+<start>
+Summary of configuration for Project: Chart
+--------------------------------------------------------------------------------
+    Script dir: /Users/mac/Documents/GitHub/SOEN7481/defects4j/framework
+      Base dir: /Users/mac/Documents/GitHub/SOEN7481/defects4j
+    Major root: /Users/mac/Documents/GitHub/SOEN7481/defects4j/major
+      Repo dir: /Users/mac/Documents/GitHub/SOEN7481/defects4j/project_repos
+--------------------------------------------------------------------------------
+    Project ID: Chart
+       Program: jfreechart
+    Build file: /Users/mac/Documents/GitHub/SOEN7481/defects4j/framework/build-scripts/Chart/Chart.build.xml
+--------------------------------------------------------------------------------
+           Vcs: Vcs::Svn
+    Repository: file:///Users/mac/Documents/GitHub/SOEN7481/defects4j/project_repos/jfreechart/trunk
+     Commit db: /Users/mac/Documents/GitHub/SOEN7481/defects4j/framework/projects/Chart/commit-db
+Number of bugs: 26
+--------------------------------------------------------------------------------
+
+Summary for Bug: 16
+--------------------------------------------------------------------------------
+Root cause in triggering tests:
+ - org.jfree.data.category.junit.DefaultIntervalCategoryDatasetTests::testGetCategoryIndex
+   --> java.lang.NullPointerException
+ - org.jfree.data.category.junit.DefaultIntervalCategoryDatasetTests::testSetCategoryKeys
+   --> junit.framework.AssertionFailedError
+ - org.jfree.data.category.junit.DefaultIntervalCategoryDatasetTests::testGetSeriesIndex
+   --> java.lang.NullPointerException
+ - org.jfree.data.category.junit.DefaultIntervalCategoryDatasetTests::testGetRowCount
+   --> java.lang.NullPointerException
+ - org.jfree.data.category.junit.DefaultIntervalCategoryDatasetTests::testGetRowIndex
+   --> java.lang.NullPointerException
+ - org.jfree.data.category.junit.DefaultIntervalCategoryDatasetTests::testGetColumnCount
+   --> java.lang.NullPointerException
+ - org.jfree.data.category.junit.DefaultIntervalCategoryDatasetTests::testGetColumnIndex
+   --> java.lang.NullPointerException
+ - org.jfree.data.category.junit.DefaultIntervalCategoryDatasetTests::testCloning2
+   --> java.lang.NullPointerException
+--------------------------------------------------------------------------------
+List of modified sources:
+ - org.jfree.data.category.DefaultIntervalCategoryDataset
+--------------------------------------------------------------------------------
+<end>
+<start>
+Summary of configuration for Project: Chart
+--------------------------------------------------------------------------------
+    Script dir: /Users/mac/Documents/GitHub/SOEN7481/defects4j/framework
+      Base dir: /Users/mac/Documents/GitHub/SOEN7481/defects4j
+    Major root: /Users/mac/Documents/GitHub/SOEN7481/defects4j/major
+      Repo dir: /Users/mac/Documents/GitHub/SOEN7481/defects4j/project_repos
+--------------------------------------------------------------------------------
+    Project ID: Chart
+       Program: jfreechart
+    Build file: /Users/mac/Documents/GitHub/SOEN7481/defects4j/framework/build-scripts/Chart/Chart.build.xml
+--------------------------------------------------------------------------------
+           Vcs: Vcs::Svn
+    Repository: file:///Users/mac/Documents/GitHub/SOEN7481/defects4j/project_repos/jfreechart/trunk
+     Commit db: /Users/mac/Documents/GitHub/SOEN7481/defects4j/framework/projects/Chart/commit-db
+Number of bugs: 26
+--------------------------------------------------------------------------------
+
+Summary for Bug: 17
+--------------------------------------------------------------------------------
+Root cause in triggering tests:
+ - org.jfree.data.time.junit.TimeSeriesTests::testBug1832432
+   --> java.lang.IllegalArgumentException: Requires start <= end.
+--------------------------------------------------------------------------------
+List of modified sources:
+ - org.jfree.data.time.TimeSeries
+--------------------------------------------------------------------------------
+<end>
+<start>
+Summary of configuration for Project: Chart
+--------------------------------------------------------------------------------
+    Script dir: /Users/mac/Documents/GitHub/SOEN7481/defects4j/framework
+      Base dir: /Users/mac/Documents/GitHub/SOEN7481/defects4j
+    Major root: /Users/mac/Documents/GitHub/SOEN7481/defects4j/major
+      Repo dir: /Users/mac/Documents/GitHub/SOEN7481/defects4j/project_repos
+--------------------------------------------------------------------------------
+    Project ID: Chart
+       Program: jfreechart
+    Build file: /Users/mac/Documents/GitHub/SOEN7481/defects4j/framework/build-scripts/Chart/Chart.build.xml
+--------------------------------------------------------------------------------
+           Vcs: Vcs::Svn
+    Repository: file:///Users/mac/Documents/GitHub/SOEN7481/defects4j/project_repos/jfreechart/trunk
+     Commit db: /Users/mac/Documents/GitHub/SOEN7481/defects4j/framework/projects/Chart/commit-db
+Number of bugs: 26
+--------------------------------------------------------------------------------
+
+Summary for Bug: 18
+--------------------------------------------------------------------------------
+Root cause in triggering tests:
+ - org.jfree.data.category.junit.DefaultCategoryDatasetTests::testBug1835955
+   --> java.lang.IndexOutOfBoundsException: Index: 0, Size: 0
+ - org.jfree.data.junit.DefaultKeyedValues2DTests::testRemoveColumnByKey
+   --> java.lang.IndexOutOfBoundsException: Index: 0, Size: 0
+ - org.jfree.data.junit.DefaultKeyedValuesTests::testRemoveValue
+   --> junit.framework.AssertionFailedError
+ - org.jfree.data.junit.DefaultKeyedValuesTests::testGetIndex2
+   --> junit.framework.AssertionFailedError: expected:<-1> but was:<0>
+--------------------------------------------------------------------------------
+List of modified sources:
+ - org.jfree.data.DefaultKeyedValues
+ - org.jfree.data.DefaultKeyedValues2D
+--------------------------------------------------------------------------------
+<end>
+<start>
+Summary of configuration for Project: Chart
+--------------------------------------------------------------------------------
+    Script dir: /Users/mac/Documents/GitHub/SOEN7481/defects4j/framework
+      Base dir: /Users/mac/Documents/GitHub/SOEN7481/defects4j
+    Major root: /Users/mac/Documents/GitHub/SOEN7481/defects4j/major
+      Repo dir: /Users/mac/Documents/GitHub/SOEN7481/defects4j/project_repos
+--------------------------------------------------------------------------------
+    Project ID: Chart
+       Program: jfreechart
+    Build file: /Users/mac/Documents/GitHub/SOEN7481/defects4j/framework/build-scripts/Chart/Chart.build.xml
+--------------------------------------------------------------------------------
+           Vcs: Vcs::Svn
+    Repository: file:///Users/mac/Documents/GitHub/SOEN7481/defects4j/project_repos/jfreechart/trunk
+     Commit db: /Users/mac/Documents/GitHub/SOEN7481/defects4j/framework/projects/Chart/commit-db
+Number of bugs: 26
+--------------------------------------------------------------------------------
+
+Summary for Bug: 19
+--------------------------------------------------------------------------------
+Root cause in triggering tests:
+ - org.jfree.chart.plot.junit.CategoryPlotTests::testGetRangeAxisIndex
+   --> junit.framework.AssertionFailedError
+ - org.jfree.chart.plot.junit.CategoryPlotTests::testGetDomainAxisIndex
+   --> junit.framework.AssertionFailedError
+--------------------------------------------------------------------------------
+List of modified sources:
+ - org.jfree.chart.plot.CategoryPlot
+--------------------------------------------------------------------------------
+<end>
+<start>
+Summary of configuration for Project: Chart
+--------------------------------------------------------------------------------
+    Script dir: /Users/mac/Documents/GitHub/SOEN7481/defects4j/framework
+      Base dir: /Users/mac/Documents/GitHub/SOEN7481/defects4j
+    Major root: /Users/mac/Documents/GitHub/SOEN7481/defects4j/major
+      Repo dir: /Users/mac/Documents/GitHub/SOEN7481/defects4j/project_repos
+--------------------------------------------------------------------------------
+    Project ID: Chart
+       Program: jfreechart
+    Build file: /Users/mac/Documents/GitHub/SOEN7481/defects4j/framework/build-scripts/Chart/Chart.build.xml
+--------------------------------------------------------------------------------
+           Vcs: Vcs::Svn
+    Repository: file:///Users/mac/Documents/GitHub/SOEN7481/defects4j/project_repos/jfreechart/trunk
+     Commit db: /Users/mac/Documents/GitHub/SOEN7481/defects4j/framework/projects/Chart/commit-db
+Number of bugs: 26
+--------------------------------------------------------------------------------
+
+Summary for Bug: 20
+--------------------------------------------------------------------------------
+Root cause in triggering tests:
+ - org.jfree.chart.plot.junit.ValueMarkerTests::test1808376
+   --> junit.framework.AssertionFailedError: expected:<java.awt.Color[r=0,g=0,b=255]> but was:<java.awt.Color[r=255,g=0,b=0]>
+--------------------------------------------------------------------------------
+List of modified sources:
+ - org.jfree.chart.plot.ValueMarker
+--------------------------------------------------------------------------------
+<end>
+<start>
+Summary of configuration for Project: Chart
+--------------------------------------------------------------------------------
+    Script dir: /Users/mac/Documents/GitHub/SOEN7481/defects4j/framework
+      Base dir: /Users/mac/Documents/GitHub/SOEN7481/defects4j
+    Major root: /Users/mac/Documents/GitHub/SOEN7481/defects4j/major
+      Repo dir: /Users/mac/Documents/GitHub/SOEN7481/defects4j/project_repos
+--------------------------------------------------------------------------------
+    Project ID: Chart
+       Program: jfreechart
+    Build file: /Users/mac/Documents/GitHub/SOEN7481/defects4j/framework/build-scripts/Chart/Chart.build.xml
+--------------------------------------------------------------------------------
+           Vcs: Vcs::Svn
+    Repository: file:///Users/mac/Documents/GitHub/SOEN7481/defects4j/project_repos/jfreechart/trunk
+     Commit db: /Users/mac/Documents/GitHub/SOEN7481/defects4j/framework/projects/Chart/commit-db
+Number of bugs: 26
+--------------------------------------------------------------------------------
+
+Summary for Bug: 21
+--------------------------------------------------------------------------------
+Root cause in triggering tests:
+ - org.jfree.data.statistics.junit.DefaultBoxAndWhiskerCategoryDatasetTests::testGetRangeBounds
+   --> junit.framework.AssertionFailedError: expected:<Range[8.5,9.6]> but was:<Range[8.6,9.6]>
+--------------------------------------------------------------------------------
+List of modified sources:
+ - org.jfree.data.statistics.DefaultBoxAndWhiskerCategoryDataset
+--------------------------------------------------------------------------------
+<end>
+<start>
+Summary of configuration for Project: Chart
+--------------------------------------------------------------------------------
+    Script dir: /Users/mac/Documents/GitHub/SOEN7481/defects4j/framework
+      Base dir: /Users/mac/Documents/GitHub/SOEN7481/defects4j
+    Major root: /Users/mac/Documents/GitHub/SOEN7481/defects4j/major
+      Repo dir: /Users/mac/Documents/GitHub/SOEN7481/defects4j/project_repos
+--------------------------------------------------------------------------------
+    Project ID: Chart
+       Program: jfreechart
+    Build file: /Users/mac/Documents/GitHub/SOEN7481/defects4j/framework/build-scripts/Chart/Chart.build.xml
+--------------------------------------------------------------------------------
+           Vcs: Vcs::Svn
+    Repository: file:///Users/mac/Documents/GitHub/SOEN7481/defects4j/project_repos/jfreechart/trunk
+     Commit db: /Users/mac/Documents/GitHub/SOEN7481/defects4j/framework/projects/Chart/commit-db
+Number of bugs: 26
+--------------------------------------------------------------------------------
+
+Summary for Bug: 22
+--------------------------------------------------------------------------------
+Root cause in triggering tests:
+ - org.jfree.data.junit.KeyedObjects2DTests::testRemoveColumnByKey
+   --> org.jfree.data.UnknownKeyException: The key (C2) is not recognised.
+ - org.jfree.data.junit.KeyedObjects2DTests::testRemoveValue
+   --> junit.framework.AssertionFailedError: expected:<1> but was:<2>
+ - org.jfree.data.junit.KeyedObjects2DTests::testGetValueByKey
+   --> org.jfree.data.UnknownKeyException: The key (C2) is not recognised.
+ - org.jfree.data.junit.KeyedObjects2DTests::testRemoveColumnByIndex
+   --> org.jfree.data.UnknownKeyException: The key (C1) is not recognised.
+ - org.jfree.data.junit.KeyedObjects2DTests::testSetObject
+   --> org.jfree.data.UnknownKeyException: The key (C2) is not recognised.
+ - org.jfree.data.junit.KeyedObjects2DTests::testRemoveRowByKey
+   --> java.lang.ArrayIndexOutOfBoundsException: -1
+--------------------------------------------------------------------------------
+List of modified sources:
+ - org.jfree.data.KeyedObjects2D
+--------------------------------------------------------------------------------
+<end>
+<start>
+Summary of configuration for Project: Chart
+--------------------------------------------------------------------------------
+    Script dir: /Users/mac/Documents/GitHub/SOEN7481/defects4j/framework
+      Base dir: /Users/mac/Documents/GitHub/SOEN7481/defects4j
+    Major root: /Users/mac/Documents/GitHub/SOEN7481/defects4j/major
+      Repo dir: /Users/mac/Documents/GitHub/SOEN7481/defects4j/project_repos
+--------------------------------------------------------------------------------
+    Project ID: Chart
+       Program: jfreechart
+    Build file: /Users/mac/Documents/GitHub/SOEN7481/defects4j/framework/build-scripts/Chart/Chart.build.xml
+--------------------------------------------------------------------------------
+           Vcs: Vcs::Svn
+    Repository: file:///Users/mac/Documents/GitHub/SOEN7481/defects4j/project_repos/jfreechart/trunk
+     Commit db: /Users/mac/Documents/GitHub/SOEN7481/defects4j/framework/projects/Chart/commit-db
+Number of bugs: 26
+--------------------------------------------------------------------------------
+
+Summary for Bug: 23
+--------------------------------------------------------------------------------
+Root cause in triggering tests:
+ - org.jfree.chart.renderer.category.junit.MinMaxCategoryRendererTests::testEquals
+   --> junit.framework.AssertionFailedError
+--------------------------------------------------------------------------------
+List of modified sources:
+ - org.jfree.chart.renderer.category.MinMaxCategoryRenderer
+--------------------------------------------------------------------------------
+<end>
+<start>
+Summary of configuration for Project: Chart
+--------------------------------------------------------------------------------
+    Script dir: /Users/mac/Documents/GitHub/SOEN7481/defects4j/framework
+      Base dir: /Users/mac/Documents/GitHub/SOEN7481/defects4j
+    Major root: /Users/mac/Documents/GitHub/SOEN7481/defects4j/major
+      Repo dir: /Users/mac/Documents/GitHub/SOEN7481/defects4j/project_repos
+--------------------------------------------------------------------------------
+    Project ID: Chart
+       Program: jfreechart
+    Build file: /Users/mac/Documents/GitHub/SOEN7481/defects4j/framework/build-scripts/Chart/Chart.build.xml
+--------------------------------------------------------------------------------
+           Vcs: Vcs::Svn
+    Repository: file:///Users/mac/Documents/GitHub/SOEN7481/defects4j/project_repos/jfreechart/trunk
+     Commit db: /Users/mac/Documents/GitHub/SOEN7481/defects4j/framework/projects/Chart/commit-db
+Number of bugs: 26
+--------------------------------------------------------------------------------
+
+Summary for Bug: 24
+--------------------------------------------------------------------------------
+Root cause in triggering tests:
+ - org.jfree.chart.renderer.junit.GrayPaintScaleTests::testGetPaint
+   --> java.lang.IllegalArgumentException: Color parameter outside of expected range: Red Green Blue
+--------------------------------------------------------------------------------
+List of modified sources:
+ - org.jfree.chart.renderer.GrayPaintScale
+--------------------------------------------------------------------------------
+<end>
+<start>
+Summary of configuration for Project: Chart
+--------------------------------------------------------------------------------
+    Script dir: /Users/mac/Documents/GitHub/SOEN7481/defects4j/framework
+      Base dir: /Users/mac/Documents/GitHub/SOEN7481/defects4j
+    Major root: /Users/mac/Documents/GitHub/SOEN7481/defects4j/major
+      Repo dir: /Users/mac/Documents/GitHub/SOEN7481/defects4j/project_repos
+--------------------------------------------------------------------------------
+    Project ID: Chart
+       Program: jfreechart
+    Build file: /Users/mac/Documents/GitHub/SOEN7481/defects4j/framework/build-scripts/Chart/Chart.build.xml
+--------------------------------------------------------------------------------
+           Vcs: Vcs::Svn
+    Repository: file:///Users/mac/Documents/GitHub/SOEN7481/defects4j/project_repos/jfreechart/trunk
+     Commit db: /Users/mac/Documents/GitHub/SOEN7481/defects4j/framework/projects/Chart/commit-db
+Number of bugs: 26
+--------------------------------------------------------------------------------
+
+Summary for Bug: 25
+--------------------------------------------------------------------------------
+Root cause in triggering tests:
+ - org.jfree.chart.renderer.category.junit.StatisticalBarRendererTests::testDrawWithNullMeanVertical
+   --> junit.framework.AssertionFailedError
+ - org.jfree.chart.renderer.category.junit.StatisticalBarRendererTests::testDrawWithNullDeviationVertical
+   --> junit.framework.AssertionFailedError
+ - org.jfree.chart.renderer.category.junit.StatisticalBarRendererTests::testDrawWithNullMeanHorizontal
+   --> junit.framework.AssertionFailedError
+ - org.jfree.chart.renderer.category.junit.StatisticalBarRendererTests::testDrawWithNullDeviationHorizontal
+   --> junit.framework.AssertionFailedError
+--------------------------------------------------------------------------------
+List of modified sources:
+ - org.jfree.chart.renderer.category.StatisticalBarRenderer
+--------------------------------------------------------------------------------
+<end>
+<start>
+Summary of configuration for Project: Chart
+--------------------------------------------------------------------------------
+    Script dir: /Users/mac/Documents/GitHub/SOEN7481/defects4j/framework
+      Base dir: /Users/mac/Documents/GitHub/SOEN7481/defects4j
+    Major root: /Users/mac/Documents/GitHub/SOEN7481/defects4j/major
+      Repo dir: /Users/mac/Documents/GitHub/SOEN7481/defects4j/project_repos
+--------------------------------------------------------------------------------
+    Project ID: Chart
+       Program: jfreechart
+    Build file: /Users/mac/Documents/GitHub/SOEN7481/defects4j/framework/build-scripts/Chart/Chart.build.xml
+--------------------------------------------------------------------------------
+           Vcs: Vcs::Svn
+    Repository: file:///Users/mac/Documents/GitHub/SOEN7481/defects4j/project_repos/jfreechart/trunk
+     Commit db: /Users/mac/Documents/GitHub/SOEN7481/defects4j/framework/projects/Chart/commit-db
+Number of bugs: 26
+--------------------------------------------------------------------------------
+
+Summary for Bug: 26
+--------------------------------------------------------------------------------
+Root cause in triggering tests:
+ - org.jfree.chart.junit.AreaChartTests::testDrawWithNullInfo
+   --> junit.framework.AssertionFailedError
+ - org.jfree.chart.junit.BarChart3DTests::testDrawWithNullInfo
+   --> junit.framework.AssertionFailedError
+ - org.jfree.chart.junit.BarChartTests::testDrawWithNullInfo
+   --> junit.framework.AssertionFailedError
+ - org.jfree.chart.junit.GanttChartTests::testDrawWithNullInfo
+   --> junit.framework.AssertionFailedError
+ - org.jfree.chart.junit.GanttChartTests::testDrawWithNullInfo2
+   --> junit.framework.AssertionFailedError
+ - org.jfree.chart.junit.LineChart3DTests::testDrawWithNullInfo
+   --> junit.framework.AssertionFailedError
+ - org.jfree.chart.junit.LineChartTests::testDrawWithNullInfo
+   --> junit.framework.AssertionFailedError
+ - org.jfree.chart.junit.StackedAreaChartTests::testDrawWithNullInfo
+   --> junit.framework.AssertionFailedError
+ - org.jfree.chart.junit.StackedBarChart3DTests::testDrawWithNullInfo
+   --> junit.framework.AssertionFailedError
+ - org.jfree.chart.junit.StackedBarChartTests::testDrawWithNullInfo
+   --> junit.framework.AssertionFailedError
+ - org.jfree.chart.junit.WaterfallChartTests::testDrawWithNullInfo
+   --> junit.framework.AssertionFailedError
+ - org.jfree.chart.plot.junit.CategoryPlotTests::test1654215
+   --> junit.framework.AssertionFailedError
+ - org.jfree.chart.plot.junit.CategoryPlotTests::testSerialization3
+   --> junit.framework.AssertionFailedError
+ - org.jfree.chart.plot.junit.CategoryPlotTests::testSerialization4
+   --> junit.framework.AssertionFailedError
+ - org.jfree.chart.renderer.category.junit.BoxAndWhiskerRendererTests::testDrawWithNullInfo
+   --> junit.framework.AssertionFailedError
+ - org.jfree.chart.renderer.category.junit.GroupedStackedBarRendererTests::testDrawWithNullInfo
+   --> junit.framework.AssertionFailedError
+ - org.jfree.chart.renderer.category.junit.IntervalBarRendererTests::testDrawWithNullInfo
+   --> junit.framework.AssertionFailedError
+ - org.jfree.chart.renderer.category.junit.LayeredBarRendererTests::testDrawWithNullInfo
+   --> junit.framework.AssertionFailedError
+ - org.jfree.chart.renderer.category.junit.LevelRendererTests::testDrawWithNullInfo
+   --> junit.framework.AssertionFailedError
+ - org.jfree.chart.renderer.category.junit.MinMaxCategoryRendererTests::testDrawWithNullInfo
+   --> junit.framework.AssertionFailedError
+ - org.jfree.chart.renderer.category.junit.StatisticalBarRendererTests::testDrawWithNullInfo
+   --> junit.framework.AssertionFailedError
+ - org.jfree.chart.renderer.category.junit.StatisticalLineAndShapeRendererTests::testDrawWithNullInfo
+   --> junit.framework.AssertionFailedError
+--------------------------------------------------------------------------------
+List of modified sources:
+ - org.jfree.chart.axis.Axis
+--------------------------------------------------------------------------------
+<end>

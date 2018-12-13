@@ -1,0 +1,5 @@
+[It definitely should use toTitleCase. I wonder when that changed. :(
+
+Looks like it was changed in http://svn.apache.org/viewvc/commons/proper/lang/trunk/src/main/java/org/apache/commons/lang3/StringUtils.java?r1=1673944&r2=1673943&pathrev=1673944 - https://issues.apache.org/jira/browse/LANG-1058 - which fortunately is unreleased., $ git commit
+[master 421db38] Switched capitalize back to using toTitleCase. Added a test for this using the 'Lj' letter. LANG-1142
+ 2 files changed, 4 insertions(+), 1 deletion(-)]

@@ -1,0 +1,63 @@
+[Should be in the next release. Setting to 3.4., I'm not sure we want to implement this.
+
+At present, isNumber() agrees with Java constant syntax and the createNumber() method in treating a leading 0 as meaning octal.
+
+If leading zero is ignored, then isNumber() won't agree with createNumber() or Java.
+
+I think the current behaviour should be kept (and documented more thoroughly if need be).
+
+If there is a need to allow leading zeros, this could perhaps be done with a new method - or by adding a second boolean parameter to select the new behaviour., Summarizing - the issue isn't that 0123 is bad, but that 012345678901234567 is too big for Java.
+
+In the same way, 0xfffffffffffffffffffffffffffffffffff should return false. It currently returns true.
+Also 9e99999999999999999999 is too large, but returns true currently.
+
+I'm +1 to considering this a regression and accepting an isNumber that can handle numbers larger than Java is prepared to handle. ie) Fixing this bug., isNumber returns a boolean, but it looks like we want to give more than two answers:
+* the given input is *not* a number
+* the given input is a valid number in java
+* the given input is a number, but it is to big for Java to handle it
+
+The question is: what would you do with the last information? The is no way to process the string literal passed into the method, because you simply cannot convert it to a number in Java. 
+
+How about introducing a second method {{isJavaNumber}} or something like that?, Hi, 
+
+the issue isn't only with "too big" numbers, f.ex., "01258" also returns false. Consider this code:
+
+{code}
+@Test
+public void isNumber() {
+        Number n = new Integer( "01258" ); //  notice we're using a String, as NumberUtil.isNumber does, trying to use 01258 without quotes results in a compilation error
+        Assert.assertTrue( n.intValue() == 1258 );
+        n = new Integer( "Unicorn" ) // -> NFException, expect NumberUtils.isNumber to return false here, as it does
+}
+{code}
+
+I expect isNumber to return true; Furthermore, it was returning true before 3.3.x.. Agree with the isJavaNumber method need instead of changing behaviour., Juan, the problem is that "0" prefix is detected as an octal number. In that case it only allows digits from 0-7, so 077 is ok but 088 is not.
+
+I think this method is not really useful as it does not define what numbers it will accept. It should differentiate between integers and floats and between encoded and consitent (decimal) encoding. And for the encoded form, it needs to spell out the syntax supported. For example "0" and "0x" and "#" for Integer.decode(). Integer.parseInt("012") -> 12. Integer. Integer.decode("012") -> 10. It also needs to support different value ranges. I think the most common usage of this is to guard any of the parse/decode methods, so there should be a 1:1 acceptor., Hi Bernd,
+
+saw the octal issue, but my concern was that NumberUtils on 3.2.1 was returning true for, i.e., "018" and now is returning false, considering that "018" is a valid number. I expected for this method the same behaviour you described at [LANG-992|https://issues.apache.org/jira/browse/LANG-992?focusedCommentId=13949713&page=com.atlassian.jira.plugin.system.issuetabpanels:comment-tabpanel#comment-13949713]:
+
+{quote}
+Actually my expectation for using that method would be that "isNumber returns true if I can use it without a NumberFormatException with Integer.parseInt(String) or Double.parseDouble(String)"
+{quote}
+
+I expected that "018" was recognized as a valid number, because as it can be used as new Integer( "018" ), without any NFExceptions, it made sense to me that it was recognized as a valid Java number, hence isNumber( "018" ) should return true. Then went into LANG-971 issue link and and saw that this is not the method intention. I found it a bit surprising.
+
+We've been using this method to check if some fixed-width values were "numbers" or not (as in behaviour described on the quote above), and when upgrading suddenly a lot of tests began to fail because of this change. Seems we'll have to seek for a workaround if we want to upgrade this library. It'd be fine for me if at least the javadocs would give a more precise description regarding the scope of the method or, maybe some examples of the method outcomes on the method's javadoc (as it's done on StringUtils, f.ex).
+, [~juanpablo]: have you considered {{isDigits()}}?
+
+I've also updated the Javadoc to better describe octal handling:
+
+bq. Non-hexadecimal strings beginning with a leading zero are treated as octal values. Thus the string 09 will return false, since 9 is not a valid octal value., Hi Duncan,
+
+{{isDigits()}} returns false for "3.4", while the old {{isNumber}} is returning true.
+
+I was looking for something along the lines {{toDouble(String)}} / {{toLong(String)}} etc., but returning {{true}} / {{false}} while avoiding at the same time the {{try/catch(NumberFormatException)}} of those methods. Seeing that 09 is meant to be false for {{isNumber}}, is there any chance to add a new method with that functionality?
+
+thx + br, [~juanpablo]: Feel free to raise a new issue that describes your desired functionality.
+
+Can we now considered this issue closed, on the basis that {{isNumber}} considers {{"012345678901234567"}} an octal number and that v3.2.1 was broken?, Hi Duncan,
+
+apologies on getting to his late, apparently I didn't received the mail associated to your last comment. Please feel free to close the issue, as it seems clear that the intention of {{isNumber}} is to consider 018 as not a number. Will open a new issue to ask for the desired functionality.
+
+thanks,, Closing as not a problem.]

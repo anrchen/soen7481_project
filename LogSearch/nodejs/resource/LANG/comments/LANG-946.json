@@ -1,0 +1,1 @@
+[We should try to fix this for 3.3, I'm currently setting up an ubuntu  VM to investigate this., The problem seems to be, that the IBM JDK returns a negative number as result of the {{Integer.toHexString(hashCode())}} of the default toString implementation. Changing the pattern used in the test case to allow an optional dash should fix this., Fixed in revision 1563388.]

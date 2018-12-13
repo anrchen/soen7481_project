@@ -1,0 +1,186 @@
+[GitHub user PascalSchumacher opened a pull request:
+
+    https://github.com/apache/commons-lang/pull/113
+
+    LANG-1184: StringUtils#normalizeSpace no longer normalizes unicode no…
+
+    …n-breaking spaces (\u00A0) and does not trim control chars at the end anymore
+    
+    https://issues.apache.org/jira/browse/LANG-1184
+
+You can merge this pull request into a Git repository by running:
+
+    $ git pull https://github.com/PascalSchumacher/commons-lang LANG-1184
+
+Alternatively you can review and apply these changes as the patch at:
+
+    https://github.com/apache/commons-lang/pull/113.patch
+
+To close this pull request, make a commit to your master/trunk branch
+with (at least) the following in the commit message:
+
+    This closes #113
+    
+----
+commit 0ee9bcb2e7ad662829276cd207f0a5ceeee616ea
+Author: Pascal Schumacher <pascalschumacher@gmx.net>
+Date:   2015-11-06T19:41:21Z
+
+    LANG-1184: StringUtils#normalizeSpace no longer normalizes unicode non-breaking spaces (\u00A0) and does not trim control chars at the end anymore
+
+----
+, Github user hen commented on a diff in the pull request:
+
+    https://github.com/apache/commons-lang/pull/113#discussion_r49941043
+  
+    --- Diff: src/main/java/org/apache/commons/lang3/StringUtils.java ---
+    @@ -8026,34 +8026,31 @@ private static boolean endsWith(final CharSequence str, final CharSequence suffi
+          * @since 3.0
+          */
+         public static String normalizeSpace(final String str) {
+    -        // LANG-1020: Improved performance significantly by normalizing manually instead of using regex
+    -        // See https://github.com/librucha/commons-lang-normalizespaces-benchmark for performance test
+             if (isEmpty(str)) {
+                 return str;
+             }
+    +        if (isBlank(str)){
+    --- End diff --
+    
+    Noting that this means the isEmpty above is unnecessary.
+, Github user hen commented on a diff in the pull request:
+
+    https://github.com/apache/commons-lang/pull/113#discussion_r49941082
+  
+    --- Diff: src/main/java/org/apache/commons/lang3/StringUtils.java ---
+    @@ -8026,34 +8026,31 @@ private static boolean endsWith(final CharSequence str, final CharSequence suffi
+          * @since 3.0
+          */
+         public static String normalizeSpace(final String str) {
+    -        // LANG-1020: Improved performance significantly by normalizing manually instead of using regex
+    -        // See https://github.com/librucha/commons-lang-normalizespaces-benchmark for performance test
+             if (isEmpty(str)) {
+                 return str;
+             }
+    +        if (isBlank(str)){
+    +           return EMPTY;
+    +        }
+    +        
+             final int size = str.length();
+             final char[] newChars = new char[size];
+             int count = 0;
+             int whitespacesCount = 0;
+    -        boolean startWhitespaces = true;
+             for (int i = 0; i < size; i++) {
+                 char actualChar = str.charAt(i);
+    -            boolean isWhitespace = Character.isWhitespace(actualChar);
+    +            boolean isWhitespace = Character.isWhitespace(actualChar) || actualChar == '\u00A0';
+    --- End diff --
+    
+    Noting that the javadoc doesn't indicate that nbsp is escaped. I'm +1 to also escaping nbsp, but javadoc should be updated. 
+, Github user hen commented on the pull request:
+
+    https://github.com/apache/commons-lang/pull/113#issuecomment-172290723
+  
+    Made a couple of notes, one on code that can be removed and one on documentation; but looks good to me otherwise. 
+, Github user garydgregory commented on the pull request:
+
+    https://github.com/apache/commons-lang/pull/113#issuecomment-172291572
+  
+    Thank you for your interest in [lang].
+    
+    Java says a non-breaking whitespace is not a whitespace:
+    
+    ```java
+    Character.isWhitespace('\u00A0'));
+    ```
+    
+    returns `false`.
+    
+    So I am not sure this patch is valid.
+
+, Github user hen commented on the pull request:
+
+    https://github.com/apache/commons-lang/pull/113#issuecomment-172296208
+  
+    Given one of the behaviours of nbsp is not to collapse down, there is a logic in normalizeWhitespace not normalizing the nbsp characters. 
+, Github user PascalSchumacher commented on the pull request:
+
+    https://github.com/apache/commons-lang/pull/113#issuecomment-172354689
+  
+    @garydgregory @hen Thanks for the reviews. :)
+    
+    As mentioned in the jira issue the goal of this pull request is not to add anything, but to restore pre-3.4 functionality: 
+    
+    These work with 3.3.2, but fail with 3.4:
+    
+    ```java
+    assertEquals("a b", StringUtils.normalizeSpace("a\u00A0 b"));
+    assertEquals("b", StringUtils.normalizeSpace("b\u0000"));
+    ```
+    
+    while keeping in place most of the performance improvement added in https://github.com/apache/commons-lang/commit/bc8e23808b9d8d0c9b67270ef35d04ebd9d89cc8 
+    
+    I used same tests https://github.com/librucha/commons-lang-normalizespaces-benchmark and there is only a 10% performance regression for the restored pre-3.4 behavior (the trimming of the string and the normalization of non-braking spaces). 
+    
+    
+
+, Github user PascalSchumacher commented on the pull request:
+
+    https://github.com/apache/commons-lang/pull/113#issuecomment-172357021
+  
+    @hen  Thanks again for the in-depth review.
+    
+    Part of the is `isEmpty()` is necessary, because `normalizeSpace` has to return `null` for `null` parameters according to javadoc `@return the modified string with whitespace normalized, {@code null} if null String input`
+    
+    I have updated the pull request and replaced the is `isEmpty()` check by `str == null`.
+    
+    I have also updated javadoc to reflect that non-breaking space is normalized.
+, Github user garydgregory commented on the pull request:
+
+    https://github.com/apache/commons-lang/pull/113#issuecomment-172369835
+  
+    Hi All,
+    
+    I'm more concerned about what the proper behavior of the method is, rather than its behavior in some past arbitrary version. Since Java does not define a nbsp as a whitespace, it should not be normalized away IMO. Now, if you want it normalized, we could talk about adding another method or documenting how to deal with this special use case. 
+    
+    Are there other characters that are ws-like characters that return false for Character.isWhitespace(). Unicode is pretty rich, maybe there is more. What would this new method be called?
+, Github user PascalSchumacher commented on the pull request:
+
+    https://github.com/apache/commons-lang/pull/113#issuecomment-175231559
+  
+    Hi Gary,
+    
+    3.0 had the same behavior as 3.3.2, but I guess this is not a productive discussion.
+    
+    I know that `Character.isWhitespace` defines `\u00A0` as not a white space, but for example guava https://github.com/google/guava/blob/8fbeb9038cbe8b382b1ee188ae8459203cd04fb5/guava/src/com/google/common/base/CharMatcher.java#L1217 classifies it as whitespace.
+    
+    If you want to keep the changed behavior I suggest at least to re-add the `trim()` call or to remove the `Additionally <code>{@link #trim(String)}</code> removes control characters (char &lt;= 32) from both ends of this String.` part of the java doc.
+    
+    I'm not unicode expert, but https://en.wikipedia.org/wiki/Non-breaking_space has a list of some more non-breaking-space unicode characters.
+    
+    As for the method name I guess the easy way out would be to add a flag to normalize space. I can not come up with a good method name at the moment `normalizeAllSpace`, is my best try.
+, Github user PascalSchumacher commented on the pull request:
+
+    https://github.com/apache/commons-lang/pull/113#issuecomment-213900174
+  
+    Hi all,
+    
+    an comments?
+, I the "non-trimming" part of the issue and created an new issue for it [https://issues.apache.org/jira/browse/LANG-1226]., Github user garydgregory commented on the pull request:
+
+    https://github.com/apache/commons-lang/pull/113#issuecomment-217737900
+  
+    Yes, let's add a new method.
+, Github user PascalSchumacher commented on the issue:
+
+    https://github.com/apache/commons-lang/pull/184
+  
+    @phoenix384 The problem is that starting with 3.4 StringUtils#normalizeSpace no longer normalizes unicode non-breaking spaces. I reported this as a bug and argued for reverting this behavior, but other people disagreed. :( 
+    
+    For details see:
+    https://github.com/apache/commons-lang/pull/113
+    https://issues.apache.org/jira/browse/LANG-1184 
+, Github user PascalSchumacher closed the pull request at:
+
+    https://github.com/apache/commons-lang/pull/113
+]

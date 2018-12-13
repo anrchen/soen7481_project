@@ -1,0 +1,30 @@
+[Seems good. I count 11 in the main source, so not that painful to fix. 
+
+./ArrayUtils.java:    @SuppressWarnings("unchecked")
+./ArrayUtils.java:    @SuppressWarnings("unchecked")
+./ArrayUtils.java:    @SuppressWarnings("unchecked")
+./ArrayUtils.java:    @SuppressWarnings("unchecked")
+./ArrayUtils.java:    @SuppressWarnings("unchecked")
+./builder/CompareToBuilder.java:    @SuppressWarnings("unchecked")
+./Range.java:            @SuppressWarnings("unchecked") // OK because we checked the class above
+./Range.java:        @SuppressWarnings("unchecked")
+./Range.java:        @SuppressWarnings("unchecked")
+./text/StrBuilder.java:    @SuppressWarnings("null") // str cannot be null
+./text/StrLookup.java:            @SuppressWarnings("unchecked") // System property keys and values are always Strings
+, URL: http://svn.apache.org/viewvc?rev=892135&view=rev
+Log:
+LANG-568 - @SuppressWarnings("unchecked") is used too generally
+Partial fix - some warnings remain to be addressed
+
+URL: http://svn.apache.org/viewvc?rev=892136&view=rev
+Log:
+LANG-568 - @SuppressWarnings("unchecked") is used too generally
+Partial fix - some warnings remain to be addressed
+
+Note: this exercise has discovered two places where the casts were not safe - see LANG-571, URL: http://svn.apache.org/viewvc?rev=892343&view=rev
+Log:
+LANG-568 - @SuppressWarnings("unchecked") is used too generally
+
+I think all the warnings that can be safely suppressed have now been suppressed (and documented).
+
+There are two warnings that remain cannot be suppressed safely; see LANG-571, Warnings have now been tidied up]

@@ -1,0 +1,8 @@
+[Agreed - the javadoc is quite confusing.
+
+svn ci -m "Fixing the javadoc for endsWithIgnoreCase as per LANG-418, and adding some javadoc to test the novel javadoc examples" src
+
+Sending        src/java/org/apache/commons/lang/StringUtils.java
+Sending        src/test/org/apache/commons/lang/StringUtilsStartsEndsWithTest.java
+Transmitting file data ..
+Committed revision 640727.]

@@ -1,0 +1,10 @@
+[Here's a patch that should fix the issue described.  Also included is an extra assertion in testEscapeJavaScript of StringEscapeUtilsTest., Heh - I even had a play with this when looking at the Spring one: http://opensource.atlassian.com/projects/spring/browse/SPR-1754
+
+Not sure why I didn't submit a fix, probably too green with Spring at the time. , Thanks again Scott (and Situ for reporting it), patch applied:
+
+svn ci -m "Applying Scott Bassin's fix and test from LANG-363" src/test/org/apache/commons/lang/StringEscapeUtilsTest.java src/java/org/apache/commons/lang/StringEscapeUtils.java
+
+Sending        src/java/org/apache/commons/lang/StringEscapeUtils.java
+Sending        src/test/org/apache/commons/lang/StringEscapeUtilsTest.java
+Transmitting file data ..
+Committed revision 588534., fix typo in summary field, See LANG-437 for conversation about rolling this fix back. There are user complaints on the list that the change is causing problems.]

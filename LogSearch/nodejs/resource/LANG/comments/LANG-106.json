@@ -1,0 +1,17 @@
+[Cédrik: Please feel free to provide a diff patch., Created an attachment (id=17858)
+patch file
+
+Diff between original StringUtils.java and my patched one., Created an attachment (id=17859)
+Source code for new implementation
+
+In case I didn't get the pach file right... :), 
+Here's the history:
+http://mail-archives.apache.org/mod_mbox/jakarta-commons-dev/200310.mbox/%3CA34BA4886ADBBD4A804452178366659B160B14@solidus-fs1.solidusnetworks.com%3E
+
+Not sure why it didn't get applied - either I dropped the ball, or I was waiting
+for a second reply., Code applied. Unit tests pass. 
+
+I'll drop an email to both Chas Emerick and Michael Gilleland to let them know
+the code has finally gone in - my fault two and a half years ago., Sending        src/java/org/apache/commons/lang/StringUtils.java
+Transmitting file data .
+Committed revision 385745. ]

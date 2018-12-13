@@ -1,0 +1,14 @@
+[Thanks! Setting this to Review Patch, Nice one, thanks!
+
+{code}
+Sending        src/changes/changes.xml
+Sending        src/main/java/org/apache/commons/lang3/StringEscapeUtils.java
+Sending        src/main/java/org/apache/commons/lang3/text/translate/CharSequenceTranslator.java
+Sending        src/test/java/org/apache/commons/lang3/StringEscapeUtilsTest.java
+Transmitting file data ....
+Committed revision 1568612.
+{code}, Thanks for the quick merge!  Do you know when the 3.3 release will be cut?, Hello Chris,
+
+We don't maintain a fixed release schedule or something like that. I planned to roll out 3.3 in early February. Currently I don't really have the time, but I'm still planning to release 3.3 in February.
+
+Benedikt ]

@@ -1,0 +1,5 @@
+[In Java 1.6, the US languages go from "en_US" to "en_US, es_US".
+
+This is a problem once we need to compile on 1.6, but it doesn't cause a problem I think for the usage of a Lang 2.2 jar under the 1.6 JVM.
+
+So punting this to 2.3., We should just change the test to a country which is truly single language., Change from US to GB to get one language]

@@ -1,0 +1,7 @@
+[URL: http://svn.apache.org/viewvc?rev=1389673&view=rev
+Log:
+LANG-826 FastDateParser does not handle non-ASCII digits correctly
+
+Modified:
+    commons/proper/lang/trunk/src/changes/changes.xml
+    commons/proper/lang/trunk/src/main/java/org/apache/commons/lang3/time/FastDateParser.java]

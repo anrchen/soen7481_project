@@ -1,0 +1,8 @@
+[Confirmed - need to fix the javadoc and add unit tests to be doubly sure that the examples are good., Thanks for noticing that Gergely.
+
+svn ci -m "Fixing javadoc for DateUtils.ceiling per LANG-672" src/main/java/org/apache/commons/lang3/time/DateUtils.java src/test/java/org/apache/commons/lang3/time/DateUtilsTest.java 
+Sending        src/main/java/org/apache/commons/lang3/time/DateUtils.java
+Sending        src/test/java/org/apache/commons/lang3/time/DateUtilsTest.java
+Transmitting file data ..
+Committed revision 1062326.
+]

@@ -1,0 +1,4 @@
+[Created an attachment (id=12431)
+New method for DateFormatUtils
+, Method added based on code below, but optimised to avoid exceptions and work 
+more reliably., 2.1 released, closing.]

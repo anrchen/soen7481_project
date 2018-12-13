@@ -1,0 +1,88 @@
+[another similar test case with the same exception, I think the problem lies with the {{appendQuotedString}} method, however I'm struggling to fix it because I'm not 100% sure what that method should be doing.
+
+I propose that we make that method static and package-private, so we can unit test it in isolation. (It probably should be static anyway, as it uses no instance fields). My confusion is about the desired effect of the {{escapingOn}} attribute. I'm assuming that when it's {{true}}, two single quotes next to each other are treated as an escaped single quote, and the resulting string pushed onto the buffer should have un-escaped quotes. Conversely, when it's {{false}}, two singles quotes are treated as a quoted string of zero length.
+
+From these assumptions, I've created this little unit test:
+
+{code:java}
+@Test
+public void testAppendQuotedString() throws Exception {
+    assertEquals("'test'", readFirstQuotedString("''test''123", true));
+    assertEquals("'test'", readFirstQuotedString("'test'123", true));
+    assertEquals("", readFirstQuotedString("''test''123", false));
+}
+
+private static String readFirstQuotedString(String input, boolean escapingOn) {
+    StringBuilder builder = new StringBuilder();
+    ExtendedMessageFormat.appendQuotedString(input, new ParsePosition(0), builder, escapingOn);
+    return builder.toString();
+}
+{code}
+
+Note: these tests currently fail.
+
+If someone can confirm (or correct) my understanding, I can fix the method and hopefully this bug., If you have a fix that fixes the provided test cases and doesn't break any of the existing tests, I see no point not to apply it :) I'm okay with making methods static that do not access fields. Making methods package private for testability is also okay, if there is absolutely not other ways to test them (but in the end this often indicates a flawed design...), GitHub user Andrey-Khobnya opened a pull request:
+
+    https://github.com/apache/commons-lang/pull/19
+
+    Fix LANG-948
+
+    Hi all!
+    This is fix for bug LANG-948.
+    
+    Changes with explanations:
+    1) Method ```ExtendedMessageFormat.appendQuotedString()``` returned when finds first quote character. This is obviously wrong because quoted string start with quote character and method must consume whole quoted string. I added handling of first quote character at the beginning of method. Also, it doesn't make sense to handle escaped quotes because ```super.applyPattern(stripCustom.toString())``` will called below in ```applyPattern()```. Thus, last argument should be ```false``` when calling ```appendQuotedString()```.
+    
+    2) Quoted string must start with quote character in ```appendQuotedString()```. And at this moment method is used this way. I added assertion to check and document this.
+    
+    3) Thus, method ```appendQuotedString()``` is called with last argument always ```false```. It doesn't make sense to handle escaped quotes in ```appendQuotedString()``` because they will be handled in ```super.applyPattern()```. Thus, I deleted this parameter and code for handling escaped quotes.
+
+You can merge this pull request into a Git repository by running:
+
+    $ git pull https://github.com/Andrey-Khobnya/commons-lang fix-948
+
+Alternatively you can review and apply these changes as the patch at:
+
+    https://github.com/apache/commons-lang/pull/19.patch
+
+To close this pull request, make a commit to your master/trunk branch
+with (at least) the following in the commit message:
+
+    This closes #19
+    
+----
+commit 86e64df6ce7e879c5f608aa7276c251377574f56
+Author: Andrey Khobnya <andrey@khobnya.me>
+Date:   2014-04-13T12:36:07Z
+
+    Fix LANG-948
+
+commit 0f9222d5cccbe27fbda5ab9b97b231162e4b089b
+Author: Andrey Khobnya <andrey@khobnya.me>
+Date:   2014-04-13T12:42:02Z
+
+    Add assertion in ExtendedMessageFormat.appendQuotedString() to check and
+    document proper usage
+
+commit 4d372f3ce65087c8863332c74c2563a165d7aa12
+Author: Andrey Khobnya <andrey@khobnya.me>
+Date:   2014-04-13T12:49:28Z
+
+    It doesn't make sense to handle escaped quotes in
+    ExtendedMessageFormat.appendQuotedString() because they will be handled
+    in super.applyPattern()
+
+----
+, {code}
+$ svn ci -m "LANG-948: Exception while using ExtendedMessageFormat and escaping braces. This fixes #19 from github. Thanks to Andrey Khobnya."
+Sending        src/changes/changes.xml
+Sending        src/main/java/org/apache/commons/lang3/text/ExtendedMessageFormat.java
+Sending        src/test/java/org/apache/commons/lang3/text/ExtendedMessageFormatTest.java
+Transmitting file data ...
+Committed revision 1666679.
+{code}
+
+Thank you!, Github user asfgit closed the pull request at:
+
+    https://github.com/apache/commons-lang/pull/19
+]

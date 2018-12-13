@@ -1,0 +1,15 @@
+[The 'uu' version isn't a problem in the current 3.0 codebase, that was added as a part of creating a UnicodeUnescaper.
+
+The octal escape isn't handled though and needs to be added as a new Unescaper/Escaper pair in text translate., Escaper is easy to write; unescaper is a bit of a pain. Ideally the generic unescaper would know how to escape '\\510' happily, but Java adds the constraints of a max of 377, leading to that being inferred as '\\51' + '0'. Thus the unescaper needs to have a configurable range, and as it plucks numbers off the text it needs to check if has gone beyond the maximum size.
+, By the way Henri, the double backslashes in your comment are rendered as newlines somehow. I also had the same problem with the original bug report before I figured out how to quote codes. This is a bug in the bug tracking system rendered, it seems.
+
+Let's reproduce this again \\ there you go., svn ci -m "Adding an OctalUnescaper to handle Java's support of 1->377 Octal values. LANG-646"
+Sending        src/main/java/org/apache/commons/lang3/StringEscapeUtils.java
+Adding         src/main/java/org/apache/commons/lang3/text/translate/OctalUnescaper.java
+Adding         src/test/java/org/apache/commons/lang3/text/translate/OctalUnescaperTest.java
+Transmitting file data ...
+Committed revision 1059753.
+
+I didn't see much point in an OctalEscaper, so I didn't bother adding that. When escaping Java, we wouldn't know to escape a particular character to Octal for the aesthetic value.
+
+It also only supports Java's 1->377 octal range; this is because Integer.parseInt(..., 8) only supports that. I didn't see any point in trying to do better than that given that the use case is primarily for Java at the moment.]

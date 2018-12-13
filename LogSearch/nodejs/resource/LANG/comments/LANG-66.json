@@ -1,0 +1,62 @@
+[*** COM-2851 has been marked as a duplicate of this bug. ***, 39167 not a dupe - it's at the other end of the character range., Also means that the unescape should not happen., 2.2 - comment it.  change in 2.3/3.0., Commented for 2.2:
+
+svn ci -m "Added note in javadoc of issue reported in LANG-66" src/java/org/apache/commons/
+lang/StringEscapeUtils.java 
+Sending        src/java/org/apache/commons/lang/StringEscapeUtils.java
+Transmitting file data .
+Committed revision 418831., Setting 3.0 as the fix-version; I don't think we should change functionality to this level without a major change in release versioning., escapeJava and escapeJavaScript also escapes characters > 0x7f. This is also undesired and undocumented., The correct implementation for this should be:
+
+1.  Escape all known unicode values (already being done)
+2.  Remove or mask all values OUTSIDE the following allowed values:
+    Allowed Whitespace: 0x9  0xA  0xD  0x20
+    Range 1: 0x21 - 0xD7FF
+    Range 2: 0xE000 - 0xFFFD
+    Range 3: 0x10000 - 0x10FFFF
+
+Anything not matching the above values that hasn't already been escaped, should be masked or removed.  What I do is write the hex value in place of the actual character:
+
+Example, the evil 0x13 that gets copied out of MS word all the friggin time would look something like this:
+
+[Unicode: 0x13]
+
+I feel this is better than completely removing the character or replacing it with a generic "?" or something like that as it can be debugged much quicker from a data standpoint.
+
+Reference: XML Specification, section 2.2 http://www.w3.org/TR/REC-xml/#charsets, Note, that the valid charset is different for XML 1.1:
+http://www.w3.org/TR/2006/REC-xml11-20060816/#charsets
+
+Therefore escapeXml should be overloaded with something like:
+
+{code:java}
+class StringEscaper {
+    String static escapeXml() {
+        return escapeXml(XmlVersion.XML_1_0);
+    }
+}
+{code}
+
+and the real implementation should take both specs into account., Unfortunately this bug is still in 2.4 and affects German Umlauts ö,ä,ü,ß,...
+This is quite annoying as it escapes perfectly valid characters in my input string which leads to a wrong display in the target (backend) application (which does not support the entity notation).
+escapeXml() should really only escape characters that are not allowed in Xml, as advertized in the javadoc, that is <, >, ', & and "
+
+This bug is really problematic when you use, e.g., unescapeHtml() to convert entities and later unescapeXml() to escape Xml-reserved characters..., Using unescapeHtml and then unescapeXml seems very odd. The latter should be a subset of the former., While we still need to define what the standard behaviour is, by having XML_1_0 and XML_1_1 etc, this would now be a user changing the 3.0 implementation of:
+
+{code:java}
+    public static final CharSequenceTranslator ESCAPE_XML =
+        new AggregateTranslator(
+            new LookupTranslator(EntityArrays.BASIC_ESCAPE()),
+            new LookupTranslator(EntityArrays.APOS_ESCAPE()),
+            NumericEntityEscaper.above(0x7f)
+        );
+{code}
+
+to their own custom:
+
+{code:java}
+    public static final CharSequenceTranslator ESCAPE_XML =
+        new AggregateTranslator(
+            new LookupTranslator(EntityArrays.BASIC_ESCAPE()),
+            new LookupTranslator(EntityArrays.APOS_ESCAPE())
+        );
+{code}, Rewrite in LANG-505 supports the user choosing not to do this easily.
+
+LANG-515 to define how XML should be escaped by default.]

@@ -1,0 +1,102 @@
+[Do you have any kind of evidence to support your claim that this is a "common idiom" on the order of an unspoken rule?  Due to type erasure a change of this type _ought_ to be drop-in compatible, but we'd need to be sure.  That hurdle cleared, I have no problem with this., Officially:
+
+http://docs.oracle.com/javase/tutorial/extra/generics/morefun.html etc etc etc
+
+From Google:
+
+http://stackoverflow.com/questions/1368166/what-is-a-difference-between-super-e-and-extends-e
+http://www.javabeat.net/2008/09/using-super-in-generics-java-5-0/
+http://www.coderanch.com/t/417919/java-programmer-SCJP/certification/Generic-declarations-super-Vs-extends
+etc etc etc - the internet is filthy with this stuff.
+
+See also the javadocs for guice, guava, and other competing libraries - they're maintained by a group of people who are highly formally trained and very aware of type semantics, and they tend to get this stuff very much correct.
+
+Basically, people NEED to use ? extends and ? super wherever appropriate, especially in things like transformer and predicate libraries and implementations, otherwise the only way to usefully use polymorphism is to have hard casts, which defeats the entire purpose of using generics. Serializer libraries tend to be notoriously badly written, and defeat the purpose of their own attempted type safety.
+
+Commons should be audited for this kind of thing overall., Note also that you can capture a ? token by creating a separate method
+
+<T> void foo(A<T> a, B<T> b) { }
+
+and call this with an A<?> and a B<?> (from different sources, e.g. a Map<Class<?>, A<?>> without a type warning - there's no way to parameterize that in Java, so one then can't call value.method(key) as the ?s won't match, even though everyone knows that ClassToInstanceMap, or Provider, or any other type-safe factory pattern causes it to be the case., None of these examples convince me (by way of disclosure, I fail to see how your previous comment relates to the discussion at all!).  If enums were extensible I could accept your argument.  If the parameter were {{Collection}} instead of {{Iterable}} I could accept your argument.  "Just because a bunch of other superficially similar methods look this way" does not seem, to me, to justify changing the method signature for no discernible benefit.  Feel free to reopen if you can provide a working example of (somewhat, at least) sensible code that would be possible with this change and is not possible without it.
+
+Thanks,
+Matt, A good proof that this has to be changed would be a unit test that fails with the current method signature., In this case I'm expecting that such a sample won't even compile properly,  but whichever.  ;-), You misunderstand type bounds. Anyway, here is an example.
+
+{code}
+public class EnumTest {
+    enum Foo {
+        A, B, C;
+    }
+
+    public static void main(String[] args) {
+        Set<? extends Foo> set = EnumSet.allOf(Foo.class);
+        // set.add(Foo.B);  // Fails to compile: Set is typed read-only. See references above.
+        EnumUtils.generateBitVector(Foo.class, set);    // Also fails to compile, even though legitimate.
+        generateBitVector(Foo.class, set); // Compiles fine, as method has correct type.
+    }
+
+    // Note method signature now has correct type for a method which only reads from the given set.
+    public static <E extends Enum<E>> long generateBitVector(Class<E> enumClass, Iterable<? extends E> values) {
+        long total = 0;
+        for (E constant : values)
+            total |= 1 << constant.ordinal();
+        return total;
+    }
+}
+{code}
+, What have I said to lead you to conclude that I misunderstand type bounds?  It almost seems (and I hope I'm wrong) that I understand them in such a fundamental way that I cannot be easily talked into doing something that makes _perfect_ sense in the general case, but feels totally useless in this specific one.
+
+Your example is all well and good _for non-{{final}} types_, but {{Set<? extends Foo>}} is IMHO a red herring.  {{EnumSet.allOf(Foo.class)}} returns {{EnumSet<Foo>}}, _not_ {{EnumSet<? extends Foo>}}; therefore the entire example is contrived.  If for some reason you were using a {{Set}} of whatever element type that you didn't already _know_ was {{enum}} you'd never _pass_ that {{Set}} to {{EnumUtils#generateBitVector()}} without first somehow checking that, at which point you'd have to cast the {{Set}} anyway to call the bit vector method.
+
+I comprehend that you are saying the {{? extends E}} idiom makes the compiler disallow the modification of a {{Collection}} (an {{Iterable}} can't be modified without casting to {{Collection}} anyway) and I can make the logical leap that _because of this_ it may be a visual shorthand for "read-only," yet I _still_ stubbornly refuse to be bullied by this fact when you have not:
+
+* explained your (lacking clarification, striking me as rude and condescending) assertion that I "misunderstand type bounds"
+* provided a realistic example of code that suffers because of the current parameter specification
+* explained how [this comment|https://issues.apache.org/jira/browse/LANG-819?focusedCommentId=13452659&page=com.atlassian.jira.plugin.system.issuetabpanels:comment-tabpanel#comment-13452659] is germane to the discussion
+
+Regards,
+Matt, Set<? extends Foo> isn't a visual shorthand. It's a concrete statement to the compiler. Your assertion on this point demonstrates that you misunderstand type bounds. All your comments about the possibility of extensibility of enums, Collection/Iterable are concerned with possible runtime behaviour, rather than the ability to prove code correct at compile time. My caller wants a static assertion that the (parent) routine will not modify the collection, and a prior Set<? extends E> can only generate an Iterable<? extends E> without an unchecked cast, which defeats the point.
+
+Anyway, I was only trying to help within the bounds of my limited remaining patience for the ASF, so I admit to being rude., I am sorry to contribute to anyone's impatience with Apache; however, let's take this one step at a time.  You said:
+{quote}
+My caller wants a static assertion that the (parent) routine will not modify the collection
+{quote}
+
+I think by this you mean:
+
+{quote}
+My \[consuming code\] wants a \[compile-time\] assertion that the \[{{EnumUtils#generateBitVector()}}\] routine will not modify the collection
+{quote}
+
+How does declaring the parameter as {{Iterable}}, even if it were raw, not satisfy that requirement? (Once you cast to any other type, all bets are off anyway.), I didn't explain that last point very well due to lack of patience. Hopefully this will help, if you forgive the background:
+
+There's an almost-requirement in C/C++ (auto_ptr aside) that a data structure have an "owner" and a number of referrents. The same happens in Java as good style, rather than requirement-to-avoid-leak. A complex class may own a Set<E>. The getter of this set may be typed Set<? extends E>. This tells any other person who takes that reference that they should not (and can not, due to compile failure) modify that set. On the other hand, if it's a factory method, the method may be typed Set<E>. This tells the person who takes the reference that they may (and can) modify that set, as they are now the primary (usually exclusive) owner of it. This Set<E> type generally comes with the assumption that unsynchronized mutation of the set is also permitted, modifying it will not break the encapsulation of the provider, and it isn't shared with any other threads. Yes, there are loopholes in this, but it's pretty good, vastly improves the ability of the compiler to show code correct, and reduces programmer mistakes (unnecessary copies, accidental modifications, etc).
+
+It isn't really a surprise to anyone who has coded in Erlang or any monad-based language that it's actually relatively easy to write Java code where the majority of structures are never mutated after construction. Some languages have this as a restriction, but it turns out to be a fairly good idea even in Java: Most sensible ways to pass values between threads create a happen-before relationship in the JMM, and remembering that final variables have a happen-before relationship with the end of a constructor (something explicitly NOT true for nonfinal variables - not nearly enough people know this), this also makes it much easier to write highly threaded code correctly.  The vast majority of instance variables can be final, and modern IDEs tend to provide this as a default hint if they detect non-mutation, so this really is hitting mainstream. By this set of practices we get a applications where the majority of Collections are typed ? extends, the majority of variables are final, etc, etc.
+
+Anyway, this is all a suite of techniques for creating compile-time checked, reliable, threaded, idiot-developer-safe Java code.
+
+At this point, it isn't about whether EnumUtils will modify the set. I know it won't. It's the fact that the code that CALLED EnumUtils only ever had a Collection<? extends E> in the first place, because the _actual_ owner of the collection, several calls back, decided to export it only as readonly.
+
+The Guava library (which I mostly use these days) is very well written with respect to all these techniques, and applies them universally. See http://docs.guava-libraries.googlecode.com/git/javadoc/index.html?com/google/common/collect/Iterables.html - which shows how Guava handles iterables. The type within the Iterable is irrelevant. The point is, the caller of Iterables (and even back several frames from there) only had a Set<? extends> or a Collection<? extends> and the CALLER would have to upcast it in order to call EnumUtils with the current prototype.
+
+So, you see, it isn't about a tiny religious issue about whether I like the current prototype or not. It's that in any code written with these good coding practices, I CAN'T call EnumUtils without upcasting the Set<? extends E> to a Set<E> in the previous frame, and if I upcast, my code won't pass review. If I use a raw type, my code won't pass review. There is NO WAY in which I can call this function and get code past review. I CAN NOT USE MUCH OF COMMONS. Guava, on the other hand, uses ? extends in every case where it's legal to do so, and can always be called from well-written type-safe code, and has consequently become the go-to library of choice. (That's also why this ticket languished for a year: we also ported away from commons to guava. But I did come back to try to help.)
+
+Bootnote on Guava: It's Google's policy not to include any routine for which it does not have an internal customer. Apache does not have the same policy. In a recent experience, I submitted correct code and patches to Apache, with test suites, only to have the Apache authors fix up the original broken code to (just) pass the cases in my test suites, but still contain bugs because they fundamentally aren't internal customers for it and don't use it in anger or in generality. So it remains broken in Apache. My last experience with that was type (reflection) manipulation routines - my job is writing compilers, so I'm very hot on them, and familiarity breeds ease of spotting bugs, especially in type systems. But I won't play whack-a-mole submitting test suites to ASF when I have working code anyway. I'll just use my code. So there's some additional background to my frustration with ASF maintainers. While Google publish smaller libraries, the quality is unquestionably much higher because of this policy of (colloquially) "If we can't dogfood it, we won't even publish it." They are also 100% familiar with the techniques I described in this comment, and reading any of their libraries in C++ or Java is an education in high-performance compile-time-checked coding. Of course what they don't do is put JSR305 annotations on their public APIs. I wish they did. I wish Apache would use JSR305, too., The idea of using <? extends X> collections to prevent modification by compile-time checks is new to me I have to admit. Although the add-type methods may not work, the resulting collections are still modifiable, e.g. calling clear() or remove() will still work, thus I am unsure if this is really sufficient and the right tool for this purpose. Afaik a better way is to pass unmodifiable collections in such cases.
+
+Anyway, your rant is a bit unfair, as we normally also allow this idiom as input argument where possible, see for example the latest collections release.
+
+btw. the guys at google do great stuff, so there surely must be a good reason why they do not use the idiom all the time:
+
+http://docs.guava-libraries.googlecode.com/git/javadoc/com/google/common/collect/EnumMultiset.html#create%28java.lang.Iterable,%20java.lang.Class%29
+
+Feel free to rant also on their mailinglist ..., This has never been about the _correctness_ of {{? extends}} in this case, rather about the _necessity_.  A few days ago I was strongly tempted to just give in and do it just to put the discussion to bed.  I'm glad I did not, because then you, Shevek, wouldn't have written that nice bit of exposition.  At this point I feel willing to make this change based on the general notion that there may be some sensible call stack of general-purpose methods that results in a {{Set<? extends E>}} where {{E extends Enum<E>}} which could not otherwise be passed to the method in question.
+
+It does seem Thomas's counter-example would result in the same problem.  Can you confirm you wouldn't be able to call that method and pass review either? Also: http://docs.guava-libraries.googlecode.com/git/javadoc/com/google/common/collect/Iterables.html#transform(java.lang.Iterable, com.google.common.base.Function)
+
+I don't know about your other recent experience, but I personally am very interested in Java reflection and type utilities.  If we're doing something wrong thereabouts I'd be glad to know about it.  Thanks for your patience., Committed revision 1557159., Thank you very much for the responses.
+
+C++ can do "Foo const * const * const *" which tells you whether it's the pointer or the target which is immutable. Java can basically only make the pointers immutable without a little help from this trick. Yes, you _can_ mutate the collection with Iterator.remove() or Collection.clear() but at least the programmer has already been forced to declare their knowledge that this is Naughty(tm). Also, clear() is presumably slower than the garbage collector if the object is still in eden space, so who does that anyway? Also, see all Google's typed-immutable collections, which, in return for being immutable, save memory and improve performance.
+
+Yes, I think that last Google case from Thomas can't _quite_ be expressed in the Java type system - it's not actually quite complete and consistent. You get wrapped up in "? super (? extends E)" which isn't sufficiently well defined in the lattice. Some of us would love to reduce that to "? super E" which would suffice for practical purposes, but isn't mathematically correct. Don't take this comment as gospel - check yourself. I don't tend to use transform() or map-reduce structures as much as I used to because I tend to be working with very large implicit collections where C*'s OpenBitSet is more relevant than java.util.BitSet or generateBitVector().
+, Oh, to answer the last question, to use transform() without upcasting, I might have to wrap Iterable in Iterable. I don't know. One of the other tricks that works is defining a method whose only purpose is to do type capture. I don't really like that, but it's the only way Java lets you have a type (non-first-class) in lexical scope.]

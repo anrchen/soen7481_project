@@ -1,0 +1,193 @@
+{
+    "expand": "operations,versionedRepresentations,editmeta,changelog,renderedFields",
+    "fields": {
+        "aggregateprogress": {
+            "percent": 0,
+            "progress": 0,
+            "total": 86400
+        },
+        "aggregatetimeestimate": 86400,
+        "aggregatetimeoriginalestimate": 86400,
+        "aggregatetimespent": null,
+        "assignee": null,
+        "components": [{
+            "id": "12313203",
+            "name": "lang.*",
+            "self": "https://issues.apache.org/jira/rest/api/2/component/12313203"
+        }],
+        "created": "2014-12-26T20:45:04.000+0000",
+        "creator": {
+            "active": true,
+            "avatarUrls": {
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452",
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452"
+            },
+            "displayName": "David Camilo Espitia Manrique",
+            "key": "david.espitia",
+            "name": "david.espitia",
+            "self": "https://issues.apache.org/jira/rest/api/2/user?username=david.espitia",
+            "timeZone": "Etc/UTC"
+        },
+        "customfield_10010": null,
+        "customfield_12310220": "2014-12-27T00:15:18.889+0000",
+        "customfield_12310222": "1_*:*_1_*:*_226845672_*|*_5_*:*_1_*:*_0",
+        "customfield_12310250": null,
+        "customfield_12310290": null,
+        "customfield_12310291": null,
+        "customfield_12310300": null,
+        "customfield_12310310": "0.0",
+        "customfield_12310420": "9223372036854775807",
+        "customfield_12310920": "9223372036854775807",
+        "customfield_12310921": null,
+        "customfield_12311020": null,
+        "customfield_12311024": null,
+        "customfield_12311120": null,
+        "customfield_12311820": "0|i23sh3:",
+        "customfield_12312022": null,
+        "customfield_12312023": null,
+        "customfield_12312024": null,
+        "customfield_12312026": null,
+        "customfield_12312220": null,
+        "customfield_12312320": null,
+        "customfield_12312321": null,
+        "customfield_12312322": null,
+        "customfield_12312323": null,
+        "customfield_12312324": null,
+        "customfield_12312325": null,
+        "customfield_12312326": null,
+        "customfield_12312327": null,
+        "customfield_12312328": null,
+        "customfield_12312329": null,
+        "customfield_12312330": null,
+        "customfield_12312331": null,
+        "customfield_12312332": null,
+        "customfield_12312333": null,
+        "customfield_12312334": null,
+        "customfield_12312335": null,
+        "customfield_12312336": null,
+        "customfield_12312337": null,
+        "customfield_12312338": null,
+        "customfield_12312339": null,
+        "customfield_12312340": null,
+        "customfield_12312341": null,
+        "customfield_12312520": null,
+        "customfield_12312521": "Mon Dec 29 11:45:50 UTC 2014",
+        "customfield_12312720": null,
+        "customfield_12312823": null,
+        "customfield_12312920": null,
+        "customfield_12312921": null,
+        "customfield_12312923": null,
+        "customfield_12313422": "false",
+        "customfield_12313520": null,
+        "description": "we are currently using \"commons-lang3-3.0\" and in the analysis of veracode found this bug in \"ClassUtils line 792\":\n\nDescription:\n\nA call uses reflection in an unsafe manner. An attacker can specify the class name to be instantiated, which may\ncreate unexpected control flow paths through the application. Depending on how reflection is being used, the attack\nvector may allow the attacker to bypass security checks or otherwise cause the application to behave in an unexpected\nmanner. Even if the object does not implement the specified interface and a ClassCastException is thrown, the\nconstructor of the user-supplied class name will have already executed.\n\nRecommendations:\n\nValidate the class name against a combination of white and black lists to ensure that only expected behavior is\nproduced.\n\n",
+        "duedate": null,
+        "environment": null,
+        "fixVersions": [],
+        "issuelinks": [],
+        "issuetype": {
+            "avatarId": 21133,
+            "description": "A problem which impairs or prevents the functions of the product.",
+            "iconUrl": "https://issues.apache.org/jira/secure/viewavatar?size=xsmall&avatarId=21133&avatarType=issuetype",
+            "id": "1",
+            "name": "Bug",
+            "self": "https://issues.apache.org/jira/rest/api/2/issuetype/1",
+            "subtask": false
+        },
+        "labels": [],
+        "lastViewed": null,
+        "priority": {
+            "iconUrl": "https://issues.apache.org/jira/images/icons/priorities/minor.svg",
+            "id": "4",
+            "name": "Minor",
+            "self": "https://issues.apache.org/jira/rest/api/2/priority/4"
+        },
+        "progress": {
+            "percent": 0,
+            "progress": 0,
+            "total": 86400
+        },
+        "project": {
+            "avatarUrls": {
+                "16x16": "https://issues.apache.org/jira/secure/projectavatar?size=xsmall&pid=12310481&avatarId=10011",
+                "24x24": "https://issues.apache.org/jira/secure/projectavatar?size=small&pid=12310481&avatarId=10011",
+                "32x32": "https://issues.apache.org/jira/secure/projectavatar?size=medium&pid=12310481&avatarId=10011",
+                "48x48": "https://issues.apache.org/jira/secure/projectavatar?pid=12310481&avatarId=10011"
+            },
+            "id": "12310481",
+            "key": "LANG",
+            "name": "Commons Lang",
+            "projectCategory": {
+                "description": "Apache Commons components",
+                "id": "10260",
+                "name": "Commons",
+                "self": "https://issues.apache.org/jira/rest/api/2/projectCategory/10260"
+            },
+            "self": "https://issues.apache.org/jira/rest/api/2/project/12310481"
+        },
+        "reporter": {
+            "active": true,
+            "avatarUrls": {
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452",
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452"
+            },
+            "displayName": "David Camilo Espitia Manrique",
+            "key": "david.espitia",
+            "name": "david.espitia",
+            "self": "https://issues.apache.org/jira/rest/api/2/user?username=david.espitia",
+            "timeZone": "Etc/UTC"
+        },
+        "resolution": {
+            "description": "The problem isn't valid and it can't be fixed.",
+            "id": "6",
+            "name": "Invalid",
+            "self": "https://issues.apache.org/jira/rest/api/2/resolution/6"
+        },
+        "resolutiondate": "2014-12-29T11:45:50.000+0000",
+        "status": {
+            "description": "The issue is considered finished, the resolution is correct. Issues which are not closed can be reopened.",
+            "iconUrl": "https://issues.apache.org/jira/images/icons/statuses/closed.png",
+            "id": "6",
+            "name": "Closed",
+            "self": "https://issues.apache.org/jira/rest/api/2/status/6",
+            "statusCategory": {
+                "colorName": "green",
+                "id": 3,
+                "key": "done",
+                "name": "Done",
+                "self": "https://issues.apache.org/jira/rest/api/2/statuscategory/3"
+            }
+        },
+        "subtasks": [],
+        "summary": "BUG -Use of Externally-Controlled Input to Select Classes or Code ('Unsafe Reflection')  ClassUtils",
+        "timeestimate": 86400,
+        "timeoriginalestimate": 86400,
+        "timespent": null,
+        "updated": "2016-10-19T15:24:36.000+0000",
+        "versions": [{
+            "archived": false,
+            "description": "Items considered to be included in the 3.x line",
+            "id": "12326243",
+            "name": "3.x",
+            "released": false,
+            "self": "https://issues.apache.org/jira/rest/api/2/version/12326243"
+        }],
+        "votes": {
+            "hasVoted": false,
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/LANG-1079/votes",
+            "votes": 0
+        },
+        "watches": {
+            "isWatching": false,
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/LANG-1079/watchers",
+            "watchCount": 3
+        },
+        "workratio": 0
+    },
+    "id": "12763850",
+    "key": "LANG-1079",
+    "self": "https://issues.apache.org/jira/rest/api/2/issue/12763850"
+}

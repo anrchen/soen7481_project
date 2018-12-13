@@ -1,0 +1,10 @@
+[Patch to add failing unit tests of getDateInstance() and getDateTimeInstance(), Fixes problem by using current locale as part of the key, Thanks Sebb, applied.
+
+svn ci -m "Applying Sebb's test and fix from LANG-368 - fixing it so that FastDateFormat getDateInstance and getDateTimeInstance continue to work if Locale.getDefault() changes" 
+
+src/test/org/apache/commons/lang/time/FastDateFormatTest.java 
+src/java/org/apache/commons/lang/time/FastDateFormat.java
+Sending        src/java/org/apache/commons/lang/time/FastDateFormat.java
+Sending        src/test/org/apache/commons/lang/time/FastDateFormatTest.java
+Transmitting file data ..
+Committed revision 590551.]

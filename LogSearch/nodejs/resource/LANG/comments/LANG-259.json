@@ -1,0 +1,53 @@
+[Before just comparing the 
+   iValue - ((ValuedEnum) other).iValue
+it should be checked that the classes are the same!
+
+		Enum otherEnum = (Enum) other;
+		String thisClassName = this.getClass().getName();
+		String otherClassName = otherEnum.getClass().getName();
+		if (!otherClassName.equals(thisClassName)) {
+			log.warn("enum classes are not equal \"" + thisClassName + "\" <> \"" + otherClassName + "\"");
+			throw new ClassCastException("enum classes are not equal \"" + thisClassName + "\" <> \"" + otherClassName
+					+ "\"");
+		}
+
+Furthermore, it might be recommendable to make some methods of org.apache.commons.lang.enums.Enum at least "protected" such that ValuedEnum can use them too:
+
+If available, I would love to also have the more sophisticated checks, Enum.compareTo(Object other) does also used in ValuedEnum.compareTo(Object other):
+
+if (res == 0) {
+			String otherName = otherEnum.getName();
+			if (other.getClass() != this.getClass()) {
+				if (other.getClass().getName().equals(this.getClass().getName())) {
+					return iName.compareTo(getNameInOtherClassLoader(other));
+				}
+			}
+			res = iName.compareTo(otherName);
+			if (res != 0) {
+				log.warn("enum names are not equal \"" + otherName + "\" <> \"" + this.getName() + "\"");
+				throw new ClassCastException("enum names are not equal \"" + otherName + "\" <> \"" + this.getName()
+						+ "\"");
+                       }
+}, furthermore, it would be great if the classe's init would also detect if multiple int values are the same:
+
+e.g.
+
+ public static final JavaVersionEnum  JAVA1_0  = new JavaVersionEnum( "Java 1.0", JAVA1_0_VALUE );
+ public static final JavaVersionEnum  JAVA1_0_=  = new JavaVersionEnum( "Java 1.0.0", JAVA1_0_VALUE );, similarly, it should detect double entries of this kind...
+
+public static final int  JAVA1_0_VALUE  = 100;
+public static final int  JAVA1_0_0VALUE  = 100;
+...
+
+ public static final JavaVersionEnum JAVA1_0 = new JavaVersionEnum( "Java 1.0", JAVA1_0_VALUE );
+ public static final JavaVersionEnum JAVA1_0_0 = new JavaVersionEnum( "Java 1.0.0", JAVA1_0_0VALUE );
+
+------
+ps, the last line in the previous comment should have been
+
+public static final JavaVersionEnum JAVA1_0_0 = new JavaVersionEnum( "Java 1.0.0", JAVA1_0_VALUE );, see also http://issues.apache.org/struts/browse/SB-20 SB-20 and LANG-258, In an effort to get 2.2 out sooner rather than later, I'm assiging all the Enum issues to 2.3. There's been no work on them currently and might be best to focus on them in a 2.3 release instead of trying to squeeze them into the 2.2 release.
+
+Hopefully this will keep the 2.3 release scope pretty tight., Does anyone believe that the classloader tricks in Enum are useful? They seem like a Bad Idea now, and are broken, even for equals.
+
+Is it  too backwards incompatible to remove the classloader code?, Fix compareTo to check type
+rv 432748]

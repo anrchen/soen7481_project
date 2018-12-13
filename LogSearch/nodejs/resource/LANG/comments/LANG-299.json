@@ -1,0 +1,8 @@
+[Unit test created and fix applied., Applying my patch. Took a bit to find out the actual failing test as you either have to make the StrBuilder smaller than 32 by default, or have big strings.
+
+svn ci -m "Applying a unit test for LANG-299 and the fix that Francisco Benavent suggests. "
+
+Sending        src/java/org/apache/commons/lang/text/StrBuilder.java
+Sending        src/test/org/apache/commons/lang/text/StrBuilderAppendInsertTest.java
+Transmitting file data ..
+Committed revision 486377.]

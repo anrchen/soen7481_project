@@ -1,0 +1,12 @@
+[Author: djones
+Date: Wed Sep 10 11:32:53 2014
+New Revision: 1623970
+
+URL: http://svn.apache.org/r1623970
+Log:
+Fix for LANG-1035: Javadoc for EqualsBuilder.reflectionEquals() is unclear
+
+Modified:
+    commons/proper/lang/trunk/src/changes/changes.xml
+    commons/proper/lang/trunk/src/main/java/org/apache/commons/lang3/builder/EqualsBuilder.java
+]

@@ -1,0 +1,9 @@
+[Patch file containing the fix., Applied:
+
+svn ci -m "Applying Scott Bassin's javadoc fix from LANG-364" src/java/org/apache/commons/lang/text/StrTokenizer.java
+
+Sending        src/java/org/apache/commons/lang/text/StrTokenizer.java
+Transmitting file data .
+Committed revision 588151.
+
+Thanks Scott.]

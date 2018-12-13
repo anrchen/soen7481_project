@@ -1,0 +1,233 @@
+[Linking issues that I think this issue generalizes., Regarding LANG-1038, {{NumberUtils.isNumber("-2")}} returns {{true}}. However, {{NumberUtils.isNumber("+2")}} returns {{false}}. Further, _in Java 1.6_, the following throw exceptions:
+{code:java}
+Byte.parseByte("+2");
+Integer.parseInt("+2");
+Long.parseLong("+2");
+Short.parseShort("+2");
+{code}
+whereas the following succeed,
+{code:java}
+Double.parseDouble("+2");
+Float.parseFloat("+2");
+{code}
+
+_*Note.*_ Benedikt suggested that {{NumberUtils.parseNumber(str)}} should not throw a {{NumberFormatException}} and return a valid {{java.lang.Number}} if and only if {{NumberUtils.isParsable(str)}} returns true for the same {{str}}. This seems to not be the case as:
+{code:java}
+NumberUtils.isParsable("+2"); // false
+NumberUtils.parseNumber("+2"); // the value 2
+{code}
+
+This may be because in Java 6 only Float and Double return with a Valid number without exception., In Java 1.6 
+{code}
+NumberUtils.createNumber("+2");
+{code}
+throws the following exception
+{code}
+java.lang.NumberFormatException: For input string: "+2"
+
+	at java.lang.NumberFormatException.forInputString(NumberFormatException.java:48)
+	at java.lang.Integer.parseInt(Integer.java:449)
+	at java.math.BigInteger.<init>(BigInteger.java:316)
+	at org.apache.commons.lang3.math.NumberUtils.createBigInteger(NumberUtils.java:769)
+	at org.apache.commons.lang3.math.NumberUtils.createNumber(NumberUtils.java:593)
+{code}
+
+In Java 1.7 the call succeeds., GitHub user chtompki opened a pull request:
+
+    https://github.com/apache/commons-lang/pull/186
+
+    LANG-1252: rename isNumber, isCreatable. Accommodate for java 6 "+" handing.
+
+    Associated with: https://issues.apache.org/jira/browse/LANG-1252
+    
+    @britter, do you have any thoughts on this. I think that it sufficiently covers the issue, but I wasn't sure about the mechanics about predicating functionality on java version. The main issue is that `new java.math.BigInteger("+2")` works for Java 1.7 and up, but not in Java 1.6. On the other hand `java.math.Float.valueOf("+2.0")` works on all versions of java. So I tried to accommodate for that in the `isCreatable` method.
+    
+    Based on your email about releases and my being slightly deadline driven person, I figured I'd try to put something reasonable together for the 3.5 release candidate. That said, if the diff on the PR doesn't look solid enough, I'm willing to work on the changes some more.
+
+You can merge this pull request into a Git repository by running:
+
+    $ git pull https://github.com/chtompki/commons-lang LANG-1252
+
+Alternatively you can review and apply these changes as the patch at:
+
+    https://github.com/apache/commons-lang/pull/186.patch
+
+To close this pull request, make a commit to your master/trunk branch
+with (at least) the following in the commit message:
+
+    This closes #186
+    
+----
+commit c503d742f094dc2048b72c3f78f5e2e6070a44e1
+Author: Rob Tompkins <chtompki@gmail.com>
+Date:   2016-09-11T01:01:08Z
+
+    LANG-1252: better naming and java 6 specifics around handling a leading +
+
+commit 0a0a35f54f5e7ab2d10022d3ee244cbc876bdde2
+Author: Rob Tompkins <chtompki@gmail.com>
+Date:   2016-09-11T01:07:42Z
+
+    LANG-1252: updates to package-info, adding name to pom.xml
+
+----
+, Github user coveralls commented on the issue:
+
+    https://github.com/apache/commons-lang/pull/186
+  
+    
+    [![Coverage Status](https://coveralls.io/builds/7832604/badge)](https://coveralls.io/builds/7832604)
+    
+    Coverage increased (+0.009%) to 93.463% when pulling **0a0a35f54f5e7ab2d10022d3ee244cbc876bdde2 on chtompki:LANG-1252** into **d53d0419f1c948d3cc7454254ab9a3cb18ca9d3a on apache:master**.
+
+, Github user coveralls commented on the issue:
+
+    https://github.com/apache/commons-lang/pull/186
+  
+    
+    [![Coverage Status](https://coveralls.io/builds/7832670/badge)](https://coveralls.io/builds/7832670)
+    
+    Coverage increased (+0.02%) to 93.471% when pulling **71d9e00d42b278ce9d216b33bf1a9c8606fbcb49 on chtompki:LANG-1252** into **d53d0419f1c948d3cc7454254ab9a3cb18ca9d3a on apache:master**.
+
+, Github user coveralls commented on the issue:
+
+    https://github.com/apache/commons-lang/pull/186
+  
+    
+    [![Coverage Status](https://coveralls.io/builds/7832675/badge)](https://coveralls.io/builds/7832675)
+    
+    Coverage increased (+0.003%) to 93.457% when pulling **71d9e00d42b278ce9d216b33bf1a9c8606fbcb49 on chtompki:LANG-1252** into **d53d0419f1c948d3cc7454254ab9a3cb18ca9d3a on apache:master**.
+
+, Github user britter commented on a diff in the pull request:
+
+    https://github.com/apache/commons-lang/pull/186#discussion_r78293587
+  
+    --- Diff: src/main/java/org/apache/commons/lang3/math/NumberUtils.java ---
+    @@ -1374,8 +1407,11 @@ public static boolean isNumber(final String str) {
+             boolean hasDecPoint = false;
+             boolean allowSigns = false;
+             boolean foundDigit = false;
+    +        boolean isJava6 = StringUtils.startsWith(
+    +                System.getProperty("java.version"), "1.6");
+    --- End diff --
+    
+    You can better use `SystemUtils`for this. But I'm about to extend `JavaVersion` in for [LANG-1263](https://issues.apache.org/jira/browse/LANG-1263) so that will make this even easier. I'll ping you when I have that finished.
+, Github user britter commented on a diff in the pull request:
+
+    https://github.com/apache/commons-lang/pull/186#discussion_r78293625
+  
+    --- Diff: src/test/java/org/apache/commons/lang3/math/NumberUtilsTest.java ---
+    @@ -1216,91 +1217,104 @@ public void testIsDigits() {
+         }
+     
+         /**
+    -     * Tests isNumber(String) and tests that createNumber(String) returns
+    -     * a valid number iff isNumber(String) returns false.
+    +     * Tests isCreatable(String) and tests that createNumber(String) returns
+    +     * a valid number iff isCreatable(String) returns false.
+          */
+         @Test
+    -    public void testIsNumber() {
+    -        compareIsNumberWithCreateNumber("12345", true);
+    --- End diff --
+    
+    Don't remove this tests. Although we have deprecated `isNumber` we will probably have to maintain the code for a while before it can be dropped in Lang 4.0
+, Github user chtompki commented on the issue:
+
+    https://github.com/apache/commons-lang/pull/186
+  
+    I think the following commits satisfy what you were looking for there. Let me know your thoughts.
+, Github user coveralls commented on the issue:
+
+    https://github.com/apache/commons-lang/pull/186
+  
+    
+    [![Coverage Status](https://coveralls.io/builds/7835151/badge)](https://coveralls.io/builds/7835151)
+    
+    Coverage increased (+0.1%) to 93.574% when pulling **b3c31a379e9ad7cd22cb7f0669b82361ced84992 on chtompki:LANG-1252** into **d53d0419f1c948d3cc7454254ab9a3cb18ca9d3a on apache:master**.
+
+, Github user coveralls commented on the issue:
+
+    https://github.com/apache/commons-lang/pull/186
+  
+    
+    [![Coverage Status](https://coveralls.io/builds/7835184/badge)](https://coveralls.io/builds/7835184)
+    
+    Coverage increased (+0.1%) to 93.593% when pulling **204ed0048f4812201ef65c9a0c44fa54a7d1e04f on chtompki:LANG-1252** into **d53d0419f1c948d3cc7454254ab9a3cb18ca9d3a on apache:master**.
+
+, Github user coveralls commented on the issue:
+
+    https://github.com/apache/commons-lang/pull/186
+  
+    
+    [![Coverage Status](https://coveralls.io/builds/7835184/badge)](https://coveralls.io/builds/7835184)
+    
+    Coverage increased (+0.1%) to 93.593% when pulling **204ed0048f4812201ef65c9a0c44fa54a7d1e04f on chtompki:LANG-1252** into **d53d0419f1c948d3cc7454254ab9a3cb18ca9d3a on apache:master**.
+
+, Github user britter commented on a diff in the pull request:
+
+    https://github.com/apache/commons-lang/pull/186#discussion_r78298119
+  
+    --- Diff: src/main/java/org/apache/commons/lang3/math/NumberUtils.java ---
+    @@ -1360,11 +1361,44 @@ public static boolean isDigits(final String str) {
+          * <p><code>null</code> and empty/blank {@code String} will return
+          * <code>false</code>.</p>
+          *
+    +     * <p>Note, {@link #createNumber(String)} should return a number for every
+    +     * input resuling in <code>true</code>.</p>
+    +     *
+          * @param str  the <code>String</code> to check
+          * @return <code>true</code> if the string is a correctly formatted number
+    -     * @since 3.3 the code supports hex {@code 0Xhhh} and octal {@code 0ddd} validation
+    +     * @since 3.3 the code supports hex {@code 0Xhhh} an
+    +     *        octal {@code 0ddd} validation
+    +     * @deprecated This feature will be removed in Lang 4.0,
+    +     *             use {@link NumberUtils#isCreatable(String)} instead
+          */
+    +    @Deprecated
+         public static boolean isNumber(final String str) {
+    +        return isCreatable(str);
+    +    }
+    +
+    +    /**
+    +     * <p>Checks whether the String a valid Java number.</p>
+    +     *
+    +     * <p>Valid numbers include hexadecimal marked with the <code>0x</code> or
+    +     * <code>0X</code> qualifier, octal numbers, scientific notation and
+    +     * numbers marked with a type qualifier (e.g. 123L).</p>
+    +     *
+    +     * <p>Non-hexadecimal strings beginning with a leading zero are
+    +     * treated as octal values. Thus the string <code>09</code> will return
+    +     * <code>false</code>, since <code>9</code> is not a valid octal value.
+    +     * However, numbers beginning with {@code 0.} are treated as decimal.</p>
+    +     *
+    +     * <p><code>null</code> and empty/blank {@code String} will return
+    +     * <code>false</code>.</p>
+    +     *
+    +     * <p>Note, {@link #createNumber(String)} should return a number for every
+    +     * input resuling in <code>true</code>.</p>
+    +     *
+    +     * @param str  the <code>String</code> to check
+    +     * @return <code>true</code> if the string is a correctly formatted number
+    +     * @since 3.3 the code supports hex {@code 0Xhhh} and octal {@code 0ddd} validation
+    --- End diff --
+    
+    should be changed to simply `@since 3.5`
+, Github user britter commented on the issue:
+
+    https://github.com/apache/commons-lang/pull/186
+  
+    Please also add your change to `src/changes/changes.xml`. Thank you!
+, Github user coveralls commented on the issue:
+
+    https://github.com/apache/commons-lang/pull/186
+  
+    
+    [![Coverage Status](https://coveralls.io/builds/7835771/badge)](https://coveralls.io/builds/7835771)
+    
+    Coverage decreased (-0.005%) to 93.568% when pulling **dad86bc0a29689fd29bf03b382a39621718e8b05 on chtompki:LANG-1252** into **05a6beba76b3195b26f2b15919d4f3a95b22c580 on apache:master**.
+
+, Github user asfgit closed the pull request at:
+
+    https://github.com/apache/commons-lang/pull/186
+, https://github.com/apache/commons-lang/pull/186 fixes this and all of the other issues.]

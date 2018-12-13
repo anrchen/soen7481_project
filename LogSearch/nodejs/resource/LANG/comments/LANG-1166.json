@@ -1,0 +1,30 @@
+[FastDatePrinter javadoc explicitly states:
+{code} 
+Java 1.4 introduced a new pattern letter, {@code 'Z'}, to represent
+time zones in RFC822 format (eg. {@code +0800} or {@code -1100}).
+This pattern letter can be used here (on all JDK versions).
+
+In addition, the pattern {@code 'ZZ'} has been made to represent
+ISO 8601 full format time zones (eg. {@code +08:00} or {@code -11:00}).
+This introduces a minor incompatibility with Java 1.4, but at a gain of
+useful functionality.
+ 
+ Starting with JDK7, ISO 8601 support was added using the pattern {@code 'X'}.
+ To maintain compatibility, {@code 'ZZ'} will continue to be supported, but using
+ one of the {@code 'X'} formats is recommended.
+ {code}
+
+The SimpleDateFormat javadoc states:
+{code}
+RFC 822 time zone: For formatting, the RFC 822 4-digit time zone format is used:
+     RFC822TimeZone:
+             Sign TwoDigitHours Minutes
+     TwoDigitHours:
+             Digit Digit
+{code}
+SimpleDateFormat will output +0000 whether 'Z', 'ZZ', 'ZZZ', or 'ZZZZ' or however many 'Z' are used. 
+FastDateFormat will output +0000 for 'Z' and Z (ISO8601) for 'ZZ'
+
+It's not just UTC that has the formatting difference.  In Paris, FastDateFormat will output +02:00 instead of +0200; and in Los Angeles, -07:00 instead of -0700.
+
+So, for compatible with SimpleDateFormat use 'Z'. ]

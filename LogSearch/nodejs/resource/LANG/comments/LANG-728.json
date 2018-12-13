@@ -1,0 +1,25 @@
+[Test code and patch for org/apache/commons/lang/Entities.java., The API has changed in Lang 3.0; however the issue remains. A failing test (with @Ignore) has been added to StringEscapeUtilsTest. Need to resolve this in 3.0.1., Happiness. This is fixed in 3.0 already! :)
+
+It wasn't clear because escapeXml no longer escapes entities above 7f, instead you have to do a bit more work to get that. Here is the code you would need:
+
+{code:java}
+        CharSequenceTranslator escapeXml =
+            StringEscapeUtils.ESCAPE_XML.with( UnicodeEscaper.between(0x7f, Integer.MAX_VALUE) );
+
+        assertEquals("Supplementary character must be represented using a single escape", "\u233B4",
+                escapeXml.translate("\uD84C\uDFB4"));
+{code}
+
+Also note the need to use a unicode escape and not a numeric entity in Java.
+
+This has been added to the unit tests run each time. Marking this as Fixed in 3.0., Reopening as I explained things badly. , I used the wrong translator :) Code should be:
+
+{code:java}
+        CharSequenceTranslator escapeXml =
+            StringEscapeUtils.ESCAPE_XML.with( NumericEntityEscaper.between(0x7f, Integer.MAX_VALUE) );
+
+        assertEquals("Supplementary character must be represented using a single escape", "&#144308;",
+                escapeXml.translate("\uD84C\uDFB4"));
+{code}
+
+ie) Ignore the 'note the' comment. , Closing again as 'fixed in 3.0'.]

@@ -1,0 +1,1 @@
+[This bug is really in EqualsBuilder.append(Object, Object). Fixed in CVS., 2.1 released, closing.]

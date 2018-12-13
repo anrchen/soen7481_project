@@ -1,0 +1,45 @@
+[Created an attachment (id=6982)
+This patch removes an unused variable from o.a.c.lang.time.DateUtils$DateIterator
+, Should the constructor DateIterator(Calendar startFinal, Calendar endFinal) be
+abbreviated to DateIterator(Calendar endFinal)?
+
+Perhaps the author could shed some light on this. Thanks., The constructor needs to keep the two arg version so it can know the date range
+to iterate over., But one of the args is not used in the class. Is that a bug?, The parameter 'startFinal' is used twice, once to assign to the field
+'this.startFinal' and then to assign to the field 'this.spot'. It's the field
+which is unused not the parameter. Sorry for the confusion. The patch file
+explained it better than I did!
+
+
+   /**
+     * Date iterator.
+     */
+    static class DateIterator implements Iterator {
+        private final Calendar startFinal;
+        private final Calendar endFinal;
+        private Calendar spot = null;
+
+        DateIterator(Calendar startFinal, Calendar endFinal) {
+            super();
+            this.startFinal = startFinal;
+            this.endFinal = endFinal;
+            spot = startFinal;
+            spot.add(Calendar.DATE, -1);
+        }
+
+        public boolean hasNext() {
+            return spot.before(endFinal);
+        }
+
+        public Object next() {
+            if (spot.equals(endFinal)) {
+                throw new NoSuchElementException();
+            }
+            spot.add(Calendar.DATE, 1);
+            return spot.clone();
+        }
+
+        public void remove() {
+            throw new UnsupportedOperationException();
+        }
+    }
+, Patch applied, thanks]

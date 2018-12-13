@@ -1,0 +1,9 @@
+[I'd like to have this fixed in 3.4, Looks like this will need a new version of the TextStrategy that supports case-blind matching.
+This could perhaps be done by converting the month strings to lower case in the map; then converting the input value to lowercase before looking up the map.
+The Locale is known when creating a Strategy, however it is not provided when parsing using the setCalendar method.
+The Strategy interface is private, so it would be possible to change the setCalendar method to pass in the Locale., That's not sufficient - the generated regex also needs to be case-blind, commit 1589446, Thanks for the quick work guys, looking forward to using this in the next release. :-), hello guys, is there a snapshot jar where i can get this fix from, i have looked for it but couldnt find it., Snapshots are published to the ASF SNAPSHOT repository.
+
+The URL is in the Apache Parent POM; just make sure you enable use of the repo "apache.snapshots.https"
+
+Note that SNAPSHOTS are automated builds, and have not been reviewed by Commons developers.
+Use at your own risk.]

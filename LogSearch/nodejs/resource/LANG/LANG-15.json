@@ -1,0 +1,200 @@
+{
+    "expand": "operations,versionedRepresentations,editmeta,changelog,renderedFields",
+    "fields": {
+        "aggregateprogress": {
+            "progress": 0,
+            "total": 0
+        },
+        "aggregatetimeestimate": null,
+        "aggregatetimeoriginalestimate": null,
+        "aggregatetimespent": null,
+        "assignee": null,
+        "components": [{
+            "id": "12313203",
+            "name": "lang.*",
+            "self": "https://issues.apache.org/jira/rest/api/2/component/12313203"
+        }],
+        "created": "2003-01-17T22:44:23.000+0000",
+        "creator": {
+            "active": true,
+            "avatarUrls": {
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452",
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452"
+            },
+            "displayName": "Holger Krauth",
+            "key": "holger.krauth@danet.de",
+            "name": "holger.krauth@danet.de",
+            "self": "https://issues.apache.org/jira/rest/api/2/user?username=holger.krauth%40danet.de",
+            "timeZone": "Etc/UTC"
+        },
+        "customfield_10010": 16204,
+        "customfield_12310220": "2003-01-20T02:17:53.000+0000",
+        "customfield_12310222": null,
+        "customfield_12310250": null,
+        "customfield_12310290": null,
+        "customfield_12310291": null,
+        "customfield_12310300": null,
+        "customfield_12310310": "0.0",
+        "customfield_12310420": "146988",
+        "customfield_12310920": "74959",
+        "customfield_12310921": null,
+        "customfield_12311020": null,
+        "customfield_12311024": null,
+        "customfield_12311120": null,
+        "customfield_12311820": "0|i0d7av:",
+        "customfield_12312022": null,
+        "customfield_12312023": null,
+        "customfield_12312024": null,
+        "customfield_12312026": null,
+        "customfield_12312220": null,
+        "customfield_12312320": null,
+        "customfield_12312321": null,
+        "customfield_12312322": null,
+        "customfield_12312323": null,
+        "customfield_12312324": null,
+        "customfield_12312325": null,
+        "customfield_12312326": null,
+        "customfield_12312327": null,
+        "customfield_12312328": null,
+        "customfield_12312329": null,
+        "customfield_12312330": null,
+        "customfield_12312331": null,
+        "customfield_12312332": null,
+        "customfield_12312333": null,
+        "customfield_12312334": null,
+        "customfield_12312335": null,
+        "customfield_12312336": null,
+        "customfield_12312337": null,
+        "customfield_12312338": null,
+        "customfield_12312339": null,
+        "customfield_12312340": null,
+        "customfield_12312341": null,
+        "customfield_12312520": null,
+        "customfield_12312521": "Mon Jan 20 02:17:53 UTC 2003",
+        "customfield_12312720": null,
+        "customfield_12312823": null,
+        "customfield_12312920": null,
+        "customfield_12312921": null,
+        "customfield_12312923": null,
+        "customfield_12313422": "false",
+        "customfield_12313520": null,
+        "description": "Hopefully I can give back a little after having had so much\nbenefit of your work.\n\nI will refer to the sources from commons-lang-1.0.1-src.zip, downloaded\nthe 17 January 2003.\n\nDetail:\n=======\nIn org.apache.commons.lang.StringUtils: If you invoke\npublic static String replace(String text, String repl, String with)\nwith arguments:\n   text  !=  null\n   repl.equals(\"\")\n   with  anything\n\nyou get an infinite loop as \"FOO\".indexOf(\"\") == 0.\n\nDemo:\n=====\nTo demonstrate the bug, please add the following lines in\norg.apache.commons.lang.StringUtilsTest in the body of\ntestReplaceFunctions(), line 194:\n\n    public void testReplaceFunctions() {\n\n      //... existing code\n\n      //-- bug demonstration, added by HoKr\n      assertEquals(\"replace(String, String, String) failed\",\n          \"FOO\", StringUtils.replace(\"FOO\", \"\", \"any\"));\n    }\n\nI got an OutOfMemoryException then.\n\nFix:\n====\nMy suggestion to fix this in StringUtils.replace(String, String, String),\nline 593:\n\n    public static String replace(String text, String repl, String with,\n                                 int max) {\n        if (text == null) {\n            return null;\n        }\n\n        //-- FIX SUGGESTION START >>>\n        //-- added by HoKr for infinite loop avoidance\n        //-- keeps on throwing NullPointerException if repl == null\n        //-- -->> this is faster than \"\".equals(repl); NPE allowed.\n        if (repl.length() == 0) {\n           return text;\n        }\n        //-- <<< FIX SUGGESTION END\n\n        StringBuffer buf = new StringBuffer(text.length());\n        int start = 0, end = 0;\n        while ((end = text.indexOf(repl, start)) != -1) {\n            buf.append(text.substring(start, end)).append(with);\n            start = end + repl.length();\n\n            if (--max == 0) {\n                break;\n            }\n        }\n        buf.append(text.substring(start));\n        return buf.toString();\n    }\n\nFurther:\n========\nFurther I suggest instead of throwing NullPointerExceptions\nif (repl == null || with == null) to return the parameter text then.\n\nIt would meet closer the expectation of what the method should perform from\nmy point of view in these cases.\n\nThis behaviour would be payed with 2 extra comparisons to null\n(before the while-loop) in 'normal' operation mode though.\n\nThe Code would be:\n\n    public static String replace(String text, String repl, String with,\n                                 int max) {\n        if (text == null) {\n            return null;\n        }\n\n        //-- START >>>\n        //-- suggestion by HoKr, BUT would CHANGE outside behaviour:\n        //-- not throwing NPE any more!\n        if (repl == null || with == null) {\n            return text;\n        }\n        //-- added by HoKr for infinite loop avoidance\n        //-- keeps on throwing NullPointerException if repl == null\n        if (repl.length() == 0) {\n            return text;\n        }\n        //-- <<< END\n\n        StringBuffer buf = new StringBuffer(text.length());\n        int start = 0, end = 0;\n        while ((end = text.indexOf(repl, start)) != -1) {\n            buf.append(text.substring(start, end)).append(with);\n            start = end + repl.length();\n\n            if (--max == 0) {\n                break;\n            }\n        }\n        buf.append(text.substring(start));\n        return buf.toString();\n    }\n\n\n\nRegards,\nHolger Krauth",
+        "duedate": null,
+        "environment": "Operating System: Linux\nPlatform: PC",
+        "fixVersions": [{
+            "archived": true,
+            "description": "",
+            "id": "12311706",
+            "name": "2.0",
+            "releaseDate": "2003-09-02",
+            "released": true,
+            "self": "https://issues.apache.org/jira/rest/api/2/version/12311706"
+        }],
+        "issuelinks": [],
+        "issuetype": {
+            "avatarId": 21133,
+            "description": "A problem which impairs or prevents the functions of the product.",
+            "iconUrl": "https://issues.apache.org/jira/secure/viewavatar?size=xsmall&avatarId=21133&avatarType=issuetype",
+            "id": "1",
+            "name": "Bug",
+            "self": "https://issues.apache.org/jira/rest/api/2/issuetype/1",
+            "subtask": false
+        },
+        "labels": [],
+        "lastViewed": null,
+        "priority": {
+            "iconUrl": "https://issues.apache.org/jira/images/icons/priorities/major.svg",
+            "id": "3",
+            "name": "Major",
+            "self": "https://issues.apache.org/jira/rest/api/2/priority/3"
+        },
+        "progress": {
+            "progress": 0,
+            "total": 0
+        },
+        "project": {
+            "avatarUrls": {
+                "16x16": "https://issues.apache.org/jira/secure/projectavatar?size=xsmall&pid=12310481&avatarId=10011",
+                "24x24": "https://issues.apache.org/jira/secure/projectavatar?size=small&pid=12310481&avatarId=10011",
+                "32x32": "https://issues.apache.org/jira/secure/projectavatar?size=medium&pid=12310481&avatarId=10011",
+                "48x48": "https://issues.apache.org/jira/secure/projectavatar?pid=12310481&avatarId=10011"
+            },
+            "id": "12310481",
+            "key": "LANG",
+            "name": "Commons Lang",
+            "projectCategory": {
+                "description": "Apache Commons components",
+                "id": "10260",
+                "name": "Commons",
+                "self": "https://issues.apache.org/jira/rest/api/2/projectCategory/10260"
+            },
+            "self": "https://issues.apache.org/jira/rest/api/2/project/12310481"
+        },
+        "reporter": {
+            "active": true,
+            "avatarUrls": {
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452",
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452"
+            },
+            "displayName": "Holger Krauth",
+            "key": "holger.krauth@danet.de",
+            "name": "holger.krauth@danet.de",
+            "self": "https://issues.apache.org/jira/rest/api/2/user?username=holger.krauth%40danet.de",
+            "timeZone": "Etc/UTC"
+        },
+        "resolution": {
+            "description": "A fix for this issue is checked into the tree and tested.",
+            "id": "1",
+            "name": "Fixed",
+            "self": "https://issues.apache.org/jira/rest/api/2/resolution/1"
+        },
+        "resolutiondate": "2009-12-16T08:50:30.000+0000",
+        "status": {
+            "description": "The issue is considered finished, the resolution is correct. Issues which are not closed can be reopened.",
+            "iconUrl": "https://issues.apache.org/jira/images/icons/statuses/closed.png",
+            "id": "6",
+            "name": "Closed",
+            "self": "https://issues.apache.org/jira/rest/api/2/status/6",
+            "statusCategory": {
+                "colorName": "green",
+                "id": 3,
+                "key": "done",
+                "name": "Done",
+                "self": "https://issues.apache.org/jira/rest/api/2/statuscategory/3"
+            }
+        },
+        "subtasks": [],
+        "summary": "Infinite loop in StringUtils.replace(text, repl, with) + FIX",
+        "timeestimate": null,
+        "timeoriginalestimate": null,
+        "timespent": null,
+        "updated": "2009-12-16T08:50:30.000+0000",
+        "versions": [{
+            "archived": true,
+            "description": "",
+            "id": "12311706",
+            "name": "2.0",
+            "releaseDate": "2003-09-02",
+            "released": true,
+            "self": "https://issues.apache.org/jira/rest/api/2/version/12311706"
+        }],
+        "votes": {
+            "hasVoted": false,
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/LANG-15/votes",
+            "votes": 0
+        },
+        "watches": {
+            "isWatching": false,
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/LANG-15/watchers",
+            "watchCount": 0
+        },
+        "workratio": -1
+    },
+    "id": "12340493",
+    "key": "LANG-15",
+    "self": "https://issues.apache.org/jira/rest/api/2/issue/12340493"
+}

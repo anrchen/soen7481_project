@@ -1,0 +1,20 @@
+[I do not think that this is really a critical problem. The use case that a longer and complex calculation yields a null result at the end seems a bit odd to me.
+
+And - as you have a demonstrated in your patch - there is an easy work-around for the problem: Just use a special null object or a wrapper type like MutableObject or the new Java 8 type Optional. I would be reluctant to add such means to the current implementation because this increases complexity and is (slightly) less efficient. This is IMHO a too high price for such a corner use case.
+
+What should be done in any case is to add a note to the Javadocs describing this problem., This seems like a valid bug report to me.
+
+I do not think it reasonable to ask user to create a "special" null value for a JDBC Connection or Statement, for example:
+
+{code:java}
+LazyInitializer<java.sql.Connection>
+LazyInitializer<java.sql.Statement>
+{code}
+
+Now, I have to go and implement a "null" implementation of all the interfaces I want to use? That's not acceptable.
+
+Furthermore, what if I have a {{ComplexSomething}} class with many private final fields that get initialized on construction to create a valid object? I now have to change the class to allow for all null values? Not acceptable either., I wish I had paid more attention when this class was added because {{org.apache.commons.lang3.concurrent.LazyInitializer.get()}} throwing a custom {{ConcurrentException}} does not make sense to me either. That's because if I catch an error while I am building my object, it might have nothing to do with concurrency. The fact that the LI class helps me deal with concurrency matters, yes. This should be an {{IllegalStateException}}. We could change this for 4.0 I suppose., Proposed patch. You could do away with the Null class and just use a "new Object()" as the null value., Patch that follows the same double lock idiom., The patch looks good to me, but I would propose to make the special noInit object even *static*.
+
+Regarding exception handling: I think, the currently implemented solution is in-line with the approach taken by the JDK. See for instance {{Future.get()}}, which throws an {{ExecutionException}}. There is also some support for the exception type in the {{ConcurrentUtils}} class., In Git master. 
+
+Please verify and close.]

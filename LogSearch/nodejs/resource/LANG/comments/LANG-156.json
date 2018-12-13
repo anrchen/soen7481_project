@@ -1,0 +1,19 @@
+[Try using the CVS version where the enum package is renamed to enums.
+(duplicate report), When is planned a new "commons-lang" release? We (Cocoon) are planning a new
+release and we try to avoid CVS versions libraries....., It's ASAP, tying the loose ends and getting close to calling for a release.
+However, that translates as probably around the end of the year if I had to make
+a solid bet., We need to do better than xmas. Does Cocoon have a date/timescale in mind?, I already committed a CVS version of commons-lang into cocoon:
+
+http://svn.apache.org/viewcvs.cgi/cocoon/branches/BRANCH_2_1_X/lib/core/commons-lang-2.0-20041007T2305.jar?root=Apache-SVN
+
+I guess we will release in the next 15-30 days. Of course will be better if we
+have a released version. Can you release before us? :-D, 15 days, probably not. 30 should be possible.
+Frankly, having someone needing a release will help the process ;-), The very least, we should have an RC1 out quickly.
+
+My first child is due to be born in 2 weeks time and my personal goal is to have
+Lang 2.1 RC1 released before hand., Congratulations! That is great!
+
+I think a RC1 is better for projects than just a CVS version. Unfortunately, I
+guess I cannot be much useful in jakarta-commons, since I am not committer.
+Anyway, if you need help for the release, let me know!. I will be very glad to
+help. :-D, 2.1 released, closing.]

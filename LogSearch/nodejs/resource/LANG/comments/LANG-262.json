@@ -1,0 +1,30 @@
+[In an effort to get 2.2 out sooner rather than later, I'm assiging all the Enum issues to 2.3. There's been no work on them currently and might be best to focus on them in a 2.3 release instead of trying to squeeze them into the 2.2 release.
+
+Hopefully this will keep the 2.3 release scope pretty tight., svn ci -m "Applying requested fix from Neil Redway in #LANG-262" src/java/
+Sending        src/java/org/apache/commons/lang/enum/Enum.java
+Sending        src/java/org/apache/commons/lang/enums/Enum.java
+Transmitting file data ..
+Committed revision 447975., Thanks Neil, I've applied that to the trunk (which is now for 2.3). It sounds like a completely plausible fix to me, though Stephen suggested on the mailing list that :
+
+"I don't know whether a WeakHashMap works when the keys are Class objects
+(as Class objects aren't exactly run-of the-mill). "
+
+Which is also pretty believable.
+
+Could you try out the nightly build from tonight? The 0920 build in:
+
+http://people.apache.org/builds/jakarta-commons/nightly/commons-lang/, Not heard from Neil as to whether it fixed his problem. Understandable given that it took a couple of months to get passed 2.2 and apply the fix to SVN.
+
+This is a research class that I _think_ shows that WeakHashMaps are okay with Classes as keys provided the ClassLoader is available for garbage collection. 
+
+I'm a bit unsure of it though because I don't understand why accessing the class through the HashMap API is giving me null as the classes ClassLoader, yet when it was loaded it was the correct FooClassLoader.
+
+Any thoughts? Is this proof or just crap?, Took another look at this. I was being dumb and calling getClass() on the key when it came back from the map; and as it was the Class object itself that meant it returned java.lang.Class from the bootstrap loader.
+
+Have deleted the original and reattached a version with the correct debug statement. This class shows that the patch should work:
+
+1) Load a class from a different classloader.
+2) Make it the key in a WeakHashMap.
+3) Remove references to the original classloader.
+4) Let System.gc occur.
+5) The WeakHashMap is empty., I think my research class shows that things should work. Making it a unit test seems a lot more painful, which I'm finding very hard to have the energy for. Resolving this as fixed.]

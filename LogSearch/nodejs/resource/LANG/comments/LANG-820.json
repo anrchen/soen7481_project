@@ -1,0 +1,21 @@
+[I don't believe this is a bug. The following unit test passes:
+\\
+{code}
+@Test
+public void testLang820() throws Exception {
+    Type[] typeArray = {String.class, String.class};
+    Type[] expectedArray = {String.class};
+    Assert.assertArrayEquals(expectedArray, TypeUtils.normalizeUpperBounds(typeArray));
+}
+{code}
+
+, Thanks for the test case, added:
+
+URL: http://svn.apache.org/viewvc?rev=1390984&view=rev
+Log:
+LANG-820 TypeUtils.normalizeUpperBounds broken?
+Added test to show it works OK
+
+Modified:
+    commons/proper/lang/trunk/src/test/java/org/apache/commons/lang3/reflect/TypeUtilsTest.java
+]

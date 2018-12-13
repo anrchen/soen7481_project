@@ -1,0 +1,13 @@
+[It seems like the best option is replacing the equals(MutableObject) with equals(Object). It simplifies the code, refactors  to what most developers expect, and the minor overhead associated calling intanceof is worth the improvement in the code.
+
+The equality check is very simple and the hashCode operation will not have to change. Just making sure I'm not missing something before I give this a go., The attached patch file addresses this bug. MutableObject.equals(MutableObject) has been refactored to MutableObject.equals(Object). There are also some minor javadoc cleanups and a little more javadoc information has been added.
+
+No changes to MutableObject.hashCode were necessary.
+
+MutableObjectTest.java verifies that equals continues to work correctly and also that hashCode continues to work correctly. All unit tests ran successfully., Thanks Sean.
+
+svn ci -m "Applying Sean Mickey's patch to LANG-630 such that MutableObject.equals is as would be expected. Now it directly overrides the equals(Object) method. " src/main/java/org/apache/commons/lang3/mutable/
+Sending        src/main/java/org/apache/commons/lang3/mutable/MutableObject.java
+Transmitting file data .
+Committed revision 965162.
+]

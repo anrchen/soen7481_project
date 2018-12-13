@@ -1,0 +1,25 @@
+[In fact all the local links under Commons and General Information are broken.
+
+That's probably because the Lang URL was incorrect when the site was generated.
+The URL has since been corrected, but the site has not been re-released., I have noticed that page http://projects.apache.org/projects/commons_lang.html says "Releases can be downloaded from http://commons.apache.org/downloads/download_lang.cgi".  But that URL gives a 403 Forbidden error.
+The correct URL seems to be http://commons.apache.org/proper/commons-lang/download_lang.cgi, Thanks for the report.
+Several other DOAPS used the wrong URL, fixed in SVN (will be picked up in a few hours when projects is rebuilt):
+
+URL: http://svn.apache.org/r1484266
+Log:
+LANG-894 some doap files have incorrect download page
+
+Modified:
+    commons/proper/betwixt/trunk/doap_betwixt.rdf
+    commons/proper/cli/trunk/doap_cli.rdf
+    commons/proper/compress/trunk/doap_compress.rdf
+    commons/proper/daemon/trunk/doap_daemon.rdf
+    commons/proper/dbcp/trunk/doap_dbcp.rdf
+    commons/proper/email/trunk/doap_email.rdf
+    commons/proper/exec/trunk/doap_exec.rdf
+    commons/proper/fileupload/trunk/doap_fileupload.rdf
+    commons/proper/jci/trunk/doap_jci.rdf
+    commons/proper/lang/trunk/doap_lang.rdf
+    commons/proper/math/trunk/doap_math.rdf
+    commons/proper/scxml/trunk/doap_scxml.rdf, Looks good now., The links under "General Information" still appear broken.
+I've cleared browser cache.  This appears to have not been fully resolved., Agreed; I only fixed the DOAP problem reported by Peter Ford., Fixed. Apologies for the slowness :(]

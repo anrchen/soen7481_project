@@ -1,0 +1,71 @@
+[This probably also affects Commons Text, Indeed Benedikt. I'll file a ticket for [text].
+
+If methods like this are going to be deprecated (and maybe removed in the 4.x release?) in [lang], then I'd think we should just add the @deprecated annotation to the method. Other wise, I'd be inclined to leave the method name as-is (so we keep binary compatibility), return 1 - currentResult as suggested by [~jmkeil]; and maybe update the Javadocs as well.
+, What about deprecating the current method (letting it stay as it is) and adding renamed copy (getJaroWinklerSimilarity). This ensures that we do not break any existing code. What do you think?
+, GitHub user PascalSchumacher opened a pull request:
+
+    https://github.com/apache/commons-lang/pull/198
+
+    LANG-1269: Wrong name or result of StringUtils#getJaroWinklerDistance
+
+    deprecat StringUtils#getJaroWinklerDistance and add StringUtils#getJaroWinklerSimilarity instead
+
+You can merge this pull request into a Git repository by running:
+
+    $ git pull https://github.com/PascalSchumacher/commons-lang jarowinklerdistance_name
+
+Alternatively you can review and apply these changes as the patch at:
+
+    https://github.com/apache/commons-lang/pull/198.patch
+
+To close this pull request, make a commit to your master/trunk branch
+with (at least) the following in the commit message:
+
+    This closes #198
+    
+----
+commit d2e6338a8ec46ebc80156ef9dcdd83dfe63ee8b5
+Author: pascalschumacher <pascalschumacher@gmx.net>
+Date:   2016-10-22T09:55:32Z
+
+    LANG-1269: Wrong name or result of StringUtils#getJaroWinklerDistance
+    
+    deprecat StringUtils#getJaroWinklerDistance and add StringUtils#getJaroWinklerSimilarity instead
+
+----
+, Github user coveralls commented on the issue:
+
+    https://github.com/apache/commons-lang/pull/198
+  
+    
+    [![Coverage Status](https://coveralls.io/builds/8458576/badge)](https://coveralls.io/builds/8458576)
+    
+    Coverage increased (+0.004%) to 93.545% when pulling **d2e6338a8ec46ebc80156ef9dcdd83dfe63ee8b5 on PascalSchumacher:jarowinklerdistance_name** into **91d6bd74fa358fdc8d7cb7681c76c509fd9a8e7d on apache:master**.
+
+, Github user kinow commented on the issue:
+
+    https://github.com/apache/commons-lang/pull/198
+  
+    +1
+, Github user coveralls commented on the issue:
+
+    https://github.com/apache/commons-lang/pull/198
+  
+    
+    [![Coverage Status](https://coveralls.io/builds/8459485/badge)](https://coveralls.io/builds/8459485)
+    
+    Coverage increased (+0.02%) to 93.57% when pulling **436d2801899827a2651b8b44d680aaf9e17acca7 on PascalSchumacher:jarowinklerdistance_name** into **8274993e293a79fc75829df398233915a6387a4b on apache:master**.
+
+, Github user coveralls commented on the issue:
+
+    https://github.com/apache/commons-lang/pull/198
+  
+    
+    [![Coverage Status](https://coveralls.io/builds/8459485/badge)](https://coveralls.io/builds/8459485)
+    
+    Coverage increased (+0.02%) to 93.57% when pulling **436d2801899827a2651b8b44d680aaf9e17acca7 on PascalSchumacher:jarowinklerdistance_name** into **8274993e293a79fc75829df398233915a6387a4b on apache:master**.
+
+, Github user asfgit closed the pull request at:
+
+    https://github.com/apache/commons-lang/pull/198
+, I reverted the addition of StringUtils#getJaroWinklerSimilarity in https://github.com/apache/commons-lang/commit/f4ee399e31eb61741f5f2167d6af8f49c0e991b6 because all string distance methods of commons-lang are now deprecated in favor of commons-text.]

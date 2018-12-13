@@ -1,0 +1,8 @@
+[URL: http://svn.apache.org/r1573786
+Log:
+LANG-983 DurationFormatUtils does not describe format string fully
+
+Modified:
+    commons/proper/lang/trunk/src/changes/changes.xml
+    commons/proper/lang/trunk/src/main/java/org/apache/commons/lang3/time/DurationFormatUtils.java
+]

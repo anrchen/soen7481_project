@@ -1,0 +1,18 @@
+[I'm able to reproduce this too. It seems that "ZZ" has no special meaning within the parser classes, despite the Javadoc promising the contrary. In {{FastDateParser.getStrategy()}}, only the first 'z' is noticed and a general timezone strategy is returned.
+
+As a side note, as and when we move to Java 7 as the minimum supported API, we can use the new "X" pattern letter, which is designed for ISO 8601 time zones.
+
+In the meantime, I'll see what can be done in the current API. A work-around for now is to substitute "+00:00" for "Z" in the input date, prior to parsing., Author: djones
+Date: Sun Sep 28 10:11:17 2014
+New Revision: 1628061
+
+URL: http://svn.apache.org/r1628061
+Log:
+Added missing support for ISO 8601 parsing and printing using "ZZ" pattern (code now matches Javadoc). Addresses LANG-1000.
+
+Modified:
+    commons/proper/lang/trunk/src/changes/changes.xml
+    commons/proper/lang/trunk/src/main/java/org/apache/commons/lang3/time/FastDateParser.java
+    commons/proper/lang/trunk/src/main/java/org/apache/commons/lang3/time/FastDatePrinter.java
+    commons/proper/lang/trunk/src/test/java/org/apache/commons/lang3/time/DateFormatUtilsTest.java
+    commons/proper/lang/trunk/src/test/java/org/apache/commons/lang3/time/FastDatePrinterTest.java]

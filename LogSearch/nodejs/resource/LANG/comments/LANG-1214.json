@@ -1,0 +1,50 @@
+["abbreviationMap" is also used by the "primitiveToWrapper" method and for this the "void -> V" mapping seems correct.
+
+A patch/pull request for this issue would be most welcome., I'm not sure I understand; as far as I can tell, {{primitiveToWrapper}} uses the {{primitiveWrapperMap}}, which has a separate entry for {{void}} (though that entry is also confusing; {{void}} is not autoboxed to/from {{Void}} by Java, and the entry maps anyway to {{Void.TYPE == void.class}} instead of {{Void.class}}; I feel like it's a confusing substitute for what is actually a special case in the autoboxing-handling code).
+
+This is independent of {{abbreviationMap}} and {{reverseAbbreviationMap}}, all uses of which seem to relate to array type class names (see https://github.com/apache/commons-lang/blob/master/src/main/java/org/apache/commons/lang3/ClassUtils.java)., GitHub user henryptung opened a pull request:
+
+    https://github.com/apache/commons-lang/pull/155
+
+    LANG-1214 Handle "void" in ClassUtils.getClass()
+
+    `getClass()` previously deferred to an array type to get the class,
+    but this fails for `void`, which lacks an array type.
+    Instead, map explicitly from primitive name to primitive class.
+    
+    Added unit test line fails before change, passes after change.
+
+You can merge this pull request into a Git repository by running:
+
+    $ git pull https://github.com/henryptung/commons-lang lang-1214-getclass-void
+
+Alternatively you can review and apply these changes as the patch at:
+
+    https://github.com/apache/commons-lang/pull/155.patch
+
+To close this pull request, make a commit to your master/trunk branch
+with (at least) the following in the commit message:
+
+    This closes #155
+    
+----
+commit 792f75436b81e9941bcd30b31dc3ad4424de602a
+Author: Henry Tung <htung@stanford.edu>
+Date:   2016-05-23T01:45:49Z
+
+    LANG-1214 Handle "void" in ClassUtils.getClass()
+    
+    getClass() previously deferred to an array type to get the class,
+    but this fails for void, which lacks an array type.
+    Instead, map explicitly from primitive name to primitive class.
+
+----
+, Github user asfgit closed the pull request at:
+
+    https://github.com/apache/commons-lang/pull/155
+, Github user PascalSchumacher commented on the issue:
+
+    https://github.com/apache/commons-lang/pull/155
+  
+    Thanks!
+, Thanks for reporting and thanks for the pull request!]

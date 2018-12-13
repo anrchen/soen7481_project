@@ -1,0 +1,10 @@
+[Diff thw pom.xml in the root of trunk from this one, and you'll see the simple change that needs to be made to fix this issue., Figured out how to fix the problem.  All that you need to do is add a property to the pom.xml to override a default.  See the attached pom.xml.
+
+, Looks like the issue is     <commons.componentid>lang</commons.componentid>
+
+That should have said lang3., Thanks Brandon - I've applied the fix.
+
+svn ci -m "Fixing the OSGi SymbolicName by updating the commons.componentid. Issue identified by Brandon Harper in LANG-749" pom.xml 
+Sending        pom.xml
+Transmitting file data .
+Committed revision 1163904.]

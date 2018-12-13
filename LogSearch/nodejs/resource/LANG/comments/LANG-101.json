@@ -1,0 +1,10 @@
+[It requires test cases, and better methods that allow the format to be 
+controlled. All help will be welcomed ;-), making it public shouldn't require test cases and any other functionality than 
+it already has. If you make it public it will lead to more help because more 
+people will use it. As it is now it shouldn't even be shipped with the jar., Having high test coverage is an important target for Lang, so things do not get
+released (read made public) without being covered somewhat.
+
+However, is planned for this to be on the next release, and marking this as a
+dupe of #15082.
+
+*** This bug has been marked as a duplicate of 15082 ***]

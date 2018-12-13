@@ -1,0 +1,6 @@
+[Created an attachment (id=10774)
+Add the ClassUtils.primitivesToWrappers method and the related test case
+, Modified somewhat. The patch does some optimising in that if none of the
+elements are primitive classes, then it returns the original array. It's not
+what a user would expect, so I've simplified it to always return a new array,
+regardless. Also a few style and javadoc changes., 2.1 released, closing.]

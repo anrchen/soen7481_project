@@ -1,0 +1,47 @@
+[Thank you for the patch. I added a couple more tests. We could use more.
+
+Do you see any issues in other areas?
+
+{noformat}
+commit -m "[LANG-857] StringIndexOutOfBoundsException in CharSequenceTranslator." C:/svn/org/apache/commons/trunks-proper/lang/src/test/java/org/apache/commons/lang3/StringUtilsTest.java C:/svn/org/apache/commons/trunks-proper/lang/src/changes/changes.xml C:/svn/org/apache/commons/trunks-proper/lang/src/main/java/org/apache/commons/lang3/text/translate/CharSequenceTranslator.java
+    Sending        C:/svn/org/apache/commons/trunks-proper/lang/src/changes/changes.xml
+    Sending        C:/svn/org/apache/commons/trunks-proper/lang/src/main/java/org/apache/commons/lang3/text/translate/CharSequenceTranslator.java
+    Sending        C:/svn/org/apache/commons/trunks-proper/lang/src/test/java/org/apache/commons/lang3/StringUtilsTest.java
+    Transmitting file data ...
+    Committed revision 1411850.
+{noformat}, Currently same issues appear in StringEscapeUtils.escapeCsv and StringEscapeUtils.unescapeCsv only, because the other escape methods use LookupTranslator which never reach the buggy code.
+However, I think we should add a couple of tests for other (un)escape methods., Ok, would you be willing to submit a patch for additional test coverage?
+
+Thank you,
+Gary, I created additional test cases.
+But tests for {{escapeJava}} and {{escapeEcmaScript}} fail at this time, due to [LANG-858]
+
+{code:java}
+    @Test
+public void testEscapeSurrogatePairs() throws Exception {
+    assertEquals("\uD83D\uDE30", StringEscapeUtils.escapeCsv("\uD83D\uDE30"));
+    // Examples from https://en.wikipedia.org/wiki/UTF-16
+    assertEquals("\uD800\uDC00", StringEscapeUtils.escapeCsv("\uD800\uDC00"));
+    assertEquals("\uD834\uDD1E", StringEscapeUtils.escapeCsv("\uD834\uDD1E"));
+    assertEquals("\uDBFF\uDFFD", StringEscapeUtils.escapeCsv("\uDBFF\uDFFD"));
+    assertEquals("\uDBFF\uDFFD", StringEscapeUtils.escapeHtml3("\uDBFF\uDFFD"));
+    assertEquals("\uDBFF\uDFFD", StringEscapeUtils.escapeHtml4("\uDBFF\uDFFD"));
+    assertEquals("\\uDBFF\\uDFFD", StringEscapeUtils.escapeJava("\uDBFF\uDFFD"));       //fail
+    assertEquals("\\uDBFF\\uDFFD", StringEscapeUtils.escapeEcmaScript("\uDBFF\uDFFD")); //fail
+    assertEquals("\uDBFF\uDFFD", StringEscapeUtils.escapeXml("\uDBFF\uDFFD"));
+}
+
+@Test
+public void testUnEscapeSurrogatePairs() throws Exception {
+    assertEquals("\uD83D\uDE30", StringEscapeUtils.unescapeCsv("\uD83D\uDE30"));
+    // Examples from https://en.wikipedia.org/wiki/UTF-16
+    assertEquals("\uD800\uDC00", StringEscapeUtils.unescapeCsv("\uD800\uDC00"));
+    assertEquals("\uD834\uDD1E", StringEscapeUtils.unescapeCsv("\uD834\uDD1E"));
+    assertEquals("\uDBFF\uDFFD", StringEscapeUtils.unescapeCsv("\uDBFF\uDFFD"));
+    assertEquals("\uDBFF\uDFFD", StringEscapeUtils.unescapeHtml3("\uDBFF\uDFFD"));
+    assertEquals("\uDBFF\uDFFD", StringEscapeUtils.unescapeHtml4("\uDBFF\uDFFD"));
+    assertEquals("\uDBFF\uDFFD", StringEscapeUtils.unescapeJava("\\uDBFF\\uDFFD"));
+    assertEquals("\uDBFF\uDFFD", StringEscapeUtils.unescapeEcmaScript("\\uDBFF\\uDFFD"));
+    assertEquals("\uDBFF\uDFFD", StringEscapeUtils.escapeXml("\uDBFF\uDFFD"));
+}
+{code}]

@@ -1,0 +1,6 @@
+[Patch with unit tests and fixes for both of the thisBuf.length calls., svn ci -m "Fixng LANG-295 - thisBuf.length calls. There were two of the calls, so I've committed a unit test showing things are broken and a fix in both cases. "
+
+Sending        src/java/org/apache/commons/lang/text/StrBuilder.java
+Sending        src/test/org/apache/commons/lang/text/StrBuilderTest.java
+Transmitting file data ..
+Committed revision 469696.]

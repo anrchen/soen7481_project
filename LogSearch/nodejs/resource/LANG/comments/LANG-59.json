@@ -1,0 +1,53 @@
+[Definitely a reproducable bug - not sure how to fix it though., Most frustatingly, sometimes the test passes and sometimes it fails. Possibly based on time of day the test is run., I did a little hack and found this bug could be fixed with the following modification on DateUtils.modify method:
+    private static void modify(Calendar val, int field, boolean round) {   
+        ...
+            if (!offsetSet) {
+                int min = val.getActualMinimum(fields[i][0]);
+                int max = val.getActualMaximum(fields[i][0]);
+                //Calculate the offset from the minimum allowed value
+                offset = val.get(fields[i][0]) - min;
+                //Set roundUp if this is more than half way between the minimum and maximum
+                roundUp = offset > ((max - min) / 2);
+            }
+            //We need to remove this field - Do nothing if there is no change
+            if (offset != 0) {     <--- add the check
+            	val.set(fields[i][0], val.get(fields[i][0]) - offset);
+  	    }
+        }
+        throw new IllegalArgumentException("The field " + field + " is not supported");
+   }
+
+Calendar.set method resets some fields (e.g., DST_OFFSET) even if the new value is the same as the old value.  We just need to add a check before setting the new value to a field. If there is no change on this field, do not call Calendar.set method., Many thanks - any thoughts on why the test case only fails some of the time?, Forget my previous post. The fix is broken. The problem is sometimes when you call Calendar.set method the DST_OFFSET field is reset to 0., The problem seems to be with java.util.Calendar - as soon as it re-calculates the milliseconds it adjusts the time - even if you set a field without actually changing the value(i.e. set it to the same value) the same thing happens - it adds an hour to the time (see test case which demonstrates this).
+
+I'm attaching a pragmatic, but not very elegant solution that works for truncating (and rounding down) - rather than using the Calendar methods to adjust milliseconds, seconds and minutes it adjusts the Date's millisecond value directly. Its only fields down to the "hour" level that affect the date - so truncating milliseconds, seconds and minutes should work fine since they will still be the same date. Combined with Li Zhang's suggestion of only setting fields which have changed - this seems to work.
+, Very, very cool. Patch applied locally and passes tests. Will run the tests a few times through the day tomorrow as they tend to pass in the evening (I think) anyway. If it survives tomorrow, I'll apply the fix., Niall's fix seems to be working :) Passed tests in morning and evening which seemed to have some impact on the bug.
+
+Please reopen if it's not working for you, Li., Now I've actually done the commit. Doh.
+
+ svn ci -m "Adding Niall's fix for LANG-59 - an edge case in date truncation - and his enhancement for the unit test that was there. " src/
+Sending        src/java/org/apache/commons/lang/time/DateUtils.java
+Sending        src/test/org/apache/commons/lang/time/DateUtilsTest.java
+Transmitting file data ..
+Committed revision 424192.
+
+Should be in tonight's nightly build:
+
+http://people.apache.org/repository/commons-lang/jars/commons-lang-20060721.jar  , I can´t find http://people.apache.org/repository/commons-lang/jars/commons-lang-20060721.jar, the site doesn't exist. Anybody could said me which is the version that contains the fix ?? I've ran with versions 2.1, 2.2 and it still fails when I try to make truncated  dealing with DST switching hours.
+
+UNTRUNCATED DATE 2010-10-10 05:16:14.0
+
+After truncated date with :   DateUtils.truncate(scaTransaction.getFechaTrx(),
+					Calendar.DATE);
+The result is:
+
+TRUNCATED DATE Sat Oct 09 23:00:00 CLT 2010, This change should have been fixed in 2.2, though it'd be best to test on 2.4 and then let us know if you're still having trouble in a new JIRA issue., The problem persist in both versions: 2.4 and 2.5
+
+
+DateUtils.trucate() does not work properly with daylight saving time.
+e.g.:
+Date: 2010/10/10 05:16:14.0
+
+DateUtils.truncate(date, Calendar.DATE) : Sun Oct 10 01:00:00 CLST 2010
+
+Instead of showing 10/10/2010, it shows 10/10/2010 01:00:00
+]

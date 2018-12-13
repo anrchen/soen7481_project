@@ -1,0 +1,19 @@
+[Attached patch should solve the issue.
+
+I've used the same attempt used in HashCodeBuilder solving the cyclical reference issue.
+
+Only difference is that a registry with objects pairs is used. When checking if two objects have already be compared resp. registered those two objects need to be swapped as the cyclical reference takes place when "the other object" is the "this object"., Can you check the patch? It doesn't apply cleanly, but neither file in question has changed since you posted the patch., Strange. I created the patch with svn diff >  EqualsBuilderCyclicalObjectReferences.patch. When I then reverted all files (svn revert -R .) and tried to apply the patch it did not apply cleanly on my system either.
+After some research I found out that I probably hit a subversion bug (http://subversion.tigris.org/issues/show_bug.cgi?id=2164).
+
+Well to workaround this problem instead of using svn diff I used the old fashion but working diff utility.
+
+This patch now applies cleanly with the command patch -p1 -i EqualsBuilderCyclicalObjectReferences-v01.patch., Thanks Oliver.
+
+I modified the @since tags, but otherwise committed as is.
+
+svn ci -m "Applying the copy of the HashCodeBuilder code to stop cyclic references over to EqualsBuilder per LANG-606 and Oliver Sauder's patch" src/
+Sending        src/main/java/org/apache/commons/lang3/builder/EqualsBuilder.java
+Sending        src/test/java/org/apache/commons/lang3/builder/EqualsBuilderTest.java
+Transmitting file data ..
+Committed revision 925671.
+]

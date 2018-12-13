@@ -1,0 +1,55 @@
+[So it's claiming it's 1 month minus 1 day and not 30 days. Ugh.
+
+Looking into it, the issue is that when the code rolls back in hours, it rolls
+the days back - even if 0. It needs to roll months back if days are 0 (and so on
+back up to years)., Not that easy though. Needs to be, for this particular case:
+
+
+If days = 0, then roll month back (from 1 to 0) and set days to the maximum
+number of days in the preceding month (which is January and thus 30). 
+
+It gets ugly when you get down to the seconds, as their rollback effect becomes
+an increasingly nested loop., In the context of Ticket 33825
+(http://issues.apache.org/bugzilla/show_bug.cgi?id=33825), one can consider
+Joda-Time., Created an attachment (id=17861)
+period 
+
+there is a "period" method in this file , that method can return the period
+String , can't format it , because the some format methods are use 'package'
+defined. I hope the "period" method can add into the common_lang lib,and
+provides the format function., Created an attachment (id=18111)
+Unit test for this bug.
+, Hooking Period.java up, it gives a couple of errors:
+
+Testsuite: org.apache.commons.lang.time.TimeTestSuite
+Tests run: 54, Failures: 2, Errors: 0, Time elapsed: 5.777 sec
+
+Testcase: testFormatPeriodISO(org.apache.commons.lang.time.DurationFormatUtilsTest):    FAILED
+expected:<......> but was:<...3...>
+junit.framework.ComparisonFailure: expected:<......> but was:<...3...>
+        at org.apache.commons.lang.time.DurationFormatUtilsTest.testFormatPeriodISO(DurationFormatUtilsTest.java:285)
+        at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+        at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:39)
+        at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:25)
+
+
+Testcase: testFormatPeriod(org.apache.commons.lang.time.DurationFormatUtilsTest):       FAILED
+expected:<6...> but was:<...>
+junit.framework.ComparisonFailure: expected:<6...> but was:<...>
+        at org.apache.commons.lang.time.DurationFormatUtilsTest.testFormatPeriod(DurationFormatUtilsTest.java:319)
+        at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+        at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:39)
+        at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:25), Period.java put into the source. Other tests unfortunately error., How can I get the DurationFormatUtilsTest.java and fixed DurationFormatUtils.java., 
+Fix committed. Played with it while on holiday and found that there was a nice simple fix (least all the unit tests pass with this fix and it seems to make sense). The nightly build appears to be down currently, so the way to get to the code would be to svn co https://svn.apache.org/repos/asf/jakarta/commons/proper/lang/trunk and build a jar using ant or maven.
+
+svn ci -m "Added unit test for LANG-140 - thanks to Yu Peng for the test case" src/t
+est/org/apache/commons/lang/time/DurationFormatUtilsTest.java 
+Sending        src/test/org/apache/commons/lang/time/DurationFormatUtilsTest.java
+Transmitting file data .
+Committed revision 415316.
+
+ svn ci -m "Committing fix for LANG-140. By reversing the order of field calculation,
+ Yu Peng's bug goes away" src/java/org/apache/commons/lang/time/DurationFormatUtils.java 
+Sending        src/java/org/apache/commons/lang/time/DurationFormatUtils.java
+Transmitting file data .
+Committed revision 415317.]

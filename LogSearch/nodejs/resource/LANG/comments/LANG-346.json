@@ -1,0 +1,15 @@
+[Digging into this - I can definitely reproduce the error with the test case you include - many thanks for that.
+
+Looking at the source code history, the error presumably came in during changes to the modify(Calendar, int, boolean) method for LANG-59. , Unit Test to follow as I need to shoot away to work ;-), New Patch with Unit Tests, The patch fails for me. I'm on PDT rather than GMT and the time is off by 8 hours.
+
+Testcase: testRoundLang346(org.apache.commons.lang.time.DateUtilsTest): FAILED
+Minute Round Up Failed expected:<Mon Jul 02 09:09:00 PDT 2007> but was:<Mon Jul 02 01:09:00 PDT 2007>
+junit.framework.AssertionFailedError: Minute Round Up Failed expected:<Mon Jul 02 09:09:00 PDT 2007> but was:<Mon Jul 02 01:09:00 PDT 2007>
+    at org.apache.commons.lang.time.DateUtilsTest.testRoundLang346(DateUtilsTest.java:704), Sorry about that - This patch should remove the unit test's dependency on GMT., That works better. Fails with the test, passes with the fix.
+
+I'll dig through it a bit more before committing - thanks for finding/fixing this., Here's a slightly different fix patch, what do you think Dave?
+
+Doing the < Calendar.SECOND felt a bit weird to me, and I think the bit needed is to pull the 'done = true's outside of their blocks., Yeah, that looks good - I totally agree with the < Calendar.SECOND bit. Now I see it, I am wondering why I didn't too that ;-)
+
+Cheers,
+Dave, Patches applied. Thanks Dave, and thanks to Ken for originally reporting this.]

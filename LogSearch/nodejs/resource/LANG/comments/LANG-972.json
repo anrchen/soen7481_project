@@ -1,0 +1,9 @@
+[URL: http://svn.apache.org/r1566963
+Log:
+LANG-972 NumberUtils#isNumber does not allow for hex 0XABCD
+
+Modified:
+    commons/proper/lang/trunk/src/changes/changes.xml
+    commons/proper/lang/trunk/src/main/java/org/apache/commons/lang3/math/NumberUtils.java
+    commons/proper/lang/trunk/src/test/java/org/apache/commons/lang3/math/NumberUtilsTest.java
+]

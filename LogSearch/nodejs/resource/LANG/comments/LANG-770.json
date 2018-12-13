@@ -1,0 +1,8 @@
+[Seems that the piece of code in the description doesn't exists anymore. The initial buffer size is being calculated as:
+
+{code}
+int noOfItems = endIndex - startIndex;
+....
+StringBuilder buf = new StringBuilder(noOfItems * 16);
+{code}
+Using this implementation solves the issue?, Agreed. Resolving this as Not A Problem.]

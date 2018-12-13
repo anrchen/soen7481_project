@@ -1,0 +1,14 @@
+[URL: http://svn.apache.org/r1518116
+Log:
+LANG-911 UTF8 4byte (un)escapeJava not work correctly
+
+The following test passes:
+
+{code}
+public void testLang911() {
+    String bellsTest = "\ud83d\udc80\ud83d\udd14";
+    String value = StringEscapeUtils.escapeJava(bellsTest);
+    String valueTest = StringEscapeUtils.unescapeJava(value);
+    assertEquals(bellsTest, valueTest);
+}
+{code}]

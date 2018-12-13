@@ -1,0 +1,27 @@
+[I favour switching to lazy loading; have asked on the mailng list how others feel., Seems like a good idea. Since PADDING is private, the change will not create an
+incompatibility., Has it been shown that the PADDING caching actually benefits anything? I think
+it should be removed as it's just going to consume more and more memory until
+the StringUtils class is unloaded.
+
+Either way the StringUtils.padding(int,char) should be changed to use a
+StringBuffer. I'd change the method to:
+
+private static String padding(int repeat, char padChar) {
+  StringBuffer sb = new StringBuffer(repeat); 
+  while (sb.length() < repeat) {
+    pad = pad.concat(pad);
+  }
+  return sb.toString();
+}
+
+and remove the PADDING static field., One more thing, if it is desirable to keep the number of equal string instances
+low then the return could be changed to:
+
+  return sb.toString().intern();
+
+But if Java 1.1 is a target for lang then that shouldn't be used as it will leak
+memory. It wasn't until Java 1.2 that the intered string pool would allow unused
+intered strings to be garbage collected., (In reply to comment #3)
+I agree to this proposal, would be my preferred solution., I think we should let call sites decide whether or not Strings should be interned., Fix commited. I choose to use a char[] array instead of a StringBuffer but
+otherwise it's just like what comment #3 describes.
+http://svn.apache.org/viewcvs?rev=384017&view=rev]

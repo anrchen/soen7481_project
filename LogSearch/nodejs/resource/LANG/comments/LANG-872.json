@@ -1,0 +1,26 @@
+[Looks like a bug to me. Attached is a patch that incorporates your test (just changed the {{assertTrue}} to {{assertEquals}}) and a fix to {{EqualsBuilder}}., Having said that... {{java.util.Arrays.deepEquals()}} and {{java.util.Arrays.equals()}} would also state that the arrays are equal. Not what I would expect, but that would suggest the commons-lang implementation is not unusual., I suggest that for compatibility with {{java.util.Arrays.deepEquals()}} and {{java.util.Arrays.equals()}} class {{EqualsBuilder}} should also compare only array contents but not class of array itself. So {{append(Object, Object)}} should be fixed and not {{append(Object[], Object[])}}., {quote}
+So {{append(Object, Object)}} should be fixed and not {{append(Object[], Object[])}}.
+{quote}
+
+I don't think {{append(Object, Object)}} should be returning true for a {{String[]}} and a {{Object[]}}, because {{aArray.equals(bArray)}} is {{false}}.
+
+Perhaps the Javadocs should change to make it clear the array comparison is contents-based only?, I've added an explanation to the Javadoc to explain how {{append(Object[],Object[])}} works. I think that's sufficient to resolve this issue.
+
+Please re-open and comment if you disagree!.
+
+{quote}
+Repository: commons-lang
+Updated Branches:
+ refs/heads/master 31fcd3bd8 -> f13d18cff
+
+
+Javadoc change to address LANG-872. 
+
+Javadocs for append(Object[],Object[]) updated to indicate it only
+compares the contents of the arrays, not the type of the arrays.
+
+Project: http://git-wip-us.apache.org/repos/asf/commons-lang/repo
+Commit: http://git-wip-us.apache.org/repos/asf/commons-lang/commit/f13d18cf
+Tree: http://git-wip-us.apache.org/repos/asf/commons-lang/tree/f13d18cf
+Diff: http://git-wip-us.apache.org/repos/asf/commons-lang/diff/f13d18cf
+{quote}]

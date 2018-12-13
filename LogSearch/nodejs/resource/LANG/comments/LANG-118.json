@@ -1,0 +1,9 @@
+[Shouldn't the unescape also handle percent sign prefixed hex values like %20 ?, Created an attachment (id=9887)
+added handling for '%xx' escapes and fixed bug for '&#x' escapes
+, Is the %nn format part of the HTML spec? 
+
+I know &#x and &#X are: http://www.w3.org/TR/html401/charset.html#h-5.3.1
+, In the future, please use the patch format so we can see what the changes are:
+http://jakarta.apache.org/commons/patches.html. Thanks., The '%nn' encoding is for encoding URLs/URIs and not for encoding HTML., I've fixed "&#xN;" and "&#XN;" in CVS. The "%nn" format is out of the scope of
+this API. A unit tests has been added. Please check it out and confirm that this
+addresses your issue. Thanks!, According to the comments in this, this is done. Considering it fixed., 2.1 released, closing.]

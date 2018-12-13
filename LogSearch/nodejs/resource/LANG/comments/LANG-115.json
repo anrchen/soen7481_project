@@ -1,0 +1,4 @@
+[Created an attachment (id=7860)
+Changes reflect package.html @since tag from 3.0 to 2.0
+, The reflect subpackage will not be released in 2.0, and will probably be kicked 
+out of [lang] into [reflect]. Hence 3.0 is accurate(ish).]

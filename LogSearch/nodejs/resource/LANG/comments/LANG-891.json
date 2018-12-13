@@ -1,0 +1,67 @@
+[The following test passes:
+
+{code}
+    @Test
+    public void testLang891() {
+      final String pattern = "dd/MM/yyyy";
+      final FastDateFormat formatter= FastDateFormat.getInstance(pattern, NEW_YORK, Locale.US);
+      final Calendar cal= Calendar.getInstance(NEW_YORK, Locale.US);
+
+      cal.clear();
+      cal.set(2009, 10, 1);
+      assertEquals("01/11/2009", formatter.format(cal.getTime()));
+
+      cal.clear();
+      cal.set(2009, 10, 25);
+      assertEquals("25/11/2009", formatter.format(cal));
+    }
+{code}
+
+Is this issue a parsing or formatting failure?  Please attach a unit test which demonstrates the failure., The following unit test demonstrates that parsing is working.
+{code}
+
+    @Test
+    public void testLang891() throws ParseException {
+    	for(Locale locale : Locale.getAvailableLocales()) {
+    		for(String tzId : TimeZone.getAvailableIDs()) {
+    			TimeZone timezone = TimeZone.getTimeZone(tzId);
+    			testLang891(locale, timezone);
+    		}
+    	}
+    }
+
+    public void testLang891(Locale locale, TimeZone timezone) throws ParseException {
+      final String pattern = "dd/MM/yy";
+      final FastDateFormat parser= FastDateFormat.getInstance(pattern, timezone, locale);
+      final Calendar cal= Calendar.getInstance(timezone, locale);
+      int definingYear = cal.get(Calendar.YEAR);
+
+      Date date= parser.parse("01/11/09");
+      cal.setTime(date);
+      cal.setTimeZone(timezone);
+
+      assertEquals(locale.getDisplayLanguage()+" "+timezone.getDisplayName(), expandYear(definingYear, 9), cal.get(Calendar.YEAR));
+      assertEquals(locale.getDisplayLanguage()+" "+timezone.getDisplayName(), 10, cal.get(Calendar.MONTH));
+      assertEquals(locale.getDisplayLanguage()+" "+timezone.getDisplayName(), 01, cal.get(Calendar.DAY_OF_MONTH));
+
+      date= parser.parse("25/11/09");
+      cal.setTime(date);
+      cal.setTimeZone(timezone);
+
+      assertEquals(locale.getDisplayLanguage()+" "+timezone.getDisplayName(), expandYear(definingYear, 9), cal.get(Calendar.YEAR));
+      assertEquals(locale.getDisplayLanguage()+" "+timezone.getDisplayName(), 10, cal.get(Calendar.MONTH));
+      assertEquals(locale.getDisplayLanguage()+" "+timezone.getDisplayName(), 25, cal.get(Calendar.DAY_OF_MONTH));
+    }
+
+    private int expandYear(int definingYear, int stubYear) {
+    	if(stubYear>100) {
+    		return stubYear;
+    	}
+	    // add century to year - choose the century that starts at most 80 years earlier or 20 years later
+    	int thisCentury= stubYear + definingYear - definingYear%100;
+        if(thisCentury < definingYear+20) {
+            return thisCentury;
+        }
+        return thisCentury-100;
+    }
+{code}]

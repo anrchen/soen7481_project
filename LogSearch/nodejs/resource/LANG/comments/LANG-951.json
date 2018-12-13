@@ -1,0 +1,19 @@
+[Hello Sebastian,
+
+would it be possible that you create a patch file that contains a junit test that fails without the proposed fix and is successful after including it?
+
+Also, if you plan to contribute on a regular basis (which I would appreciate ;-) ) you should file an [Individual Contributor Licence Agreement|http://www.apache.org/licenses/].
+
+Thanks!
+Benedikt, Dear Beneditk,
+
+I have attached a path file containing the JUnit testcase and the suggested fix. Since this is the first time I ever provided a patch to an open source project I hope I made it the way you are used to have it.
+
+After applying my fix my own testcase runs without error but actually breaks 16 others. After reviewing what is tested there they seem to be broken rightly. I haven't done anything to prevent them from breaking. Actually the testcases are wrong.
+
+In the DateUtilsTest.java the date tested against is August 23rd, 19:53:47.991. So for example to calculate the passed hours of the month (which is what the testcase 'testHoursOfMonthWithDate' does) one would have to do the following math 22 days * 24 hours + 19 hours = 547. The testcase assumes that the correct value is 571 which resolves to 23 days * 24 hours + 19 hours which is actually wrong from my point of view., Hello Sebastian,
+
+you're right. There was a bug hiding that even found his way into the test case :) Thanks for spotting this. If committed your test in [rev. 1559780|http://svn.apache.org/r1559780], please review. If you intend to contribute more often in the future (which I would appreciate ;-) ) please be sure to only use spaces to indent your code, since displaying of the tab character depends on the editor you use (I've corrected that in your patch). Also, please file an [ICLA|http://www.apache.org/licenses], it makes things easier for us.
+
+Thanks!
+Benedikt]

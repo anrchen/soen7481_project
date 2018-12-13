@@ -1,0 +1,6 @@
+[Created an attachment (id=11091)
+ClassUtilsTest v1.11 patch
+, Created an attachment (id=11092)
+ClassUtils v1.28 patch
+, I am supplying a patch here if a discussion is needed. Otherwise, I plan on
+applying the patch on Monday (not sooner, a couple of days off)., Changes like this need to be noted in the release notes, otherwise +1, In CVS., 2.1 released, closing.]

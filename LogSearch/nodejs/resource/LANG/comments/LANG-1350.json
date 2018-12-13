@@ -1,0 +1,67 @@
+[Patches welcome ;-), GitHub user bjkail opened a pull request:
+
+    https://github.com/apache/commons-lang/pull/283
+
+    LANG-1350: Fix varargs array invokeConstructor
+
+    If ConstructorUtils.invokeConstructor(Class, Object...) is invoked with an array of arguments whose classes do not match a constructor exactly (for example, a subclass is used) and an array is used for a varargs parameter, then the array is not matched to the varargs parameter type.
+
+You can merge this pull request into a Git repository by running:
+
+    $ git pull https://github.com/bjkail/commons-lang LANG-1350
+
+Alternatively you can review and apply these changes as the patch at:
+
+    https://github.com/apache/commons-lang/pull/283.patch
+
+To close this pull request, make a commit to your master/trunk branch
+with (at least) the following in the commit message:
+
+    This closes #283
+    
+----
+commit a54613f4c8774c34a9942b3ffe93d803fcc452cd
+Author: Brett Kail <bjkail@gmail.com>
+Date:   2017-08-20T18:25:41Z
+
+    LANG-1350: Fix varargs array invokeConstructor
+    
+    If ConstructorUtils.invokeConstructor(Class, Object...) is invoked with
+    an array of arguments whose classes do not match a constructor exactly
+    (for example, a subclass is used) and an array is used for a varargs
+    parameter, then the array is not matched to the varargs parameter type.
+
+----
+, Github user coveralls commented on the issue:
+
+    https://github.com/apache/commons-lang/pull/283
+  
+    
+    [![Coverage Status](https://coveralls.io/builds/12913326/badge)](https://coveralls.io/builds/12913326)
+    
+    Coverage increased (+0.01%) to 95.194% when pulling **a54613f4c8774c34a9942b3ffe93d803fcc452cd on bjkail:LANG-1350** into **05d9518038ae8d2ac9f11b91b731f47b909a9bad on apache:master**.
+
+, Github user coveralls commented on the issue:
+
+    https://github.com/apache/commons-lang/pull/283
+  
+    
+    [![Coverage Status](https://coveralls.io/builds/12913326/badge)](https://coveralls.io/builds/12913326)
+    
+    Coverage increased (+0.01%) to 95.194% when pulling **a54613f4c8774c34a9942b3ffe93d803fcc452cd on bjkail:LANG-1350** into **05d9518038ae8d2ac9f11b91b731f47b909a9bad on apache:master**.
+
+, In Git master. Please verify and fix., Github user PascalSchumacher commented on the issue:
+
+    https://github.com/apache/commons-lang/pull/283
+  
+    Thanks for the pull request! :+1: 
+    
+    It was merged by @garydgregory in https://github.com/apache/commons-lang/commit/cc94767e7eabdfcf9d1cab1d8d1d8556864394c6
+    
+    It would be nice if you could close the pull request.
+    
+    Thanks!
+, Github user bjkail closed the pull request at:
+
+    https://github.com/apache/commons-lang/pull/283
+]

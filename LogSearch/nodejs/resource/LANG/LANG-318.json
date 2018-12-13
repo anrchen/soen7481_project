@@ -1,0 +1,194 @@
+{
+    "expand": "operations,versionedRepresentations,editmeta,changelog,renderedFields",
+    "fields": {
+        "aggregateprogress": {
+            "progress": 0,
+            "total": 0
+        },
+        "aggregatetimeestimate": null,
+        "aggregatetimeoriginalestimate": null,
+        "aggregatetimespent": null,
+        "assignee": null,
+        "components": [],
+        "created": "2007-02-09T21:03:09.000+0000",
+        "creator": {
+            "active": true,
+            "avatarUrls": {
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=joehni&avatarId=36575",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=joehni&avatarId=36575",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=joehni&avatarId=36575",
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=joehni&avatarId=36575"
+            },
+            "displayName": "Joerg Schaible",
+            "key": "joehni",
+            "name": "joehni",
+            "self": "https://issues.apache.org/jira/rest/api/2/user?username=joehni",
+            "timeZone": "Europe/Berlin"
+        },
+        "customfield_10010": null,
+        "customfield_12310220": "2007-02-14T20:49:57.914+0000",
+        "customfield_12310222": "1_*:*_1_*:*_647919725_*|*_6_*:*_1_*:*_0",
+        "customfield_12310250": null,
+        "customfield_12310290": null,
+        "customfield_12310291": null,
+        "customfield_12310300": null,
+        "customfield_12310310": "0.0",
+        "customfield_12310420": "147234",
+        "customfield_12310920": "74791",
+        "customfield_12310921": null,
+        "customfield_12311020": null,
+        "customfield_12311024": null,
+        "customfield_12311120": null,
+        "customfield_12311820": "0|i0d69j:",
+        "customfield_12312022": null,
+        "customfield_12312023": null,
+        "customfield_12312024": null,
+        "customfield_12312026": null,
+        "customfield_12312220": null,
+        "customfield_12312320": null,
+        "customfield_12312321": null,
+        "customfield_12312322": null,
+        "customfield_12312323": null,
+        "customfield_12312324": null,
+        "customfield_12312325": null,
+        "customfield_12312326": null,
+        "customfield_12312327": null,
+        "customfield_12312328": null,
+        "customfield_12312329": null,
+        "customfield_12312330": null,
+        "customfield_12312331": null,
+        "customfield_12312332": null,
+        "customfield_12312333": null,
+        "customfield_12312334": null,
+        "customfield_12312335": null,
+        "customfield_12312336": null,
+        "customfield_12312337": null,
+        "customfield_12312338": null,
+        "customfield_12312339": null,
+        "customfield_12312340": null,
+        "customfield_12312341": null,
+        "customfield_12312520": null,
+        "customfield_12312521": "Sat Feb 17 09:01:48 UTC 2007",
+        "customfield_12312720": null,
+        "customfield_12312823": null,
+        "customfield_12312920": null,
+        "customfield_12312921": null,
+        "customfield_12312923": null,
+        "customfield_12313422": "false",
+        "customfield_12313520": null,
+        "description": "The IBM JDK 1.4.2 reports the declared fields of a class in reverse declaration order. The tests are affected by this:\n\n{noformat}\nTestsuite: org.apache.commons.lang.builder.BuilderTestSuite\nTests run: 263, Failures: 8, Errors: 0, Time elapsed: 0,451 sec\n\nTestcase:\ntestReflectionHierarchyHashCode(org.apache.commons.lang.builder.HashCodeBuilderTest):\nFAILED\nexpected:<11785967> but was:<1276487>\njunit.framework.AssertionFailedError: expected:<11785967> but was:<1276487>\n        at\norg.apache.commons.lang.builder.HashCodeBuilderTest.testReflectionHierarchyHashCode(HashCodeBuilderTest.java:166)\n        at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)\n        at\nsun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:85)\n        at\nsun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:58)\n        at\nsun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:60)\n\n\nTestcase:\ntestReflectionHashCodeExcludeFields(org.apache.commons.lang.builder.HashCodeBuilderTest):\nFAILED\nexpected:<862547> but was:<865283>\njunit.framework.AssertionFailedError: expected:<862547> but was:<865283>\n        at\norg.apache.commons.lang.builder.HashCodeBuilderTest.testReflectionHashCodeExcludeFields(HashCodeBuilderTest.java:480)\n        at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)\n        at\nsun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:85)\n        at\nsun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:58)\n        at\nsun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:60)\n\n\nTestcase:\ntestReflectionHierarchyArrayList(org.apache.commons.lang.builder.ToStringBuilderTest):\nFAILED\nexpected:<...elementData={<null>,<null>,<null>,<null>,<null>,<null>,<null>,<null>,<null>,<null>},size=0...>\nbut\nwas:<...size=0,elementData={<null>,<null>,<null>,<null>,<null>,<null>,<null>,<null>,<null>,<null>}...>\njunit.framework.ComparisonFailure:\nexpected:<...elementData={<null>,<null>,<null>,<null>,<null>,<null>,<null>,<null>,<null>,<null>},size=0...>\nbut\nwas:<...size=0,elementData={<null>,<null>,<null>,<null>,<null>,<null>,<null>,<null>,<null>,<null>}...>\n        at\norg.apache.commons.lang.builder.ToStringBuilderTest.testReflectionHierarchyArrayList(ToStringBuilderTest.java:327)\n        at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)\n        at\nsun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:85)\n        at\nsun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:58)\n        at\nsun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:60)\n\n\nTestcase:\ntestReflectionHierarchy(org.apache.commons.lang.builder.ToStringBuilderTest):\nFAILED\nexpected:<...a=a,transientA=t...> but was:<...transientA=t,a=a...>\njunit.framework.ComparisonFailure: expected:<...a=a,transientA=t...> but\nwas:<...transientA=t,a=a...>\n        at\norg.apache.commons.lang.builder.ToStringBuilderTest.testReflectionHierarchy(ToStringBuilderTest.java:338)\n        at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)\n        at\nsun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:85)\n        at\nsun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:58)\n        at\nsun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:60)\n\n\nTestcase:\ntestSelfInstanceTwoVarsReflectionObjectCycle(org.apache.commons.lang.builder.ToStringBuilderTest):\nFAILED\nexpected:<...typeIsSelf=org.apache.commons.lang.builder.ToStringBuilderTest$SelfInstanceTwoVarsReflectionTestFixture@5b6022ad,otherType=The\nOther Type...> but was:<...otherType=The Other\nType,typeIsSelf=org.apache.commons.lang.builder.ToStringBuilderTest$SelfInstanceTwoVarsReflectionTestFixture@5b6022ad...>\njunit.framework.ComparisonFailure:\nexpected:<...typeIsSelf=org.apache.commons.lang.builder.ToStringBuilderTest$SelfInstanceTwoVarsReflectionTestFixture@5b6022ad,otherType=The\nOther Type...> but was:<...otherType=The Other\nType,typeIsSelf=org.apache.commons.lang.builder.ToStringBuilderTest$SelfInstanceTwoVarsReflectionTestFixture@5b6022ad...>\n        at\norg.apache.commons.lang.builder.ToStringBuilderTest.testSelfInstanceTwoVarsReflectionObjectCycle(ToStringBuilderTest.java:543)\n        at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)\n        at\nsun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:85)\n        at\nsun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:58)\n        at\nsun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:60)\n\n\nTestcase:\ntestSimpleReflectionStatics(org.apache.commons.lang.builder.ToStringBuilderTest):\nFAILED\nexpected:<...String=staticString,staticInt=12345...> but\nwas:<...Int=12345,staticString=staticString...>\njunit.framework.ComparisonFailure:\nexpected:<...String=staticString,staticInt=12345...> but\nwas:<...Int=12345,staticString=staticString...>\n        at\norg.apache.commons.lang.builder.ToStringBuilderTest.testSimpleReflectionStatics(ToStringBuilderTest.java:859)\n        at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)\n        at\nsun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:85)\n        at\nsun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:58)\n        at\nsun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:60)\n\n\nTestcase:\ntestReflectionStatics(org.apache.commons.lang.builder.ToStringBuilderTest):\nFAILED\nexpected:<...staticString=staticString,staticInt=12345,instanceString=instanceString,instanceInt=67890...>\nbut\nwas:<...instanceInt=67890,instanceString=instanceString,staticInt=12345,staticString=staticString...>\njunit.framework.ComparisonFailure:\nexpected:<...staticString=staticString,staticInt=12345,instanceString=instanceString,instanceInt=67890...>\nbut\nwas:<...instanceInt=67890,instanceString=instanceString,staticInt=12345,staticString=staticString...>\n        at\norg.apache.commons.lang.builder.ToStringBuilderTest.testReflectionStatics(ToStringBuilderTest.java:878)\n        at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)\n        at\nsun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:85)\n        at\nsun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:58)\n        at\nsun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:60)\n\n\nTestcase:\ntestInheritedReflectionStatics(org.apache.commons.lang.builder.ToStringBuilderTest):\nFAILED\nexpected:<...String2=staticString2,staticInt2=67890...> but\nwas:<...Int2=67890,staticString2=staticString2...>\njunit.framework.ComparisonFailure:\nexpected:<...String2=staticString2,staticInt2=67890...> but\nwas:<...Int2=67890,staticString2=staticString2...>\n        at\norg.apache.commons.lang.builder.ToStringBuilderTest.testInheritedReflectionStatics(ToStringBuilderTest.java:897)\n        at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)\n        at\nsun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:85)\n        at\nsun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:58)\n        at\nsun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:60)\n{noformat}",
+        "duedate": null,
+        "environment": "Gentoo Linux, IBM JDK 1.4.2_5",
+        "fixVersions": [{
+            "archived": false,
+            "description": "Problems for which fixes are not expected.",
+            "id": "12312319",
+            "name": "Known Issue",
+            "released": false,
+            "self": "https://issues.apache.org/jira/rest/api/2/version/12312319"
+        }],
+        "issuelinks": [],
+        "issuetype": {
+            "avatarId": 21133,
+            "description": "A problem which impairs or prevents the functions of the product.",
+            "iconUrl": "https://issues.apache.org/jira/secure/viewavatar?size=xsmall&avatarId=21133&avatarType=issuetype",
+            "id": "1",
+            "name": "Bug",
+            "self": "https://issues.apache.org/jira/rest/api/2/issuetype/1",
+            "subtask": false
+        },
+        "labels": [],
+        "lastViewed": null,
+        "priority": {
+            "iconUrl": "https://issues.apache.org/jira/images/icons/priorities/minor.svg",
+            "id": "4",
+            "name": "Minor",
+            "self": "https://issues.apache.org/jira/rest/api/2/priority/4"
+        },
+        "progress": {
+            "progress": 0,
+            "total": 0
+        },
+        "project": {
+            "avatarUrls": {
+                "16x16": "https://issues.apache.org/jira/secure/projectavatar?size=xsmall&pid=12310481&avatarId=10011",
+                "24x24": "https://issues.apache.org/jira/secure/projectavatar?size=small&pid=12310481&avatarId=10011",
+                "32x32": "https://issues.apache.org/jira/secure/projectavatar?size=medium&pid=12310481&avatarId=10011",
+                "48x48": "https://issues.apache.org/jira/secure/projectavatar?pid=12310481&avatarId=10011"
+            },
+            "id": "12310481",
+            "key": "LANG",
+            "name": "Commons Lang",
+            "projectCategory": {
+                "description": "Apache Commons components",
+                "id": "10260",
+                "name": "Commons",
+                "self": "https://issues.apache.org/jira/rest/api/2/projectCategory/10260"
+            },
+            "self": "https://issues.apache.org/jira/rest/api/2/project/12310481"
+        },
+        "reporter": {
+            "active": true,
+            "avatarUrls": {
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=joehni&avatarId=36575",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=joehni&avatarId=36575",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=joehni&avatarId=36575",
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=joehni&avatarId=36575"
+            },
+            "displayName": "Joerg Schaible",
+            "key": "joehni",
+            "name": "joehni",
+            "self": "https://issues.apache.org/jira/rest/api/2/user?username=joehni",
+            "timeZone": "Europe/Berlin"
+        },
+        "resolution": {
+            "description": "The problem described is an issue which will never be fixed.",
+            "id": "2",
+            "name": "Won't Fix",
+            "self": "https://issues.apache.org/jira/rest/api/2/resolution/2"
+        },
+        "resolutiondate": "2007-02-17T09:01:48.000+0000",
+        "status": {
+            "description": "The issue is considered finished, the resolution is correct. Issues which are not closed can be reopened.",
+            "iconUrl": "https://issues.apache.org/jira/images/icons/statuses/closed.png",
+            "id": "6",
+            "name": "Closed",
+            "self": "https://issues.apache.org/jira/rest/api/2/status/6",
+            "statusCategory": {
+                "colorName": "green",
+                "id": 3,
+                "key": "done",
+                "name": "Done",
+                "self": "https://issues.apache.org/jira/rest/api/2/statuscategory/3"
+            }
+        },
+        "subtasks": [],
+        "summary": "HashCodeBuilderTest and ToStringBuilderTest fail with IBM JDK 1.4.2",
+        "timeestimate": null,
+        "timeoriginalestimate": null,
+        "timespent": null,
+        "updated": "2007-02-17T09:01:48.000+0000",
+        "versions": [{
+            "archived": true,
+            "id": "12311702",
+            "name": "2.2",
+            "releaseDate": "2006-10-04",
+            "released": true,
+            "self": "https://issues.apache.org/jira/rest/api/2/version/12311702"
+        }],
+        "votes": {
+            "hasVoted": false,
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/LANG-318/votes",
+            "votes": 0
+        },
+        "watches": {
+            "isWatching": false,
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/LANG-318/watchers",
+            "watchCount": 0
+        },
+        "workratio": -1
+    },
+    "id": "12362463",
+    "key": "LANG-318",
+    "self": "https://issues.apache.org/jira/rest/api/2/issue/12362463"
+}

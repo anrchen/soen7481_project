@@ -1,0 +1,5 @@
+[The title refers to escapeHTML(), but the description is for escapeJava() - which is it?, Assuming escapeHTML, those characters are not defined as character references in the HTML 4.0 specification:
+
+http://www.w3.org/TR/REC-html40/sgml/entities.html
+
+Resolving. Please reopen if you know of a reason why they would need escaping.]

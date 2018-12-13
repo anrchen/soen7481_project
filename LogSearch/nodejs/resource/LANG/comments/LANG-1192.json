@@ -1,0 +1,14 @@
+[Comparison with http://docs.oracle.com/javase/6/docs/api/java/text/SimpleDateFormat.html shows that Java 7 added 'X', 'Y' and 'u'.
+Only 'X' has been implemented so far., 'u' is straight forward.  implemented with commit 2ebf9a21d2dc99ab2f434111cac9dcd6da99d574, To make 'Y' useful, the internal Calendar must be exposed to allow the minimalDaysInFirstWeek and firstDayOfWeek to be set.  Unfortunately, this has side-effect of limiting thread safety.  To obtain ISO8601 behavior, we could set internal calendar instances to have minimalDaysInFirstWeek=4 and firstDayOfWeek=MONDAY.  Or, we could provide a way for client to provide Calendar instance (also useful for  LANG-933), commit 2fa0b168d62a07365b2787d0ed97fa1c2cfb673b reverted while investigating travis failures (https://travis-ci.org/apache/commons-lang/builds/96652842), Maybe a travis-ci issue.  Did not reproduce on any local environment.  Logs from travis-ci builds show "Killed" message.  See (https://travis-ci.org/apache/commons-lang/builds/96652842)
+
+Using a github fork, I was able to get the code to pass if I re-ran tests multiple times.  I walked back several commits and was able to get similar Killed message going back three more commits.  (See https://travis-ci.org/chonton/commons-lang/builds)
+
+The killed test is one of:
+
+org.apache.commons.lang3.StringEscapeUtilsTest
+org.apache.commons.lang3.HashSetvBitSetTest
+org.apache.commons.lang3.builder.ToStringStyleConcurrencyTest
+org.apache.commons.lang3.time.FastDateFormat_ParserTest
+, commit afc942c7b2bc0317cb549a3fd05080646e7274fc
+
+reapply prior work after investigating Travis failures.]

@@ -1,0 +1,8 @@
+[Here's a patch to change the definitions to 'smoker' instead of 'isSmoker' from the trunk., Done, thanks Corey.
+
+svn ci -m "Fixing isSmoker attribute name to smoker to match the co
+de example in both of these files - spotted by Corey Tripp in LANG-264"
+Sending        builder/HashCodeBuilder.java
+Sending        builder/ToStringBuilder.java
+Transmitting file data ..
+Committed revision 416495.]

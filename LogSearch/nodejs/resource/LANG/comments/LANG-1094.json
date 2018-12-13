@@ -1,0 +1,28 @@
+[Are we sure this is a bug in lang? Sounds more like a bug in the JavaDoc tool., I'm not sure, but I wanted to raise it before I forgot about it. It could be an error in how we've configured our Javadoc output or it might be that we need to choose a different version of a Javadoc plugin to avoid a bug in Javadoc.
+
+I've removed the "patch needed" label, since we don't' know what we're dealing with yet., It's not a bug in LANG.
+
+It is either in Javadoc or in Maven's handling of Javadoc.
+
+It may also depend on the browser being used; when I copy/paste from Firefox it automatically converts the spaces and other unsafe chars.
+
+What browser did you use to copy/paste the link?, I was using Chrome. However, I've looked at other Javadocs (most notably the main Oracle docs) and I don't see this problem. So something different is happening with the Lang docs. I'm happy to change this issue to a different type or close it and continue discussion on the ML if that's preferable., Hmmm, interesting. Just tried `mvn javadoc:javadoc` for [lang] master branch in my local environment, and the links now seem to be slightly different.
+
+{noformat}
+file:///....../commons-lang/target/site/apidocs/org/apache/commons/lang3/time/DateUtils.html#isSameDay-java.util.Calendar-java.util.Calendar-
+{noformat}
+
+So now links contain the arguments separated by a single dash. Couldn't find any reference to this change in Java 8 release notes.
+
+Could someone else try it as well, please? If someone else confirms it is working now, I can try to chase the change in JDK.
+
+{noformat}
+$ java -version
+java version "1.8.0_101"
+Java(TM) SE Runtime Environment (build 1.8.0_101-b13)
+Java HotSpot(TM) 64-Bit Server VM (build 25.101-b13, mixed mode)
+{noformat}, Just checked the website [~britter] created for the 3.5 release and the links there look good too
+
+http://home.apache.org/~britter/commons/lang/3_5_RC2/apidocs/org/apache/commons/lang3/time/DateUtils.html#isSameDay-java.util.Calendar-java.util.Calendar-
+
+So I believe this issue can be marked as Won't Fix, as it is now working with the latest Java 8 version., I can confirm that [http://commons.apache.org/proper/commons-lang/javadocs/api-release/org/apache/commons/lang3/time/DateUtils.html#isSameDay-java.util.Calendar-java.util.Calendar-] works for me.]

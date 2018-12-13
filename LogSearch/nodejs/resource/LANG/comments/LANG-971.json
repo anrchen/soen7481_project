@@ -1,0 +1,20 @@
+[Agreed, it's not consistent with the create*() methods.
+
+Assuming that a "valid Java number" is a sequence of digits that is valid as a constant initialiser, then "0085" should be rejected, as it is not valid to write:
+
+{code}
+int value = 0085; // compiler error
+int pat = Integer.decode("0085"); // NumberFormatException
+{code}
+
+However, "0085" is valid in other contexts, for example Integer.parseInt("0085");
+
+Having said that, the unit tests suggest that isNumber() and createNumber() should be consistent., URL: http://svn.apache.org/r1566967
+Log:
+LANG-971 NumberUtils#isNumber(String) fails to reject invalid Octal numbers
+
+Modified:
+    commons/proper/lang/trunk/src/changes/changes.xml
+    commons/proper/lang/trunk/src/main/java/org/apache/commons/lang3/math/NumberUtils.java
+    commons/proper/lang/trunk/src/test/java/org/apache/commons/lang3/math/NumberUtilsTest.java
+]

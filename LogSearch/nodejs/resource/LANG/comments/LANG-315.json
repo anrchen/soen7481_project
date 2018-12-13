@@ -1,0 +1,9 @@
+[Easy to test for and easy to fix.
+
+Question being - do we want to fix this..., I think this is definitely a bug, and I don't see fixing it being a negative thing for existing users. 
+
+svn ci -m "Applying test and fix for LANG-315" src/
+Sending        src/java/org/apache/commons/lang/time/StopWatch.java
+Sending        src/test/org/apache/commons/lang/time/StopWatchTest.java
+Transmitting file data ..
+Committed revision 504351.]

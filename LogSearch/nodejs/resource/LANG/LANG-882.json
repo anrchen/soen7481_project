@@ -1,0 +1,200 @@
+{
+    "expand": "operations,versionedRepresentations,editmeta,changelog,renderedFields",
+    "fields": {
+        "aggregateprogress": {
+            "progress": 0,
+            "total": 0
+        },
+        "aggregatetimeestimate": null,
+        "aggregatetimeoriginalestimate": null,
+        "aggregatetimespent": null,
+        "assignee": null,
+        "components": [{
+            "id": "12313195",
+            "name": "lang.text.translate.*",
+            "self": "https://issues.apache.org/jira/rest/api/2/component/12313195"
+        }],
+        "created": "2013-03-28T16:25:26.000+0000",
+        "creator": {
+            "active": true,
+            "avatarUrls": {
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452",
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452"
+            },
+            "displayName": "Mark A. Ziesemer",
+            "key": "ziesemer",
+            "name": "ziesemer",
+            "self": "https://issues.apache.org/jira/rest/api/2/user?username=ziesemer",
+            "timeZone": "America/Chicago"
+        },
+        "customfield_10010": null,
+        "customfield_12310220": "2013-04-12T08:51:16.525+0000",
+        "customfield_12310222": "1_*:*_1_*:*_2209082103_*|*_6_*:*_1_*:*_0",
+        "customfield_12310250": null,
+        "customfield_12310290": null,
+        "customfield_12310291": null,
+        "customfield_12310300": null,
+        "customfield_12310310": "0.0",
+        "customfield_12310420": "320084",
+        "customfield_12310920": "320425",
+        "customfield_12310921": null,
+        "customfield_12311020": null,
+        "customfield_12311024": null,
+        "customfield_12311120": null,
+        "customfield_12311820": "0|i1j87z:",
+        "customfield_12312022": null,
+        "customfield_12312023": null,
+        "customfield_12312024": null,
+        "customfield_12312026": null,
+        "customfield_12312220": null,
+        "customfield_12312320": null,
+        "customfield_12312321": null,
+        "customfield_12312322": null,
+        "customfield_12312323": null,
+        "customfield_12312324": null,
+        "customfield_12312325": null,
+        "customfield_12312326": null,
+        "customfield_12312327": null,
+        "customfield_12312328": null,
+        "customfield_12312329": null,
+        "customfield_12312330": null,
+        "customfield_12312331": null,
+        "customfield_12312332": null,
+        "customfield_12312333": null,
+        "customfield_12312334": null,
+        "customfield_12312335": null,
+        "customfield_12312336": null,
+        "customfield_12312337": null,
+        "customfield_12312338": null,
+        "customfield_12312339": null,
+        "customfield_12312340": null,
+        "customfield_12312341": null,
+        "customfield_12312520": null,
+        "customfield_12312521": "Tue Apr 23 06:03:28 UTC 2013",
+        "customfield_12312720": null,
+        "customfield_12312823": null,
+        "customfield_12312920": null,
+        "customfield_12312921": null,
+        "customfield_12312923": null,
+        "customfield_12313422": "false",
+        "customfield_12313520": null,
+        "description": "The core of {{org.apache.commons.lang3.text.translate}} is a {{HashMap<CharSequence, CharSequence> lookupMap}}.\n\nFrom the Javadoc of {{CharSequence}} (emphasis mine):\n{quote}\nThis interface does not refine the general contracts of the equals and hashCode methods. The result of comparing two objects that implement CharSequence is therefore, in general, undefined. Each object may be implemented by a different class, and there is no guarantee that each class will be capable of testing its instances for equality with those of the other. *It is therefore inappropriate to use arbitrary CharSequence instances as elements in a set or as keys in a map.*\n{quote}\n\nThe current implementation causes code such as the following to not work as expected:\n\n{code}\nCharSequence cs1 = \"1 < 2\";\nCharSequence cs2 = CharBuffer.wrap(\"1 < 2\".toCharArray());\n\nSystem.out.println(StringEscapeUtils.ESCAPE_HTML4.translate(cs1));\nSystem.out.println(StringEscapeUtils.ESCAPE_HTML4.translate(cs2));\n{code}\n\n... which gives the following results (but should be identical):\n{noformat}\n1 &lt; 2\n1 < 2\n{noformat}\n\nThe problem, at a minimum, is that {{CharBuffer.equals}} is even documented in the Javadoc that:\n{quote}\nA char buffer is not equal to any other type of object.\n{quote}\n\n... so a lookup on a CharBuffer in the Map will always fail when compared against the String implementations that it contains.\n\nAn obvious work-around is to instead use something along the lines of either of the following:\n{code}\nSystem.out.println(StringEscapeUtils.ESCAPE_HTML4.translate(cs2.toString()));\nSystem.out.println(StringEscapeUtils.escapeHtml4(cs2.toString()));\n{code}\n\n... which forces everything back to a {{String}}.  However, this is not practical when working with large sets of data, which would require significant heap allocations and garbage collection concerns.  (As such, I was actually trying to use the {{translate}} method that outputs to a {{Writer}} - but simplified the above examples to omit this.)\n\nAnother option that I'm considering is to use a custom {{CharSequence}} wrapper around a {{char[]}} that implements {{hashCode()}} and {{equals()}} to work with those implemented on {{String}}.  (However, this will be interesting due to the symmetric assumption - which is further interesting that {{String.equals}} is currently implemented using {{instanceof}} - even though {{String}} is {{final}}...)",
+        "duedate": null,
+        "environment": null,
+        "fixVersions": [{
+            "archived": false,
+            "description": "Bug fixes and new features, at least requires Java 6.0",
+            "id": "12317952",
+            "name": "3.2",
+            "releaseDate": "2014-01-01",
+            "released": true,
+            "self": "https://issues.apache.org/jira/rest/api/2/version/12317952"
+        }],
+        "issuelinks": [],
+        "issuetype": {
+            "avatarId": 21133,
+            "description": "A problem which impairs or prevents the functions of the product.",
+            "iconUrl": "https://issues.apache.org/jira/secure/viewavatar?size=xsmall&avatarId=21133&avatarType=issuetype",
+            "id": "1",
+            "name": "Bug",
+            "self": "https://issues.apache.org/jira/rest/api/2/issuetype/1",
+            "subtask": false
+        },
+        "labels": [],
+        "lastViewed": null,
+        "priority": {
+            "iconUrl": "https://issues.apache.org/jira/images/icons/priorities/major.svg",
+            "id": "3",
+            "name": "Major",
+            "self": "https://issues.apache.org/jira/rest/api/2/priority/3"
+        },
+        "progress": {
+            "progress": 0,
+            "total": 0
+        },
+        "project": {
+            "avatarUrls": {
+                "16x16": "https://issues.apache.org/jira/secure/projectavatar?size=xsmall&pid=12310481&avatarId=10011",
+                "24x24": "https://issues.apache.org/jira/secure/projectavatar?size=small&pid=12310481&avatarId=10011",
+                "32x32": "https://issues.apache.org/jira/secure/projectavatar?size=medium&pid=12310481&avatarId=10011",
+                "48x48": "https://issues.apache.org/jira/secure/projectavatar?pid=12310481&avatarId=10011"
+            },
+            "id": "12310481",
+            "key": "LANG",
+            "name": "Commons Lang",
+            "projectCategory": {
+                "description": "Apache Commons components",
+                "id": "10260",
+                "name": "Commons",
+                "self": "https://issues.apache.org/jira/rest/api/2/projectCategory/10260"
+            },
+            "self": "https://issues.apache.org/jira/rest/api/2/project/12310481"
+        },
+        "reporter": {
+            "active": true,
+            "avatarUrls": {
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452",
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452"
+            },
+            "displayName": "Mark A. Ziesemer",
+            "key": "ziesemer",
+            "name": "ziesemer",
+            "self": "https://issues.apache.org/jira/rest/api/2/user?username=ziesemer",
+            "timeZone": "America/Chicago"
+        },
+        "resolution": {
+            "description": "A fix for this issue is checked into the tree and tested.",
+            "id": "1",
+            "name": "Fixed",
+            "self": "https://issues.apache.org/jira/rest/api/2/resolution/1"
+        },
+        "resolutiondate": "2013-04-23T06:03:28.000+0000",
+        "status": {
+            "description": "The issue is considered finished, the resolution is correct. Issues which are not closed can be reopened.",
+            "iconUrl": "https://issues.apache.org/jira/images/icons/statuses/closed.png",
+            "id": "6",
+            "name": "Closed",
+            "self": "https://issues.apache.org/jira/rest/api/2/status/6",
+            "statusCategory": {
+                "colorName": "green",
+                "id": 3,
+                "key": "done",
+                "name": "Done",
+                "self": "https://issues.apache.org/jira/rest/api/2/statuscategory/3"
+            }
+        },
+        "subtasks": [],
+        "summary": "LookupTranslator accepts CharSequence as input, but fails to work with implementations other than String",
+        "timeestimate": null,
+        "timeoriginalestimate": null,
+        "timespent": null,
+        "updated": "2013-04-23T06:03:28.000+0000",
+        "versions": [{
+            "archived": false,
+            "description": "November release from 3.x",
+            "id": "12317550",
+            "name": "3.1",
+            "releaseDate": "2011-11-14",
+            "released": true,
+            "self": "https://issues.apache.org/jira/rest/api/2/version/12317550"
+        }],
+        "votes": {
+            "hasVoted": false,
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/LANG-882/votes",
+            "votes": 0
+        },
+        "watches": {
+            "isWatching": false,
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/LANG-882/watchers",
+            "watchCount": 2
+        },
+        "workratio": -1
+    },
+    "id": "12639615",
+    "key": "LANG-882",
+    "self": "https://issues.apache.org/jira/rest/api/2/issue/12639615"
+}

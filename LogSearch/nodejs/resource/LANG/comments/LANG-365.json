@@ -1,0 +1,5 @@
+[Update Unit test to expose bug, Patch to fix bug, svn ci -m "Applying Sebb's test and fix for LANG-365" src
+Sending        src/java/org/apache/commons/lang/BooleanUtils.java
+Sending        src/test/org/apache/commons/lang/BooleanUtilsTest.java
+Transmitting file data ..
+Committed revision 589050.]

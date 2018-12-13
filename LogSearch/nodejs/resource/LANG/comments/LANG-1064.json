@@ -1,0 +1,19 @@
+[I've updated the Javadoc to read
+
+bq. If the number of characters in {{str}} is less than or equal to {{maxWidth}}, return {{str}}. 
+
+Thanks for spotting this. 
+
+{noformat}
+Author: djones
+Date: Fri Nov 14 12:49:15 2014
+New Revision: 1639624
+
+URL: http://svn.apache.org/r1639624
+Log:
+Javadoc fix for LANG-1064.
+
+Modified:
+    commons/proper/lang/trunk/src/changes/changes.xml
+    commons/proper/lang/trunk/src/main/java/org/apache/commons/lang3/StringUtils.java
+{noformat}]

@@ -1,0 +1,11 @@
+[Thanks for the report Ken.
+
+The first issue has already been caught and fixed in SVN.
+
+Second one now fixed (by adding another space to the end of the example).
+
+svn ci -m "Fixed 2nd javadoc bug mentioned in #LANG-277 and added more unit tests to match the javadoc examples"
+Sending        src/java/org/apache/commons/lang/StringUtils.java
+Sending        src/test/org/apache/commons/lang/StringUtilsTest.java
+Transmitting file data ..
+Committed revision 438574.   ]

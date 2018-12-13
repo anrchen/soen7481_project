@@ -1,0 +1,2 @@
+[I also encountered this problem..., 'sullis' fixed this in NestableDelegate. 
+NestableException was already Serializable as Throwable extends Serializable., Fixed in 1.0.1, Reopening then closing to deal with migration bug., Reopening then closing to deal with migration bug.]

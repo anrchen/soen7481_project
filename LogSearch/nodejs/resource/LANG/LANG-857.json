@@ -1,0 +1,239 @@
+{
+    "expand": "operations,versionedRepresentations,editmeta,changelog,renderedFields",
+    "fields": {
+        "aggregateprogress": {
+            "progress": 0,
+            "total": 0
+        },
+        "aggregatetimeestimate": null,
+        "aggregatetimeoriginalestimate": null,
+        "aggregatetimespent": null,
+        "assignee": null,
+        "components": [{
+            "id": "12313195",
+            "name": "lang.text.translate.*",
+            "self": "https://issues.apache.org/jira/rest/api/2/component/12313195"
+        }],
+        "created": "2012-11-20T12:36:14.000+0000",
+        "creator": {
+            "active": true,
+            "avatarUrls": {
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=ashphy&avatarId=16237",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=ashphy&avatarId=16237",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=ashphy&avatarId=16237",
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=ashphy&avatarId=16237"
+            },
+            "displayName": "Kazuki Hamasaki",
+            "key": "ashphy",
+            "name": "ashphy",
+            "self": "https://issues.apache.org/jira/rest/api/2/user?username=ashphy",
+            "timeZone": "Asia/Tokyo"
+        },
+        "customfield_10010": null,
+        "customfield_12310220": "2012-11-20T20:47:52.666+0000",
+        "customfield_12310222": "1_*:*_1_*:*_29498612_*|*_5_*:*_1_*:*_0",
+        "customfield_12310250": null,
+        "customfield_12310290": null,
+        "customfield_12310291": null,
+        "customfield_12310300": null,
+        "customfield_12310310": "1.0",
+        "customfield_12310420": "258812",
+        "customfield_12310920": "121377",
+        "customfield_12310921": null,
+        "customfield_12311020": null,
+        "customfield_12311024": null,
+        "customfield_12311120": null,
+        "customfield_12311820": "0|i0l4hj:",
+        "customfield_12312022": null,
+        "customfield_12312023": null,
+        "customfield_12312024": null,
+        "customfield_12312026": null,
+        "customfield_12312220": null,
+        "customfield_12312320": null,
+        "customfield_12312321": null,
+        "customfield_12312322": null,
+        "customfield_12312323": null,
+        "customfield_12312324": null,
+        "customfield_12312325": null,
+        "customfield_12312326": null,
+        "customfield_12312327": null,
+        "customfield_12312328": null,
+        "customfield_12312329": null,
+        "customfield_12312330": null,
+        "customfield_12312331": null,
+        "customfield_12312332": null,
+        "customfield_12312333": null,
+        "customfield_12312334": null,
+        "customfield_12312335": null,
+        "customfield_12312336": null,
+        "customfield_12312337": null,
+        "customfield_12312338": null,
+        "customfield_12312339": null,
+        "customfield_12312340": null,
+        "customfield_12312341": null,
+        "customfield_12312520": null,
+        "customfield_12312521": "Wed Nov 21 14:50:15 UTC 2012",
+        "customfield_12312720": null,
+        "customfield_12312823": null,
+        "customfield_12312920": null,
+        "customfield_12312921": null,
+        "customfield_12312923": null,
+        "customfield_12313422": "false",
+        "customfield_12313520": null,
+        "description": "I found that there is bad surrogate pair handling in the CharSequenceTranslator\n\nThis is a simple test case for this problem.\n\\uD83D\\uDE30 is a surrogate pair.\n\n{code:java}\n@Test\npublic void testEscapeSurrogatePairs() throws Exception {\n    assertEquals(\"\\uD83D\\uDE30\", StringEscapeUtils.escapeCsv(\"\\uD83D\\uDE30\"));\n}\n{code}\n\nYou'll get the exception as shown below.\n\n{code}\njava.lang.StringIndexOutOfBoundsException: String index out of range: 2\n\tat java.lang.String.charAt(String.java:658)\n\tat java.lang.Character.codePointAt(Character.java:4668)\n\tat org.apache.commons.lang3.text.translate.CharSequenceTranslator.translate(CharSequenceTranslator.java:95)\n\tat org.apache.commons.lang3.text.translate.CharSequenceTranslator.translate(CharSequenceTranslator.java:59)\n\tat org.apache.commons.lang3.StringEscapeUtils.escapeCsv(StringEscapeUtils.java:556)\n{code}\n\nPatch attached, the method affected:\n# public final void translate(CharSequence input, Writer out) throws IOException",
+        "duedate": null,
+        "environment": null,
+        "fixVersions": [{
+            "archived": false,
+            "description": "Bug fixes and new features, at least requires Java 6.0",
+            "id": "12317952",
+            "name": "3.2",
+            "releaseDate": "2014-01-01",
+            "released": true,
+            "self": "https://issues.apache.org/jira/rest/api/2/version/12317952"
+        }],
+        "issuelinks": [{
+            "id": "12369104",
+            "inwardIssue": {
+                "fields": {
+                    "issuetype": {
+                        "avatarId": 21133,
+                        "description": "A problem which impairs or prevents the functions of the product.",
+                        "iconUrl": "https://issues.apache.org/jira/secure/viewavatar?size=xsmall&avatarId=21133&avatarType=issuetype",
+                        "id": "1",
+                        "name": "Bug",
+                        "self": "https://issues.apache.org/jira/rest/api/2/issuetype/1",
+                        "subtask": false
+                    },
+                    "priority": {
+                        "iconUrl": "https://issues.apache.org/jira/images/icons/priorities/major.svg",
+                        "id": "3",
+                        "name": "Major",
+                        "self": "https://issues.apache.org/jira/rest/api/2/priority/3"
+                    },
+                    "status": {
+                        "description": "The issue is considered finished, the resolution is correct. Issues which are not closed can be reopened.",
+                        "iconUrl": "https://issues.apache.org/jira/images/icons/statuses/closed.png",
+                        "id": "6",
+                        "name": "Closed",
+                        "self": "https://issues.apache.org/jira/rest/api/2/status/6",
+                        "statusCategory": {
+                            "colorName": "green",
+                            "id": 3,
+                            "key": "done",
+                            "name": "Done",
+                            "self": "https://issues.apache.org/jira/rest/api/2/statuscategory/3"
+                        }
+                    },
+                    "summary": "CharSequenceTranslator causes StringIndexOutOfBoundsException during translation of unicode codepoints with length > 1 character"
+                },
+                "id": "12623131",
+                "key": "LANG-862",
+                "self": "https://issues.apache.org/jira/rest/api/2/issue/12623131"
+            },
+            "self": "https://issues.apache.org/jira/rest/api/2/issueLink/12369104",
+            "type": {
+                "id": "12310000",
+                "inward": "is duplicated by",
+                "name": "Duplicate",
+                "outward": "duplicates",
+                "self": "https://issues.apache.org/jira/rest/api/2/issueLinkType/12310000"
+            }
+        }],
+        "issuetype": {
+            "avatarId": 21133,
+            "description": "A problem which impairs or prevents the functions of the product.",
+            "iconUrl": "https://issues.apache.org/jira/secure/viewavatar?size=xsmall&avatarId=21133&avatarType=issuetype",
+            "id": "1",
+            "name": "Bug",
+            "self": "https://issues.apache.org/jira/rest/api/2/issuetype/1",
+            "subtask": false
+        },
+        "labels": ["patch"],
+        "lastViewed": null,
+        "priority": {
+            "iconUrl": "https://issues.apache.org/jira/images/icons/priorities/minor.svg",
+            "id": "4",
+            "name": "Minor",
+            "self": "https://issues.apache.org/jira/rest/api/2/priority/4"
+        },
+        "progress": {
+            "progress": 0,
+            "total": 0
+        },
+        "project": {
+            "avatarUrls": {
+                "16x16": "https://issues.apache.org/jira/secure/projectavatar?size=xsmall&pid=12310481&avatarId=10011",
+                "24x24": "https://issues.apache.org/jira/secure/projectavatar?size=small&pid=12310481&avatarId=10011",
+                "32x32": "https://issues.apache.org/jira/secure/projectavatar?size=medium&pid=12310481&avatarId=10011",
+                "48x48": "https://issues.apache.org/jira/secure/projectavatar?pid=12310481&avatarId=10011"
+            },
+            "id": "12310481",
+            "key": "LANG",
+            "name": "Commons Lang",
+            "projectCategory": {
+                "description": "Apache Commons components",
+                "id": "10260",
+                "name": "Commons",
+                "self": "https://issues.apache.org/jira/rest/api/2/projectCategory/10260"
+            },
+            "self": "https://issues.apache.org/jira/rest/api/2/project/12310481"
+        },
+        "reporter": {
+            "active": true,
+            "avatarUrls": {
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=ashphy&avatarId=16237",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=ashphy&avatarId=16237",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=ashphy&avatarId=16237",
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=ashphy&avatarId=16237"
+            },
+            "displayName": "Kazuki Hamasaki",
+            "key": "ashphy",
+            "name": "ashphy",
+            "self": "https://issues.apache.org/jira/rest/api/2/user?username=ashphy",
+            "timeZone": "Asia/Tokyo"
+        },
+        "resolution": {
+            "description": "A fix for this issue is checked into the tree and tested.",
+            "id": "1",
+            "name": "Fixed",
+            "self": "https://issues.apache.org/jira/rest/api/2/resolution/1"
+        },
+        "resolutiondate": "2012-11-20T20:47:52.000+0000",
+        "status": {
+            "description": "The issue is considered finished, the resolution is correct. Issues which are not closed can be reopened.",
+            "iconUrl": "https://issues.apache.org/jira/images/icons/statuses/closed.png",
+            "id": "6",
+            "name": "Closed",
+            "self": "https://issues.apache.org/jira/rest/api/2/status/6",
+            "statusCategory": {
+                "colorName": "green",
+                "id": 3,
+                "key": "done",
+                "name": "Done",
+                "self": "https://issues.apache.org/jira/rest/api/2/statuscategory/3"
+            }
+        },
+        "subtasks": [],
+        "summary": "StringIndexOutOfBoundsException in CharSequenceTranslator",
+        "timeestimate": null,
+        "timeoriginalestimate": null,
+        "timespent": null,
+        "updated": "2013-10-21T05:46:40.000+0000",
+        "versions": [],
+        "votes": {
+            "hasVoted": false,
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/LANG-857/votes",
+            "votes": 0
+        },
+        "watches": {
+            "isWatching": false,
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/LANG-857/watchers",
+            "watchCount": 2
+        },
+        "workratio": -1
+    },
+    "id": "12616923",
+    "key": "LANG-857",
+    "self": "https://issues.apache.org/jira/rest/api/2/issue/12616923"
+}

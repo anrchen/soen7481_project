@@ -1,0 +1,9 @@
+[Patch for org/apache/commons/lang3/text/translate/CharSequenceTranslator.java., The patch does not break any unit test with the latest from SVN but it is missing a unit test.
+
+Perhaps we should hold off since we are in the middle of a VOTE., I was also going to ask for a unit test, but wanted to improve my understanding of the situation anyway, so adapted the posted problem code.  Even though we are currently voting on the release of 3.0.0 from RC4 I don't see why we can't fix this in trunk; the RC tag is already cut.  I have used the concept of the patch to rewrite the entire method in question, primarily to avoid the modification of a counter variable within a for loop.
+
+Committed revision 1146844., OK, thanks for the redo.
+
+I think we should cut another RC to pick this up., was going to punt to the dev list ;)
+
+I just used a sports metaphor.  :|, Note that we'll release this in 3.0.1. 3.0 will go out with this as a known issue and 3.0.1 will follow (August).]

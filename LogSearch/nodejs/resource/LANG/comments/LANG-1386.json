@@ -1,0 +1,13 @@
+[Please specify which version of Commons Lang you are using., [~garydgregory] I am using version 3.4 with Java 8. Updated the ticket.
+
+ 
+
+Thank you,, The StackOverflow question has an answer that explains it all in great detail.
+It also explains how to avoid the warning by using a suitably typed array.
+
+AFAICT the only way that Commons Lang could avoid this problem is to remove and replace one or both of the methods.
+This will break compatibility.
+
+Given that there is an easy work-round, I don't think that is warranted.
+
+It might be worth adding some Javadoc to show how avoid the warning.]

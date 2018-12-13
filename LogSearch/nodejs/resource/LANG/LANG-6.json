@@ -1,0 +1,196 @@
+{
+    "expand": "operations,versionedRepresentations,editmeta,changelog,renderedFields",
+    "fields": {
+        "aggregateprogress": {
+            "progress": 0,
+            "total": 0
+        },
+        "aggregatetimeestimate": null,
+        "aggregatetimeoriginalestimate": null,
+        "aggregatetimespent": null,
+        "assignee": null,
+        "components": [],
+        "created": "2005-01-13T03:02:03.000+0000",
+        "creator": {
+            "active": true,
+            "avatarUrls": {
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452",
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452"
+            },
+            "displayName": "Andrew Geweke",
+            "key": "andrew@terracottatech.com",
+            "name": "andrew@terracottatech.com",
+            "self": "https://issues.apache.org/jira/rest/api/2/user?username=andrew%40terracottatech.com",
+            "timeZone": "Etc/UTC"
+        },
+        "customfield_10010": 33069,
+        "customfield_12310220": "2005-01-17T04:37:23.000+0000",
+        "customfield_12310222": null,
+        "customfield_12310250": null,
+        "customfield_12310290": null,
+        "customfield_12310291": null,
+        "customfield_12310300": null,
+        "customfield_12310310": "1.0",
+        "customfield_12310420": "34035",
+        "customfield_12310920": "74968",
+        "customfield_12310921": null,
+        "customfield_12311020": null,
+        "customfield_12311024": null,
+        "customfield_12311120": null,
+        "customfield_12311820": "0|i0d7cv:",
+        "customfield_12312022": null,
+        "customfield_12312023": null,
+        "customfield_12312024": null,
+        "customfield_12312026": null,
+        "customfield_12312220": null,
+        "customfield_12312320": null,
+        "customfield_12312321": null,
+        "customfield_12312322": null,
+        "customfield_12312323": null,
+        "customfield_12312324": null,
+        "customfield_12312325": null,
+        "customfield_12312326": null,
+        "customfield_12312327": null,
+        "customfield_12312328": null,
+        "customfield_12312329": null,
+        "customfield_12312330": null,
+        "customfield_12312331": null,
+        "customfield_12312332": null,
+        "customfield_12312333": null,
+        "customfield_12312334": null,
+        "customfield_12312335": null,
+        "customfield_12312336": null,
+        "customfield_12312337": null,
+        "customfield_12312338": null,
+        "customfield_12312339": null,
+        "customfield_12312340": null,
+        "customfield_12312341": null,
+        "customfield_12312520": null,
+        "customfield_12312521": "Wed Apr 26 13:10:58 UTC 2006",
+        "customfield_12312720": null,
+        "customfield_12312823": null,
+        "customfield_12312920": null,
+        "customfield_12312921": null,
+        "customfield_12312923": null,
+        "customfield_12313422": "false",
+        "customfield_12313520": null,
+        "description": "Append two arrays of any object type to an EqualsBuilder using EqualsBuilder.append(Object[], \nObject[]) -- we'll call the first 'lhs' and the second 'rhs'. If, for any i, lhs[i] is not null, rhs[i] is not null, \nand rhs[i] is not of the same type as, or a subtype of, lhs[i], then the EqualsBuilder will return false.\n\nHowever, this behavior is incorrect. While rare, it is perfectly valid in Java to define an equals() method \non a class A that will return true when passed in an object of some class B, where B is not the same as A \nnor a subtype of A. (A conceptual example is comparing a RGBColor to a CMYKColor, where RGBColor is \nnot a subclass of CMYKColor, nor vice-versa. In this example, the EqualsBuilder will return false, \nwhether the equals() method is defined on RGBColor to explicitly check CMYKColors, or even if you \ndefine a base-class Color.equals() method that does an abstract comparison.)\n\nTo reproduce:\n\npublic static class A {\n  private int a;\n  public A(int a) { this.a = a; }\n  public boolean equals(Object o) {\n    if (o == this) return true;\n    if (o instanceof A) return this.a = ((A) o).getA();\n    if (o instanceof B) return this.a = ((B) o).getB();\n    return false;\n  }\n  public int getA() { return this.a; }\n}\n\npublic static class B {\n  private int b;\n  public B(int b) { this.b = b; }\n  public boolean equals(Object o) {\n    if (o == this) return true;\n    if (o instanceof A) return this.b = ((A) o).getA();\n    if (o instanceof B) return this.b = ((B) o).getB();\n    return false;\n  }\n  public int getB() { return this.b; }\n}\n\nObject[] x = new Object[] { new A(1) };\nObject[] y = new Object[] { new B(1) };\n\nSystem.err.println(\"x[0].equals(y[0])? \" + x[0].equals(y[0]));\nSystem.err.println(\"Does EqualsBuilder think the arrays are equal? \" + (new EqualsBuilder().append(x, \ny).isEquals()));\n\nThis program will output:\n\ntrue\nfalse\n\nThe attached patch adds to an existing unit-test case some code that proves the existence of this bug, \nand also fixes it. (It also fixes COM-1842.)",
+        "duedate": null,
+        "environment": "Operating System: All\nPlatform: All",
+        "fixVersions": [{
+            "archived": true,
+            "description": "",
+            "id": "12311701",
+            "name": "2.1",
+            "releaseDate": "2005-06-13",
+            "released": true,
+            "self": "https://issues.apache.org/jira/rest/api/2/version/12311701"
+        }],
+        "issuelinks": [],
+        "issuetype": {
+            "avatarId": 21133,
+            "description": "A problem which impairs or prevents the functions of the product.",
+            "iconUrl": "https://issues.apache.org/jira/secure/viewavatar?size=xsmall&avatarId=21133&avatarType=issuetype",
+            "id": "1",
+            "name": "Bug",
+            "self": "https://issues.apache.org/jira/rest/api/2/issuetype/1",
+            "subtask": false
+        },
+        "labels": [],
+        "lastViewed": null,
+        "priority": {
+            "iconUrl": "https://issues.apache.org/jira/images/icons/priorities/major.svg",
+            "id": "3",
+            "name": "Major",
+            "self": "https://issues.apache.org/jira/rest/api/2/priority/3"
+        },
+        "progress": {
+            "progress": 0,
+            "total": 0
+        },
+        "project": {
+            "avatarUrls": {
+                "16x16": "https://issues.apache.org/jira/secure/projectavatar?size=xsmall&pid=12310481&avatarId=10011",
+                "24x24": "https://issues.apache.org/jira/secure/projectavatar?size=small&pid=12310481&avatarId=10011",
+                "32x32": "https://issues.apache.org/jira/secure/projectavatar?size=medium&pid=12310481&avatarId=10011",
+                "48x48": "https://issues.apache.org/jira/secure/projectavatar?pid=12310481&avatarId=10011"
+            },
+            "id": "12310481",
+            "key": "LANG",
+            "name": "Commons Lang",
+            "projectCategory": {
+                "description": "Apache Commons components",
+                "id": "10260",
+                "name": "Commons",
+                "self": "https://issues.apache.org/jira/rest/api/2/projectCategory/10260"
+            },
+            "self": "https://issues.apache.org/jira/rest/api/2/project/12310481"
+        },
+        "reporter": {
+            "active": true,
+            "avatarUrls": {
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452",
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452"
+            },
+            "displayName": "Andrew Geweke",
+            "key": "andrew@terracottatech.com",
+            "name": "andrew@terracottatech.com",
+            "self": "https://issues.apache.org/jira/rest/api/2/user?username=andrew%40terracottatech.com",
+            "timeZone": "Etc/UTC"
+        },
+        "resolution": {
+            "description": "A fix for this issue is checked into the tree and tested.",
+            "id": "1",
+            "name": "Fixed",
+            "self": "https://issues.apache.org/jira/rest/api/2/resolution/1"
+        },
+        "resolutiondate": "2006-05-16T12:16:51.000+0000",
+        "status": {
+            "description": "The issue is considered finished, the resolution is correct. Issues which are not closed can be reopened.",
+            "iconUrl": "https://issues.apache.org/jira/images/icons/statuses/closed.png",
+            "id": "6",
+            "name": "Closed",
+            "self": "https://issues.apache.org/jira/rest/api/2/status/6",
+            "statusCategory": {
+                "colorName": "green",
+                "id": 3,
+                "key": "done",
+                "name": "Done",
+                "self": "https://issues.apache.org/jira/rest/api/2/statuscategory/3"
+            }
+        },
+        "subtasks": [],
+        "summary": "[lang] EqualsBuilder.append(Object[], Object[]) incorrectly checks that rhs[i] is instance of lhs[i]'s class",
+        "timeestimate": null,
+        "timeoriginalestimate": null,
+        "timespent": null,
+        "updated": "2006-05-16T12:16:51.000+0000",
+        "versions": [{
+            "archived": true,
+            "description": "",
+            "id": "12311706",
+            "name": "2.0",
+            "releaseDate": "2003-09-02",
+            "released": true,
+            "self": "https://issues.apache.org/jira/rest/api/2/version/12311706"
+        }],
+        "votes": {
+            "hasVoted": false,
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/LANG-6/votes",
+            "votes": 0
+        },
+        "watches": {
+            "isWatching": false,
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/LANG-6/watchers",
+            "watchCount": 0
+        },
+        "workratio": -1
+    },
+    "id": "12341995",
+    "key": "LANG-6",
+    "self": "https://issues.apache.org/jira/rest/api/2/issue/12341995"
+}

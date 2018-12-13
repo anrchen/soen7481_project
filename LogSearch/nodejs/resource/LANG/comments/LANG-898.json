@@ -1,0 +1,7 @@
+[Afaik, it is not mandatory to escape CR & LF in xml documents, thus it is also not done by default when calling StringEscapeUtils.escapeXml.
+
+You can create your own translater that will also escape LF like this:
+
+{noformat}
+StringEscapeUtils.ESCAPE_XML.with(NumericEntityEscaper.between(0x09, 0x0B)).translate(...);
+{noformat}, Resolve as not a problem?, Agreed; not a problem. There's an easy work-round.]

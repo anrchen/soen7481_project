@@ -1,0 +1,8 @@
+[Another example is 
+{code:java}
+StringUtils.isAlphaSpace(CharSequence)
+{code}
+
+which returns true for the empty String. Clearly the empty string is neither an alpha numeric character nor a whitespace, so this should return false., This needs more time to identify all places where we have to change empty string handling, so I'm moving this to 3.x, Doesn't seem very easy to implement a consistent logic.
+e.g. isAlphaSpace should return isAlpha || isWhitespace. isWhitespace returns true for an empty string so isAlphaSpace should return true as well.
+And to be honest others might have another opinion about this., Yes you're right. The important thing is to make a choice and implement that behavior consistently though out the library.]

@@ -1,0 +1,9 @@
+[I also think it should be fixed and marked as public, {code}
+$ svn ci -m "LANG-1112: MultilineRecursiveToStringStyle largely unusable due to being package-private. Thanks to Liam Jones for reporting this."
+Sending        src/changes/changes.xml
+Sending        src/main/java/org/apache/commons/lang3/builder/MultilineRecursiveToStringStyle.java
+Transmitting file data ..
+Committed revision 1674549.
+{code}
+
+MultilineRecursiveToStringStyle is no public., Are there any plans, when this gets available? Are there any plans for a 3.5 or 3.4.1 release including this issue? , [~aconstantin]: I'm currently planning 3.5 together with [~pascalschumacher]. I think we will release it in the next few weeks., great news, thanks for the information]

@@ -1,0 +1,11 @@
+[Moving this back to 3.0. 
+
+There are three things to do here, if reasons for the current code don't show up:
+
+1) Refactor the cloneReset method away. It's possible that it's setup this way to be more useful for subclasses. 
+2) Switch from returning null to throwing CloneNotSupported.
+3) Stop supporting clone() and Cloneable.
+
+The latter 2 definitely need to wait for 3.0, the former is not very critical., The cloneReset() method exists to enable testing.
+
+The return null should never happen, as super.clone() should succeed. Its really just a way around the JDK flaw of the exception not being a runtime exception.]

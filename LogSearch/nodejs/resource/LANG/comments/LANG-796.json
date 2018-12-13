@@ -1,0 +1,81 @@
+[The current behavior is correct. The result added one day. One day is NOT equal to 86400000 milliseconds - as you can see from the result.
+, From http://docs.oracle.com/javase/6/docs/api/java/util/Date.html:
+"The class Date represents a specific instant in time, with millisecond precision. [...] the Date class is intended to reflect coordinated universal time (UTC) [...] Nearly all modern operating systems assume that 1 day = 24 × 60 × 60 = 86400 seconds in all cases."
+
+The concept of daylight saving time (DST) is not present in UTC, and UTC is NEVER effected by DST, so a method that receives a Date in input and returns a Date should never be effected by DST.
+http://en.wikipedia.org/wiki/Coordinated_Universal_Time#Daylight_saving
+
+The current behavior would be correct if working on Calendar objects, since a Calendar takes in account the concept of DST.
+
+By the way, even if the final choice will be to not change the current behavior for this method, at least it should be better documented in its javadoc, to avoid misuses and misunderstanding in its way of working., If you want to perform millisecond arithmetic, then I recommend you use long values and avoid using the DateUtils class.
+
+The JavaDocs seem clear to me - the method adds a day, not 86400000 milliseconds.
+, I had to deal with DST problems just recently myself:
+
+The behaviour of DateUtils is perfectly valid if you consider your local timezone. The method uses internally the default Calendar instance (that is set to your local timezone) and is thus affected by DST. If you want to operate on UTC dates only, use a Calendar configured for the UTC timezone.
+
+It could be elaborated a bit more in the javadoc, so that people are aware of the fact, but there is nothing wrong with it imho., That's the point: DateUtils.addDays receives in input a Date, that is an absolute time, so it should not be influenced by DST. Using a Calendar configured for the UTC timezone means to not use DateUtils.addDays, since there is no overloading method that receives a Calendar in input.
+As Thomas said, the method uses internally the default Calendar instance, that is set to the local timezone of the server where the code is running, and this is quite problematic in those time of cloud computing, because the code will work differently if the server is located in a zone where DST is applied or not (some countries do not implement any DST at all).
+
+Summarizing, for me the issue is that the user of this method is affected by the TimeZone but he has no way to set this TimeZone, because always the default Calendar instance and the local timezone are used., The whole idea of DateUtils is to provide convenience methods when manipulating Date objects. The use-case that you describe, and I assume that's quite a common one, requires a properly configured Calendar object. Now we could add a method like this:
+
+{noformat}
+  public static Date add(Date date, int calendarField, int amount, Calendar cal) {
+     cal.setTime(date);
+     cal.add(calendarField, amount);
+     return cal.getTime();
+  }
+{noformat}
+
+But what's the point of it? If you already have the Calendar that you want to use, why not just do it straight-away?
+
+The fix that you propose would only support the UTC timezone, and will return wrong results for different timezones in case of a DST. While you are right, when you say that a Date object is not influenced by DST, any manipulation of it is in fact (or better could, depending on the timezone). When you need to operate in UTC time, always use proper configured Calendars (and also Formatters) for the UTC timezone (or set your local timezone to UTC)., I was still musing about this issue, and maybe adding an additional version with a TimeZone parameter could make sense:
+
+{noformat}
+public static Date add(Date date, int calendarField, int amount, TimeZone tz) {
+     Calendar cal = Calendar.getInstance(tz);
+     cal.setTime(date);
+     cal.add(calendarField, amount);
+     return cal.getTime();
+}
+{noformat}
+
+But to be consistent, this should be done for all methods (e.g. addDays, addMonths, ..), and would definitely bloat the API., What about creating UTCDateUtils instead that operates on UTC and is therefore independent of any TZ? Then we have simply to properly document both types. We could use a package private base class to share common functionality., I like the idea somehow, but it would also mean to duplicate the signature of a class, as all the methods in DateUtils are static.
+
+Something that I have in mind, is to extract the current interface of DateUtils into a separate class TBD. DateUtils would then provide two static members DEFAULT and UTC, which instantiate the separate class TBD with the corresponding timezones (TimeZone.getDefault() or TimeZone.getTimeZone("UTC")). Additionally to mimick the current behavior, the existing static methods in DateUtils would call the corresponding methods of DateUtils.DEFAULT.
+
+Users can instantiate also a TBD instance by providing a custom timezone.
+
+But this is maybe an overkill, the same can be achieved by altering the default Timezone via TimeZone.setDefault. Although there are surely use-cases where this is not possible or desirable (e.g. due to multi-threading)., I agree with Nicola. A class that intends to work with Date values should not be interested in daylight savings. I suspect this was an unintentional error on the part of the original implementation.
+
+At the very least, the Javadocs need to change to reflect this behaviour.
+
+The issue with changing the code is that people may already be relying on this behaviour. All of the {{addXXX}} methods use Calendars and would be impacted., Right, changing the code now might be dangerous...
+And of course I agree that an update of Javadoc will be harmless for those who are already using the library, and helpful for everyone., Javadoc patch needed., I've just updated the Javadoc to provide a warning in the opening paragraphs:
+
+{quote}
+Several methods are provided for adding to {{Date}} objects, of the form 
+{{addXXX(Date date, int amount)}}. It is important to note these methods 
+use a {{Calendar}} internally (with default timezone and locale) and may
+be affected by changes to daylight saving time (DST).
+{quote}
+
+We should discuss whether this behaviour should change in a future release. I've updated the affected version to the latest, since this is still an issue.
+
+SVN log:
+
+Author: djones
+Date: Fri Sep 26 11:19:32 2014
+New Revision: 1627753
+
+URL: http://svn.apache.org/r1627753
+Log:
+Added Javadoc warnings related to LANG-796.
+
+Modified:
+    commons/proper/lang/trunk/src/main/java/org/apache/commons/lang3/time/DateUtils.java, I repeat:
+
+The current behavior is correct. The result added one day. One day is NOT equal to 86400000 milliseconds - as you can see from the result.
+, I am affected by this situation as well, and I agree with [~nicola.barbiero] - As he quoted the Oracle specification at the top of bug: "Nearly all modern operating systems assume that 1 day = 24 × 60 × 60 = 86400 seconds in all cases".
+
+Adding a day should add a 86400 seconds, in all cases, regardless of timezone.]

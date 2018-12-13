@@ -1,0 +1,72 @@
+[This might be a case where the pattern:
+
+        return new HashCodeBuilder(17,37).
+                append(id).
+                append(name).
+                toHashCode();
+
+is not a fit the domain object. If the "id" is unique you can just return the id
+for the hash code. The general case where the id AND the name need to be used as
+a  primary key is going to be a problem for hash codes in general I think since
+we only have the int range.
+
+Anyone else care to comment please?, I just created the simple code so that the problem can be easily reproduced.
+The problem actually happened in using OJB to query data from AS400/DB2
+database where usually several columns are together used as primary keys.
+
+Thanks.
+
+Bruce
+(In reply to comment #1)
+> This might be a case where the pattern:
+> 
+>         return new HashCodeBuilder(17,37).
+>                 append(id).
+>                 append(name).
+>                 toHashCode();
+> 
+> is not a fit the domain object. If the "id" is unique you can just return the id
+> for the hash code. The general case where the id AND the name need to be used as
+> a  primary key is going to be a problem for hash codes in general I think since
+> we only have the int range.
+> 
+> Anyone else care to comment please?
+
+, Hi,
+
+If you want to use and int and a String together as a primary key/hash code,
+then I think you will run into issues unless the value range of id and name can
+be reduced. 
+
+Hash codes are ints, so you can have as many unique hash codes for a set of
+objects as you can have ints, which is Integer.MIN_VALUE to Integer.MAX_VALUE. A
+simplification would be to say that you can have Integer.MAX_VALUE * 2 hash codes.
+
+If your int id can have all int legal values AND you can have any String to
+create your primary keys then you'll run out of int hash codes to cover all the
+cases.
+
+So, defining the legal range of values for id and name is where to start. From
+there, a proper hashCode() method can be coded. We can then see how the
+HashCodeBuilder class be improved to help you.
+
+, The problem with this bug report is the initial statement.
+
+"HashCodeBuilder class failed to generate unique hashcode for objects."
+
+HashCodes are not unique.
+I suggest reading the Javadoc of Object.hashCode() to clarify this point., Indeed I should have been more careful in my comment. Thanks for clarifying.
+
+For reference from the Sun Javadoc: 
+
+"As much as is reasonably practical, the hashCode method defined by class Object
+does return distinct integers for distinct objects. (This is typically
+implemented by converting the internal address of the object into an integer,
+but this implementation technique is not required by the JavaTM programming
+language.)", I appended the string first and then integer and seem to get different
+hashcode back. But the problem may come back for some other combinations.
+
+Many thanks for comments posted.
+
+Bruce, Stephen's point seems to nullify this as being a bug. Marking as INVALID (sorry
+it's such a cold term Bruce).]

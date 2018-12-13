@@ -1,0 +1,11 @@
+[Patch applied, thanks for contributing!
+
+{code}
+localhost:lang bene$ svn ci -m "LANG-913: Adding .gitignore to commons-lang. Patch provided by Allon Mureinik via github"
+Adding         .gitignore
+Sending        pom.xml
+Sending        src/changes/changes.xml
+Transmitting file data ...
+Committed revision 1519292.
+{code}
+]

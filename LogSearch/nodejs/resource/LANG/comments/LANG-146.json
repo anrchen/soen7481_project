@@ -1,0 +1,33 @@
+[In the example given, it would seem appropriate to add an extra parameter to 
+the constructor:
+
+public static final MyEnum ENUM1 = new MyEnum("enum1", "X");
+
+Does this solve the problem?, Yes I agree if the inner sub-class method was just returning a value then
+modifying the constructor to take in the value would work because no
+sub-classing would be required. My example was probably not the best because I
+was thinking more along the lines where the static enum definition contained a
+method that encapsulated logic other than merely returning a value which would
+require sub-classing., Change made to support functional enums along the lines proposed here. Check 
+the CVS., Created an attachment (id=4621)
+Patch Enum class
+, Created an attachment (id=4622)
+Enum test class
+, I found a bug with my original very simplisting solution. The follwing is the
+correct algorythm to determine the actual enumeration class for a given
+enumeration object which may be defined by an inner class. I've attached the
+patched class and a test class.
+
+// Search for actual enumerated type. This is necessary as enumerated types might
+// be defined by inner classes. The actual enumerated type is defined as the top
+container or
+// declaring class that can be assigned to the actual class of enumeration being
+added.
+Class clazz = this.getClass();
+while (clazz.getDeclaringClass() != null &&     
+clazz.getDeclaringClass().isAssignableFrom(this.getClass())) {
+	clazz = clazz.getSuperclass();
+}, Regrettably, getDeclaringClass() doesn't function correctly on my JDK141. I 
+have got a version and test code on the CVS for your problem, and also to 
+support hierarchical Enums now. Perhaps you could test that?
+Stephen, Closing as I believe fixed in CVS]

@@ -1,0 +1,59 @@
+[This is correct behaviour for this class.
+The commons-lang Fraction class represents a general purpose fraction
+implementation where fractions such as 2/4 may be stored. Equals thus performs
+correctly and treats 1/2 and 2/4 as different as they have different state.
+
+For an alternative Fraction implementation see commons-math (upcoming v1.1?).
+There the fraction is always reduced, and may be more in line with a
+mathematicians thought processes.
+
+Extra javadoc added to compareTo in line with Comparable., The fact that the internal state is different does not in itself imply that the
+equals() method should return false. Two objects with different field values can
+be considered equal. There's nothing in the contract for equality that says two
+equal objects must have bit-per-bit identical representations.
+
+Here I think there are two strong reasons to make 1/2.equals(2/4). The first is
+the obvious natural mathemtical reason. Users naturally expect that 1/2 equals 2/4.
+
+The second is the consistency with compareTo. Breaking this shouldn't be done
+without a really good reason. Is there such a reason? i.e. is there some use
+case that depends on 1/2 != 2/4? If not, or if the use case is not compelling
+enough, I think we shoudl consider revising the behavior of the equals() method.
+
+If there is such a use-case, then we need to consider revising the behavior of
+the compareTo() method to make it consistent. Perhaps we could consistently
+resolve conflicts based on the size of the denominator. For instance, 3/6 > 2/4
+> 1/2. However, that's pretty weird and I'd really prefer to fix equals instead.
+ (Plus something's tickling the back of my brain, saying there's some deep
+mathematical reason that scheme isn't going to work. I'll have to pull out my
+old number theory books and look up well-ordering.)
+
+
+, There are cases in the JDK where compareTo and equals do not match. eg.
+BigDecimal, where 1.000 != 1.0, but they compareTo to 0. And whats more (in
+JDK1.4 at least) they don't use the correct wording from Comparable.
+
+And yes, in my opinion, equals does represent a comparison on state. (This is
+really a discussion about the weaknesses in some core JDK definitions.)
+
+Use case wise, it is perfectly reasonable for someone to want to store a
+fraction of the form 2/4. This may have a particular meaning in an engineering
+or teaching domain for example. 
+
+If you want reduced fractions, simply use the dedicated factory method, or call
+te reduce method before using equals.
+
+Finally, backwards compatability really does mean we can't fix this. Lang has
+high standards on compatability, and this would be a clear semantic break.
+, I didn't mean a use case where one should store 2/4. I accept that there are
+such use cases. I was asking for a use case where one would want 1/2 and 2/4 to
+compare unequal. Barring such a use case, I might believe that backwards
+compatibility prevents you from fixing this bug, but I still maintain it's a bug. , In coding 1/2 not equal to 2/4, I believe that we followed established JDK
+practice of equals() representing state.
+
+My use case is that two objects that are equal() should be capable of being
+swapped in a program with no adverse effects on subsequent code. In this case
+swapping 2/4 with 1/2 could definitely affect subsequent code.
+
+As I said before, there is more than one possible contract for equals, and so we
+chose one.]

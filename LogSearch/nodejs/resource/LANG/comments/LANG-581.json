@@ -1,0 +1,19 @@
+[Yes, the example is wrong.
+
+In fact all the Javadoc examples for removeEndIgnoreCase() are wrong, as they all refer to removeEnd().
+
+, Fixed the issue originally reported:
+
+URL: http://svn.apache.org/viewvc?rev=899231&view=rev
+Log:
+LANG-581 - Javadoc bug in org.apache.commons.lang.StringUtils.removeEndIgnoreCase()
+, Fixed the Javadoc examples:
+
+URL: http://svn.apache.org/viewvc?rev=899242&view=rev
+Log:
+LANG-581 - Javadoc bug in org.apache.commons.lang.StringUtils.removeEndIgnoreCase()
+Add some case-insensitive examples
+
+URL: http://svn.apache.org/viewvc?rev=899231&view=rev
+Log:
+LANG-581 - Javadoc bug in org.apache.commons.lang.StringUtils.removeEndIgnoreCase()]

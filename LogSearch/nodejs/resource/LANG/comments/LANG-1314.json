@@ -1,0 +1,106 @@
+[GitHub user mureinik opened a pull request:
+
+    https://github.com/apache/commons-lang/pull/252
+
+    [LANG-1314] Fix javadoc creation on with Java 8
+
+    Java 8's javadoc seems to be stricter than Java 7's, and the current head current fails to generate javadoc (`mvn javadoc:javadoc`) with Java 8.
+    
+    This PR contains a series of fixes to the various classes' javadoc which are required for Java 8 (but would also improve the javadoc generated with earlier java versions) and then adds the `javadoc:javadoc` target to Travis CI so we can guarantee it won't break again.
+
+You can merge this pull request into a Git repository by running:
+
+    $ git pull https://github.com/mureinik/commons-lang javadoc
+
+Alternatively you can review and apply these changes as the patch at:
+
+    https://github.com/apache/commons-lang/pull/252.patch
+
+To close this pull request, make a commit to your master/trunk branch
+with (at least) the following in the commit message:
+
+    This closes #252
+    
+----
+commit 972d29447d115224674154e0150d51bf9ccf6524
+Author: Allon Mureinik <amureini@redhat.com>
+Date:   2017-03-05T09:50:34Z
+
+    Add @param for <T> in ArrayUtils#insert
+
+commit e4147a700f6c49b954a6f91dc8f2f1499777e92c
+Author: Allon Mureinik <amureini@redhat.com>
+Date:   2017-03-05T09:53:33Z
+
+    Fix StirngUtils </p> tags in javadoc
+    
+    The paragraph
+    
+    </p>Whitespace is defined by {@link Character#isWhitespace(char)}.</p>
+    
+    appears in several places in the javadoc (presumably, copy-pasted from
+    the original one to the others). This is obviously a mistake, as a
+    paragraph should start with <p>, not with </p>.
+    
+    This patch fixes all the occurrences of this paragraph to the proper
+    form:
+    
+    <p>Whitespace is defined by {@link Character#isWhitespace(char)}.</p>
+
+commit 54eff5e8a55f591c1ae3fe31fd04dce663bbe4e1
+Author: Allon Mureinik <amureini@redhat.com>
+Date:   2017-03-05T09:56:05Z
+
+    Remove </p> tag from Computable's javadoc
+    
+    The standard javadoc doclet does not allow self closing tags (such as
+    </p>). This patch removes such a tag from Computable's javadoc, as it's
+    redundant anyway, as it's only used to create spaces between two
+    existing paragraphs.
+
+commit 632431f9433ce228407218dabef7b00fa8464ef4
+Author: Allon Mureinik <amureini@redhat.com>
+Date:   2017-03-05T16:03:01Z
+
+    Add javadoc creation to Travis CI
+
+----
+, Github user coveralls commented on the issue:
+
+    https://github.com/apache/commons-lang/pull/252
+  
+    
+    [![Coverage Status](https://coveralls.io/builds/10440062/badge)](https://coveralls.io/builds/10440062)
+    
+    Coverage decreased (-0.007%) to 94.529% when pulling **632431f9433ce228407218dabef7b00fa8464ef4 on mureinik:javadoc** into **e5ed4ffe5df9bd5fe796e95acf0b35f4c858e1a2 on apache:master**.
+
+, Github user coveralls commented on the issue:
+
+    https://github.com/apache/commons-lang/pull/252
+  
+    
+    [![Coverage Status](https://coveralls.io/builds/10440200/badge)](https://coveralls.io/builds/10440200)
+    
+    Coverage decreased (-0.007%) to 94.529% when pulling **ac5584040440fc426dea4bf046ccd80973066df8 on mureinik:javadoc** into **e5ed4ffe5df9bd5fe796e95acf0b35f4c858e1a2 on apache:master**.
+
+, Github user PascalSchumacher commented on the issue:
+
+    https://github.com/apache/commons-lang/pull/252
+  
+    Thanks!
+, Github user asfgit closed the pull request at:
+
+    https://github.com/apache/commons-lang/pull/252
+, Github user PascalSchumacher commented on the issue:
+
+    https://github.com/apache/commons-lang/pull/252
+  
+    @mureinik Sorry it wasn't my intention to steal the authorship of your commits with the javadoc fixes. :( I wasn't aware that a `git rebase` changes the author.
+    
+
+, Thanks for reporting and thanks for the pull request!, Github user mureinik commented on the issue:
+
+    https://github.com/apache/commons-lang/pull/252
+  
+    @PascalSchumacher no harm done. I'd rather have commons-lang's javadoc build properly than one patch more or less to my so-called name.
+]

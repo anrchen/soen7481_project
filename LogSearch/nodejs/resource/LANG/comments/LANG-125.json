@@ -1,0 +1,23 @@
+[IMHO, bad reason to make the constants long.  All it takes is using any of:
+
+System.out.println(new Date(30L * 365 * DateUtils.MILLIS_IN_DAY));
+System.out.println(new Date(30 * 365L * DateUtils.MILLIS_IN_DAY));
+System.out.println(new Date(30L * 365L * DateUtils.MILLIS_IN_DAY));
+  or, best of all, 
+System.out.println(new Date((long) 30 * 365 * DateUtils.MILLIS_IN_DAY));
+
+-AMT
+, IMHO, its a good reason to change because it introduces very subtle bugs which 
+are tremendously difficult to track down. The fact that to fix the bug is an 
+easy thing doesn't mean that finding the bug is easy. This will eliminate the 
+bug altogether.
+
+If you can think of a reason why it SHOULDN'T be long then let me know but if 
+there are not good reasons for keeping it an int then I guess it wont hurt!, This should definitely be changed, Indeed, since these values express milliseconds and APIs which take or return
+millisconds usually do so a longs., New long constants MILLIS_PER_SECOND ,MILLIS_PER_MINUTE
+,MILLIS_PER_HOUR,MILLIS_PER_DAY have been added and the integer versions have
+been deprecated.  
+
+The new constants should appear in [lang] nightly builds starting 1/23/03.
+
+The deprecated constants will be removed in Lang 3.0., 2.1 released, closing.]

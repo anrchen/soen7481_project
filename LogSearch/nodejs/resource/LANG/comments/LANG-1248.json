@@ -1,0 +1,133 @@
+[We could add a specialized version of appendFullDigits for 4 digits (year) and 3 digits (millis)., Do you have a benchmark that compares 3.4 to 3.5?  If so, could you share the code and results?, Specializing appendFullDigits for 4 and 3 digits does not work in general case.  SimpleDateFormat documentation states: "Number: For formatting, the number of pattern letters is the minimum number of digits"., There is a defect in current code.  If client has more than ten repeats of formatting character, then appendFullDigits will throw IndexOutOfBoundsException., Misread the code, IndexOutOfBoundsException does not occur., Another possible approach is to check for an instance of AbstractStringBuffer; if so, then use setCharAt(int, char)
+
+In the case of CharBuffer, one can use put(int, char)
+
+In any other case (e.g. PrintStream or Writer), use the existing implementation.
+
+That should reduce the memory allocation for the commonest cases., ???
+I don't want to limit appendFullDigits to 4 or 3 digits !
+I want to implement fast path for 4 and 3 digits (there's already such implementations for 1 and 2 digits), Single fastdateformat instance
+100000 format of long 
+pattern : yyyy-MM-dd'T'HH:mm:ss.SSSZ
+
+lang 3.4
+~30 MB allocated
+
+lang 3.5
+~40 MB allocated
+-> ~9.3 MB are coming from appendFullDigits called from PaddedNumberField
+PaddedNumberField is used for the year and the millis
+, GitHub user benbenw opened a pull request:
+
+    https://github.com/apache/commons-lang/pull/169
+
+    LANG-1248 FastDatePrinter Memory allocation regression
+
+    When the code was migrated from StringBuffer to Appendable in LANG-1152.
+    We've lost the ability to modify the buffer (setCharAt) 
+    The new implementation of appendFullDigits allocate a temporary char
+    array to work around that limitation.
+    This is a major source of memory allocation which is not present in
+    version 3.4.
+    Test case : 
+    Single fastdateformat instance
+    100000 format of long 
+    pattern : yyyy-MM-dd'T'HH:mm:ss.SSSZ
+    lang 3.4 : ~30 MB allocated
+    lang 3.5-snapshot : ~40 MB allocated
+    -> ~9.3 MB are coming from appendFullDigits called from
+    PaddedNumberField
+    
+    This commit add a fast path for 1 to 4 digits which avoid the memory
+    allocation from the temporary work array.
+
+You can merge this pull request into a Git repository by running:
+
+    $ git pull https://github.com/benbenw/commons-lang LANG-1248
+
+Alternatively you can review and apply these changes as the patch at:
+
+    https://github.com/apache/commons-lang/pull/169.patch
+
+To close this pull request, make a commit to your master/trunk branch
+with (at least) the following in the commit message:
+
+    This closes #169
+    
+----
+commit d201ad32af1e71140539fbd7efe701f6b2e89ffe
+Author: benoit <b.wiart@ubik-ingenierie.com>
+Date:   2016-07-06T07:14:08Z
+
+    LANG-1248 FastDatePrinter Memory allocation regression
+    
+    When the code was migrated from StringBuffer to Appendable in LANG-1152.
+    We've lost the ability to modify the buffer (setCharAt) 
+    The new implementation of appendFullDigits allocate a temporary char
+    array to work around that limitation.
+    This is a major source of memory allocation which is not present in
+    version 3.4.
+    Test case : 
+    Single fastdateformat instance
+    100000 format of long 
+    pattern : yyyy-MM-dd'T'HH:mm:ss.SSSZ
+    lang 3.4 : ~30 MB allocated
+    lang 3.5-snapshot : ~40 MB allocated
+    -> ~9.3 MB are coming from appendFullDigits called from
+    PaddedNumberField
+    
+    This commit add a fast path for 1 to 4 digits which avoid the memory
+    allocation from the temporary work array.
+
+----
+, PR : https://github.com/apache/commons-lang/pull/169
+add a specialized implementation for 3 and 4 digits in appendFullDigits.
+This remove the memory allocation for the commonest cases., Github user coveralls commented on the issue:
+
+    https://github.com/apache/commons-lang/pull/169
+  
+    
+    [![Coverage Status](https://coveralls.io/builds/6884804/badge)](https://coveralls.io/builds/6884804)
+    
+    Coverage decreased (-0.03%) to 93.417% when pulling **d201ad32af1e71140539fbd7efe701f6b2e89ffe on benbenw:LANG-1248** into **ce0c082898e3551d313fb5b73763f399232b3fd5 on apache:master**.
+
+, Thanks for the data points!
+I will look at patch tonight., Github user chonton commented on the issue:
+
+    https://github.com/apache/commons-lang/pull/169
+  
+    Are you OK with using this [alternative implementation](https://github.com/chonton/commons-lang/commit/4d26fa6c107636c0f986c45379edcb18ac1ec3f5)?
+, The Javadoc comment says that the value must be positive; this is not checked, so is it guaranteed that the value won't be negative?
+If it is negative, what happens?, I didn't do any memory measurement on the alternative implementation.
+I did a JMH benchmark :
+Benchmark                              Mode  Cnt   Score   Error  Units
+MyBenchmark.testAppendFullDigits1      avgt  200  19,049 ± 0,215  ns/op
+MyBenchmark.testAppendFullDigits2      avgt  200  27,371 ± 0,310  ns/op
+
+Where 
+testAppendFullDigits1 = initial patch (PR 169)
+testAppendFullDigits2 = alternative implementation
+
+the benchmark was for a value = 2016 and minFieldWidth = 3
+
+So the initial patch is ugly BUT faster than the alternative implementation., Can you attach the benchmark code for reference please?, Simple jmh benchmark for execution time., Another JMH test simulating yyyy-MM-dd'T'HH:mm shows
+
+Benchmark                                       Mode  Cnt    Score   Error  Units
+FastDatePrinterBenchmark.testAppendFullDigits1  avgt  200   56.737 ± 0.477  ns/op
+FastDatePrinterBenchmark.testAppendFullDigits2  avgt  200  119.727 ± 3.802  ns/op
+, These values come from Calendar.get(int).  Looking at the javadoc, the only fields that might return a negative number are DST_OFFSET and ZONE_OFFSET.  These are not printed through this method., Github user benbenw commented on the issue:
+
+    https://github.com/apache/commons-lang/pull/169
+  
+    Discussion was done on the jira
+    https://issues.apache.org/jira/browse/LANG-1248
+, Github user asfgit closed the pull request at:
+
+    https://github.com/apache/commons-lang/pull/169
+, Test of FastDatePrinter("yyyy-MM-dd'T'HH:mm:ssZ").format(new Date()) comparing committed implementation (testAppendFullDigits1) with suggested implementation (testAppendFullDigits2)
+
+Benchmark                                       Mode  Cnt    Score   Error  Units
+FastDatePrinterBenchmark.testAppendFullDigits1  avgt  200  492.378 ± 3.642  ns/op
+FastDatePrinterBenchmark.testAppendFullDigits2  avgt  200  491.250 ± 3.733  ns/op
+
+I could not bring myself to commit the full amount of additional code to gain a nS., commit bd9adbb637a8a4aa5eb61c6fde2c576d0ab3c4fa]

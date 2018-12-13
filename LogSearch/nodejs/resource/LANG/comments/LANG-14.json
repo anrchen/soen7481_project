@@ -1,0 +1,10 @@
+[Created an attachment (id=10365)
+Adds a Throwable cause support to NotImplementedException
+, Created an attachment (id=10540)
+Complete patch with unit tests
+, I have checked in a change to NotImplementedException that makes full use of 
+the Nestable interface and structure that we already have in [lang]. If 
+committers agree, this should be extended to other exceptions in the base of 
+lang., NotImplementedException seems to be modified. The bug is fixed, isn'it ?, There is now a constructor NotImplementedException(String msg, Throwable cause)
+so the ticket is "fixed". Stephen could you add @since tags to the new stuff?
+Then we can close this ticket. Thanks!, @since done, 2.1 released, closing.]

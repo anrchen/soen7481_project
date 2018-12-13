@@ -1,0 +1,63 @@
+[Looks as if the changed default locale provider might be the root cause: http://openjdk.java.net/jeps/252, I had similar issues in BEANUTILS-495, At least two of the failures are actually SimpleDateFormat problems:
+
+SimpleDateFormat failed: 
+locale=qu_EC format=GGGG/yyyy/MMMM/dddd/hhhh/mmmm/ss/aaaa/EEEE input=/2003/Hatun puquy/0010/0012/0000/00/a.m./Sábado
+locale=qu_EC format=G/y/M/d/h/a/m/s/E input=/2003/2/10/12/a.m./0/0/Sab, Quechua (Ecuador) locale does not have era information., Based upon [Dalibor's email|https://lists.apache.org/thread.html/e034bf56aafeef278682b7c9cab2d47be39c61a3e9218b3375bcb3e8@%3Cdev.commons.apache.org%3E] to the ML, the following does work running the tests in java 9:
+{code}
+mvn -Djava.locale.providers=JRE clean test
+{code}, So I guess the unit tests could use System.setProperty to make them pass.. but would this not just hide the problems that actual users of FastDateParser will struggle with because they have not set that provider?, Right, I'm not entirely sure what we should do here. It feels like if SimpleDateFormat is indeed the root cause of the issue, which it seems to be, then we should open a ticket with Java to resolve its parsing issues., Created bug report concerning timezone parsing for Oracle Ea 9, [JDK-8167143|http://bugs.java.com/bugdatabase/view_bug.do?bug_id=JDK-8167143], Setting this to 3.6 since we have the workaround with the locale provider., The FastDateFormat related failures do not occur with java 9 build 157.
+
+There are now test failures in FieldUtilsTest and ToStringBuilderTest related to much stricter restrictions on reflection. These disappear if you open up jdk modules for reflection. For example the tests pass when run with:
+
+{code}
+mvn test -DargLine="--add-opens java.base/java.lang.reflect=ALL-UNNAMED --add-opens java.base/java.lang=ALL-UNNAMED"
+{code}
+
+The test failure "LocaleUtilsTest.testParseAllLocales:578 » IllegalArgument Invalid locale forma..." remains.
+
+Edit: The LocaleUtilsTest.testParseAllLocales test failure is caused by the String "ji_001". This is actually a valid locale, I created [LANG-1312] for this.
+
+, GitHub user PascalSchumacher opened a pull request:
+
+    https://github.com/apache/commons-lang/pull/244
+
+    LANG-1265: Build failures when building with Java 9 EA
+
+    Fix build on Java 9 Build 157 by adding a java-9 maven profile. This is activated by default on Java 9 and opens up java.base classes for reflection which makes all unit tests pass.
+
+You can merge this pull request into a Git repository by running:
+
+    $ git pull https://github.com/PascalSchumacher/commons-lang fix_build_on_java_9
+
+Alternatively you can review and apply these changes as the patch at:
+
+    https://github.com/apache/commons-lang/pull/244.patch
+
+To close this pull request, make a commit to your master/trunk branch
+with (at least) the following in the commit message:
+
+    This closes #244
+    
+----
+commit e0b8d45ac7d7f2f15d670298fe5e1d4762efbce2
+Author: pascalschumacher <pascalschumacher@gmx.net>
+Date:   2017-02-24T17:51:03Z
+
+    LANG-1265: Build failures when building with Java 9 EA
+    
+    Fix build on Java 9 Build 157 by adding a java-9 maven profile. This is activated by default on Java 9 and opens up java.base classes for reflection which makes all unit tests pass.
+
+----
+, Github user coveralls commented on the issue:
+
+    https://github.com/apache/commons-lang/pull/244
+  
+    
+    [![Coverage Status](https://coveralls.io/builds/10331779/badge)](https://coveralls.io/builds/10331779)
+    
+    Coverage increased (+0.04%) to 94.565% when pulling **e0b8d45ac7d7f2f15d670298fe5e1d4762efbce2 on PascalSchumacher:fix_build_on_java_9** into **36b00f803a0b307c30f79378cd758323c242cc65 on apache:master**.
+
+, Github user asfgit closed the pull request at:
+
+    https://github.com/apache/commons-lang/pull/244
+]

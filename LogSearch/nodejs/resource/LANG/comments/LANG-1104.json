@@ -1,0 +1,54 @@
+[In 1900, Sao Paulo was 3 hours, 6 minutes, and 28 seconds behind GMT.  The ZZ format will encode that difference as "-0306", which introduces a 28 seconds difference in the round trip.  The ZZ format cannot be considered a high fidelity format for historic time in certain time zones.  (Atlantic/Reykjavik happened to be 1:27:48 behind GMT in 1900)
+
+A couple of instructive unit tests which only use JRE classes:
+
+{noformat}
+   @Test
+    public void test1104_a() throws ParseException {
+        TimeZone tzSaoPaulo = TimeZone.getTimeZone("America/Sao_Paulo");
+        Locale usLocale = Locale.US;
+
+        final SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd/ZZ", usLocale);
+		sdf.getCalendar().setTimeZone(tzSaoPaulo);
+
+        final Calendar cal = Calendar.getInstance(tzSaoPaulo, usLocale);
+        cal.clear();        
+        cal.set(Calendar.MONTH, 1);
+        cal.set(Calendar.DAY_OF_MONTH, 10);
+        cal.set(Calendar.YEAR, 1900);
+
+        final Date expected = cal.getTime();
+        String formattedDate = sdf.format(expected);
+        Assert.assertTrue(formattedDate.endsWith("-0306")); // Surprise! Historically, Sao Paulo is 3 hours and 6 minutes behind GMT
+        
+        final Date actual = sdf.parse(formattedDate);
+        Assert.assertEquals(tzSaoPaulo, sdf.getCalendar().getTimeZone());
+        
+        long diff = TimeUnit.SECONDS.toMillis(28);	 // Surprise!! In February of 1900, Sao Paulo was 3 hours, 6 minutes, and 28 seconds behind GMT
+        Assert.assertEquals(diff, expected.getTime() - actual.getTime());        
+    }
+    
+    @Test
+    public void test1104_b() throws ParseException {
+        TimeZone tzSaoPaulo = TimeZone.getTimeZone("America/Sao_Paulo");
+        Locale usLocale = Locale.US;
+
+        final Calendar cal = Calendar.getInstance(tzSaoPaulo, usLocale);
+        cal.clear();        
+        cal.set(Calendar.MONTH, 1);
+        cal.set(Calendar.DAY_OF_MONTH, 10);
+        cal.set(Calendar.YEAR, 1900);
+        final Date expected = cal.getTime();
+
+        TimeZone tzEratzSaoPaulo = TimeZone.getTimeZone("GMT-0306");       
+        final Calendar eratz = Calendar.getInstance(tzEratzSaoPaulo, usLocale);
+        eratz.clear();        
+        eratz.set(Calendar.MONTH, 1);
+        eratz.set(Calendar.DAY_OF_MONTH, 10);
+        eratz.set(Calendar.YEAR, 1900);
+        final Date actual = eratz.getTime();
+        
+        long diff = TimeUnit.SECONDS.toMillis(28);	 // Surprise!! In February of 1900, Sao Paulo was 3 hours, 6 minutes, and 28 seconds behind GMT
+        Assert.assertEquals(diff, expected.getTime() - actual.getTime());
+    }
+{noformat}, Committed revision 1670560., decoupled testing timezone name parsing from other tests.  testParse is trying to do too much at once.]

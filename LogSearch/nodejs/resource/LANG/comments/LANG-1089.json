@@ -1,0 +1,16 @@
+[The 'h' and 'k' formats display hour 0 as 12/24 respectively, so the code needs to convert 12/24 to 0 on input.
+
+The code uses modulo arithmetic to handle the conversion from 12 => 0 and 24 => 0.
+Modulo has the same result for 12/24, but behaves differently from SDF lenient mode when the values are greater than 12/24.
+
+Furthermore, the code applies the modulo conversion to the 'h' and 'H' formats, instead of the 'h' and 'k' formats.
+
+This was not picked up by the unit tests as there were no tests that covered the conditions., URL: http://svn.apache.org/r1663348
+Log:
+LANG-1089 FastDateParser does not handle excess hours as per SimpleDateFormat
+
+Modified:
+    commons/proper/lang/trunk/src/changes/changes.xml
+    commons/proper/lang/trunk/src/main/java/org/apache/commons/lang3/time/FastDateParser.java
+    commons/proper/lang/trunk/src/test/java/org/apache/commons/lang3/time/FastDateParserSDFTest.java
+]

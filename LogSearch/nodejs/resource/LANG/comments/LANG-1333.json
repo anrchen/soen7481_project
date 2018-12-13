@@ -1,0 +1,4 @@
+[Your observation looks correct to me. An easy way is to fix documentation but it wouldn't be natural in terms of code readability., Indeed, good points. We are going to probably re-work some of the circuit breakers for upcoming Java 9 module system. So we might as well update this one too, either adjusting documentation or code. Will think about for a while and re-read the code of all circuit breakers during the next days.
+
+Thanks for reporting a clear and detailed issue.
+Bruno]

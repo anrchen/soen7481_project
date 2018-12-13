@@ -1,0 +1,11 @@
+[Worth reporting to wherever JDK 1.7 bugs get reported nowadays?, I tested b78 - but the latest available is b84, so probably a good idea to check if its still a problem in that version first.
+
+   http://download.java.net/jdk7/binaries/
+
+If it is a problem I guess the place to report it is here:
+  https://jdk7.dev.java.net/servlets/ProjectIssues, Note to test under JDK 7 before release., With b102 the same problem with FastDateFormatTest exists
+With b124 the same problem with FastDateFormatTest exists and now ExtendedMessageFormatTest also fails
+
+The problem with ExtendedMessageFormatTest is that it is using Locale.getDefault() when no Locale is supplied, which is returning Locale..en_US - but DateFormat & Number format are now (in b124) using the new Locale.getDefault(Locale.Category.FORMAT) which is returning Locale.en_GB. So this appears to be a bug in the 1.7 JDK, Sounds good. 2 bugs in JDK; nothing to hold up a release on our side. , Need to report bugs back to JDK, but no reason to link this to the next release (or any release really)., Resolving as fixed.
+
+We fixed the JDK 7 'yyy' issue in LANG-719 prior to releasing 3.0. The other issue didn't show up iirc.]

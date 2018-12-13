@@ -1,0 +1,15 @@
+[for version 2.0 all is OK., *** COM-2897 has been marked as a duplicate of this bug. ***, Created an attachment (id=18210)
+Unit test
+, Running through the source, the problem is that:
+
+log(1000) / log(10)  is 2.9999999999999996 and not 3.0 as it should.
+
+Solving this by simplifying the method of finding out how many digits there are
+in a number - Integer.toString(value).length(). I've added an assert for value
+being negative (using Validate). Just in case. , Adding unit test for #39410. Implementing fix by switching from using Math.log
+to Integer.toString to figure out the number of digits.
+
+Sending        src/java/org/apache/commons/lang/time/FastDateFormat.java
+Sending        src/test/org/apache/commons/lang/time/FastDateFormatTest.java
+Transmitting file data ..
+Committed revision 398530.         ]

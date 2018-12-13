@@ -1,0 +1,11 @@
+[Another optimisation would be to check that the lengths are the same.
+The code already calculates both lengths, so this would not add any overhead and would be more efficient for sequences that differ only in length., URL: http://svn.apache.org/viewvc?rev=1361462&view=rev
+Log:
+LANG-813 StringUtils.equalsIgnoreCase doesn't check string reference equality
+Also check lengths.
+
+Modified:
+    commons/proper/lang/trunk/src/changes/changes.xml
+    commons/proper/lang/trunk/src/main/java/org/apache/commons/lang3/StringUtils.java
+    commons/proper/lang/trunk/src/test/java/org/apache/commons/lang3/StringUtilsEqualsIndexOfTest.java
+]

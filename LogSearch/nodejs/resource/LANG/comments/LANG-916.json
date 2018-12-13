@@ -1,0 +1,299 @@
+[The attached patch solves the problem by creating a calendar with the correct timezone from the formatter before actually formatting the object., Setting this to Review Patch. , Is the fix version here 2.7 or 3.2? Sounds like it's an issue in 3.1 rather than 2.6., The patch was created against trunk, so is for 3.2, Christian - are you able to test out Thomas' patch? I'm wary to rely on successful builds on my side as they would have passed for 3.1 when that was released., Ah I forgot to add a unit test ..., Move my System.out.println test in a @Test.
+
+{noformat}
+	@Test
+	public void test23c2bis() throws Exception {
+
+		System.out.println("java_version: " + SystemUtils.JAVA_VERSION);
+
+		System.out.println(TimeZone.getDefault().getID());
+		Calendar cal = Calendar.getInstance(TimeZone.getTimeZone("Europe/Paris"));
+		cal.set(2009, 9, 16, 8, 42, 16);
+
+		// Long.
+		{
+			String value = DateFormatUtils.format(cal.getTimeInMillis(), DateFormatUtils.ISO_DATETIME_TIME_ZONE_FORMAT.getPattern(), TimeZone.getDefault());
+			Assert.assertEquals("long", "2009-10-16T08:42:16+02:00", value);
+		}
+		{
+			String value = DateFormatUtils.format(cal.getTimeInMillis(), DateFormatUtils.ISO_DATETIME_TIME_ZONE_FORMAT.getPattern(),
+					TimeZone.getTimeZone("Asia/Kolkata"));
+			Assert.assertEquals("long", "2009-10-16T12:12:16+05:30", value);
+		}
+		{
+			String value = DateFormatUtils.format(cal.getTimeInMillis(), DateFormatUtils.ISO_DATETIME_TIME_ZONE_FORMAT.getPattern(),
+					TimeZone.getTimeZone("Europe/London"));
+			Assert.assertEquals("long", "2009-10-16T07:42:16+01:00", value);
+		}
+
+		// Calendar.
+		{
+			String value = DateFormatUtils.format(cal, DateFormatUtils.ISO_DATETIME_TIME_ZONE_FORMAT.getPattern(), TimeZone.getDefault());
+			Assert.assertEquals("calendar", "2009-10-16T08:42:16+02:00", value);
+		}
+		{
+			String value = DateFormatUtils.format(cal, DateFormatUtils.ISO_DATETIME_TIME_ZONE_FORMAT.getPattern(), TimeZone.getTimeZone("Asia/Kolkata"));
+			Assert.assertEquals("calendar", "2009-10-16T12:12:16+05:30", value);
+		}
+		{
+			String value = DateFormatUtils.format(cal, DateFormatUtils.ISO_DATETIME_TIME_ZONE_FORMAT.getPattern(), TimeZone.getTimeZone("Europe/London"));
+			Assert.assertEquals("calendar", "2009-10-16T07:42:16+01:00", value);
+		}
+
+		// calendar fast.
+		{
+			String value = FastDateFormat.getInstance("yyyy-MM-dd'T'HH:mm:ss Z", TimeZone.getTimeZone("Europe/Paris")).format(cal);
+			Assert.assertEquals("calendar", "2009-10-16T08:42:16 +0200", value);
+		}
+		{
+			String value = FastDateFormat.getInstance("yyyy-MM-dd'T'HH:mm:ss Z", TimeZone.getTimeZone("Asia/Kolkata")).format(cal);
+			Assert.assertEquals("calendar", "2009-10-16T12:12:16 +0530", value);
+		}
+		{
+			String value = FastDateFormat.getInstance("yyyy-MM-dd'T'HH:mm:ss Z", TimeZone.getTimeZone("Europe/London")).format(cal);
+			Assert.assertEquals("calendar", "2009-10-16T07:42:16 +0100", value);
+		}
+	}
+{noformat}, I done the following actions:
+- svn checkout https://svn.apache.org/repos/asf/commons/proper/lang/trunk commons-lang3 (last commit was r1535653 | bayard | 2013-10-25 10:19:29 +0200)
+- mvn install => failed because tests failing, then I removed all tests
+- mvn install, copy the generated jar in my local test project => testFormat_CalendarIsoMsZulu() and test23c2bis()  FAILED
+- I put the patch, mvn install, copy the jar in my local test project => testFormat_CalendarIsoMsZulu() and test23c2bis() finished SUCCESSFULLY
+
+I conclude that the patch is good. But I am disappointed that:
+- before patch, some mvn tests not passed
+- after patch, some of the passing FastDatePrinter mvn tests do not passed any longer.
+
+Suggestions:
+- add testFormat_CalendarIsoMsZulu()
+- add test23c2bis() 
+- check other tests in FastDatePrinter
+- check other tests, Could you list the tests that fail when you build/test straight out of svn? I assume, from the committers involved, that we have people testing successfully in US/Pacific, US/Eastern and CET timezones, , No more failed with fresh svn checkout (r1535916 | bayard | 2013-10-26 04:50:25 +0200). The magic of continuous integration? :-)
+
+After patch:
+{noformat}
+Failed tests: 
+  DateFormatUtilsTest.testTimeISO:165 expected:<T1[0]:11:12> but was:<T1[4]:11:12>
+  DateFormatUtilsTest.testSMTP:215 expected:<Sun, 08 Jun 2003 1[0:11:12 -03]00> but was:<Sun, 08 Jun 2003 1[5:11:12 +02]00>
+  DateFormatUtilsTest.testDateTimeISO:117 expected:<2002-02-23T[09]:11:12> but was:<2002-02-23T[13]:11:12>
+  DateFormatUtilsTest.testTimeNoTISO:189 expected:<1[0]:11:12> but was:<1[4]:11:12>
+  DateFormatUtilsTest.testDateISO:150 expected:<2002-02-23[-03]:00> but was:<2002-02-23[+01]:00>
+  FastDatePrinterTest.testCalendarTimezoneRespected:286 expected:<3:51[AM LIN]T> but was:<3:51[PM CES]T>
+  FastDatePrinterTest.testLang538:214 dateTime expected:<2009-10-16T[08]:42:16.000Z> but was:<2009-10-16T[16]:42:16.000Z>
+  DurationFormatUtilsTest.testFormatPeriodISO:266 expected:<2002-02-23T[09:11:12-03]:00> but was:<2002-02-23T[13:11:12+01]:00>
+  FastDateFormat_PrinterTest>FastDatePrinterTest.testCalendarTimezoneRespected:286 expected:<3:51[AM LIN]T> but was:<3:51[PM CES]T>
+  FastDateFormat_PrinterTest>FastDatePrinterTest.testLang538:214 dateTime expected:<2009-10-16T[08]:42:16.000Z> but was:<2009-10-16T[16]:42:16.000Z>
+
+Tests run: 2382, Failures: 10, Errors: 0, Skipped: 5
+{noformat}, I just checked out the old r1535653 revision and it installs fine. If the failing tests were time.* related, I strongly suspect it was related to the system date/time of your machine. 
+
+The 2.x vs 3.x difference is weird; looking at it, I'm guessing that LANG-462 reintroduced the issue though I've not dug into the changelogs yet. It's a little concerning that the LANG-538 and this fix aren't the same. , [~bayard] where are we standing with this? I'd like to fix all open bugs that are in 'Review Patch' state in the january release (a.k.a. 3.3), Applying the patch blows up a whole lot of tests. [~cpm] can you have a look please?, Here are the results of my investigations.
+
+A) Thomas Neidhart patch is really good.
+I confirm that the patch from Thomas Neidhart is the good way. 
+It is easy to verify:
+
+FastDateFormat.getInstance("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'", TimeZone.getTimeZone("Asia/Kolkata")).format(cal)
+
+1-> FastDateFormat.getInstance("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'", TimeZone.getTimeZone("Asia/Kolkata"))
+2--> .format(cal) 
+3---> return  printer.format(calendar)
+4----> return format(calendar, new StringBuffer(this.mMaxLengthEstimate)).toString()
+5-----> return applyRules(calendar, buf);
+
+Step 1: store the TimeZone parameter in a FastDateFormat instance and build rules from the pattern to display.
+Step 5: apply previously build rules to the parameter 'calendar'. So, there is no use of the TimeZone parameter stored in step 1 => **BUG**
+
+In his patch, Thomas Neidhart calls the newCalendar(); method which build a new calendar using the TimeZone parameter stored in step 1. Then, this new calendar is used to apply rules.
+
+It is exactly what it is done in other methods called "format" too but with a different parameter type (Date, long...). For each, there is a comment "// hard code GregorianCalendar".
+
+The method "format" must build a hard code GregorianCalendar.
+
+
+B) Test errors come from bad test.
+Almost all test errors come from a flawed test. In FastDatePrinterTimeZonesTest.testCalendarTimezoneRespected, we can see:
+
+final String actualValue = FastDateFormat.getInstance(PATTERN).format(cal);
+
+As the TimeZone is not setted, then the TimeZone.getDefault() is set and so it is different than the original timezone. So the displayed result is not the same.
+
+Fix: final String actualValue = FastDateFormat.getInstance(PATTERN, this.timeZone).format(cal);
+
+It must also be true of other tests.
+
+
+So, definitively, the patch from Thomas Neidhart is the good way.
+
+I will try to provide patches for tests., Fix missing timezone set in one test which flooding errors after applying the LANG-916.patch file., This is a test error review after applying the patch LANG-916.patch file.
+
+About the revison I am using:
+{noformat}
+cpm > svn  log -l 1
+------------------------------------------------------------------------
+r1672030 | djones | 2015-04-08 10:38:02 +0200 (mer. 08 avril 2015) | 1 ligne
+
+cpm > svn info
+URL: https://svn.apache.org/repos/asf/commons/proper/lang/trunk
+Repository Root: https://svn.apache.org/repos/asf
+Repository UUID: 13f79535-47bb-0310-9956-ffa450edef68
+Revision: 1672106
+Node Kind: directory
+Schedule: normal
+Last Changed Author: djones
+Last Changed Rev: 1672030
+Last Changed Date: 2015-04-08 10:38:02 +0200 (Wed, 08 Apr 2015)
+{noformat}
+
+
+List test errors existing in trunk before any change:
+{noformat}
+cpm > mvn test
+[...]
+Failed tests:
+  FastDateFormat_ParserTest>FastDateParserTest.testTimeZoneStrategyPattern:654 français (Belgique):Heure d'Europe de l'Est UTC+3
+  FastDateParserTest.testTimeZoneStrategyPattern:654 français (Belgique):Heure d'Europe de l'Est UTC+3
+[...]
+Tests run: 3544, Failures: 2, Errors: 0, Skipped: 5
+{noformat}
+
+
+Apply the Thomas Neidhart patch:
+{noformat}
+cpm > svn patch ../LANG-916/LANG-916.patch
+U         src/main/java/org/apache/commons/lang3/time/FastDatePrinter.java
+>     application bloc @@ -458,7 +458,9 @@ décallage 19
+{noformat}
+
+List test errors after applying the patch LANG-916.patch file:
+{noformat}
+cpm > mvn test
+Failed tests:
+[...]
+  FastDatePrinterTimeZonesTest.testCalendarTimezoneRespected:61 expected:<[2:19PM EDT]> but was:<[6:19PM UTC]>
+  FastDatePrinterTimeZonesTest.testCalendarTimezoneRespected:61 expected:<[2:19PM AST]> but was:<[6:19PM UTC]>
+  FastDatePrinterTimeZonesTest.testCalendarTimezoneRespected:61 expected:<[12:19PM MDT]> but was:<[6:19PM UTC]>
+  FastDatePrinterTimeZonesTest.testCalendarTimezoneRespected:61 expected:<[1:19PM ACT]> but was:<[6:19PM UTC]>
+[...]
+Tests run: 3544, Failures: 617, Errors: 0, Skipped: 5
+{noformat}
+
+Failure count is huge but almost 600 failures come from a single test.
+Apply the LANG-916-B.patch file to fix a missing timezone set wich make one test flooding errors:
+{noformat}
+cpm > svn patch ../LANG-916/LANG-916-B.patch
+U         src/test/java/org/apache/commons/lang3/time/FastDatePrinterTimeZonesTest.java
+{noformat}
+
+List test errors remaining after applying the patch LANG-916-B.patch file:
+{noformat}
+cpm > mvn test
+Failed tests:
+Results :
+
+Failed tests:
+  DateFormatUtilsTest.testDateISO:161 expected:<2002-02-23[-03]:00> but was:<2002-02-23[+01]:00>
+  DateFormatUtilsTest.testDateTimeISO:120 expected:<2002-02-23T[09]:11:12> but was:<2002-02-23T[13]:11:12>
+  DateFormatUtilsTest.testSMTP:226 expected:<Sun, 08 Jun 2003 1[0:11:12 -03]00> but was:<Sun, 08 Jun 2003 1[5:11:12 +02]00>
+  DateFormatUtilsTest.testTimeISO:176 expected:<T1[0]:11:12> but was:<T1[4]:11:12>
+  DateFormatUtilsTest.testTimeNoTISO:200 expected:<1[0]:11:12> but was:<1[4]:11:12>
+  DurationFormatUtilsTest.testFormatPeriodISO:270 expected:<2002-02-23T[09:11:12-03]:00> but was:<2002-02-23T[13:11:12+01]:00>
+  FastDateFormat_ParserTest>FastDateParserTest.testTimeZoneStrategyPattern:654 français (Belgique):Heure d'Europe de l'Est UTC+3
+  FastDateFormat_PrinterTest>FastDatePrinterTest.testLang538:215 dateTime expected:<2009-10-16T[08]:42:16.000Z> but was:<2009-10-16T[16]:42:16.000Z>
+  FastDateParserTest.testTimeZoneStrategyPattern:654 français (Belgique):Heure d'Europe de l'Est UTC+3
+  FastDatePrinterTest.testLang538:215 dateTime expected:<2009-10-16T[08]:42:16.000Z> but was:<2009-10-16T[16]:42:16.000Z>
+  FastDatePrinterTest.testTimeZoneAsZ:270 expected:<+0[0]00> but was:<+0[2]00>
+
+Tests run: 3544, Failures: 11, Errors: 0, Skipped: 5
+{noformat}
+
+So, only 11 failures are remaining. These test errors can be sort like this:
+
+a) Tests depending of the host geographic location
+{noformat}
+  DateFormatUtilsTest.testDateISO:161 expected:<2002-02-23[-03]:00> but was:<2002-02-23[+01]:00>
+  DateFormatUtilsTest.testDateTimeISO:120 expected:<2002-02-23T[09]:11:12> but was:<2002-02-23T[13]:11:12>
+  DateFormatUtilsTest.testSMTP:226 expected:<Sun, 08 Jun 2003 1[0:11:12 -03]00> but was:<Sun, 08 Jun 2003 1[5:11:12 +02]00>
+  DateFormatUtilsTest.testTimeISO:176 expected:<T1[0]:11:12> but was:<T1[4]:11:12>
+  DateFormatUtilsTest.testTimeNoTISO:200 expected:<1[0]:11:12> but was:<1[4]:11:12>
+  DurationFormatUtilsTest.testFormatPeriodISO:270 expected:<2002-02-23T[09:11:12-03]:00> but was:<2002-02-23T[13:11:12+01]:00>
+{noformat}
+
+ These tests are using some DateFormatUtils static constants which are defined with the default TimeZone depending of the host and his geographical location. In the assert, the changing result is compare with a manual constant string value. So, the test failed if the tester is not in the same time zone than the test writer.
+
+ The worst part is that you can not change the TimeZone associated to these DateFormatUtils constants. As static attribute, they are initialized on the first JVM call of the class. So, we would have to set the default TimeZone before every tests. But who would want that?
+
+
+Example:
+
+{noformat}
+public void testDateISO(){
+[...]
+text = DateFormatUtils.ISO_DATE_TIME_ZONE_FORMAT.format(cal);
+        assertEquals("2002-02-23-03:00", text);
+{noformat}
+
+b) Tests depending of the host geographic location (another way)
+{noformat}
+  FastDatePrinterTest.testLang538:215 dateTime expected:<2009-10-16T[08]:42:16.000Z> but was:<2009-10-16T[16]:42:16.000Z>
+  FastDateFormat_PrinterTest>FastDatePrinterTest.testLang538:215 dateTime expected:<2009-10-16T[08]:42:16.000Z> but was:<2009-10-16T[16]:42:16.000Z>
+  FastDatePrinterTest.testTimeZoneAsZ:270 expected:<+0[0]00> but was:<+0[2]00>
+{noformat}
+
+ These tests are using explicit default timezone from host and make compare with manual static string. So, the test failed if the tester is not in the same time zone than the test writer.
+
+
+c) Test errors already there in r1672030
+{noformat}
+  FastDateFormat_ParserTest>FastDateParserTest.testTimeZoneStrategyPattern:654 français (Belgique):Heure d'Europe de l'Est UTC+3
+  FastDateParserTest.testTimeZoneStrategyPattern:654 français (Belgique):Heure d'Europe de l'Est UTC+3
+{noformat}
+
+End of this test error review. Hope this will help., [~cpm] thank you for the thorough analysis. What time zone are you in? We should be able to reproduce this by setting the default time zone on our machines to your time zone., I am living in Paris (France, Europe) so my timezone is "Europe/Paris" (GMT/UTC +01:00).
+
+In Java:
+{noformat}
+TimeZone.setDefault(TimeZone.getTimeZone("Europe/Paris"));
+{noformat}
+
+With Unix system command:
+{noformat}
+cpm > date
+jeu. avril  9 00:54:33 CEST 2015
+cpm > export TZ="Asia/Kolkata"
+cpm > date
+jeu. avril  9 04:24:46 IST 2015
+cpm > mvn test
+[...]
+{noformat}
+
+Regards., In order to follow the bug fix LANG-916, I propose an additional test with the LANG-916-C.patch file.
+, [~cpm]: very nice, I can confirm that LANG-916-C.patch reproduces the bug. Do you have a fix for this?, Thomas Neidhart has provided the fix LANG-916.patch. I confirm that this is a good fix.
+
+I explain why in the following comment: https://issues.apache.org/jira/browse/LANG-916?focusedCommentId=14484761&page=com.atlassian.jira.plugin.system.issuetabpanels:comment-tabpanel#comment-14484761
+, After applying the patch from Thomas Neidhart, there is a single test which flood ~600 failures. To fix this test, I had provided the fix LANG-916-B.patch
+
+So the final patch for LANG-916 could be the concatenate of LANG-916.patch, LANG-916-B.patch and LANG-916-C.patch, After applying the LANG-916.patch and the LANG-916-B.patch, 9 test failures are remaining (see my review above). These tests are bugged because they are depending of the host geographic location. 
+
+Do these errors require a new issue/ticket? Or should they be fixed in this one?, [~cpm] thank you for the effort you're putting into fixing this. Really appreciated! The best would be if we had one single patch file, that contains all we need to fix this and the test reproducing the problem. Can you put that together? Note that we have migrated commons lang to git (see http://commons.apache.org/proper/commons-lang/source-repository.html for the new repository location). If you like, you can also use GitHub for contributing. Just open a PR against github.com/apache/commons-lang.
+
+Thank you!, Final patch containing fix and unit test reproducing the problem., Git is welcome. :-) GitHub is not a free software so I do not use it. 
+
+On this JIRA, I uploaded an attachment patch file in git format: LANG-916-final-git.patch
+It contains fix and unit test reproducing the problem.
+
+FYI, my ICLA is sent.
+Let me know if all is good. :-)
+
+, After applying the patch, there is a single unit test which flood ~600 failures. To fix this unit test, I created the LANG-1123 issue and uploaded a patch file., There is a basic problem in the DateFormatUtils.format(Calendar, String pattern, TimeZone, Locale) api.  (And furthermore, the FastDateFormat/FastDatePrinter.format(Calendar) apis.)  Should the implementation pay attention to the TimeZone set on the Calendar or the TimeZone that is passed in the constructor?   I recommend deprecating this method with an explanation what it currently does and what the desired practice should be.
+, I am not agree with you <3 A Calendar parameter is containing an absolute date time information. If I put a calendar parameter and a timezone parameter, it is because I want use this absolute date time with another timezone. The new timezone has priority. This is a common need. So the method is relevant and unambiguous.
+
+Is there any error in my reasoning? :D
+
+I see that the null timezone case is not described in method comment. If timezone parameter is null then the default timezone is used. Perhaps it would be good to add a comment about it. (on)
+
+Because this subject is very different than the LANG-916 subject, can I suggest to create a dedicated issue for it?
+
+Regards. :-), I agree with your reasoning.  I'll update the javadoc to make that clear., commit 775203dd2cfce017910d04c58a0b1b4e0a64923c
+
+These changes have subtle implications.  The TimeZone of the Calendar being formatted will no longer be used as the TImeZone of the formatted output.  The TimeZone specified during construction of the Formatter/Printer will be used as the formatted TimeZone, (if no TimeZone is specified during construction, the system default TimeZone will be used.)]

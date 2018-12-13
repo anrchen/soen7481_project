@@ -1,0 +1,64 @@
+[I think "Java number" probably means a number that is valid as a Java numeric literal.
+
+If this is the case, then it is trivial to determine whether a particular sequence of characters should pass the isNumber() test.
+i.e. see if the Java compiler accepts it as a long/double/etc. initialiser., If that's the expected behaviour, can you suggest a use for the method?
+
+, > Or we define exactly what we accept by specifying a grammar in the Javadocs.
+
+I think that's probably the best scenario for users.
+
+I tried using the following code found in [this StackOverflow answer|http://stackoverflow.com/questions/1102891/how-to-check-if-a-string-is-a-numeric-type-in-java] to replace isNumber, and then executed the NumberUtilsTest#testIsNumber test method:
+
+{noformat}
+        try {
+            Double.parseDouble(str);
+        } catch (NumberFormatException e) {
+            return false;
+        }
+        return true;
+{noformat}
+
+And the test failed with:
+
+{noformat}
+java.lang.AssertionError: Expecting true for isNumber/createNumber using "-0xABC123" but got false and true
+{noformat}
+
+Using the Regex version:
+
+{noformat}
+        return str.matches("-?\\d+(\\.\\d+)?");
+{noformat}
+
+Results in:
+
+{noformat}
+java.lang.AssertionError: Expecting true for isNumber/createNumber using ".12345" but got false and true
+{noformat}
+
+And the final example:
+
+{noformat}
+        NumberFormat formatter = NumberFormat.getInstance();
+        ParsePosition pos = new ParsePosition(0);
+        formatter.parse(str, pos);
+        return str.length() == pos.getIndex();
+{noformat}
+
+Gives:
+
+{noformat}
+java.lang.AssertionError: Expecting true for isNumber/createNumber using "1234E+5" but got false and true
+{noformat}
+
+Maybe we can fix this issue by enhancing the docs with a grammar and some examples of what the method can and cannot handle?, There seems to be clear inconsistency between {{NumberUtils.createNumber(final String val)}} and {{NumberUtils.isNumber(final String str)}}. I agree here that the javadoc should be clarified as to what {{isNumber}} should return, but either way it feels like there should be consistency.  Sebb, do you have any thoughts here? 
+
+Specifically I was looking at LANG-1038 which seems to point out such inconsistencies, specifically if you add
+
+{code:java}
+compareIsNumberWithCreateNumber("+2",false);
+{code}
+
+in {{NumberUtilsTest.testIsNumber()}}.
+
+Regardless, I would like to try to fix this up, so I'll try to clarify while adhering as closely as possible to the java standards here., Knowing that there are inconsistencies between {{isNumber}} and {{createNumber}}, in which direction should we remediate those inconsistencies: making {{createNumber}} more restrictive as to be inline with java standards or making {{isNumber}} less restrictive?, https://github.com/apache/commons-lang/pull/186 fixes this.]

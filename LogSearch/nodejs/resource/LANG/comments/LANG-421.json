@@ -1,0 +1,1 @@
+[I attached the JUnit3 test as a file, after I noticed the inline test didn't retain end-of-lines., The JLS reference is http://java.sun.com/docs/books/jls/second_edition/html/lexical.doc.html#101083 (3.10.5 String Literals), Fixed. Added unit test method based on attachment provided.]

@@ -1,0 +1,38 @@
+[GitHub user mniehoff opened a pull request:
+
+    https://github.com/apache/commons-lang/pull/126
+
+    LANG-1210 Fixed JavaDoc
+
+    
+
+You can merge this pull request into a Git repository by running:
+
+    $ git pull https://github.com/mniehoff/commons-lang master
+
+Alternatively you can review and apply these changes as the patch at:
+
+    https://github.com/apache/commons-lang/pull/126.patch
+
+To close this pull request, make a commit to your master/trunk branch
+with (at least) the following in the commit message:
+
+    This closes #126
+    
+----
+commit 447846e111bddbb2fb98ea1c12bc356ad993c8ab
+Author: Matthias Niehoff <matthias.niehoff@codecentric.de>
+Date:   2016-02-29T14:14:25Z
+
+    LANG-1210 Fixed JavaDoc
+
+----
+, Github user garydgregory commented on the pull request:
+
+    https://github.com/apache/commons-lang/pull/126#issuecomment-190505830
+  
+    Fixed with https://issues.apache.org/jira/browse/LANG-1211 and commit d1a3255600da34f4b69dc082c4441ae140452fee
+, Fixed with commit d1a3255600da34f4b69dc082c4441ae140452fee, Please verify and close., Github user mniehoff closed the pull request at:
+
+    https://github.com/apache/commons-lang/pull/126
+]

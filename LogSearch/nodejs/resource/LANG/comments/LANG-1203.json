@@ -1,0 +1,9 @@
+[There may be some reasons why excluding a value from a hash code makes sense. See [this StackOverflow question|http://stackoverflow.com/questions/4748211/java-equal-and-hashcode-based-on-different-fields] for some discussion on that topic.
+
+I think there's an argument for having two annotations:
+
+* HashCodeExclude
+* EqualsAndHashCodeExclude
+
+I can't see how you can exclude something from equals and not from hash code.
+]

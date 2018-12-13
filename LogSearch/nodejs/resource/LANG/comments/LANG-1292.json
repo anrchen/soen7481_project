@@ -1,0 +1,15 @@
+[caused by this commit: https://github.com/apache/commons-lang/commit/0fe9685c8a78ba2d780a3ec1e1a323990dc6d218, Thanks for reporting this. Now fixed:
+
+{quote}
+Repository: commons-lang
+Updated Branches:
+ refs/heads/master 8c1a0d2ee -> a08ec31db
+
+
+Fixes LANG-1292: WordUtils.wrap throws StringIndexOutOfBoundsException
+
+Project: http://git-wip-us.apache.org/repos/asf/commons-lang/repo
+Commit: http://git-wip-us.apache.org/repos/asf/commons-lang/commit/a08ec31d
+Tree: http://git-wip-us.apache.org/repos/asf/commons-lang/tree/a08ec31d
+Diff: http://git-wip-us.apache.org/repos/asf/commons-lang/diff/a08ec31d
+{quote}]

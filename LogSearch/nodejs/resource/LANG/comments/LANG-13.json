@@ -1,0 +1,46 @@
+[The appears to be fixable with a minor change to the DateUtils.modify method,
+replacing the val.add call with a val.set call, doing the calculation external
+to the Calendar instance. For some reason, the Calendar.add method subtracts an
+additional hour in the particular test scenario mentioned in the bug report, but
+doesn't with other timezones I tested (such as US/Eastern). So I think the
+easiest fix is to do the calculation in our code.
+
+I have changed the DateUtils.modify method and the existing tests pass. I've
+written one test to verify the fix works with the above scenario, and I plan to
+write some additional tests for rounding., After some more testing, the light bulb came on as to why the Calendar.add
+method seemed to be overshooting the correct date and subtracting 6 hours
+instead of five. This is probably a "duh" for most everyone else, but it took me
+a few minutes to see it. The DateUtils.modify method, which does the gruntwork
+of the round and truncate methods, was subtracting the number of hours from the
+date being rounded/truncated. In this paricular case, it was subtracting 5 hours
+to get from 05:00 to 00:00. However, since the scenario happened to cause this
+across a DST enablement, Calendar.add was treating the time between 02:00 and
+03:00 as non-existing, so subtracting 5 hours from 05:00 was giving 23:00 on the
+previous day, which is technically correct. But for a rounding/truncation
+method, this is not appropriate, so my earlier solution of calculating the
+desired hour value and using set does appear to be appropriate.
+
+Note that I did a few tests on rounding across the 02:00/03:00 barrier, and the
+rounding also "ignores" the missing hour. So for example, rounding 01:40 gives
+03:00, and rounding 02:40 give 04:00, which IMHO are both correct, since the
+02:00-03:00 hour does not exist., The truncate/round logic was adding a negative value to the current hours (using
+Calendar.add) to move the hours back to zero. When this is done across the
+beginning of daylight saving time, it has the affect of moving to 23:00 of the
+previous day, because the hour skipped when daylight saving time doesn't exist.
+For example, if daylight saving time begins at 02:00, and -5 is added to 05:00,
+the result is 23:00 of yesterday, because the hour between 02:00 and 03:00
+doesn't exist. The fix was to do the calculation in the truncate/round code, and
+use Calendar.set to set the new hour value., Just hit this bug using 2.0.
+This is what happens to those who work on Sundays :-).
+Very delighted that fix exists. I'm about to give my app to the client and don't
+want to use current CVS or custom-patched library. Found a workaround:
+
+DateUtils.truncate(date, Calendar.DATE)
+
+use:
+
+DateUtils.round(
+        DateUtils.truncate(date, Calendar.DATE),
+        Calendar.DATE)
+
+Call to round eliminates any 1-hour discrepancy which may exist., 2.1 released, closing.]

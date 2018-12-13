@@ -1,0 +1,9 @@
+[URL: http://svn.apache.org/r1488041
+Log:
+LANG-896 BooleanUtils.toBoolean(String str) javadoc is not updated
+
+Modified:
+    commons/proper/lang/trunk/src/changes/changes.xml
+    commons/proper/lang/trunk/src/main/java/org/apache/commons/lang3/BooleanUtils.java
+    commons/proper/lang/trunk/src/test/java/org/apache/commons/lang3/BooleanUtilsTest.java
+]

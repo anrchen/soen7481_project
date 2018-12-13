@@ -1,0 +1,18 @@
+[SystemUtilsTest and StringEscapeUtils both fixed. Need to dig more into the StringUtils one to understand the nature of the change., The proposed changes to {{StringUtils.containsIgnoreCase()}} aim at establishing the following assertion:
+{noformat}
+str1.equalsIgnoreCase(str2)    ==>  StringUtils.containsIgnoreCase(str1, str2)
+{noformat}
+or more completely
+{noformat}
+StringUtils.containsIgnoreCase(str1, str2) 
+iff. there exists k >= 0 such that
+str1.substring(k, k + str2.length()).equalsIgnoreCase(str2)
+{noformat}
+, Apologies for the long delay in applying the rest of the patch. Looks good and it's gone in as:
+
+svn ci -m "Applying the final part of Benjamin Bentmann's patch to LANG-432, improving our handling of case-insens
+itive Strings"
+Sending        src/java/org/apache/commons/lang/StringUtils.java
+Sending        src/test/org/apache/commons/lang/StringUtilsEqualsIndexOfTest.java
+Transmitting file data ..
+Committed revision 828317.]

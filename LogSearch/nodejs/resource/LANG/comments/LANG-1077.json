@@ -1,0 +1,178 @@
+[Hi Haiyang!
+
+Your code does make sense, and I've made a patch with it (hope you don't mind) for others to take a look and experiment with it. 
+
+I thought about committing it to the trunk, but I got confused with the title of the issue.
+
+Running the code as is in the trunk, {{StringUtils.ordinalIndexOf("aaaaaa", "aa", 2)}} returns *1*. After applying the patch with your code, {{StringUtils.ordinalIndexOf("aaaaaa", "aa", 2)}} returns *3*... so it is still != 2, and I think that's the expected behavior.
+
+Do you reckon that the expected result should be indeed *3*? 
+
+Thanks!
+Bruno, Patch with Haiyang Li code and a unit test., HI, Bruno
+The code i pasted is incorrect. I changed it now. please have a look. 
+Previously I just read the code but didn't test it with the modification.
+
+thank you for testing it out!, Hello Haiyang!
+
+No, I thank you for filing the issue and taking your time to provide some code. I never used the orginalIndexOf, so I thought it was a good chance to learn it too :-)
+
+I *think* your previous code was right. Looking at the current implementation, it sems to always return the first occurrence of the needle (searchStr), *after* the given offset (ordinal) in the haystack (str).
+
+I updated my local copy with your updated code, and it broke existing tests. 
+
+What do you think?, en... It's my bad. updated it again. I downloaded the source code and made the change and tested it this time.
+(BTW, I a newcomer and we have a project which uses Commons Lang a lot. that's why i'm looking into code. Commons Lang provides a lot of useful APIs and help me a lot. appreciate the work you guys have done. Good job!), So are you +1 for we applying the existing patch, with your original code? If so I will commit the patch to the trunk tonight.
+
+Also, if you agree, I would like to update the title from "StringUtils.ordinalIndexOf("aaaaaa", "aa", 2) != 2 in StringUtils" to "StringUtils.ordinalIndexOf("aaaaaa", "aa", 2) != *3* in StringUtils" just to avoid any confusion in the future.
+
+> (BTW, I a newcomer and we have a project which uses Commons Lang a lot. that's why i'm looking into code. Commons Lang provides a lot of useful APIs and help me a lot. appreciate the work you guys have done. Good job!)
+
+That's a great initiative Haiyang. We are a group of volunteers, and the feedback and contributions like yours are very important. Feel free to report other issues. If you feel like, you can also write patches (tests are always welcome :-D ), this way your code can get merged and released to all users (how cool is that?).
+
+All the best,
+Bruno, yes. i will be glad to see the code is to be merged into trunk.
+
+And I will continue to review the code in my spare time and report any issues I find., Committed in revision r1645101.
+
+Thank you very much for your contribution Haiyang. 
+
+Bruno, Patch with user contribution applied to trunk., The patch that was applied was wrong.
+The problem is that one cannot subtract the search length each time, unless one allows for this in the initial index. 
+
+This is why the initial index is set to str.len (i.e. max index +1) or -1 (min index -1); then the first time through the loop, the original code starts at the end or start respectively.
+
+The patched code now fails to start searching at the beginning when the search string len > 1, see LANG-1193, On further reflection, I think the original bug report was wrong, and the original code is correct.
+
+The original code steps through the search target one char at a time, so I think the behaviour should be:
+
+StringUtils.ordinalIndexOf("aaaaaa", "aa", 1) => 0 // matches "aa"
+StringUtils.ordinalIndexOf("aaaaaa", "aa", 2) => 1 // matches ".aa"
+
+However if overlapping matches are not allowed, I would expect:
+
+StringUtils.ordinalIndexOf("aaaaaa", "aa", 2) => 2 // matches "..aa"
+
+I have no idea why it was ever expected that the result should be "3", unless it was thought that the index started at 1.
+
+Perhaps the OP expected overlapping matches to be disallowed.
+However there is  no indication that this was ever intended.
+
+The fix needs to be reverted, and the Javadoc updated to make it clear that overlapping matches are allowed., Revert LANG-1077
+
+Project: http://git-wip-us.apache.org/repos/asf/commons-lang/repo
+Commit: http://git-wip-us.apache.org/repos/asf/commons-lang/commit/d75fe46b
+Tree: http://git-wip-us.apache.org/repos/asf/commons-lang/tree/d75fe46b
+Diff: http://git-wip-us.apache.org/repos/asf/commons-lang/diff/d75fe46b
+
+Branch: refs/heads/master
+Commit: d75fe46b8f1b0d5c27887052ee4714d6a9c7ea4b
+Parents: 15e1ea2
+Author: Sebb <sebb@apache.org>
+Authored: Fri Dec 11 13:41:22 2015 +0000
+Committer: Sebb <sebb@apache.org>
+Committed: Fri Dec 11 13:41:22 2015 +0000
+
+----------------------------------------------------------------------
+ src/changes/changes.xml                            |  2 +-
+ .../java/org/apache/commons/lang3/StringUtils.java | 15 ++++++++++++---
+ .../lang3/StringUtilsEqualsIndexOfTest.java        | 17 +++++++++++++++--
+ 3 files changed, 28 insertions(+), 6 deletions(-)
+----------------------------------------------------------------------
+
+, Sebb, 
+The original bug is: StringUtils.ordinalIndexOf("aaaaaa", "aa", 2) should return 2. somehow title was changed:  
+"StringUtils.ordinalIndexOf("aaaaaa", "aa", 2) != 2 in StringUtils" to "StringUtils.ordinalIndexOf("aaaaaa", "aa", 2) != 3
+And wrong patch was merged into trunk.
+The right code should be:
+--------------------------------------------------------------------------------------------------------------
+    private static int ordinalIndexOf(final CharSequence str, final CharSequence searchStr, final int ordinal, final boolean lastIndex) {
+        if (str == null || searchStr == null || ordinal <= 0) {
+            return INDEX_NOT_FOUND;
+        }
+
+        if (searchStr.length() == 0) {
+            return lastIndex ? str.length() : 0;
+        }
+
+        final int searchStrLen = searchStr.length();
+        int index = lastIndex ? str.length() : 0;
+
+        for (int found = 0; index >= 0;) {
+            if (lastIndex) {
+                index = CharSequenceUtils.lastIndexOf(str, searchStr, index);
+            } else {
+                index = CharSequenceUtils.indexOf(str, searchStr, index);
+            }
+
+            if (index < 0) {
+                return INDEX_NOT_FOUND;
+            }
+
+            if (++found >= ordinal) {
+                break;
+            }
+
+            index = lastIndex ? index - searchStrLen : index + searchStrLen;
+        }
+
+        return index;
+    }
+--------------------------------------------------------------------------------------------------------------
+
+please look into the original code.
+This is a valid bug. It's can't be correct by just updating java doc. because it may confuse people.
+
+BTW, the bug was reported on 12/11/2014,  today is 12/11/15, bq. The original bug is: StringUtils.ordinalIndexOf("aaaaaa", "aa", 2) should return 2.
+
+Sorry, but that is wrong.
+
+The code returns *all* matches, so the first match is "aa....", i.e. index 0.
+The second match is ".aa...", i.e. index 1.
+Third match would be "..aa..", i.e. index 2.
+etc., Sebb, 
+It doesn't make sense. take a few minutes to think about the definition/contract of "indexOf", and consider "searchStr" as whole object, no matter it's "aa", or "ab".
+
+Or, try to think about the question:
+There is one string A: "aaaaaa", string B: "aa", how many B in A and return the index of each?
+, bq. There is one string A: "aaaaaa", string B: "aa", how many B in A and return the index of each?
+
+There are 5 B in A, indexes 0,1,2,3,4
+
+Remember that overlapping matches are allowed, and indexes start at 0., There are ONLY 3 B in A. 
+Consider the case: A: "ababab", B: "ab", or A:"aaaaaa", B: "aa". in different scenarios, the expected result should be same, not matter what in A and B. 
+You are assuming the programmers always know what in B or have to check what in B, and remember what they should NOT when call this method., The difference with "ab" is that it cannot ever match overlapping sections of the string.
+
+However consider A: "ababab" B: "aba". B matches at index 0, it also matches at index 2.
+Similarly for B: "abab"
+
+As I already wrote, the method allows overlapping matches.
+It did so until version 3.4 when the code was changed, breaking it in the process (e.g. JIRA-1193)
+
+I agree that the Javadoc was not precise, as it did not specify whether or not overlapping matches should be allowed.
+The Javadoc has now been clarified to agree with the original behaviour.
+
+It would of course be possible to have a different strategy whereby overlapping matches were not allowed, but that would be a change from the original behaviour, so would need a new method in order to avoid breaking the code for users that rely on the original behaviour., It's 19:18 at London?  how are you doing today? It's Friday. Here is 11:18 at CA.
+
+JIRA-1193 is broken by wrong patch. the right code will work fine and fix JIRA-1193.
+You're keeping talking "overlapping matches". This is a general XXXIndexOf(...), not a match method...
+The doc looks good to me. what wrong is the behavior/code in the method. Even the java doc is updated with "overlapping matches  is allowed". People may NOT notice it, or remember it, or even don't read the doc. It could bring bugs by unexpected result even doc is updated.
+, This code exists since a long time and looking at the implementation it is clear what it does and what its intention is: repeatedly execute indexOf with a start index of +1 compared to the last match. There are even suggestions on stackoverflow to use this method for exactly that use-case.
+
+What you are facing is a corner-case that was not described in the javadoc and thus it might create confusion for a user. So the right thing to do is what sebb did: revert the fix to the previous, working version and update the javadoc to document the corner case. Contrary to your opinion that this might introduce bugs, it is quite the opposite, your fix will introduce bugs as people relied on the previous version for a long time already.
+
+If there is a need for a method that does not handle overlaps, then this should be a new feature request. The method could have an additional flag to indicate how it handles overlaps., I agree that had the patch been 'better' it would not have caused JIRA-1193 to be raised. In fact I was originally going to try to fix it accordingly.
+
+However, I looked further into it, and noticed that fixing the behaviour according to your original issue was not a good idea, as it would have changed the existing behaviour.
+The code was added to LANG in version 2.1 about 12 years ago, and the behaviour did not change until 3.4 which broke it.
+
+Although the behaviour is not what you expect, it is consistent with the original Javadoc.
+Furthermore the behaviour has been the same for multiple releases, so changing the behaviour now would potentially break existing applications., If as you said: "There are even suggestions on stackoverflow to use this method for exactly that use-case", (I think that use-case you referred is: StringUtils.ordinalIndexOf("aaaaaa", "aa", 2) should return 1), I agree to roll back the change to previous version.
+
+On the other side: "This code exists since a long time and looking at the implementation it is clear what it does and what its intention is: ..."
+How long it exists doesn't mean how right it is. Definitely it does incorrectly what it's supposed to do, from my aspect.
+
+By the way, again, JIRA-1193 in 3.4 was broken by the wrong patch/code, not by this ticket, OK, basically, I think all of us agree: "Furthermore the behaviour has been the same for multiple releases, so changing the behaviour now would potentially break existing applications.".
+The discussion can be moved to how to improve this method., After think it about couple of minutes, I have another question: What're the general policies to fix bug/improve the code if it is not reported as bug in previous versions?
+
+Again, I can understand and agree to roll back the changes to previous version for this case since it has been there for a long time.]

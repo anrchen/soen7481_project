@@ -1,0 +1,71 @@
+[Created an attachment (id=15936)
+Patch for ToStringStyle.java
+, Created an attachment (id=15937)
+Patch for ReflectionToStringBuilder.java
+
+The logic to check if a cycle occurs is moved to ToStringStyle, so there is no
+need to keep it in this class any longer., Created an attachment (id=15938)
+Patch for ToStringBuilderTest.java
+
+Added a test case and renamed a method., Hard part is applying the test without the fix - the fix changed the unit tests.
+Does this mean it changed the API? Need to look further., Created an attachment (id=18217)
+Unit test showing the problem
+
+Attaching a unit test that shows the problem prior to the fix. It's just a
+slight modification of the last parts of the previously supplied unit test., Unfortunately ReflectionToStringBuilder has had three substantial commits since
+this patch was created and the patch tool gives up.
+
+However, pretty confident that my by hand modifications were okay. An
+ArrayUtils.toString test starts failing now though, so all is not happy.
+
+Will check Lang out for the revision at which the patch was made and see if the
+ArrayUtils class still fails., Yep, fails on that revision (230560):
+
+Testcase: testToString(org.apache.commons.lang.ArrayUtilsTest): FAILED
+expected:<{}> but was:<[Ljava.lang.Object;@ed27e4>
+junit.framework.ComparisonFailure: expected:<{}> but
+was:<[Ljava.lang.Object;@ed27e4>
+    at org.apache.commons.lang.ArrayUtilsTest.testToString(ArrayUtilsTest.java:80)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+    at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:39)
+    at
+sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:25)
+ , Created an attachment (id=18218)
+Combined, up to date version of the original 3 patches
+
+The ReflectionToStringBuilder patch had become stale, Pushing back to 2.3 as it needs quite a bit of investigation to determine the problem and write a new fix that passes all tests (without such a code change hopefully)., Assuming that Gary will fix this in the same way that he has fixed other bugs of this kind. The attached patch is not usable as it breaks other things., Reopening due to an incorrect note in the change history section about HashCodeBuilder bug [lang-279]., Unit test is already in the relevant Test file (just commented out). So no need to apply that patch., Lots of duplicate code showing up in the *Builders for the registrys... Consider refactoring said code out into a package private class., Patch attached with a refactoring of the code to pull the duplicated registry code out. Idea being that this would be easier to apply to the ToStringBuilder. , Still pounding on this issue... Not sure if my refactoring of the registries is worth it. 
+
+Maarten's patch seems to hit the core of the problem. Pull the cyclic management out of the ReflectionToStringBuilder and down into the ToStringStyle that ToStringBuilder also shares. This is nice - it means the functionality is not being split between two classes and for the unit tests that exist it seems to work - EXCEPT for the ArrayUtils tests where ArrayUtils expects to be able to pass in an empty array and have it be printed nicely and not as an object reference.
+
+This is due to the register(object) in appendStart (there are two points of registration in ToStringStyle, appendStart and appendInternal). Appending the start data indicator is flagging that the object is being printed (it's not, it's just the data indicator), so when we then hit append(..) in ArrayUtils.toString it is failing to iterate into the array because it believes it has already printed it., I think the first step is to drop the register in appendStart, then in appendInternal the logic should be:
+
+---
+if registered, write identity and return.
+
+register.
+switch statement of different ones.
+finally-unregister.
+---
+
+This seems to improve things. ArrayUtils passes and while there are still failures in ToStringBuilder, there are no longer stack overflows. Just incorrect values. As I said.. 'seems to' :) I'll take anything as a positive sign.,  svn ci -m "Applying a modified version of Maarten Coene's patch for #LANG-69. All unit tests pass; opinions would be very welcome though. "              
+
+Sending        src/java/org/apache/commons/lang/builder/ReflectionToStringBuilder.java
+Sending        src/java/org/apache/commons/lang/builder/ToStringStyle.java
+Sending        src/test/org/apache/commons/lang/builder/ToStringBuilderTest.java
+Transmitting file data ...
+Committed revision 500495.
+
+Opinions very desired - I moved Maarten's register in appendStart into the appendClassName and appendIdentityHashCode and changed appendInternal as I mentioned above. , No comments - so closing this as Fixed., Hello,
+Has anyone seen the StackOverflowError occur in version2.3 for the use of ReflectionToStringBuilder?
+
+We have the following code using it in our application and it works fine in version 2.0. But when we upgrade to version 2.3 we are seeing a StackOverflowError . Cannot think of any other recursive calls which might cause this..
+------------------------------------------------------------------------------------
+public String toString() {
+    return ReflectionToStringBuilder.toString(this);
+}
+------------------------------------------------------------------------------------
+Any advise would be helpful..Thanks!, Hi Krishna,
+
+I doubt you'll see much on a closed ticket - I'd suggest either mailing the user@ list to see if anyone else has had the problem; or if at all possible it would be great if you could chop away at your business objects a bit and create a reusable test case.
+
+In either case - please feel free to open a new issue up rather than using the old one.]

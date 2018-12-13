@@ -1,0 +1,17 @@
+[It does not make sense to add Eclipse-specific entries to the manifest, sorry.
+
+However, we actually should provide a deserialize method that take an additional ClassLoader argument which is used in a custom ObjectInputStream that overwrites resolveClass:
+[http://docs.oracle.com/javase/7/docs/api/java/io/ObjectInputStream.html#resolveClass(java.io.ObjectStreamClass)], I was not aware of these new methods for object deserialization. But I agree to use these methods instead of Eclipse-specific extensions., [~marcus.klein]: do you think this issue should become a feature request, asking for what Joerg describes? Or are you happy that we close this, because you have found an alternative option?, My alternative option is currently NOT to use SerializationUtils.deserialize(). In my eyes this is not an alternative option.
+
+Please add as feature request, what Joerg describes. But I personally don't see this as a feature request. The purpose of org.apache.commons.lang is to provide utilities for easier Java coding. Furthermore org.apache.commons.lang is exposed as being compatible with OSGi. But as described here, the utility is not usable in OSGi because of framework/classloader restrictions. If org.apache.commons.lang would not be exposed as OSGi compatible, this would be a feature request, of course. In this case it is a bug., Understood. I propose we leave this as it is then, since the comment thread explains the direction we wish to go.
+
+Patches welcome for {{SerializationUtils.deserialize()}}., I found the class org.apache.commons.io.input.ClassLoaderObjectInputStream in commons-io. Using this class it should be easy to implement this. To not create a new dependency we could copy the code over? WDYT?, I don't remember where we needed this. Closing for now., Strange timing to close the issue as soon as I propose a fix. Should I open a new issue?, First you told me, that you don't want to implement this. Then you ignored this issue for a whole year. Are you sure, that somebody can wait in this agile world to get something solved for a whole year?
+
+We solved the problem in October 2014 by using plain Java:
+
+byte[] bytes = reader.readByteArray();
+bais = new ByteArrayInputStream(bytes);
+ois = new ObjectInputStream(bais);
+Object object = ois.readObject();
+
+This even works in OSGi, because the ClassLoader of the ObjectInputStream is aware of the classes to deserialize because we use for that bundle buddy class loading. Replacing this four lines with SerializationUtils.deserialize() is no convenience any more when class loading kludge is needed. Sorry., I can imagine your frustration. I am no committer on commons-lang though. I will open a new issue and see if it gets some attention., Just because you found an Eclipse-specific solution does not mean that the issue is solved., Don't. This is the correct issue.]

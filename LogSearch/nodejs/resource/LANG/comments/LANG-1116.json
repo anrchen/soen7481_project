@@ -1,0 +1,56 @@
+[Patch to test and code., Hello [~asheldon],
+
+after applying your patch I get:
+
+{code}
+java.lang.AssertionError: Date not equal to itself ISO formatted and parsed expected:<1429382379517> but was:<1429382383517>
+	at org.junit.Assert.fail(Assert.java:88)
+	at org.junit.Assert.failNotEquals(Assert.java:834)
+	at org.junit.Assert.assertEquals(Assert.java:645)
+	at org.apache.commons.lang3.time.DateUtilsTest.testLang530(DateUtilsTest.java:1209)
+{code}, I modified the test locally to run 100,000 times and unfortunately I cannot reproduce this failure. The unix time of these appears to differ by four seconds in your run.
+
+1429382379.517
+1429382383.517
+
+{code:java}
+    // http://issues.apache.org/jira/browse/LANG-530
+    @Test
+    public void testLang530() throws ParseException {
+        for (int i = 0 ; i < 100000; i++) {
+            for (final String timezoneId : TimeZone.getAvailableIDs()) {
+                final TimeZone timezone = TimeZone.getTimeZone(timezoneId);
+                final Calendar calendar = new GregorianCalendar(timezone);
+
+                final String isoDateStr = DateFormatUtils.ISO_DATETIME_TIME_ZONE_FORMAT.format(calendar);
+                final Date d2 = DateUtils.parseDate(isoDateStr, new String[] { DateFormatUtils.ISO_DATETIME_TIME_ZONE_FORMAT.getPattern() });
+                // the format loses milliseconds so have to reintroduce them
+                assertEquals("Date not equal to itself ISO formatted and parsed", calendar.getTimeInMillis(), d2.getTime() + calendar.getTimeInMillis() % 1000); 
+            }
+        }
+    }
+
+{code}
+
+I artificially added 1 second sleeps in my test code between each step but I still don't have test failures. It might be worth noting that I tested this patch against the 3.4 release rather than trunk., Okay, this needs more time for investigation. I hope to find some time this week end. In the mean time, can you check out if your fix is working when applying it against HEAD (note that we have migrated to git, you can find the new repository location at http://commons.apache.org/proper/commons-lang/source-repository.html)?, I checked out master with Git, applied my patch and it works for me. Attaching the updated patch., [~asheldon] what time zone are you in? Maybe this helps to reproduce the problem., My machine runs in UTC, though I'm physically in UTC-8.
+
+% cat /etc/sysconfig/clock
+ZONE="UTC"
+UTC=true, [~asheldon] Thank you! I found out that testLang530 seems to fail when you're in UTC! So modifing the test like so:
+
+{code:java}
+    @Test
+    public void testLang530() throws ParseException {
+        TimeZone.setDefault(TimeZone.getTimeZone("UTC"));
+        final Date d = new Date();
+        final String isoDateStr = DateFormatUtils.ISO_DATETIME_TIME_ZONE_FORMAT.format(d);
+        final Date d2 = DateUtils.parseDate(isoDateStr, new String[] { DateFormatUtils.ISO_DATETIME_TIME_ZONE_FORMAT.getPattern() });
+        // the format loses milliseconds so have to reintroduce them
+        assertEquals("Date not equal to itself ISO formatted and parsed", d.getTime(), d2.getTime() + d.getTime() % 1000); 
+    }
+{code}
+
+Will make it fail on my machine. I'll update the description of this ticket. Now we have to find a fix that works on your machine and on my machine :-) I'm currently in CEST., commit bea1ae92aa52a985f8c171c6e17ff7fc4aa61fe4 
+Using FastDateParser which can handle Z formats
+
+(feel free to rollback if you think the solution too radical), +1 [~chonton]! Tests passing in UTC, America/Sao Paulo and Pacific/Auckland! Thanks a lot]

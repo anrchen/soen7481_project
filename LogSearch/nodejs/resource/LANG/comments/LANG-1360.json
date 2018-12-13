@@ -1,0 +1,11 @@
+[In git master. Looking for a code review., Looks good to me. Unit tests included. +1, This belongs to ClassUtils. [~garydgregory] can we please change that?, I do not think so: the point of putting  this code in ObjectUtils is that the methods operate on _objects_, not classes (in a null safe manner.) 
+
+Putting the code in ClassUtils implies (to me) that we operate on Classes.. , But in ClassUtils we already have:
+
+{code:java}
+String getShortCanonicalName(final Object object, final String valueIfNull)
+String getShortClassName(Object object, String valueIfNull)
+String getSimpleName(Object object, String valueIfNull)
+{code}
+
+So I think it should be discussed on the ML whether these methods should be deprecated and moved to ObjectUtils. I think it is okay to have them in ClassUtils, because they're dealing with classes at the end of the day and there are overloads of the same name, which take Class parameters., Crud, I had looked in ClassUtils, but did not find anything, I must have looked with foggy classes! We can nuke/move all of the ObjectUtils code I added. ObjectUtils is new, I just added it., Sounds good to me, go for it!, In progress but might not get to finish until tonight or tomorrow. , Looking for another code review...]

@@ -1,0 +1,5 @@
+[So, do we wrap it in a Collections synchronized wrapper?, svn ci -m "Synchronizing the COMMON Map so that getInstance doesn't miss a put from a subclass in another thread. LANG-494"
+Sending        src/main/java/org/apache/commons/lang3/CharSet.java
+Transmitting file data .
+Committed revision 897408.
+]

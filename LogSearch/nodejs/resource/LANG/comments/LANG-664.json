@@ -1,0 +1,7 @@
+[Thanks - that's exactly the fix I applied :)
+
+svn ci -m "Fixing NumberUtils.isNumber so that 1.1L is not considered a number. LANG-664"
+Sending        src/main/java/org/apache/commons/lang3/math/NumberUtils.java
+Sending        src/test/java/org/apache/commons/lang3/math/NumberUtilsTest.java
+Transmitting file data ..
+Committed revision 1054202.]

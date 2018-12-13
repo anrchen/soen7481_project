@@ -1,0 +1,5 @@
+[svn ci -m "Adding Javadoc to public constants - LANG-682"
+Sending        src/main/java/org/apache/commons/lang3/StringEscapeUtils.java
+Transmitting file data .
+Committed revision 1079169.
+]

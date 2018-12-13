@@ -1,0 +1,40 @@
+[No wait, I take it back.
+
+I now see the code which checks for subclasses and
+forces equals to false in the relevant cases.
+
+The tests would probably be a bit clearer if they
+were broken apart in a greater number of test methods,
+with names which reflected the things they did.
+For what it is worth, here's the test I wrote
+which helped me see what was going on:
+
+    public void testSubclassingIsCommutative()
+    {
+        TestObject superObj = new TestObject(4);
+        TestSubObject subObj = new TestSubObject(4, 10);
+        boolean superFirst = EqualsBuilder.reflectionEquals(superObj, subObj);
+        boolean subFirst = EqualsBuilder.reflectionEquals(subObj, superObj);
+        assertEquals(superFirst, subFirst);
+    }
+
+, Thank you for your thoughts, making good unit tests is key! Perhaps better 
+comments would help of course... ;-)
+
+The reasons I implemented asserting equivalence relationships all in the one 
+method testReflectionEqualsEquivalenceRelationship is to allow for the whole 
+equals contract to be validated at once. If the method where broken up in its 
+component tests (reflection, symetry, transitivity, and sanity checks), it 
+would be possible for tests case methods to be written that only assert a 
+portion of the equals contract. IOW, this is a case where refactoring could 
+introduce some bugs in the future. In your example style, I would have to 
+remember to write all of the testSubclassingIsXXX methods for a given object 
+fixture in order to assert the contract. 
+
+The test case methods can be written to call 
+testReflectionEqualsEquivalenceRelationship and be named for what they kind of 
+objects tree they test. So the test case writer can dream up some nasty object 
+tree and create a test case for it. For this test case, you can consider that 
+the focus is on writing test fixtures rather than new equals contract 
+assertions.
+]

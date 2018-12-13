@@ -1,0 +1,6 @@
+[svn ci -m "Added note on lack of &apos; support as detailed in issue #37385
+(http://issues.apache.org/bugzilla/show_bug.cgi?id=37385)"
+src/java/org/apache/commons/lang/StringEscapeUtils.java 
+Sending        src/java/org/apache/commons/lang/StringEscapeUtils.java
+Transmitting file data .
+Committed revision 394616.                       , Fix source so displayed version looks correct]

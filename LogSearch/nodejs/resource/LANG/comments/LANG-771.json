@@ -1,0 +1,23 @@
+[Given this behavior the naming of this function is highly misleading.  This ceiling function is not ceiling at all, but a truncate date plus one to the date's calendar field.
+
+It is probably worth ensuring each item in [http://en.wikipedia.org/wiki/Floor_and_ceiling_functions#Relations_among_the_functions] hold for date math.
+
+The function is exactly equivalent to (plus its variants):
+{code}
+Date input = new Date();
+Date truncatedToDate = DateUtils.truncate(input, Calendar.DATE);
+Date output = DateUtils.addDays(truncatedToDate, 1);
+{code}
+
+Naive fix: (only for non-negative dates)
+{code}
+int field = Calendar.DATE;
+Date input = new Date();
+Date truncatedToDate = DateUtils.truncate(input, field);
+Date output;
+if (input.equals(truncatedToDate)) { // Because if floor(val) == val, then ceil(val) (should)== val.
+  output = truncatedToDate;
+} else {
+  output = DateUtils.ceiling(truncatedToDate, field);
+}
+{code}, Noting as patch needed, though I think overhaul for 4.0 might be a better phrase :)]

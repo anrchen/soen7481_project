@@ -1,0 +1,35 @@
+[NumberUtils should match Java source code, which requires a dot., With plain Java I can parse String number representations with either dot or comma as decimal point character depending on locale, but not with commons-lang 2.6 lang.math API. See java.text.NumberFormat, java.text.DecimalFormatSymbols.decimalSeparator.
+
+E.g.
+
+NumberFormat.getNumberInstance(Locale.US).parse(sPrice)
+
+will properly handle price string with dot as decimal point character for US locale while
+
+NumberFormat.getNumberInstance(new Locale("nl")).parse(sPrice);
+
+will properly handle price string with comma as decimal point character for Dutch locale.
+, I have to say I agree with Stevo that something is rotten in the state of Denmark with this one. True, what exactly is wrong depends on your point of view, but it is definitely something.
+
+If, as Stephen says, the semantics of NumberUtils should match those of Java sourcecode, then the simple problem is that the documentation on the methods in NumberUtils doesn't SAY that. Or otherwise doesn't say that you're supposed to use input formatted according to the en_US locale.
+
+From a different point of view, the (larger) problem may indeed be that the NumberUtils methods do not take locale into account. In the nl locale, as Stevo says, the value "123,4" is a valid number equivalent to 1234/10.
+
+Perhaps a good solution is to do both: overload all the methods that take String arguments to take a Locale argument as well, then put in the documentation that the existing methods implicitly use locale en_US., Provided it doesn't balloon the source + API, I like Ben's solution. Improve documentation and provide the Locale option., Hi
+
+I was hit yesterday by this issue. As today the docummentation is:
+
+--
+public static boolean isNumber(String str)
+
+Checks whether the String a valid Java number.
+
+Valid numbers include hexadecimal marked with the 0x qualifier, scientific notation and numbers marked with a type qualifier (e.g. 123L).
+--
+
+It might be useful to add a hint warning about the use of locales and this class do not play well together. A NumberUtils that supports locale would be an excellent feature, play with parsing/unparsing requires ugly code taking care of checked exceptions and so on.
+, One might say that isNumber uses the 'Java' Locale.
+AFAIK Java does not allow anything other than "." as the decimal point marker.
+
+However, I agree that other methods in the class might benefit from Locale-specific versions.
+And the ones that assume a specific Locale should say so.]

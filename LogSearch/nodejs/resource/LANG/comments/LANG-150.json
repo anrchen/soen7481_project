@@ -1,0 +1,15 @@
+[Created an attachment (id=17838)
+Patch to work around this issue
+
+This patch works around spaces being between the '&' and the ';'.  To be more
+correct, it should probably ensure that all characters between the '&' and ';'
+are valid entity characters, but in most cases the offending character is a
+space., Recreated issue with unit test. The proposed solution is too simple - we need to
+be able to handle all situations, not just times when there is a space after the &. , Fixed by checking whether an & is closer than the subsequent ;. If so, then skip
+onwards. Also a problem in unescapeXml.
+
+svn ci -m "Fixing issue #38569"
+Sending        src/java/org/apache/commons/lang/Entities.java
+Sending        src/test/org/apache/commons/lang/StringEscapeUtilsTest.java
+Transmitting file data ..
+Committed revision 394875.   ]

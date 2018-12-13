@@ -1,0 +1,259 @@
+{
+    "expand": "operations,versionedRepresentations,editmeta,changelog,renderedFields",
+    "fields": {
+        "aggregateprogress": {
+            "progress": 0,
+            "total": 0
+        },
+        "aggregatetimeestimate": null,
+        "aggregatetimeoriginalestimate": null,
+        "aggregatetimespent": null,
+        "assignee": {
+            "active": true,
+            "avatarUrls": {
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=chtompki&avatarId=29336",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=chtompki&avatarId=29336",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=chtompki&avatarId=29336",
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=chtompki&avatarId=29336"
+            },
+            "displayName": "Rob Tompkins",
+            "key": "chtompki",
+            "name": "chtompki",
+            "self": "https://issues.apache.org/jira/rest/api/2/user?username=chtompki",
+            "timeZone": "America/New_York"
+        },
+        "components": [{
+            "id": "12313204",
+            "name": "General",
+            "self": "https://issues.apache.org/jira/rest/api/2/component/12313204"
+        }],
+        "created": "2018-09-06T19:33:39.000+0000",
+        "creator": {
+            "active": true,
+            "avatarUrls": {
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=hugo.hirsch&avatarId=20549",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=hugo.hirsch&avatarId=20549",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=hugo.hirsch&avatarId=20549",
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=hugo.hirsch&avatarId=20549"
+            },
+            "displayName": "Philipp Ottlinger",
+            "key": "hugo.hirsch",
+            "name": "hugo.hirsch",
+            "self": "https://issues.apache.org/jira/rest/api/2/user?username=hugo.hirsch",
+            "timeZone": "Europe/Berlin"
+        },
+        "customfield_10010": null,
+        "customfield_12310220": "2018-09-19T15:19:22.988+0000",
+        "customfield_12310222": "1_*:*_1_*:*_1107943111_*|*_5_*:*_1_*:*_0",
+        "customfield_12310250": null,
+        "customfield_12310290": null,
+        "customfield_12310291": null,
+        "customfield_12310300": null,
+        "customfield_12310310": "0.0",
+        "customfield_12310420": "9223372036854775807",
+        "customfield_12310920": "9223372036854775807",
+        "customfield_12310921": null,
+        "customfield_12311020": null,
+        "customfield_12311024": null,
+        "customfield_12311120": null,
+        "customfield_12311820": "0|i3xtgf:",
+        "customfield_12312022": null,
+        "customfield_12312023": null,
+        "customfield_12312024": null,
+        "customfield_12312026": null,
+        "customfield_12312220": null,
+        "customfield_12312320": null,
+        "customfield_12312321": null,
+        "customfield_12312322": null,
+        "customfield_12312323": null,
+        "customfield_12312324": null,
+        "customfield_12312325": null,
+        "customfield_12312326": null,
+        "customfield_12312327": null,
+        "customfield_12312328": null,
+        "customfield_12312329": null,
+        "customfield_12312330": null,
+        "customfield_12312331": null,
+        "customfield_12312332": null,
+        "customfield_12312333": null,
+        "customfield_12312334": null,
+        "customfield_12312335": null,
+        "customfield_12312336": null,
+        "customfield_12312337": null,
+        "customfield_12312338": null,
+        "customfield_12312339": null,
+        "customfield_12312340": null,
+        "customfield_12312341": null,
+        "customfield_12312520": null,
+        "customfield_12312521": "Thu Sep 27 13:26:16 UTC 2018",
+        "customfield_12312720": null,
+        "customfield_12312823": null,
+        "customfield_12312920": null,
+        "customfield_12312921": null,
+        "customfield_12312923": null,
+        "customfield_12313422": "false",
+        "customfield_12313520": null,
+        "description": "In contrast to version 3.7.0 the BundleSymbolicName changed erroneously in 3.8.0 to:\r\n{code:java}\r\norg.apache.commons.commons-lang3{code}\r\n \r\n\r\nAs this breaks existing installations the change should be reverted and a new version with OSGi support should be released.\r\nh2. v3.8.0 - MetaData\r\n{code:java}\r\nAutomatic-Module-Name                    org.apache.commons.lang3               \r\n\r\nBnd-LastModified                         1534383412565                           \r\n\r\nBuild-Jdk                                1.8.0_172                              \r\n\r\nBuilt-By                                 chtompki                               \r\n\r\nBundle-Description                       Apache Commons Lang, a package of Java utility classes for the  classes that are in java.lang's hierarchy, or are considered to be so  standard as to justify existence in java.lang.\r\n\r\nBundle-DocURL                            http://commons.apache.org/proper/commons-lang/\r\n\r\nBundle-License                           https://www.apache.org/licenses/LICENSE-2.0.txt\r\n\r\nBundle-ManifestVersion                   2                                      \r\n\r\nBundle-Name                              Apache Commons Lang                    \r\n\r\nBundle-SymbolicName                      org.apache.commons.commons-lang3       \r\n\r\nBundle-Vendor                            The Apache Software Foundation         \r\n\r\nBundle-Version                           3.8.0                                  \r\n\r\nCreated-By                               Apache Maven Bundle Plugin             \r\n\r\nExport-Package                           org.apache.commons.lang3;version=\"3.8\",org.apache.commons.lang3.arch;version=\"3.8\",org.apache.commons.lang3.builder;version=\"3.8\",org.apache.commons.lang3.concurrent;version=\"3.8\",org.apache.commons.lang3.event;version=\"3.8\",org.apache.commons.lang3.exception;version=\"3.8\",org.apache.commons.lang3.math;version=\"3.8\",org.apache.commons.lang3.mutable;version=\"3.8\",org.apache.commons.lang3.reflect;version=\"3.8\",org.apache.commons.lang3.text;version=\"3.8\",org.apache.commons.lang3.text.translate;version=\"3.8\",org.apache.commons.lang3.time;version=\"3.8\",org.apache.commons.lang3.tuple;version=\"3.8\"\r\n\r\nImplementation-Title                     Apache Commons Lang                    \r\n\r\nImplementation-URL                       http://commons.apache.org/proper/commons-lang/\r\n\r\nImplementation-Vendor                    The Apache Software Foundation         \r\n\r\nImplementation-Vendor-Id                 org.apache.commons                     \r\n\r\nImplementation-Version                   3.8                                    \r\n\r\nInclude-Resource                         META-INF/NOTICE.txt=NOTICE.txt,META-INF/LICENSE.txt=LICENSE.txt\r\n\r\nManifest-Version                         1.0                                    \r\n\r\nRequire-Capability                       osgi.ee;filter:=\"(&(osgi.ee=JavaSE)(version=1.7))\"\r\n\r\nSpecification-Title                      Apache Commons Lang                    \r\n\r\nSpecification-Vendor                     The Apache Software Foundation         \r\n\r\nSpecification-Version                    3.8                                    \r\n\r\nTool                                     Bnd-3.5.0.201709291849{code}\r\nh2. v3.7.0 - MetaData\r\n{code:java}\r\nArchiver-Version                         Plexus Archiver                        \r\n\r\nAutomatic-Module-Name                    org.apache.commons.lang3               \r\n\r\nBnd-LastModified                         1509819256170                          \r\n\r\nBuild-Jdk                                1.7.0_80                               \r\n\r\nBuilt-By                                 ggregory                               \r\n\r\nBundle-Description                       Apache Commons Lang, a package of Java utility classes for the  classes that are in java.lang's hierarchy, or are considered to be so  standard as to justify existence in java.lang.\r\n\r\nBundle-DocURL                            http://commons.apache.org/proper/commons-lang/\r\n\r\nBundle-License                           https://www.apache.org/licenses/LICENSE-2.0.txt\r\n\r\nBundle-ManifestVersion                   2                                      \r\n\r\nBundle-Name                              Apache Commons Lang                    \r\n\r\nBundle-SymbolicName                      org.apache.commons.lang3               \r\n\r\nBundle-Vendor                            The Apache Software Foundation         \r\n\r\nBundle-Version                           3.7.0                                  \r\n\r\nCreated-By                               Apache Maven Bundle Plugin             \r\n\r\nExport-Package                           org.apache.commons.lang3;version=\"3.7\",org.apache.commons.lang3.arch;version=\"3.7\",org.apache.commons.lang3.builder;version=\"3.7\",org.apache.commons.lang3.concurrent;version=\"3.7\",org.apache.commons.lang3.event;version=\"3.7\",org.apache.commons.lang3.exception;version=\"3.7\",org.apache.commons.lang3.math;version=\"3.7\",org.apache.commons.lang3.mutable;version=\"3.7\",org.apache.commons.lang3.reflect;version=\"3.7\",org.apache.commons.lang3.text;version=\"3.7\",org.apache.commons.lang3.text.translate;version=\"3.7\",org.apache.commons.lang3.time;version=\"3.7\",org.apache.commons.lang3.tuple;version=\"3.7\"\r\n\r\nImplementation-Title                     Apache Commons Lang                    \r\n\r\nImplementation-URL                       http://commons.apache.org/proper/commons-lang/\r\n\r\nImplementation-Vendor                    The Apache Software Foundation         \r\n\r\nImplementation-Vendor-Id                 org.apache.commons                     \r\n\r\nImplementation-Version                   3.7                                    \r\n\r\nInclude-Resource                         META-INF/LICENSE.txt=LICENSE.txt,META-INF/NOTICE.txt=NOTICE.txt\r\n\r\nManifest-Version                         1.0                                    \r\n\r\nRequire-Capability                       osgi.ee;filter:=\"(&(osgi.ee=JavaSE)(version=1.7))\"\r\n\r\nSpecification-Title                      Apache Commons Lang                    \r\n\r\nSpecification-Vendor                     The Apache Software Foundation         \r\n\r\nSpecification-Version                    3.7                                     \r\n\r\nTool                                     Bnd-3.0.0.201509101326             {code}\r\n \r\n\r\nThanks :)",
+        "duedate": null,
+        "environment": null,
+        "fixVersions": [{
+            "archived": false,
+            "id": "12344136",
+            "name": "3.8.1",
+            "releaseDate": "2018-09-19",
+            "released": true,
+            "self": "https://issues.apache.org/jira/rest/api/2/version/12344136"
+        }],
+        "issuelinks": [{
+            "id": "12543477",
+            "inwardIssue": {
+                "fields": {
+                    "issuetype": {
+                        "avatarId": 21133,
+                        "description": "A problem which impairs or prevents the functions of the product.",
+                        "iconUrl": "https://issues.apache.org/jira/secure/viewavatar?size=xsmall&avatarId=21133&avatarType=issuetype",
+                        "id": "1",
+                        "name": "Bug",
+                        "self": "https://issues.apache.org/jira/rest/api/2/issuetype/1",
+                        "subtask": false
+                    },
+                    "priority": {
+                        "iconUrl": "https://issues.apache.org/jira/images/icons/priorities/major.svg",
+                        "id": "3",
+                        "name": "Major",
+                        "self": "https://issues.apache.org/jira/rest/api/2/priority/3"
+                    },
+                    "status": {
+                        "description": "The issue is open and ready for the assignee to start work on it.",
+                        "iconUrl": "https://issues.apache.org/jira/images/icons/statuses/open.png",
+                        "id": "1",
+                        "name": "Open",
+                        "self": "https://issues.apache.org/jira/rest/api/2/status/1",
+                        "statusCategory": {
+                            "colorName": "blue-gray",
+                            "id": 2,
+                            "key": "new",
+                            "name": "To Do",
+                            "self": "https://issues.apache.org/jira/rest/api/2/statuscategory/2"
+                        }
+                    },
+                    "summary": "Change to commons.osgi.symbolicName in commons-parent 47 produces incompatible OSGi Bundles"
+                },
+                "id": "13186001",
+                "key": "COMMONSSITE-125",
+                "self": "https://issues.apache.org/jira/rest/api/2/issue/13186001"
+            },
+            "self": "https://issues.apache.org/jira/rest/api/2/issueLink/12543477",
+            "type": {
+                "id": "12310560",
+                "inward": "is caused by",
+                "name": "Problem/Incident",
+                "outward": "causes",
+                "self": "https://issues.apache.org/jira/rest/api/2/issueLinkType/12310560"
+            }
+        }],
+        "issuetype": {
+            "avatarId": 21133,
+            "description": "A problem which impairs or prevents the functions of the product.",
+            "iconUrl": "https://issues.apache.org/jira/secure/viewavatar?size=xsmall&avatarId=21133&avatarType=issuetype",
+            "id": "1",
+            "name": "Bug",
+            "self": "https://issues.apache.org/jira/rest/api/2/issuetype/1",
+            "subtask": false
+        },
+        "labels": [],
+        "lastViewed": null,
+        "priority": {
+            "iconUrl": "https://issues.apache.org/jira/images/icons/priorities/critical.svg",
+            "id": "2",
+            "name": "Critical",
+            "self": "https://issues.apache.org/jira/rest/api/2/priority/2"
+        },
+        "progress": {
+            "progress": 0,
+            "total": 0
+        },
+        "project": {
+            "avatarUrls": {
+                "16x16": "https://issues.apache.org/jira/secure/projectavatar?size=xsmall&pid=12310481&avatarId=10011",
+                "24x24": "https://issues.apache.org/jira/secure/projectavatar?size=small&pid=12310481&avatarId=10011",
+                "32x32": "https://issues.apache.org/jira/secure/projectavatar?size=medium&pid=12310481&avatarId=10011",
+                "48x48": "https://issues.apache.org/jira/secure/projectavatar?pid=12310481&avatarId=10011"
+            },
+            "id": "12310481",
+            "key": "LANG",
+            "name": "Commons Lang",
+            "projectCategory": {
+                "description": "Apache Commons components",
+                "id": "10260",
+                "name": "Commons",
+                "self": "https://issues.apache.org/jira/rest/api/2/projectCategory/10260"
+            },
+            "self": "https://issues.apache.org/jira/rest/api/2/project/12310481"
+        },
+        "reporter": {
+            "active": true,
+            "avatarUrls": {
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=hugo.hirsch&avatarId=20549",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=hugo.hirsch&avatarId=20549",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=hugo.hirsch&avatarId=20549",
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=hugo.hirsch&avatarId=20549"
+            },
+            "displayName": "Philipp Ottlinger",
+            "key": "hugo.hirsch",
+            "name": "hugo.hirsch",
+            "self": "https://issues.apache.org/jira/rest/api/2/user?username=hugo.hirsch",
+            "timeZone": "Europe/Berlin"
+        },
+        "resolution": {
+            "description": "A fix for this issue is checked into the tree and tested.",
+            "id": "1",
+            "name": "Fixed",
+            "self": "https://issues.apache.org/jira/rest/api/2/resolution/1"
+        },
+        "resolutiondate": "2018-09-19T15:19:22.000+0000",
+        "status": {
+            "description": "The issue is considered finished, the resolution is correct. Issues which are not closed can be reopened.",
+            "iconUrl": "https://issues.apache.org/jira/images/icons/statuses/closed.png",
+            "id": "6",
+            "name": "Closed",
+            "self": "https://issues.apache.org/jira/rest/api/2/status/6",
+            "statusCategory": {
+                "colorName": "green",
+                "id": 3,
+                "key": "done",
+                "name": "Done",
+                "self": "https://issues.apache.org/jira/rest/api/2/statuscategory/3"
+            }
+        },
+        "subtasks": [],
+        "summary": "Restore BundleSymbolicName / regression in version 3.8.0",
+        "timeestimate": null,
+        "timeoriginalestimate": null,
+        "timespent": null,
+        "updated": "2018-09-27T13:26:16.000+0000",
+        "versions": [{
+            "archived": false,
+            "description": "Feature and bug fix release",
+            "id": "12342160",
+            "name": "3.8",
+            "releaseDate": "2018-08-20",
+            "released": true,
+            "self": "https://issues.apache.org/jira/rest/api/2/version/12342160"
+        }],
+        "votes": {
+            "hasVoted": false,
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/LANG-1419/votes",
+            "votes": 0
+        },
+        "watches": {
+            "isWatching": false,
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/LANG-1419/watchers",
+            "watchCount": 1
+        },
+        "workratio": -1
+    },
+    "id": "13183486",
+    "key": "LANG-1419",
+    "self": "https://issues.apache.org/jira/rest/api/2/issue/13183486"
+}

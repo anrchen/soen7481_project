@@ -1,0 +1,117 @@
+["This is not very friendly to users because hopefully the 
+highlevel exception will be the best explanation in 9 out of 10 causes,"
+
+This is contrary to my experience.  I find that the higher level exceptions 
+usually cloud the issue, obscuring a low-level explanation (e.g. Disk Full) 
+with an package-level explanation (e.g. StorageLayerException) that was layered 
+on in order to satisfy Java's neurotic exception checking.  In addition, this 
+high-level exception has the *wrong* stack trace, since it was thrown from a 
+different line of code than the one that caused the error; so you *have* to 
+scroll down and then seek back up again to find the start of the real stack 
+trace.
+
+"it is only when debugging or in misbehaved exception handling one like to see 
+the root causes - and THEN one can go down and read the bottom of the stack 
+trace."
+
+I disagree with this statement too.  While I do believe that users should be 
+given information when something goes wrong, naive users should never be forced 
+to read a stack trace or an exception message.  For them, *any* exception at 
+all translates as "Something bad happened (plus technical gobbledegook)."
+
+That means that the *only* users interested in the content would presumably 
+only be interested because they are debugging.
+
+It sounds like the bug reporter needs to install a higher-level error handling 
+routine in his application.  While throwables can be a nice way to signal 
+application errors, there needs to be a different way for your application to 
+figure out what message to present to the user.  This can be as simple as "An 
+error occured while X" where X is "Loading foo.xml" or "Communicating with the 
+server", and you can even generate these by looking at the high-level exception 
+and having a mapping table of your own (StorageLayerException -> "Accessing the 
+local disk") but displaying "com.myapp.storage.StorageLayerException: ..." to 
+the user is already assuming she's technical enough to even bother reading it 
+past the "com.myapp.", let alone comprehend it.
+
+After all that, however, I'm not sure what the correct default behavior is for 
+lang.exception.  There is a very strong argument that it should behave just 
+like JDK; if so, there's another argument that there should be an option to 
+reverse it for people like me who prefer it upside-down.
+
+All IMHO, of course... :-), 
+
+"It sounds like the bug reporter needs to install a higher-level error handling 
+
+
+routine in his application." 
+
+
+
+
+:)
+
+
+
+
+I got a higher-level error handling routine which "converts" the correct message 
+to end-users.
+
+
+
+
+In my bug-report the word users was ment as "developers" which is the users of 
+the NestedException.
+
+
+
+
+And yes, I understand your viewpoint of the Disk full is better than 
+StorageException.....but as I wrote, if the top-level exception isn't good 
+enough then it is because of a "mis-behaving" application/exception hierachy.
+
+
+Thus if you got a good exception hierachy you write the correct message in the 
+top-level exception (e.g. DerefrenceException("Could not derefence property 
+'kitten' on Person")) and embed the Nullpointer exception that indicated it 
+inside the top-level exception.
+
+
+
+
+In this case it is much more meaningfull to see the DereferenceException than 
+the nullpointer exception. If the nullpointer exception is at the top, one 
+thinks it is a nasty bug...if DereferenceExcpeiton is at the top you know what 
+has happend and it is a valid exception (if you have tried to dereference 
+'kitten' on Person at least :)
+
+
+
+
+But I would also prefer to have it as an option :)
+
+
+
+
+
+
+
+
+
+
+, Created an attachment (id=5784)
+Allows jdk1.4 like trace
+, Have attached a patch which allows one to simulate the stack trace in jdk1.4.
+
+Added a couple of boolean attributes:
+1) topDown - [true] prints the stack top down
+2) trimStackFrames - [true] removes the repeated frames in nested exceptions
+
+Also added a method to ExceptionUtils to detect if Throwable class has a 
+getCause method. If so, the printStackTrace just uses that. 
+
+The way it is implemented right now, the output looks very garbled in jdk1.4..., The patch will cause the tests to fail. Please let me know if the basic idea is 
+acceptable - can then go ahead with the test cases (will require a complete 
+overhaul of the test cases). The test cases would have to run in both jre1.3 
+and jre1.4..., Created an attachment (id=6223)
+Source and Test pacthes
+, Mohan's patch applied. Tests succeed.]

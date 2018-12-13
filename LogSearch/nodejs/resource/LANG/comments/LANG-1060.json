@@ -1,0 +1,112 @@
+[In the financial industry, there are many instances of numbers that have multiple leading zeros, i.e. account ids and ssns, Currently
+{code}
+NumberUtils.isCreatable("002.345");
+{code}
+Returns {{false}}. I'm not entirely certain how we want to fix this. I've been working in this area, so I'll bring it up on the dev mailing list to see what people think., GitHub user piotrkosyoo opened a pull request:
+
+    https://github.com/apache/commons-lang/pull/313
+
+    LANG-1060: NumberUtils.isNumber assumes number starting with Zero
+
+    NumberUtils.isCreatable("002.345"); return false
+
+
+You can merge this pull request into a Git repository by running:
+
+    $ git pull https://github.com/piotrkosOpen/commons-lang master
+
+Alternatively you can review and apply these changes as the patch at:
+
+    https://github.com/apache/commons-lang/pull/313.patch
+
+To close this pull request, make a commit to your master/trunk branch
+with (at least) the following in the commit message:
+
+    This closes #313
+    
+----
+commit 6001ce20ac49522cfd6f066b8a8bd29aab74abfb
+Author: Piotr Kosmala <piotr.kosmala@...>
+Date:   2018-02-10T14:19:36Z
+
+    LANG-1060: NumberUtils.isNumber assumes number starting with Zero is
+    octal
+
+----
+, Github user asfgit closed the pull request at:
+
+    https://github.com/apache/commons-lang/pull/313
+, Github user PascalSchumacher commented on the issue:
+
+    https://github.com/apache/commons-lang/pull/313
+  
+    Thanks! 👍 
+, Github user piotrkosyoo commented on the issue:
+
+    https://github.com/apache/commons-lang/pull/313
+  
+    No problem Sir,
+    Calling Number.to Float also works correctly, and I skip this point.  but maybe
+     better is add the tests for this case?
+, Github user PascalSchumacher commented on the issue:
+
+    https://github.com/apache/commons-lang/pull/313
+  
+    A pull request with tests for the `float` case would be welcome. 
+, Github user piotrkosyoo commented on the issue:
+
+    https://github.com/apache/commons-lang/pull/313
+  
+    ok in this same issue number ?
+, Github user PascalSchumacher commented on the issue:
+
+    https://github.com/apache/commons-lang/pull/313
+  
+    Sure, that is fine!
+, GitHub user piotrkosyoo opened a pull request:
+
+    https://github.com/apache/commons-lang/pull/314
+
+    LANG-1060 NumberUtils.isNumber assumes number starting with Zero is octal
+
+    Add test case
+
+You can merge this pull request into a Git repository by running:
+
+    $ git pull https://github.com/piotrkosOpen/commons-lang master
+
+Alternatively you can review and apply these changes as the patch at:
+
+    https://github.com/apache/commons-lang/pull/314.patch
+
+To close this pull request, make a commit to your master/trunk branch
+with (at least) the following in the commit message:
+
+    This closes #314
+    
+----
+commit 6001ce20ac49522cfd6f066b8a8bd29aab74abfb
+Author: Piotr Kosmala <piotr.kosmala@...>
+Date:   2018-02-10T14:19:36Z
+
+    LANG-1060: NumberUtils.isNumber assumes number starting with Zero is
+    octal
+
+commit 2626c00e8be29343324c755b0c4a8a56cb7dc71d
+Author: Piotr Kosmala <piotr.kosmala@...>
+Date:   2018-02-11T13:32:13Z
+
+    LANG-1060: NumberUtils.isNumber assumes number starting with Zero is
+    octal
+    Update tests
+
+----
+, Github user asfgit closed the pull request at:
+
+    https://github.com/apache/commons-lang/pull/314
+, Github user PascalSchumacher commented on the issue:
+
+    https://github.com/apache/commons-lang/pull/314
+  
+    Thanks! 👍 
+, 3.8 Released.]

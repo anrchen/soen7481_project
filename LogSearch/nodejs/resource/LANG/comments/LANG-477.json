@@ -1,0 +1,6 @@
+[Thanks for reporting this and working out the problem - fixed:
+
+http://svn.apache.org/viewvc?view=rev&revision=733169, Any chance of this being put into an interim release.
+We ran into this in production. I spent a lot of time debugging it before finding out where it went into the loop.
+This is a serious bug. It would be helpful to everybody if this was released as version 2.5 or something and pushed to the central maven repo.
+I can then update our poms to pull this in.]

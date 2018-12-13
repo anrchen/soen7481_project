@@ -1,0 +1,10 @@
+[What would you rather it do?  Perhaps IllegalArgumentException?, James,
+
+No, I would actually expect a NumberFormatException. I haven't looked at the code again today, but I believe that that is what gets thrown if the String cannot be converted to a number for example if it is any other group of letters.
+
+Waldo, Test/fix for this issue., svn ci -m "Applying test/fix from LANG-457 - getting a StringIndexOutOfBounds from createNumber rather than a NumberFormatException"
+
+Sending        src/java/org/apache/commons/lang/NumberUtils.java
+Sending        src/test/org/apache/commons/lang/NumberUtilsTest.java
+Transmitting file data ..
+Committed revision 711605.]

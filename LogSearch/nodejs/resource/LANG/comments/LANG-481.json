@@ -1,0 +1,37 @@
+[If this is indeed an issue, there are other cached values also that have the same problem (toString, maxObject, minObject) in LongRange  This JIRA issue should encompass those, also., toString, maxObject and minObject do not have *this* kind of race where you could end up with *wrong* data.
+Of course there is race too, but in the worst case, you may only end up calculating the value every time the method is called and the cached value is not visible to your Thread. Of course you get no caching, but you'll never get wrong data.
+So this worst case is pretty much like not caching it at all, but with some luck you get the value cached - at least once for each thread.
+
+Looking at other classes this seems to be a common technique in commons-lang., I'm not sure that would be true for an arbitrary object: if an object is written in one thread, another thread may see a partially updated object unless the two threads synchronise on the same lock.
+
+However, the objects in this case (Long) are final which I think means that their contents will be published correctly - i.e. other threads will see the updated object in full or not at all., Sebb, you're right. What I said is not true for arbitrary Objects. Sorry.
+I think it's only true for immutable Objects (that use final fields). And only for atomic assignment operations (assignments of primitive longs and doubles on a non-volatile field is AFAIK not atomic, but object-reference assignment is indeed). But I guess there are better explanations out there then mine :-/, What's the open topic on this issue? Which classes have the problem?, Henri, as far as I can see all the classes I mentioned in my report have the problem. All other classes I looked at not because they don't use the member-variable as a temp to calculate the value.
+There is one exception from my first list (at least in current trunk): org.apache.commons.lang.math.Range looks safe
+
+So it comes down to this classes:
+org.apache.commons.lang.math.DoubleRange
+org.apache.commons.lang.math.FloatRange
+org.apache.commons.lang.math.IntRange
+org.apache.commons.lang.math.LongRange
+org.apache.commons.lang.math.NumberRange, Possible patch to this issue.
+This uses the same technique used elsewhere in commons-lang. Using a non-volatile field to cache the value (in the worst case it may be calculated every time, in the best case only once) and calculating the value on a temp variable so that there is never an inconsistent value stored in the field., Patch applied - thanks Boris :), I'm sorry, I just dicovered that there is another data-race in that methods that I overlooked before.
+
+In short: Due to the Java Memory Model and allowed reorderings it is possible that the hashCode() can return 0 instead of the correct value and thus breaking HashMaps etc. in this case.
+Please see [this post|http://jeremymanson.blogspot.com/2008/12/benign-data-races-in-java.html] for details on this issue and String.hashCode() in the java-sources as a reference how to do it right. He explained it better than I can.
+
+I'll attach a patch against trunk to fix this., Currently considering deleting the *Range classes and replacing with a single Range class. Presumably it doesn't resolve this issue - need to check post LANG-551., *Range classes deleted. Need to figure out a fix for the hashCode data-race reordering. Seems that we need to cache the value or work it out in the constructor., Henri,
+The current hashCode() is fine of course :) And as optimum long as speed is no concern it's also the best. Just my 2ct on this topic:
+
+Caching or pre-calculating the value will be a trade-off on how you want to use the class. If you pre-calculate the value and never use hashCode() the "effort" was pointless. If you cache it, it will MAY be re-calculated on every call (but this is rather unlikely).
+
+I think the cached-approach is the best (if it's done right of course :)), but the constructor-approach is easier to get right.
+But as one can use String.hashCode() as a boilerplate it should be easy to implement optimistic caching right., Link to license useable String.java:
+
+http://svn.apache.org/repos/asf/harmony/enhanced/classlib/trunk/modules/luni/src/main/java/java/lang/String.java, Sorry for the delay of my answer.
+
+The hashCode() of Harmony has the same reorder-bug as described above. It loads from a non-volatile field without synchronisation, so the code can be reordered and 0 could be wrongly returned as a hashCode., Boris,
+Harmony's String#hashCode() is fine, see the discussions on the dev list
+
+http://markmail.org/thread/3ckdhgonbh7xtulg
+http://markmail.org/thread/3ckdhgonbh7xtulg
+, Closing out with Boris' 2nd patch effectively applied to the new Range class while adding hashCode caching (r899897).]

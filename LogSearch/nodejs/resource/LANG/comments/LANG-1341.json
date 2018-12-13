@@ -1,0 +1,100 @@
+[Patches welcome!, GitHub user swingfly opened a pull request:
+
+    https://github.com/apache/commons-lang/pull/343
+
+    LANG-1341 update java doc to clarify use case of appendSuper()
+
+    
+
+You can merge this pull request into a Git repository by running:
+
+    $ git pull https://github.com/swingfly/commons-lang master
+
+Alternatively you can review and apply these changes as the patch at:
+
+    https://github.com/apache/commons-lang/pull/343.patch
+
+To close this pull request, make a commit to your master/trunk branch
+with (at least) the following in the commit message:
+
+    This closes #343
+    
+----
+commit c70b9bd9a98cde2f768c3b0894ec3b4ac63eab99
+Author: jqiao <johnson.qiao@...>
+Date:   2018-08-20T09:16:04Z
+
+    LANG-1341 update java doc
+
+----
+, Github user coveralls commented on the issue:
+
+    https://github.com/apache/commons-lang/pull/343
+  
+    
+    [![Coverage Status](https://coveralls.io/builds/18566083/badge)](https://coveralls.io/builds/18566083)
+    
+    Coverage remained the same at 95.25% when pulling **c70b9bd9a98cde2f768c3b0894ec3b4ac63eab99 on swingfly:master** into **8f88799d4774c7c9f4be03d84b97ff3301e64479 on apache:master**.
+
+, Github user britter commented on a diff in the pull request:
+
+    https://github.com/apache/commons-lang/pull/343#discussion_r211342005
+  
+    --- Diff: src/main/java/org/apache/commons/lang3/builder/EqualsBuilder.java ---
+    @@ -58,14 +58,17 @@
+      *   }
+      *   MyClass rhs = (MyClass) obj;
+      *   return new EqualsBuilder()
+    - *                 .appendSuper(super.equals(obj))
+      *                 .append(field1, rhs.field1)
+      *                 .append(field2, rhs.field2)
+      *                 .append(field3, rhs.field3)
+      *                 .isEquals();
+      *  }
+      * </pre>
+      *
+    + * <p>
+    + * If required, the superclass <code>appendSuper()</code> can be added using {@link #appendSuper}.
+    + * </p>
+    --- End diff --
+    
+    The issues also suggested to add some documentation to `appendSuper(boolean)` making clear the implications of calling `super.equals(object)` when the class is a direct subclass ob `java.lang.Object`. I think we should add this.
+, Github user britter commented on a diff in the pull request:
+
+    https://github.com/apache/commons-lang/pull/343#discussion_r211341588
+  
+    --- Diff: src/main/java/org/apache/commons/lang3/builder/EqualsBuilder.java ---
+    @@ -58,14 +58,17 @@
+      *   }
+      *   MyClass rhs = (MyClass) obj;
+      *   return new EqualsBuilder()
+    - *                 .appendSuper(super.equals(obj))
+      *                 .append(field1, rhs.field1)
+      *                 .append(field2, rhs.field2)
+      *                 .append(field3, rhs.field3)
+      *                 .isEquals();
+      *  }
+      * </pre>
+      *
+    + * <p>
+    + * If required, the superclass <code>appendSuper()</code> can be added using {@link #appendSuper}.
+    --- End diff --
+    
+    Better use a JavaDoc Link here: `{@link #appendSuper(boolean)}`
+, Github user britter commented on a diff in the pull request:
+
+    https://github.com/apache/commons-lang/pull/343#discussion_r211340995
+  
+    --- Diff: src/main/java/org/apache/commons/lang3/builder/EqualsBuilder.java ---
+    @@ -25,10 +29,6 @@
+     import java.util.List;
+     import java.util.Set;
+     
+    -import org.apache.commons.lang3.ArrayUtils;
+    -import org.apache.commons.lang3.ClassUtils;
+    -import org.apache.commons.lang3.tuple.Pair;
+    -
+    --- End diff --
+    
+    Please don't reorganize imports
+]

@@ -1,0 +1,8 @@
+[
+I've gone with simply making the underlying set synchronized.
+
+svn ci -m "Per LANG-629, making the underlying set synchronized for CharSet"
+Sending        src/main/java/org/apache/commons/lang3/CharSet.java
+Transmitting file data .
+Committed revision 998000.
+]

@@ -1,0 +1,6 @@
+[Confirmed. The issue looks to be that when creating the GregorianCalendar in format(Date), the locale is not passed. , svn ci -m "Applying my fix to LANG-645, and Mikael's test case; fixing the FastDateFormat to properly include the locale when formatting a Date"
+Sending        src/main/java/org/apache/commons/lang3/time/FastDateFormat.java
+Sending        src/test/java/org/apache/commons/lang3/time/FastDateFormatTest.java
+Transmitting file data ..
+Committed revision 993620.
+]

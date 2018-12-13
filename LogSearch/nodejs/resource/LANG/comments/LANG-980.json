@@ -1,0 +1,11 @@
+[It looks like the only object types ever added as Token values are the 1-char Strings for the duration ids and StringBuilder objects. The Unit test code adds a Number, but the code does not use this feature. Now the StringBuilder objects are only ever used after conversion to a String, so it seems odd to store the StringBuilder rather than the string. I suspect this may be because a 1-char String could be confused with one of the duration ids if it ever got interned.
+
+To avoid repeated use of StringBuffer#toString() whilst still ensuring that duration ids are unique, the Token class could be modified slightly.
+The Object value could be replaced with 2 fields: the type (Duration enum) and a string (if relevant). The Duration enum would need to be extended to include STRING - and renamed as it is no longer just a duration.
+
+This would allow further simplification of the code, e.g. in the equals method. The Token constructors could be adjusted to accept onlly String or enum., The StringBuilder objects are in fact used by the lexx method to collect the text characters, but that could be done before creating the Token object with the string contents.
+
+There's another possible simplification - the Tokens are created as a list and then converted to an array - however the code could just use the original list. 
+
+Also the list of Tokens needs to be searched to determine if it does (or does not) contain various of the duration specifiers.
+The lexx method could build a Set of contained types to avoid scanning the Token list.]

@@ -1,0 +1,41 @@
+[The time package is killing me... Feel free to commit the suggested improvements., I hear you, I winced when I saw the build was failing in the time package.
+
+My improvement is merely one that makes the test 'work', and fail for everyone.
+
+I think we should remove the time package from 3.4, putting it in its own 'legacy' jar :), After applying the proposed changes, I still get
+
+{code}
+Failed tests:
+  FastDateFormat_PrinterTest>FastDatePrinterTest.testCalendarTimezoneRespected:282 expected:<2:24PM A[D]T> but was:<2:24PM A[S]T>
+  FastDatePrinterTest.testCalendarTimezoneRespected:282 expected:<2:24PM A[D]T> but was:<2:24PM A[S]T>
+{code}
+
+I'm not sure whether this is related..., Sorry I misunderstood the suggested changes. We're talking about the same thing and I'm now looking into that., This works with:
+
+{code}
+java version "1.7.0_71"
+Java(TM) SE Runtime Environment (build 1.7.0_71-b14)
+Java HotSpot(TM) 64-Bit Server VM (build 24.71-b01, mixed mode)
+{code}
+
+but fails with:
+
+{code}
+java version "1.7.0_75"
+Java(TM) SE Runtime Environment (build 1.7.0_75-b13)
+Java HotSpot(TM) 64-Bit Server VM (build 24.75-b04, mixed mode)
+{code}, The problem is in {{FastDatePrinter$TimeZoneNameRule}}, line 1165-1166. The TimeZone returns true for useDaylight, but the offset is 0, so the wrong branch is executed resulting in the wrong time zone name being added to the result., {code}
+$ svn ci -m "LANG-1092: Wrong formating of time zones with daylight saving time in FastDatePrinter"
+Sending        src/changes/changes.xml
+Sending        src/main/java/org/apache/commons/lang3/time/FastDatePrinter.java
+Sending        src/test/java/org/apache/commons/lang3/time/FastDatePrinterTest.java
+Transmitting file data ...
+Committed revision 1666568.
+{code}
+
+I've changed the TimeZoneNameRule to only check the calendar for DST_OFFSET. All tests pass with the following JDKs:
+* 1.6
+* 1.7.0_71
+* 1.7.0_75
+* 1.8.0_25
+* 1.9.0 EA, Thank you Benedikt :)]

@@ -1,0 +1,140 @@
+[Can you copy a stack trace here please?, Fixed in trunk, I will commit shortly., The problem is that SystemUtils make wrong assumptions about the format of "java.version". It completely depends on the vendor what this property contains and it does not have to be at all a string that can be interpreted as float value. It is more or less unfortunate that a Sun JDK matches a number format. See http://java.sun.com/j2se/1.4.2/docs/guide/versioning/spec/versioning2.html#wp90020. If we really want to return the version of the Java Runtime as float, we have to use java.specification.version., Committed fix to trunk, unit test improvements and clean ups:
+
+- Fixed and tested (LANG-624) SystemUtils.getJavaVersionAsFloat throws StringIndexOutOfBoundsException on Android runtime/Dalvik VM. This is based on a new implementation of the underlying code with less reliance of hard coded array indices, for example, calls like substring (0, 3).
+- Refactored some private methods into one private and one package private method such that the latter can be called from unit tests. This allows [LANG-624] to be tested along with other methods. See below.
+- Removed "dead code" from unit tests: The SystemUtilsTest unit test contained code that was cut and pasted from SystemUtils for four constants and associated initialization methods. The test methods then called these SystemUtilsTest methods instead of the SystemUtils methods. The refactoring allows for the test to run against as much of the code in SystemUtils as possible.
+- Added assertions for Java version "0", "1.4.2", "1.6" and "1.7" to some tests.
+- Added Javadocs to document what happens with "1.6.0_20" vs. "1.6.0", which is that the patch level is ignored.
+
+, Sorry, this fix is simply. Aonix J9 VM (also used on mobile devices) returned "1.3.0 subset". As explained, you cannot rely on "java.version" per definition.
+
+{noformat}
+Index: src/test/java/org/apache/commons/lang3/SystemUtilsTest.java
+===================================================================
+--- src/test/java/org/apache/commons/lang3/SystemUtilsTest.java (revision 949153)
++++ src/test/java/org/apache/commons/lang3/SystemUtilsTest.java (working copy)
+@@ -201,6 +201,7 @@
+         assertEquals(1.5f, SystemUtils.toJavaVersionFloat("1.5.0"), 0.000001f);
+         assertEquals(1.6f, SystemUtils.toJavaVersionFloat("1.6.0"), 0.000001f);
+         assertEquals(1.31f, SystemUtils.toJavaVersionFloat("JavaVM-1.3.1"), 0.000001f);
++        assertEquals(1.3f, SystemUtils.toJavaVersionFloat("1.3.0 subset"), 0.000001f);
+         // This used to return 0f in [lang] version 2.5:
+         assertEquals(1.3f, SystemUtils.toJavaVersionFloat("XXX-1.3.x"), 0.000001f);
+     }
+@@ -219,6 +220,7 @@
+         assertEquals(150, SystemUtils.toJavaVersionInt("1.5.0"), 0.000001f);
+         assertEquals(160, SystemUtils.toJavaVersionInt("1.6.0"), 0.000001f);
+         assertEquals(131, SystemUtils.toJavaVersionInt("JavaVM-1.3.1"), 0.000001f);
++        assertEquals(130, SystemUtils.toJavaVersionInt("1.3.1 subset"), 0.000001f);
+         // This used to return 0f in [lang] version 2.5:
+         assertEquals(130, SystemUtils.toJavaVersionInt("XXX-1.3.x"), 0.000001f);
+     }
+{noformat}
+
+This simply fails., I expect this assertion to fail:
+
+{quote}
+assertEquals(130, SystemUtils.toJavaVersionInt("1.3.1 subset"), 0.000001f);
+{quote}
+
+You must mean:
+
+{quote}
+assertEquals(131, SystemUtils.toJavaVersionInt("1.3.1 subset"), 0.000001f);
+{quote}
+
+I applied and changed the test patch above., The attached screen shot shows that you now get a version number, just not a very useful one: 0.0., I can only emphasis again, that it is wrong to use java.version instead of java.specification.version and expect something useful., So should we be moving from java.version to java.specification.version?, Wouldn't backward compatibility be an issue? Should we consider adding parallel APIs for java.specification.version?, Now's the time to break back compat if need be.
+
+Is java.specification.version the right value to use? Is it less useful than java.version?, Agreed, Henri.  If we're talking 3.0, we've got some freedom here to break some stuff.  I would think that most folks are going to check to see what specification version is running, not what specific implementation version., The Javadoc for getJavaVersionAsFloat() does not specify how it obtains the information, so I think one could use "java.specification.version" instead of "java.version" without breaking compatibility.
+
+However the Javadoc for JAVA_VERSION does say that it uses "java.version", so one cannot change that without changing the API (and Javadoc!).
+
+How about adding a JAVA_SPEC_VERSION field and using that in the AsFloat() method?
+, IMO principle of least surprise would dictate that we use java.specification.version, *document it clearly*, and provide JAVA_VENDOR_VERSION if we really feel the need to provide the results of java.version., +1. I see no reason why we can't change the API., I don't think we need to change the API, just the implementation of AsFloat() (and clarify its Javadoc)
+
+Keep JAVA_VERSION
+Add JAVA_SPECIFICATION_VERSION
+Change asFloat() to use JAVA_SPEC_VERSION and document this.
+
+Could add JAVA_VENDOR_VERSION as an alias for JAVA_VERSION but I cannot see the point., I'm still +1 to change the API. I don't care that the javadoc for one item says how it works and the other doesn't; a change in functionality is a change in functionality. 
+
+In this case, the right thing to do is to use the correct java.specification version. That's what we meant, and it's how we use the code everywhere., Digging deeper into SystemUtils and specifically what I think should change:
+
+JAVA_VERSION: Keep as is. It's fair to expect it to point to java.version. That that is the vendor version should be noted in the javadoc.
+
+JAVA_VERSION_TRIMMED: We shouldn't be trying to parse the specification version out of java.version. Remove this. 
+
+getJavaVersionTrimmed(): Private method for the above. Also remove.
+
+JAVA_VERSION_FLOAT: This now becomes impossible. Remove this - I don't think there's huge need to have code only run on 1.6.1 of a JVM. Sure it might be a good way to get around some bug in 1.6.0, but the code becomes inherently unportable.
+
+JAVA_VERSION_INT: Same as above. Remove.
+
+getJavaVersionMatches: Move this over to using JAVA_SPECIFICATION_VERSION. 
+
+isJavaVersionAtLeast: Move to spec version. This means having a private Float version(?). Drop the int variant of this method as it's silly to pass in 13 instead of 1.3. In general this is a silly method; the better solution imo would be to have a JAVA_1_2 enum :) I wonder if that's something we should consider for all of the IS_XYZ 'constants'?
+
+, We shouldn't remove the float/int methods. They are the useful ones!, isJavaVersionAtLeast is good; making it float/int based seems unnecessary and I think it's an artifact of the work to deal with the obtuse vendor version string.
+
+isJavaVersionAtLeast(SystemUtils.JAVA_1_2) would be better. For once I would like a static import there :), The only problem that remains then is for Android, because IIRC it used to return something like 0.9 as specification version. Where are the Android guys to affirm my 2nd hand knowledge? Question is what isJavaAtLeast should do in this platform, because someone who uses c-l will probably expect that his check will succeed for Java 5 also on Android., Well, technically it should return false all the time. We can add an 'isJava' method that returns false for Android :)
+
+As it is, sounds like a hack for Android such that 0.9 is considered equivalent to 5.0 with specification version would be suitable. I'm not an Android coder - I'm assuming 0.9 = 5.0 from your text and I'm assuming if they move to 6.0 equivalent, it would be 0.91 or something., Here's the proposed change. 
+
+Needs more javadoc/unit test of the new enum; but I wanted to get feedback before finishing it off., I like the JavaVersion enum. No more magic numbers in the code.
+
+But when I see:
+
+JAVA_0_9(1.5f, "0.9"),    // Android 
+
+I think we should have:
+
+JAVA_0_9(1.5f, "0.9", "Android")
+
+Which means JavaVersion needs a description field.
+
+What is the description for the other versions?
+
+Also instead of duplicating Strings like "0.9", I would rather have private constants., For:
+
+    public static final String JAVA_SPECIFICATION_VERSION = getSystemProperty("java.specification.version");
+    private static final JavaVersion Enum_JAVA_SPECIFICATION_VERSION = JavaVersion.get(JAVA_SPECIFICATION_VERSION);
+
+The name Enum_JAVA_SPECIFICATION_VERSION looks odd, how about one of:
+
+- JAVAVERSION_SPECIFICATION
+- JAVA_VERSION_SPECIFICATION
+- JAVAVERSION_ENUM_SPECIFICATION
+- JAVA_VERSION_ENUM_SPECIFICATION
+, Agreed; +1 for JAVA_VERSION_SPECIFICATION.
+
+Perhaps we should talk more about the int/float calls.  I would like for existing code to continue to compile (the user having adjusted the import to the lang3 package).  However:
+ * the int-based handling seems to invite chaos in the future.  What happens when version 1.12 of the spec emerges?
+ * the specification-based version idea we've moved to only accommodates the one decimal, further marking the whole 3-digit int concept as obsolete.
+ * we could support Number, comparing its float value, but this would yield a different behavior for Integer/boxed int than what had worked previously, and would break clients more insidiously than compilation failure.
+
+Considering these points I don't see an acceptable way to support existing code.  Until someone suggests a better way, my position is that they're more trouble than they're worth., 
+Gary's replies:
+
+Agreed that 'Android' could be there as some kind of String description; however I don't think it's a backwards compat issue and would prefer to keep it simple. We can add another parameter to the constructor.
+
+On the Magic "0.9" String; I believe it's overkill to have a variable that is effectively String_0_9 = "0.9" and it will make the code less readable. 
+
+On the name of the Enum_JAVA_SPECIFICATION_VERSION variable; absolutely. That was a 'whatever, it's private' decision. I effectively went with some kind of Hungarian notation :) Cant' say the alternatives provided are very readable though.
+
+Matt's reply:
+
+Glad to see you argued your way out of it :), svn ci -m "Removed isJavaVersionAtLeast(float) and (int), and added an enum variant with the new JavaVersion enum. Updated the rest of the code, switched isJavaVersionAtLeast over to using java.specification.version and not java.version (the vendor code) and dropped JAVA_VERSION_TRIMMED, JAVA_VERSION_FLOAT and JAVA_VERSION_INT. See: LANG-624"
+Sending        src/main/java/org/apache/commons/lang3/ClassUtils.java
+Adding         src/main/java/org/apache/commons/lang3/JavaVersion.java
+Sending        src/main/java/org/apache/commons/lang3/SystemUtils.java
+Sending        src/test/java/org/apache/commons/lang3/CharEncodingTest.java
+Sending        src/test/java/org/apache/commons/lang3/ClassUtilsTest.java
+Sending        src/test/java/org/apache/commons/lang3/LocaleUtilsTest.java
+Sending        src/test/java/org/apache/commons/lang3/SystemUtilsTest.java
+Sending        src/test/java/org/apache/commons/lang3/math/NumberUtilsTest.java
+Sending        src/test/java/org/apache/commons/lang3/text/ExtendedMessageFormatTest.java
+Sending        src/test/java/org/apache/commons/lang3/time/DateUtilsTest.java
+Transmitting file data ..........
+Committed revision 1065174.
+
+Leaving this open for a short while in case there's any feedback. I went with: "JAVA_SPECIFICATION_VERSION_AS_ENUM" as the variable name., Resolving.]

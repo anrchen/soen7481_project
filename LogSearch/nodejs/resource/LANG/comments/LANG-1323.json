@@ -1,0 +1,105 @@
+[Hash code implementation comparisons:
+
+* {{GenericArrayTypeImpl}}: [TypeUtils|https://git-wip-us.apache.org/repos/asf?p=commons-lang.git;a=blob;f=src/main/java/org/apache/commons/lang3/reflect/TypeUtils.java;h=8db6ca47813389708781c5117f3109865c815d2c;hb=HEAD#l134] vs. [OpenJDK|http://hg.openjdk.java.net/jdk8/jdk8/jdk/file/687fd7c7986d/src/share/classes/sun/reflect/generics/reflectiveObjects/GenericArrayTypeImpl.java#l89]
+
+* {{ParameterizedTypeImpl}}: [TypeUtils|https://git-wip-us.apache.org/repos/asf?p=commons-lang.git;a=blob;f=src/main/java/org/apache/commons/lang3/reflect/TypeUtils.java;h=8db6ca47813389708781c5117f3109865c815d2c;hb=HEAD#l203] vs. [OpenJDK|http://hg.openjdk.java.net/jdk8/jdk8/jdk/file/687fd7c7986d/src/share/classes/sun/reflect/generics/reflectiveObjects/ParameterizedTypeImpl.java#l198]
+
+* {{WildcardTypeImpl}}: [TypeUtils|https://git-wip-us.apache.org/repos/asf?p=commons-lang.git;a=blob;f=src/main/java/org/apache/commons/lang3/reflect/TypeUtils.java;h=8db6ca47813389708781c5117f3109865c815d2c;hb=HEAD#l270] vs. [OpenJDK|http://hg.openjdk.java.net/jdk8/jdk8/jdk/file/687fd7c7986d/src/share/classes/sun/reflect/generics/reflectiveObjects/WildcardTypeImpl.java#l224], Are you saying that some of the TypeUtils classes have incompatible equals() and hashCode() implementations?
+
+If so, then that is clearly a bug. A test case would be useful.
+
+However it is OK to provide a hashCode() implementation that is different from the 'standard' implementation, so long as it is consistent with the equals() defintion.
+
+For example, if the hashCode() implementation always returns 42.
+It's a terrible hash, but it does not break the hash/equals contract.
+There is no requirement for unequal objects to have different hashes.
+
+Indeed any class that assumes that equal hashCodes mean equal Objects is broken.
+Object.hashCode() can produce equal hashCodes for unequal objects., Here's an example in JUnit:
+
+{code:java}
+    static class OneField {
+        Map<String, Integer> f;
+    }
+
+    @Test
+    public void test() throws NoSuchFieldException
+    {
+        final Type openJdkType = OneField.class.getDeclaredField("f").getGenericType();
+        final Type apacheType = TypeUtils.parameterize(Map.class, String.class, Integer.class);
+        Assert.assertTrue(openJdkType.equals(apacheType));
+        Assert.assertTrue(apacheType.equals(openJdkType));
+        Assert.assertFalse(openJdkType.hashCode() == apacheType.hashCode());
+
+        // Example with Guava's ImmutableSet, which for N > 1 uses
+        // hash code for set equality, and Iterables.elementsEqual.
+        final Type other = OneField.class;
+        final ImmutableSet<Type> c1 = ImmutableSet.of(openJdkType, other);
+        final ImmutableSet<Type> c2 = ImmutableSet.of(apacheType, other);
+        Assert.assertFalse(c1.equals(c2));
+        Assert.assertFalse(c2.equals(c1));
+        Assert.assertTrue(c1.size() == c2.size());
+        Assert.assertTrue(Iterables.elementsEqual(c1, c2));
+    }
+{code}
+
+Is this not a violation of the contract on {{Object.hashCode()}} that I quoted above? Here are two objects that are equal according to the {{equals(Object)}} method, but calling the {{hashCode}} method on each of the two objects produces different integer results., [~sebb@apache.org]: Right, the contract does not say anything about two objects that produce equal hash codes. But it does indeed say something about two objects that are equal, i.e., that they must produce the same hash code. So I'm not saying that anything in {{TypeUtils}} is inconsistent _within itself_, but that
+
+# the {{hashCode}} in {{TypeUtils}} is inconsistent with the {{hashCode}} in the OpenJDK and
+# the contract of {{Object.hashCode}} requires that their {{hashCode}}'s be consistent since their {{equals}} are consistent., bq. the hashCode in TypeUtils is inconsistent with the hashCode in the OpenJDK and
+
+This is not a requirement
+
+bq. the contract of Object.hashCode requires that their hashCode's be consistent since their equals are consistent.
+
+Agreed.
+
+But the unit test you provided only shows that the ImmutableSet implementation of hashCode/equals is broken.
+It does not say anything about TypeUtils.
+Or if there is a problem with TypeUtils, this needs to be exposed by a unit test that only uses the LANG classes., The Guava stuff was just an _additional example_ of a sneaky manifestation of the bug; it's not crucial to the bug. Sorry to have included more than necessary in that example.
+
+For posterity, here's the example demonstrating the broken contract, without the additional broken use case: (EDIT: rewritten to clarify that an assertion fails, whereas previously it was written such that they pass)
+
+{code:java}
+    static class OneField {
+        Map<String, Integer> f;
+    }
+
+    @Test
+    public void testOfBrokenContract() throws NoSuchFieldException
+    {
+        // An object of class sun.reflect.generics.reflectiveObjects.ParameterizedTypeImpl
+        final Type openJdkType = OneField.class.getDeclaredField("f").getGenericType();
+
+        // An object of class org.apache.commons.lang3.reflect.TypeUtils.ParameterizedTypeImpl
+        final Type apacheType = TypeUtils.parameterize(Map.class, String.class, Integer.class);
+
+        // These two objects are equal...
+        Assert.assertTrue(openJdkType.equals(apacheType));
+        Assert.assertTrue(apacheType.equals(openJdkType));
+
+        // ... so their hash codes should be the same. But this assertion fails.
+        Assert.assertTrue(openJdkType.hashCode() == apacheType.hashCode());
+    }
+{code}, I see what you mean now. 
+It seems that there are additional equals/hashCode requirements for instances of the Type interface hierarchy which go beyond the normal equals/hashCode contract.
+Unfortunately the requirements don't appear to be fully documented.
+
+The ParameterizedType Javadoc specifies how the equals() method is to be implemented, but it does not say anything about the hashCode requirements.
+
+The variables to be compared are known, so the equals() method is easily written from the Javadoc.
+
+However there are potentially multiple ways to derive the hashCode.
+I don't see how it's possible to code alternate implementations from the Javadoc alone.
+So it looks to me as though the Javadoc is incomplete.
+If the OpenJDK source were not available it would be impossible to implement an object that conforms to the ParameterizedType Javadoc and the equals/hashCode contract., Yeah, that makes sense. I understand that the Java SE doesn't -- _but should!_ -- define how to implement {{Type.hashCode}}. There seems to be a years-old JDK bug report about this exact issue: https://bugs.openjdk.java.net/browse/JDK-7082069.
+
+Given the size and importance of the OpenJDK, however, would it not make sense to treat that as the canonical definition of {{Type.hashCode()}}, and modify the Commons Lang implementations to adhere to that?, Thanks for the bug URL, very useful.
+
+There are two difficulties with using the bug text as the definition:
+1) It has not been accepted, and could be modified.
+2) what license covers its use?
+
+AFAICT we cannot use the actual implementation, as that is under the GPL+Classpath exception [1]
+
+[1] http://www.apache.org/legal/resolved.html#category-x]

@@ -1,0 +1,7 @@
+[The NPE is caused by null elements in the lhs array.  The change Gary suggested 
+does seem to fix the problem.  I'll attach a patch with the change and the 
+supplimental test cases., Created an attachment (id=10287)
+source and test patch
+, 
+
+*** This bug has been marked as a duplicate of 23174 ***]

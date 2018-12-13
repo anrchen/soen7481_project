@@ -1,0 +1,19 @@
+[Make HashMaps final, Patch applied (r590552).
+
+Keeping open until the SimpleDateFormat question is answered., Based on this link:
+http://www.ibm.com/developerworks/java/library/j-jtp09263.html
+
+"In any case, it's better to be clear in the documentation about how a class behaves when an instance is shared across threads. As an example of this pitfall, the class java.text.SimpleDateFormat is not thread-safe, but it wasn't until the 1.4 JDK that this was documented in the Javadoc. How many developers mistakenly created a static instance of SimpleDateFormat and used it from multiple threads, unaware that their programs were not going to behave correctly under heavy load? Don't do this to your customers or colleagues!"
+
+, I don't think the SimpleDateFormat sharing is a problem.  While it's shared between threads, only one method touches each instance of SimpleDateFormat (there are three separate pools), and each of those methods are synchronized. , The getInstance() methods are synchronised, but the format() methods are not.
+
+As far as I can tell, the instances that are obtained from getInstance() may be shared between threads, and the format() methods are those of the SimpleDateFormat class.
+
+It may be true that the SimpleDateFormat format() methods are thread-safe under the conditions of this class.
+
+However this assumption is neither documented nor justified.
+, The format methods don't hit SimpleDateFormat though - they're the ones getting replaced., Sorry, was misreading the usage of SimpleDataFormat.
+
+The class is only instantiated to obtain its pattern as a String - so there is no sharing of SDF instances.
+
+The remarks about sharing SDF instances are wrong.]

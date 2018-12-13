@@ -1,0 +1,15 @@
+[First step - attempt a reproduction. If that fails, then dig into the code and see if it's obvious., I'm a little confused by the thread dump - ReflectionToStringBuilder.toString does not call HashMap.containsKey. Seems like a bunch of method calls are missing. Presumably this is because things are being compiled in and so that part of the trace vanishes.
+
+This leaves me wondering where the HashMap.containsKey is coming from. Presumably it's from the object that is being reflected upon, and I'm not sure I see us having many options beyond either a) ignoring this bug as not fixable, or b) making the builders totally synchronized. 
+
+Any thoughts?, It does make sense that the reflection code isn't synchronized (since toString() isn't?). That might be the core issue. 
+
+It helps to know that you aren't using a HashMap internally. 
+
+I could wrap the builder code in a synchronized block to prevent this. Does that sound like a good solution? If so, it would be nice to update the documentation to point out how toString and the reflection code isn't thread safe. 
+
+Would it be possible to have add a "thread-safe" version that synchronizes on each variable (or the whole class) before reading it during the reflection process? , Without being very deep into the code - wrapping the builder usage does seem like a good solution. Did you give that a try?
+
+That's something that the documentation could suggest users do. 
+
+I imagine a synchronized version of the ToStringBuilders could definitely be done - just a question of putting together the patch etc :) I'm not sure if it would get you much that putting a lock around the ToStringBuilder usage wouldn't have given you., I have not given it a try yet, but it makes sense and sounds like it would work., I'm going to mark this as a wontfix; please reopen if you think there's more to do David, but it sounds like things are good.]

@@ -1,0 +1,7 @@
+[Attachment to follow: 
+1) Updated EqualsBuilderTest to generate the exception - modified with 
+Maarten's test + a little bit more.
+2) Updated EqualsBuilder to fix this problem - append(Object[], Object[]) was 
+doing a little bit more than it had to....  , Created an attachment (id=8230)
+Modifies test case and add resolution
+, *** COM-1096 has been marked as a duplicate of this bug. ***, Patch applied. Thank you., 2.1 released, closing.]

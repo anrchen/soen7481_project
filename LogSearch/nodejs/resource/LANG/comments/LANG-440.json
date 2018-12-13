@@ -1,0 +1,10 @@
+[Patch is on it's way, Added code for correct rounding based on AM_PM and repaired the JUnit-tests (and their comments), Patch applied, thanks Robert., I've started writing new DateUtils-tests according to [LANG-443]. And now it seems AM_PM is still not rounded in the correct way. 
+It's switch-point is between 06:59.999 and 07:00.000, which is exactly one hour too late. The tests provided didn't cover these times. Another reason for better tests.
+, AM_PM "one off"-fix, svn ci -m "Applying Robert Scholte's excellent unit tests from LANG-443 and his second patch from LANG-440 fixing a discovered boundary case for AM_PM in round"
+
+Sending        pom.xml
+Sending        src/java/org/apache/commons/lang/time/DateUtils.java
+Adding         src/test/org/apache/commons/lang/time/DateUtilsRoundingTest.java
+Sending        src/test/org/apache/commons/lang/time/TimeTestSuite.java
+Transmitting file data ....
+Committed revision 711616.]

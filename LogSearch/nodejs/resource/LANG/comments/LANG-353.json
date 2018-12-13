@@ -1,0 +1,50 @@
+[Sounds like you're suggesting:
+
+ * public boolean equals(Object obj) {
+ *   if (obj == null) { return false; }
+ *   if (obj == this) { return true; }
+ *   if (obj.getClass() != getClass()) {
+ *     return false;
+ *   }
+ *   MyClass rhs = (MyClass) obj;
+ *   return new EqualsBuilder()
+ *                 .appendSuper(super.equals(obj))
+ *                 .append(field1, rhs.field1)
+ *                 .append(field2, rhs.field2)
+ *                 .append(field3, rhs.field3)
+ *                 .isEquals();
+ *  }
+
+Though an issue that we've come across with the builders is what to do with classloaders. So you end up with:
+
+ * public boolean equals(Object obj) {
+ *   if (obj == null) { return false; }
+ *   if (obj == this) { return true; }
+ *   if (!obj.getClass().getName().equals(getClass().getName()) {
+ *     return false;
+ *   }
+ * ...
+
+Or maybe that doesn't matter because the rest of EqualsBuilder will be unhappy anyway., Yes, that's what I'm suggesting.
+
+And if I understood your second point right - you are suggesting to compare the class names, because the two objects could be loaded in different classloaders:
+No, if two classes are loaded by different classloaders, they (and their instances) are never "equal". Even if they are loaded from the same source, i.e. the same .class file., Yeah, scratch the classloader bit. I dug around a bit and it was with the Enum code and not the Builder code where we were doing such things. With Enums we did want things to be equal across classloaders, but the builders won't care.
+
+I'll update the javadoc with the first example, and a reference to Effective Java., Ok.
+
+Do you have an issue id for the Enum thing? My opinion on that - without knowing the details - is that Enums are not much different from classes and therefore enums from different classloaders shouldn't be considered equals. So, I would like to comment on that issue., Not to get stuck on the details here, but Enums /are/ different from Classes, and have been made such in Jaav 5. I think of the [lang] enums useful if you cannot use Java 5 enums. I would say that enum elements must be equal across class loaders, otherwise, many an application will have some very odd results. Just imagine, as a simple example, the following (I use the Java 5 notation for brevity):
+
+public enum Suit { CLUBS, DIAMONDS, HEARTS, SPADES }
+
+CLUBS from one class loader is not the same as... CLUBS from another class loader? Havok in poker-land! ;-)
+, Without knowing the details again (I don't know which kind of applications you are thinking of): I think if you trying to compare enums from different classloader, that's already the problem you have. I.e. you shouldn't try this as it usually indicates that you have mixed up your classloader hierarchy. So it's better for the enum's equal to fail fast instead of allowing something which shouldn't be done.
+
+But this discussion doesn't really belong here. If you would like to continue it, you can contact me via e-mail: kutzi@gmx.de, Oops, this has sat on my machine for a while. Now committed:
+
+svn ci -m "Applying the javadoc sample usage change from LANG-353 as reported by Christoph Kutzinski" src/java/org/apache/commons/lang/builder/EqualsBuilder.java
+
+Sending        src/java/org/apache/commons/lang/builder/EqualsBuilder.java
+Transmitting file data .
+Committed revision 588536.
+
+Prior to closing this, I'm pondering if the EqualsBuilderTest should change to test this pattern too., I updated the tests to use this style in r594276.]

@@ -1,0 +1,3 @@
+[Looks like the issue is that mvn site is stripping off the *'s from the end of the section names and not putting them in the anchors. I've removed them from the href's.
+
+The anchor names were also being set manually, leading to duplicates, so I've removed the manual setting.]

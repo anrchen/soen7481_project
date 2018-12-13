@@ -1,0 +1,10 @@
+[Just to clarify: on 26.10.2014, we have changed CEST time to CET (switched from 3:00 to 2:00), so we had double 2:00, once in CEST and once in CET., While testing a potential solution, found a possible regression in java version "1.8.0_60-b27".  The date produced by Gregorian calendar is incorrect when setting both TimeZone and DST offset fields., Upon further investigation, in the update DateFormatSymbols.getInstance(locale).getZoneStrings() provides more zoneNames. As an example:
+[0]	"Europe/Paris"
+[1]	"Mitteleuropäische Zeit"
+[2]	"MEZ"
+[3]	"Mitteleuropäische Sommerzeit"
+[4]	"MESZ"
+[5]	"Mitteleuropäische Zeit"
+[6]	"MEZ"
+
+I'm going to drop any duplicate entries and any keys past index 4 are in standard time, commit 3c92830ec51fb6b6e9a7ca2fb8fda324cd33e48a]

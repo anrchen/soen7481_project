@@ -1,0 +1,113 @@
+[Build (mvn clean test -e -X) fails for me in Ubuntu Linux 3.11.0-14-generic x86_64, Apache Maven 3.1.1 for:
+
+########################
+#     JDK 1.6.0_27     #
+########################
+
+Apache Maven 3.1.1 (0728685237757ffbf44136acec0402957f723d9a; 2013-09-17 12:22:22-0300)
+Maven home: /opt/java/apache-maven-3.1.1
+Java version: 1.6.0_27, vendor: Sun Microsystems Inc.
+Java home: /usr/lib/jvm/java-6-openjdk-amd64/jre
+Default locale: en_US, platform encoding: UTF-8
+OS name: "linux", version: "3.11.0-14-generic", arch: "amd64", family: "unix"
+[...]
+[...]
+[...]
+[...]
+Results :
+
+Failed tests: 
+  DurationFormatUtilsTest.testEdgeDurations:467->assertEqualDuration:562->assertEqualDuration:575 expected:<7[7]> but was:<7[6]>
+
+Tests run: 2392, Failures: 1, Errors: 0, Skipped: 4
+
+[INFO] ------------------------------------------------------------------------
+[INFO] BUILD FAILURE
+[INFO] ------------------------------------------------------------------------
+[INFO] Total time: 52.186s
+[INFO] Finished at: Sun Jan 05 21:05:29 BRST 2014
+[INFO] Final Memory: 23M/262M
+[INFO] ------------------------------------------------------------------------
+
+########################
+#     JDK 1.7.0_25     #
+########################
+
+Apache Maven 3.1.1 (0728685237757ffbf44136acec0402957f723d9a; 2013-09-17 12:22:22-0300)
+Maven home: /opt/java/apache-maven-3.1.1
+Java version: 1.7.0_25, vendor: Oracle Corporation
+Java home: /usr/lib/jvm/java-7-openjdk-amd64/jre
+Default locale: en_US, platform encoding: UTF-8
+OS name: "linux", version: "3.11.0-14-generic", arch: "amd64", family: "unix"
+[...]
+[...]
+[...]
+[...]
+Results :
+
+Failed tests: 
+  DurationFormatUtilsTest.testEdgeDurations:467->assertEqualDuration:562->assertEqualDuration:575 expected:<7[7]> but was:<7[6]>
+
+Tests run: 2392, Failures: 1, Errors: 0, Skipped: 5
+
+[INFO] ------------------------------------------------------------------------
+[INFO] BUILD FAILURE
+[INFO] ------------------------------------------------------------------------
+[INFO] Total time: 44.062s
+[INFO] Finished at: Sun Jan 05 21:10:30 BRST 2014
+[INFO] Final Memory: 24M/337M
+[INFO] -----------------------------------------------------------------------
+
+########################
+#     JDK 1.8.0b121     #
+########################
+
+Apache Maven 3.1.1 (0728685237757ffbf44136acec0402957f723d9a; 2013-09-17 12:22:22-0300)
+Maven home: /opt/java/apache-maven-3.1.1
+Java version: 1.8.0-ea, vendor: Oracle Corporation
+Java home: /opt/java/jdk1.8.0/jre
+Default locale: en_US, platform encoding: UTF-8
+OS name: "linux", version: "3.11.0-14-generic", arch: "amd64", family: "unix"
+[...]
+[...]
+[...]
+[...]
+Results :
+
+Failed tests: 
+  DurationFormatUtilsTest.testEdgeDurations:467->assertEqualDuration:562->assertEqualDuration:575 expected:<7[7]> but was:<7[6]>
+
+Tests run: 2392, Failures: 1, Errors: 0, Skipped: 5
+
+[INFO] ------------------------------------------------------------------------
+[INFO] BUILD FAILURE
+[INFO] ------------------------------------------------------------------------
+[INFO] Total time: 57.890s
+[INFO] Finished at: Sun Jan 05 21:12:57 BRST 2014
+[INFO] Final Memory: 24M/168M
+[INFO] ----------------------------------------------------------------------
+, Not sure if it was intentional, but the test is using the first day of daylight saving time in Brazil in 2005 [1].
+
+When I run the code below, I get 1, instead of 0.
+
+{code}
+Calendar cal = Calendar.getInstance(TimeZone.getTimeZone("America/Sao_Paulo"));
+cal.set(2005, 9, 16, 0, 0, 0);
+System.out.println(cal.get(Calendar.HOUR_OF_DAY));
+{code}
+
+So in the testEdgeDurations test, with the America/Sao_Paulo time zone, it is comparing the difference in days between 16/10/2005 01:00:00 and 01/01/2006 00:00:00. While the expected result is 77, because of this 01 hour added, the result is 76 (you can try that in [2]).
+
+I fixed the issue locally, by adding the following line right after the testEdgeDurations method declaration:
+
+{code}
+// Since the test seems to expect the result to be timezone-agnostic
+TimeZone.setDefault(TimeZone.getTimeZone("UTC"));
+{code}
+
+Does this seem like a valid fix for this issue? Without this, DateFormatUtils gets America/Sao_Paulo from TimeZone.getDefault(), what causes the test to fail.
+
+Cheers
+
+[1] http://pt.wikipedia.org/wiki/Anexo:Lista_de_per%C3%ADodos_em_que_vigorou_o_hor%C3%A1rio_de_ver%C3%A3o_no_Brasil
+[2] http://www.onlineconversion.com/days_between_advanced.htm, Setting this to 3.3, [~kinow] where do you set the TimeZone? In setUp()? Feel free to resolve this issue in trunk. I will make sure the fix doesn't break anything in my TimeZone and hopefully the others will check some additional time zones, when I roll out 3.3, Fixed in r1559802]

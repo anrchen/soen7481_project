@@ -1,0 +1,6 @@
+[Once commons-lang requires at least java 7 we can use @SafeVarargs, but for now I guess there is nothing we can do., We could start adding comments to state why the warning is not a problem (if indeed that is the case).
+This means analysing the true cause of the warning, which will have to be done at some point anyway.
+
+This would at least indicate to developers/maintainers/3rd parties that the warning has been taken into acount.
+
+It's obviously important not to suppress the warning without first ensuring that the code is safe., +1 [~sebb@apache.org] for adding comments now in the code. Never used @SafeVarargs, but sounds like a good plan when we have >java 7 [~pascalschumacher]]

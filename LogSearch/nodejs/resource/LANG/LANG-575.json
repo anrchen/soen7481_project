@@ -1,0 +1,200 @@
+{
+    "expand": "operations,versionedRepresentations,editmeta,changelog,renderedFields",
+    "fields": {
+        "aggregateprogress": {
+            "progress": 0,
+            "total": 0
+        },
+        "aggregatetimeestimate": null,
+        "aggregatetimeoriginalestimate": null,
+        "aggregatetimespent": null,
+        "assignee": null,
+        "components": [{
+            "id": "12313198",
+            "name": "lang.builder.*",
+            "self": "https://issues.apache.org/jira/rest/api/2/component/12313198"
+        }],
+        "created": "2009-12-22T09:12:17.000+0000",
+        "creator": {
+            "active": true,
+            "avatarUrls": {
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452",
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452"
+            },
+            "displayName": "Anthony Whitford",
+            "key": "awhitford",
+            "name": "awhitford",
+            "self": "https://issues.apache.org/jira/rest/api/2/user?username=awhitford",
+            "timeZone": "America/Los_Angeles"
+        },
+        "customfield_10010": null,
+        "customfield_12310220": "2009-12-29T06:43:57.187+0000",
+        "customfield_12310222": "1_*:*_1_*:*_1564319676_*|*_6_*:*_1_*:*_0",
+        "customfield_12310250": null,
+        "customfield_12310290": null,
+        "customfield_12310291": null,
+        "customfield_12310300": null,
+        "customfield_12310310": "0.0",
+        "customfield_12310420": "147418",
+        "customfield_12310920": "74714",
+        "customfield_12310921": null,
+        "customfield_12311020": null,
+        "customfield_12311024": null,
+        "customfield_12311120": null,
+        "customfield_12311820": "0|i0d5sf:",
+        "customfield_12312022": null,
+        "customfield_12312023": null,
+        "customfield_12312024": null,
+        "customfield_12312026": null,
+        "customfield_12312220": null,
+        "customfield_12312320": null,
+        "customfield_12312321": null,
+        "customfield_12312322": null,
+        "customfield_12312323": null,
+        "customfield_12312324": null,
+        "customfield_12312325": null,
+        "customfield_12312326": null,
+        "customfield_12312327": null,
+        "customfield_12312328": null,
+        "customfield_12312329": null,
+        "customfield_12312330": null,
+        "customfield_12312331": null,
+        "customfield_12312332": null,
+        "customfield_12312333": null,
+        "customfield_12312334": null,
+        "customfield_12312335": null,
+        "customfield_12312336": null,
+        "customfield_12312337": null,
+        "customfield_12312338": null,
+        "customfield_12312339": null,
+        "customfield_12312340": null,
+        "customfield_12312341": null,
+        "customfield_12312520": null,
+        "customfield_12312521": "Sat Jan 09 11:44:17 UTC 2010",
+        "customfield_12312720": null,
+        "customfield_12312823": null,
+        "customfield_12312920": null,
+        "customfield_12312921": null,
+        "customfield_12312923": null,
+        "customfield_12313422": "false",
+        "customfield_12313520": null,
+        "description": "See http://svn.apache.org/viewvc/commons/proper/lang/trunk/src/java/org/apache/commons/lang3/builder/HashCodeBuilder.java?view=markup\n\nPlease review the implementation for *reflectionAppend* (lines 174 to 202)...  Specifically, see line 182:\n\n{code}\nList<String> excludedFieldList = excludeFields != null ? Arrays.asList(excludeFields) : Collections.<String>emptyList();\n{code}\n\nNote that if you are in the habit of passing in a String array for excluding fields ({{String[] excludeFields}}) -- which is a best practice when using Hibernate (to skip primary keys ({{@id}}) and version fields ({{@version}}) that change upon persistence) -- _EVERY TIME_ the _hashCode_ is calculated, an _ArrayList_ is being created -- generating fodder for the garbage collector.\n\nI thought I might get around this by passing a {{Collection<String>}} instead of a {{String[]}}, but ironically the implementation of the {{reflectionHashCode(Object object, Collection<String> excludeFields)}} (see lines 475 to 477), for example, transforms the {{Collection<String>}} into a {{String[]}} only to have it transformed internally into a temporary {{ArrayList<String>}}.\n\nI would expect the implementation to use and read what is submitted, whether that is a {{String[]}} or a {{Collection<String>}}.  I don't think it needs to create another copy just to have a convenient {{contains}} method.  Efficiency is important, especially in the event of rehashing.\n",
+        "duedate": null,
+        "environment": "Sun Java JDK 1.6.0_17",
+        "fixVersions": [{
+            "archived": true,
+            "description": "",
+            "id": "12314743",
+            "name": "2.5",
+            "releaseDate": "2010-02-25",
+            "released": true,
+            "self": "https://issues.apache.org/jira/rest/api/2/version/12314743"
+        }],
+        "issuelinks": [],
+        "issuetype": {
+            "avatarId": 21133,
+            "description": "A problem which impairs or prevents the functions of the product.",
+            "iconUrl": "https://issues.apache.org/jira/secure/viewavatar?size=xsmall&avatarId=21133&avatarType=issuetype",
+            "id": "1",
+            "name": "Bug",
+            "self": "https://issues.apache.org/jira/rest/api/2/issuetype/1",
+            "subtask": false
+        },
+        "labels": [],
+        "lastViewed": null,
+        "priority": {
+            "iconUrl": "https://issues.apache.org/jira/images/icons/priorities/major.svg",
+            "id": "3",
+            "name": "Major",
+            "self": "https://issues.apache.org/jira/rest/api/2/priority/3"
+        },
+        "progress": {
+            "progress": 0,
+            "total": 0
+        },
+        "project": {
+            "avatarUrls": {
+                "16x16": "https://issues.apache.org/jira/secure/projectavatar?size=xsmall&pid=12310481&avatarId=10011",
+                "24x24": "https://issues.apache.org/jira/secure/projectavatar?size=small&pid=12310481&avatarId=10011",
+                "32x32": "https://issues.apache.org/jira/secure/projectavatar?size=medium&pid=12310481&avatarId=10011",
+                "48x48": "https://issues.apache.org/jira/secure/projectavatar?pid=12310481&avatarId=10011"
+            },
+            "id": "12310481",
+            "key": "LANG",
+            "name": "Commons Lang",
+            "projectCategory": {
+                "description": "Apache Commons components",
+                "id": "10260",
+                "name": "Commons",
+                "self": "https://issues.apache.org/jira/rest/api/2/projectCategory/10260"
+            },
+            "self": "https://issues.apache.org/jira/rest/api/2/project/12310481"
+        },
+        "reporter": {
+            "active": true,
+            "avatarUrls": {
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452",
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452"
+            },
+            "displayName": "Anthony Whitford",
+            "key": "awhitford",
+            "name": "awhitford",
+            "self": "https://issues.apache.org/jira/rest/api/2/user?username=awhitford",
+            "timeZone": "America/Los_Angeles"
+        },
+        "resolution": {
+            "description": "A fix for this issue is checked into the tree and tested.",
+            "id": "1",
+            "name": "Fixed",
+            "self": "https://issues.apache.org/jira/rest/api/2/resolution/1"
+        },
+        "resolutiondate": "2010-01-09T11:44:17.000+0000",
+        "status": {
+            "description": "The issue is considered finished, the resolution is correct. Issues which are not closed can be reopened.",
+            "iconUrl": "https://issues.apache.org/jira/images/icons/statuses/closed.png",
+            "id": "6",
+            "name": "Closed",
+            "self": "https://issues.apache.org/jira/rest/api/2/status/6",
+            "statusCategory": {
+                "colorName": "green",
+                "id": 3,
+                "key": "done",
+                "name": "Done",
+                "self": "https://issues.apache.org/jira/rest/api/2/statuscategory/3"
+            }
+        },
+        "subtasks": [],
+        "summary": "HashCodeBuilder reflectionAppend creates unnecessary copy of excludeFields",
+        "timeestimate": null,
+        "timeoriginalestimate": null,
+        "timespent": null,
+        "updated": "2010-02-25T19:51:36.000+0000",
+        "versions": [{
+            "archived": true,
+            "description": "Bugfix release of the Lang1 codebase",
+            "id": "12312481",
+            "name": "2.4",
+            "releaseDate": "2008-03-18",
+            "released": true,
+            "self": "https://issues.apache.org/jira/rest/api/2/version/12312481"
+        }],
+        "votes": {
+            "hasVoted": false,
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/LANG-575/votes",
+            "votes": 0
+        },
+        "watches": {
+            "isWatching": false,
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/LANG-575/watchers",
+            "watchCount": 1
+        },
+        "workratio": -1
+    },
+    "id": "12443995",
+    "key": "LANG-575",
+    "self": "https://issues.apache.org/jira/rest/api/2/issue/12443995"
+}

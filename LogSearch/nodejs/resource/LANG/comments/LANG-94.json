@@ -1,0 +1,26 @@
+[Created an attachment (id=6665)
+patches to NumberUtils, NumberUtilsTest
+, I discovered one more thing...
+It turns out strings like 1a1 or fine, it only affects things like 1a, 1b,1c -> 
+1f.  1g according to isNumber is false.  So, I believe the issue is that it 
+sees a number like 3b, and thinks it is hex!
+Eric, Interesting. Are you sure about 1g, 2b, etc.?  These return true for me.  Looks
+to me like anything will be accepted as the last character as long as all
+charactres before it are numeric.
+
+, Interesting..  I don't know why I thought that.. I thought I had a testcase 
+that proved that a-f failed, g-z worked!
+
+At any rate, I added this testcase:
+ val = "1z";
+        assertTrue("isNumber(String) 15 Neg failed", !NumberUtils.isNumber
+(val));
+        assertTrue("isNumber(String)/createNumber(String) 15 Neg failed", !
+checkCreateNumber(val));
+
+and it tanked...  1z apparently is a number according to NumberUtils.isNumber!
+, Patch applied (minor changes)
+Thanks for spotting this one!, How do you do. I also found such a thing.
+The return value was true when "1.." was passed to NumberUtils.isNumber().
+I think that I want "1.." to be false since it is not a numerical value.
+]

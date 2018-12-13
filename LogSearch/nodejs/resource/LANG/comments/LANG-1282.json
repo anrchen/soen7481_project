@@ -1,0 +1,13 @@
+[I agree with this. 
+
+If {{Character.isWhitespace()}} is the test, then the Javadocs also need to be updated to make this crystal clear. The current documentation waffles on a bit about XML vs Java white-space conventions; IMO we should just concisely explain what this method does., IMO StringUtils#normalizeSpace should be idempotent, i.e.
+{code:java}
+String s = "a\u00A0 b";
+assertEquals(StringUtils.normalizeSpace(s), StringUtils.normalizeSpace(StringUtils.normalizeSpace(s)));
+{code}
+Hence non-breaking spaces should not be replaced by normal spaces. Simply remove the replacement in the following line
+{code:java}
+newChars[count++] = (actualChar == 160 ? 32 : actualChar);
+{code}
+
+]

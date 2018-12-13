@@ -1,0 +1,17 @@
+[Created an attachment (id=6701)
+patches to RandomStringUtils, RandomStringUtilsTest, RandomUtilsTest
+, As a note from ousider ( not even familiear with the codebase and requirements)
+
+127, I beleive 
+is not ASCII, it has some special dreadfull meaning, like
+erasing the prev character, but 
+anyway, I beleive it's not ASCII.
+
+I beleive ASCII are 32-126
+(If I recall ISO-2022 
+correctly)
+, That is a good point -- 127 should probably be excluded, since it is in any case
+not printable. My mistake. The bound for this should be left as is in the code,
+but it should be made clear in the javadoc that returned characters will be
+between 32 and 126 inclusive. , Fixes applied as discussed below.
+Thanks]

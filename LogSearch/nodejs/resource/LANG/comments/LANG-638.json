@@ -1,0 +1,6 @@
+[Patch proposal fixing the bug., Patch to NumberUtilsTest.java for bug reproduction., svn ci -m "Making it so that NumberUtils.createNumber throws a NumberFormatException instead of a StringIndexOutOfBoundsException when Strings such as 1eE are passed in. Thanks to Ingo Heinrich's report and patch in LANG-638"
+Sending        src/main/java/org/apache/commons/lang3/math/NumberUtils.java
+Sending        src/test/java/org/apache/commons/lang3/math/NumberUtilsTest.java
+Transmitting file data ..
+Committed revision 981736.
+]

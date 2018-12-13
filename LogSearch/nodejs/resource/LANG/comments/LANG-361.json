@@ -1,0 +1,6 @@
+[Here's a patch to the change the javadoc description for the BooleanUtils method toBooleanObject(String, String, String, String) so that it better describes the behavior of the method.  The patch is against the current trunk version of BooleanUtils (r587117)., Thanks Corey, I've applied the change to trunk:
+
+svn ci -m "Applying Corey Tripp's javadoc fix from LANG-361" BooleanUtils.java 
+Sending        BooleanUtils.java
+Transmitting file data .
+Committed revision 587395.]

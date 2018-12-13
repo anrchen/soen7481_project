@@ -1,0 +1,196 @@
+{
+    "expand": "operations,versionedRepresentations,editmeta,changelog,renderedFields",
+    "fields": {
+        "aggregateprogress": {
+            "progress": 0,
+            "total": 0
+        },
+        "aggregatetimeestimate": null,
+        "aggregatetimeoriginalestimate": null,
+        "aggregatetimespent": null,
+        "assignee": null,
+        "components": [],
+        "created": "2002-12-17T20:38:22.000+0000",
+        "creator": {
+            "active": true,
+            "avatarUrls": {
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452",
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452"
+            },
+            "displayName": "Chris Webb",
+            "key": "chris.webb@voxsurf.com",
+            "name": "chris.webb@voxsurf.com",
+            "self": "https://issues.apache.org/jira/rest/api/2/user?username=chris.webb%40voxsurf.com",
+            "timeZone": "Etc/UTC"
+        },
+        "customfield_10010": 15439,
+        "customfield_12310220": "2002-12-19T07:21:47.000+0000",
+        "customfield_12310222": null,
+        "customfield_12310250": null,
+        "customfield_12310290": null,
+        "customfield_12310291": null,
+        "customfield_12310300": null,
+        "customfield_12310310": "2.0",
+        "customfield_12310420": "34070",
+        "customfield_12310920": "74829",
+        "customfield_12310921": null,
+        "customfield_12311020": null,
+        "customfield_12311024": null,
+        "customfield_12311120": null,
+        "customfield_12311820": "0|i0d6hz:",
+        "customfield_12312022": null,
+        "customfield_12312023": null,
+        "customfield_12312024": null,
+        "customfield_12312026": null,
+        "customfield_12312220": null,
+        "customfield_12312320": null,
+        "customfield_12312321": null,
+        "customfield_12312322": null,
+        "customfield_12312323": null,
+        "customfield_12312324": null,
+        "customfield_12312325": null,
+        "customfield_12312326": null,
+        "customfield_12312327": null,
+        "customfield_12312328": null,
+        "customfield_12312329": null,
+        "customfield_12312330": null,
+        "customfield_12312331": null,
+        "customfield_12312332": null,
+        "customfield_12312333": null,
+        "customfield_12312334": null,
+        "customfield_12312335": null,
+        "customfield_12312336": null,
+        "customfield_12312337": null,
+        "customfield_12312338": null,
+        "customfield_12312339": null,
+        "customfield_12312340": null,
+        "customfield_12312341": null,
+        "customfield_12312520": null,
+        "customfield_12312521": "Mon Mar 24 00:26:51 UTC 2003",
+        "customfield_12312720": null,
+        "customfield_12312823": null,
+        "customfield_12312920": null,
+        "customfield_12312921": null,
+        "customfield_12312923": null,
+        "customfield_12313422": "false",
+        "customfield_12313520": null,
+        "description": "The org.apache.commons.lang.enum.Enum class does not support the following\nconstruct of static inner anonymous sub-classed constants:\n\npublic abstract class MyEnum extends Enum {\n\tpublic static final MyEnum ENUM1 = new MyEnum(\"enum1\") {\n\t\tpublic String getValue() {\n\t\t\treturn \"X\";\n\t\t}\n\t};\n\n\tpublic static final MyEnum ENUM2 = new MyEnum(\"enum2\") {\n\t\tpublic String getValue() {\n\t\t\treturn \"Y\";\n\t\t}\n\t};\n\n\t/**\n\t * Constructor.\n\t */\n\tprotected MyEnum(String name) {\n\t\tsuper(name);\n\t}\n\n\t/**\n\t * Returns a value.\n\t * Creation date: (16/12/2002 13:25:35)\n\t */\n\tpublic abstract String getValue();\n}\n\nENUM1 and ENUM2 are assigned anonymous inner class names 'MyEnum$0' and\n'MyEnum$1' respectively instead of the super class 'MyEnum' when added to the\nlist of enumerations kept in the Enum super class via the Enum constructor.\n\nA simple work around is to strip the inner class descriminator off the class\nname  in the Enum constructor, i.e.\n\n    protected Enum(String name) {\n        super();\n        if (name == null || name.length() == 0) {\n            throw new IllegalArgumentException(\"The Enum name must not be empty\");\n        }\n        iName = name;\n\n        // Retrieve class name.\n        String className = getClass().getName();\n\n        // Search for inner class.\n        int index = className.lastIndexOf('$');\n        if (index > -1) {\n                // Strip off inner class reference.\n                className = className.substring(0, index);\n        }\n        \n        Entry entry = (Entry) cEnumClasses.get(className);\n        \n        if (entry == null) {\n            entry = new Entry();\n            cEnumClasses.put(className, entry);\n        }\n        if (entry.map.containsKey(name)) {\n            throw new IllegalArgumentException(\"The Enum name must be unique, '\"\n+ name + \"' has already been added\");\n        }\n        entry.map.put(name, this);\n        entry.list.add(this);\n    }",
+        "duedate": null,
+        "environment": "Operating System: other\nPlatform: PC",
+        "fixVersions": [{
+            "archived": true,
+            "description": "",
+            "id": "12311706",
+            "name": "2.0",
+            "releaseDate": "2003-09-02",
+            "released": true,
+            "self": "https://issues.apache.org/jira/rest/api/2/version/12311706"
+        }],
+        "issuelinks": [],
+        "issuetype": {
+            "avatarId": 21133,
+            "description": "A problem which impairs or prevents the functions of the product.",
+            "iconUrl": "https://issues.apache.org/jira/secure/viewavatar?size=xsmall&avatarId=21133&avatarType=issuetype",
+            "id": "1",
+            "name": "Bug",
+            "self": "https://issues.apache.org/jira/rest/api/2/issuetype/1",
+            "subtask": false
+        },
+        "labels": [],
+        "lastViewed": null,
+        "priority": {
+            "iconUrl": "https://issues.apache.org/jira/images/icons/priorities/major.svg",
+            "id": "3",
+            "name": "Major",
+            "self": "https://issues.apache.org/jira/rest/api/2/priority/3"
+        },
+        "progress": {
+            "progress": 0,
+            "total": 0
+        },
+        "project": {
+            "avatarUrls": {
+                "16x16": "https://issues.apache.org/jira/secure/projectavatar?size=xsmall&pid=12310481&avatarId=10011",
+                "24x24": "https://issues.apache.org/jira/secure/projectavatar?size=small&pid=12310481&avatarId=10011",
+                "32x32": "https://issues.apache.org/jira/secure/projectavatar?size=medium&pid=12310481&avatarId=10011",
+                "48x48": "https://issues.apache.org/jira/secure/projectavatar?pid=12310481&avatarId=10011"
+            },
+            "id": "12310481",
+            "key": "LANG",
+            "name": "Commons Lang",
+            "projectCategory": {
+                "description": "Apache Commons components",
+                "id": "10260",
+                "name": "Commons",
+                "self": "https://issues.apache.org/jira/rest/api/2/projectCategory/10260"
+            },
+            "self": "https://issues.apache.org/jira/rest/api/2/project/12310481"
+        },
+        "reporter": {
+            "active": true,
+            "avatarUrls": {
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452",
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452"
+            },
+            "displayName": "Chris Webb",
+            "key": "chris.webb@voxsurf.com",
+            "name": "chris.webb@voxsurf.com",
+            "self": "https://issues.apache.org/jira/rest/api/2/user?username=chris.webb%40voxsurf.com",
+            "timeZone": "Etc/UTC"
+        },
+        "resolution": {
+            "description": "A fix for this issue is checked into the tree and tested.",
+            "id": "1",
+            "name": "Fixed",
+            "self": "https://issues.apache.org/jira/rest/api/2/resolution/1"
+        },
+        "resolutiondate": "2006-05-16T12:44:37.000+0000",
+        "status": {
+            "description": "The issue is considered finished, the resolution is correct. Issues which are not closed can be reopened.",
+            "iconUrl": "https://issues.apache.org/jira/images/icons/statuses/closed.png",
+            "id": "6",
+            "name": "Closed",
+            "self": "https://issues.apache.org/jira/rest/api/2/status/6",
+            "statusCategory": {
+                "colorName": "green",
+                "id": 3,
+                "key": "done",
+                "name": "Done",
+                "self": "https://issues.apache.org/jira/rest/api/2/statuscategory/3"
+            }
+        },
+        "subtasks": [],
+        "summary": "Enum does not support inner sub-classes",
+        "timeestimate": null,
+        "timeoriginalestimate": null,
+        "timespent": null,
+        "updated": "2006-05-16T12:44:37.000+0000",
+        "versions": [{
+            "archived": true,
+            "description": "",
+            "id": "12311706",
+            "name": "2.0",
+            "releaseDate": "2003-09-02",
+            "released": true,
+            "self": "https://issues.apache.org/jira/rest/api/2/version/12311706"
+        }],
+        "votes": {
+            "hasVoted": false,
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/LANG-146/votes",
+            "votes": 0
+        },
+        "watches": {
+            "isWatching": false,
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/LANG-146/watchers",
+            "watchCount": 0
+        },
+        "workratio": -1
+    },
+    "id": "12340462",
+    "key": "LANG-146",
+    "self": "https://issues.apache.org/jira/rest/api/2/issue/12340462"
+}

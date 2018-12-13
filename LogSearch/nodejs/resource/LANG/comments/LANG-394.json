@@ -1,0 +1,12 @@
+[Hi, this is not an EqualsBuilder bug, but rather a misuse of the Collection interface:
+
+The general contract for Collection#equals(Object) is the same as Object#equals(Object), ie a Collection is only equals to itself.
+(see http://java.sun.com/j2se/1.5.0/docs/api/java/util/Collection.html#equals(java.lang.Object))
+
+Whereas the contract for List#equals(Object) is that a List is equals to any List of the same size which contains the same objects in the same order.
+(see http://java.sun.com/j2se/1.5.0/docs/api/java/util/List.html#equals(java.lang.Object))
+
+That's why your current test fails; instead of returning an unmodifiableCollection, try returning an unmodifiableList (which compares to other lists by value and not by reference).
+
+Hope this help,
+Julien, Many thanks for that explanation Julien, the javadoc definitely backs up what you're saying and so I'm closing this issue.]

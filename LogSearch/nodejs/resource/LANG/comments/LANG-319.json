@@ -1,0 +1,1 @@
+[This is a JDK bug and we cannot catch the thrown exception, since it is only available in JDK 1.4+.]

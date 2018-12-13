@@ -1,0 +1,47 @@
+[GitHub user ilgrosso opened a pull request:
+
+    https://github.com/apache/commons-lang/pull/212
+
+    [LANG-1285] Replicate the fix for LANG-1186
+
+    
+
+You can merge this pull request into a Git repository by running:
+
+    $ git pull https://github.com/ilgrosso/commons-lang master
+
+Alternatively you can review and apply these changes as the patch at:
+
+    https://github.com/apache/commons-lang/pull/212.patch
+
+To close this pull request, make a commit to your master/trunk branch
+with (at least) the following in the commit message:
+
+    This closes #212
+    
+----
+commit b61c9b3594bec226dd26ef9af966ebaa6ebf78dc
+Author: Francesco Chicchiriccò <ilgrosso@apache.org>
+Date:   2016-11-16T06:07:43Z
+
+    [LANG-1285] Replicate the fix for LANG-1186
+
+----
+, Github user coveralls commented on the issue:
+
+    https://github.com/apache/commons-lang/pull/212
+  
+    
+    [![Coverage Status](https://coveralls.io/builds/8847626/badge)](https://coveralls.io/builds/8847626)
+    
+    Coverage increased (+0.0004%) to 93.563% when pulling **b61c9b3594bec226dd26ef9af966ebaa6ebf78dc on ilgrosso:master** into **0f6a292a29fedd49741310cd517ac4ba907bf8d4 on apache:master**.
+
+, Github user asfgit closed the pull request at:
+
+    https://github.com/apache/commons-lang/pull/212
+, Github user PascalSchumacher commented on the issue:
+
+    https://github.com/apache/commons-lang/pull/212
+  
+    Thanks! 👍
+]

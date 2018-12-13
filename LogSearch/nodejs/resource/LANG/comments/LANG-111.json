@@ -1,0 +1,28 @@
+[Just a note, the CalendarUtils.getCalendarIterator(now, 
+CalendarUtils.RANGE_WEEK_RELATIVE) hangs irrespective of the changes to the 
+test-case. i.e. it will always hang if run on a sunday.
+
+It is just getting highlighted as currently, the assert just ahead of it fails 
+on sundays. Hence, either everything runs fine, or the (unrelated) assert in 
+front of it fails.
+
+As suggested, there are 2 places currently which need to be 
+Calendar.DAY_OF_WEEK and not DATE. The RANGE_WEEK_RELATIVE logic needs to be 
+investigated., Created an attachment (id=6081)
+DATE to DAY_OF_WEEK, in test-case and minor fix in CalendarUtils
+, I am attaching another patch to CalendarUtilsTest.java that runs
+testWeekIterator() in a loop, incrementing the reference date in a loop to hit
+all days of the week.
+
+This patch also fixes the error in the test identified above (Calendar.DATE
+should be Calendar.DAY_OF_WEEK) in two places.  
+
+Applying this patch will cause the test to hang, since it exposes the
+CalendarUtils bug identified (and patched) by Mohan above.  This bug causes
+getCalendarIterator(Calendar focus, int rangeStyle) to go into an infinite loop
+when focus is a Sunday and rangeStyle is RANGE_WEEK_RELATIVE.  Mohan's patch to
+CalendarUtils handles the boundary cases.  When it is applied, all tests,
+(including the loop addition) succeed., Created an attachment (id=6476)
+patch to run testWeekIterator in a loop over start days
+, All patches applied, plus many other changes in time package.
+Thanks for the patches.]

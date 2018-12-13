@@ -1,0 +1,9 @@
+[The Javadocs are not overly clear on this subject:
+
+bq. If an entity is unrecognized, it is left alone, and inserted verbatim into the result string. e.g. "&amp;gt;&amp;zzzz;x" will become ">&amp;zzzz;x".
+
+The tricky word here is "unrecognized". I think {{&#39511154;}} is recognised as an escaped Unicode character, but it fails during conversion. That's probably a different scenario to not _recognising_ an invalid entity like {{&zzz;}}.
+
+I would suggest the docs are vague enough to support action in either direction. We either declare this is a bug and fix it or we decide it's good behaviour, but update the Javadocs to make it clearer this will happen.
+
+I welcome comments from others. I think the original intention here was for no exceptions to be thrown, so I'd be in favour of calling this a bug., This issue is actually very similar to LANG-1022..., I agree, seems an exact duplicate. I'm closing it as such.]

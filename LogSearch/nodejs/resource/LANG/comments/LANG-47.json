@@ -1,0 +1,14 @@
+[Alex?, Fixed.  Please confirm.
+
+In case you're interested, it was actually a problem in the test, not in the 
+code.  The test was passing in a string with non-ascii characters.  When the 
+test was compiled on a non-US/non-ASCII system, it encoded it as a different 
+char, which naturally escaped/unescaped to a different entity.  The fix was to 
+escape the funky characters explicitly in the test.
+
+The line I changed had the following comment:
+        // should we unicode-escape the cedilla here, for 7-bit cleanliness?
+:-)
+
+, Works now in build 20030410
+]

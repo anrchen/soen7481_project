@@ -1,0 +1,211 @@
+{
+    "expand": "operations,versionedRepresentations,editmeta,changelog,renderedFields",
+    "fields": {
+        "aggregateprogress": {
+            "progress": 0,
+            "total": 0
+        },
+        "aggregatetimeestimate": null,
+        "aggregatetimeoriginalestimate": null,
+        "aggregatetimespent": null,
+        "assignee": null,
+        "components": [{
+            "id": "12313203",
+            "name": "lang.*",
+            "self": "https://issues.apache.org/jira/rest/api/2/component/12313203"
+        }],
+        "created": "2010-08-13T14:52:35.000+0000",
+        "creator": {
+            "active": true,
+            "avatarUrls": {
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452",
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452"
+            },
+            "displayName": "Volker Glave",
+            "key": "vgl",
+            "name": "vgl",
+            "self": "https://issues.apache.org/jira/rest/api/2/user?username=vgl",
+            "timeZone": "Etc/UTC"
+        },
+        "customfield_10010": null,
+        "customfield_12310220": "2010-08-25T20:00:46.160+0000",
+        "customfield_12310222": "1_*:*_1_*:*_1055290445_*|*_6_*:*_2_*:*_49922231_*|*_4_*:*_1_*:*_305184949",
+        "customfield_12310250": null,
+        "customfield_12310290": null,
+        "customfield_12310291": null,
+        "customfield_12310300": null,
+        "customfield_12310310": "0.0",
+        "customfield_12310420": "34062",
+        "customfield_12310920": "74687",
+        "customfield_12310921": null,
+        "customfield_12311020": null,
+        "customfield_12311024": null,
+        "customfield_12311120": null,
+        "customfield_12311820": "0|i0d5mf:",
+        "customfield_12312022": null,
+        "customfield_12312023": null,
+        "customfield_12312024": null,
+        "customfield_12312026": null,
+        "customfield_12312220": null,
+        "customfield_12312320": null,
+        "customfield_12312321": null,
+        "customfield_12312322": null,
+        "customfield_12312323": null,
+        "customfield_12312324": null,
+        "customfield_12312325": null,
+        "customfield_12312326": null,
+        "customfield_12312327": null,
+        "customfield_12312328": null,
+        "customfield_12312329": null,
+        "customfield_12312330": null,
+        "customfield_12312331": null,
+        "customfield_12312332": null,
+        "customfield_12312333": null,
+        "customfield_12312334": null,
+        "customfield_12312335": null,
+        "customfield_12312336": null,
+        "customfield_12312337": null,
+        "customfield_12312338": null,
+        "customfield_12312339": null,
+        "customfield_12312340": null,
+        "customfield_12312341": null,
+        "customfield_12312520": null,
+        "customfield_12312521": "Sun Aug 29 22:39:13 UTC 2010",
+        "customfield_12312720": null,
+        "customfield_12312823": null,
+        "customfield_12312920": null,
+        "customfield_12312921": null,
+        "customfield_12312923": null,
+        "customfield_12313422": "false",
+        "customfield_12313520": null,
+        "description": "The Javadoc comment for StringUtils.left() claims to throw an exception \"if len is negative\" (and that input argument len \"must be zero or positive\"):\n\nhttp://commons.apache.org/lang/api/org/apache/commons/lang3/StringUtils.html#left(java.lang.String,%20int)\nhttp://commons.apache.org/lang/api-2.5/org/apache/commons/lang/StringUtils.html#left(java.lang.String,%20int)\n\n{quote}public static String left(String str, int len)\n\n    Gets the leftmost len characters of a String.\n\n    If len characters are not available, or the String is null, the String will be returned without an exception. {color:red}An exception is thrown if len is negative.{color}\n\n     StringUtils.left(null, *)    = null\n     StringUtils.left(*, -ve)     = \"\"\n     StringUtils.left(\"\", *)      = \"\"\n     StringUtils.left(\"abc\", 0)   = \"\"\n     StringUtils.left(\"abc\", 2)   = \"ab\"\n     StringUtils.left(\"abc\", 4)   = \"abc\"\n\n    Parameters:\n        str - the String to get the leftmost characters from, may be null\n        len - the length of the required String, {color:red}must be zero or positive{color}\n    Returns:\n        the leftmost characters, null if null String input{quote}\n\nBut it  doesn't. (Luckily and preferably anyway :-).)\nInstead an empty string will be returned. (Which is good.) As is seen from the implementation code ...\n\n{code}........\n        if (len < 0) {\n            return EMPTY;\n        }\n        ...{code}\n\n..., and by example, too:\n\n{code}$ cat StringUtilsTest.java\nimport org.apache.commons.lang.StringUtils;\n\npublic final class StringUtilsTest {\n    public static void main(final String[] args) {\n        final String result = StringUtils.left(\"foobar\", -42);\n        System.out.println(\">\" + result + \"<\");\n    }\n}\n\n$ javac -classpath commons-lang.jar StringUtilsTest.java\n\n$ java -classpath .:commons-lang.jar StringUtilsTest\n><{code}\n\nThe Javadoc comment should be updated.\n\nSame issue for right() and mid(), by the way.\n\nVolker Glave",
+        "duedate": null,
+        "environment": null,
+        "fixVersions": [{
+            "archived": true,
+            "description": "JDK 1.5 focused version of Lang",
+            "id": "12311714",
+            "name": "3.0",
+            "releaseDate": "2011-07-19",
+            "released": true,
+            "self": "https://issues.apache.org/jira/rest/api/2/version/12311714"
+        }],
+        "issuelinks": [],
+        "issuetype": {
+            "avatarId": 21133,
+            "description": "A problem which impairs or prevents the functions of the product.",
+            "iconUrl": "https://issues.apache.org/jira/secure/viewavatar?size=xsmall&avatarId=21133&avatarType=issuetype",
+            "id": "1",
+            "name": "Bug",
+            "self": "https://issues.apache.org/jira/rest/api/2/issuetype/1",
+            "subtask": false
+        },
+        "labels": [],
+        "lastViewed": null,
+        "priority": {
+            "iconUrl": "https://issues.apache.org/jira/images/icons/priorities/minor.svg",
+            "id": "4",
+            "name": "Minor",
+            "self": "https://issues.apache.org/jira/rest/api/2/priority/4"
+        },
+        "progress": {
+            "progress": 0,
+            "total": 0
+        },
+        "project": {
+            "avatarUrls": {
+                "16x16": "https://issues.apache.org/jira/secure/projectavatar?size=xsmall&pid=12310481&avatarId=10011",
+                "24x24": "https://issues.apache.org/jira/secure/projectavatar?size=small&pid=12310481&avatarId=10011",
+                "32x32": "https://issues.apache.org/jira/secure/projectavatar?size=medium&pid=12310481&avatarId=10011",
+                "48x48": "https://issues.apache.org/jira/secure/projectavatar?pid=12310481&avatarId=10011"
+            },
+            "id": "12310481",
+            "key": "LANG",
+            "name": "Commons Lang",
+            "projectCategory": {
+                "description": "Apache Commons components",
+                "id": "10260",
+                "name": "Commons",
+                "self": "https://issues.apache.org/jira/rest/api/2/projectCategory/10260"
+            },
+            "self": "https://issues.apache.org/jira/rest/api/2/project/12310481"
+        },
+        "reporter": {
+            "active": true,
+            "avatarUrls": {
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452",
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452"
+            },
+            "displayName": "Volker Glave",
+            "key": "vgl",
+            "name": "vgl",
+            "self": "https://issues.apache.org/jira/rest/api/2/user?username=vgl",
+            "timeZone": "Etc/UTC"
+        },
+        "resolution": {
+            "description": "A fix for this issue is checked into the tree and tested.",
+            "id": "1",
+            "name": "Fixed",
+            "self": "https://issues.apache.org/jira/rest/api/2/resolution/1"
+        },
+        "resolutiondate": "2010-08-29T22:39:13.000+0000",
+        "status": {
+            "description": "The issue is considered finished, the resolution is correct. Issues which are not closed can be reopened.",
+            "iconUrl": "https://issues.apache.org/jira/images/icons/statuses/closed.png",
+            "id": "6",
+            "name": "Closed",
+            "self": "https://issues.apache.org/jira/rest/api/2/status/6",
+            "statusCategory": {
+                "colorName": "green",
+                "id": 3,
+                "key": "done",
+                "name": "Done",
+                "self": "https://issues.apache.org/jira/rest/api/2/statuscategory/3"
+            }
+        },
+        "subtasks": [],
+        "summary": "Javadoc StringUtils.left() claims to throw on negative len, but doesn't",
+        "timeestimate": null,
+        "timeoriginalestimate": null,
+        "timespent": null,
+        "updated": "2010-08-29T22:39:13.000+0000",
+        "versions": [
+            {
+                "archived": true,
+                "description": "",
+                "id": "12314743",
+                "name": "2.5",
+                "releaseDate": "2010-02-25",
+                "released": true,
+                "self": "https://issues.apache.org/jira/rest/api/2/version/12314743"
+            },
+            {
+                "archived": true,
+                "description": "JDK 1.5 focused version of Lang",
+                "id": "12311714",
+                "name": "3.0",
+                "releaseDate": "2011-07-19",
+                "released": true,
+                "self": "https://issues.apache.org/jira/rest/api/2/version/12311714"
+            }
+        ],
+        "votes": {
+            "hasVoted": false,
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/LANG-643/votes",
+            "votes": 0
+        },
+        "watches": {
+            "isWatching": false,
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/LANG-643/watchers",
+            "watchCount": 0
+        },
+        "workratio": -1
+    },
+    "id": "12471555",
+    "key": "LANG-643",
+    "self": "https://issues.apache.org/jira/rest/api/2/issue/12471555"
+}

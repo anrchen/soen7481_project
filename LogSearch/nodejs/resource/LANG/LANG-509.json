@@ -1,0 +1,247 @@
+{
+    "expand": "operations,versionedRepresentations,editmeta,changelog,renderedFields",
+    "fields": {
+        "aggregateprogress": {
+            "progress": 0,
+            "total": 0
+        },
+        "aggregatetimeestimate": null,
+        "aggregatetimeoriginalestimate": null,
+        "aggregatetimespent": null,
+        "assignee": null,
+        "components": [{
+            "id": "12313194",
+            "name": "lang.text.*",
+            "self": "https://issues.apache.org/jira/rest/api/2/component/12313194"
+        }],
+        "created": "2009-06-08T06:57:58.000+0000",
+        "creator": {
+            "active": true,
+            "avatarUrls": {
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452",
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452"
+            },
+            "displayName": "Kai Hackemesser",
+            "key": "schlaufuchs",
+            "name": "schlaufuchs",
+            "self": "https://issues.apache.org/jira/rest/api/2/user?username=schlaufuchs",
+            "timeZone": "Pacific/Auckland"
+        },
+        "customfield_10010": null,
+        "customfield_12310220": "2009-06-09T19:13:40.343+0000",
+        "customfield_12310222": "1_*:*_1_*:*_130541648_*|*_5_*:*_1_*:*_0",
+        "customfield_12310250": null,
+        "customfield_12310290": null,
+        "customfield_12310291": null,
+        "customfield_12310300": null,
+        "customfield_12310310": "0.0",
+        "customfield_12310420": "147369",
+        "customfield_12310920": "74727",
+        "customfield_12310921": null,
+        "customfield_12311020": null,
+        "customfield_12311024": null,
+        "customfield_12311120": null,
+        "customfield_12311820": "0|i0d5vb:",
+        "customfield_12312022": null,
+        "customfield_12312023": null,
+        "customfield_12312024": null,
+        "customfield_12312026": null,
+        "customfield_12312220": null,
+        "customfield_12312320": null,
+        "customfield_12312321": null,
+        "customfield_12312322": null,
+        "customfield_12312323": null,
+        "customfield_12312324": null,
+        "customfield_12312325": null,
+        "customfield_12312326": null,
+        "customfield_12312327": null,
+        "customfield_12312328": null,
+        "customfield_12312329": null,
+        "customfield_12312330": null,
+        "customfield_12312331": null,
+        "customfield_12312332": null,
+        "customfield_12312333": null,
+        "customfield_12312334": null,
+        "customfield_12312335": null,
+        "customfield_12312336": null,
+        "customfield_12312337": null,
+        "customfield_12312338": null,
+        "customfield_12312339": null,
+        "customfield_12312340": null,
+        "customfield_12312341": null,
+        "customfield_12312520": null,
+        "customfield_12312521": "Tue Jun 09 19:13:40 UTC 2009",
+        "customfield_12312720": null,
+        "customfield_12312823": null,
+        "customfield_12312920": null,
+        "customfield_12312921": null,
+        "customfield_12312923": null,
+        "customfield_12313422": "false",
+        "customfield_12313520": null,
+        "description": "It is possible to let ExtendedMessageFormat cause an OutOfMemory Error (Java heap space) - no matter how large you define the memory, because the code produces an endless loop that extends a StringBuffer ad infinitum.\n\nCode to reproduce:\n\n\ninstantiate an ExtendedMessageFormat object using the constructor \npublic ExtendedMessageFormat(String pattern, Locale locale, Map registry) \n\nlocale and registry (not null) don't matter actually, but pattern as String looks like this:\n{{The field ''{0}'' must be completed}}\nnotice the doubled single quotes.\n\nThe constructor then executes applyPattern(pattern)\nIn applyPattern, line 158 (that is inside the loop over the pattern length)  {{appendQuotedString(pattern, pos, stripCustom, true);}} is called, it is the last statement for that case in the loop. \nIn  appendQuotedString, line 422 the quote character gets appended to the return StringBuffer, then return. The problem in fact is, that the pointer (ParsePosition pos) isn't updated and after return the procedure will check the same character again and again and again. \n\nPrimitive workaround: no use of single quotes in messages as input of ExtendedMessageFormat.\n\n",
+        "duedate": null,
+        "environment": "Windows XP, Tomcat 5.5.27, Sun JDK 1.6.0_13",
+        "fixVersions": [{
+            "archived": true,
+            "description": "",
+            "id": "12314743",
+            "name": "2.5",
+            "releaseDate": "2010-02-25",
+            "released": true,
+            "self": "https://issues.apache.org/jira/rest/api/2/version/12314743"
+        }],
+        "issuelinks": [{
+            "id": "12325192",
+            "outwardIssue": {
+                "fields": {
+                    "issuetype": {
+                        "avatarId": 21133,
+                        "description": "A problem which impairs or prevents the functions of the product.",
+                        "iconUrl": "https://issues.apache.org/jira/secure/viewavatar?size=xsmall&avatarId=21133&avatarType=issuetype",
+                        "id": "1",
+                        "name": "Bug",
+                        "self": "https://issues.apache.org/jira/rest/api/2/issuetype/1",
+                        "subtask": false
+                    },
+                    "priority": {
+                        "iconUrl": "https://issues.apache.org/jira/images/icons/priorities/major.svg",
+                        "id": "3",
+                        "name": "Major",
+                        "self": "https://issues.apache.org/jira/rest/api/2/priority/3"
+                    },
+                    "status": {
+                        "description": "The issue is considered finished, the resolution is correct. Issues which are not closed can be reopened.",
+                        "iconUrl": "https://issues.apache.org/jira/images/icons/statuses/closed.png",
+                        "id": "6",
+                        "name": "Closed",
+                        "self": "https://issues.apache.org/jira/rest/api/2/status/6",
+                        "statusCategory": {
+                            "colorName": "green",
+                            "id": 3,
+                            "key": "done",
+                            "name": "Done",
+                            "self": "https://issues.apache.org/jira/rest/api/2/statuscategory/3"
+                        }
+                    },
+                    "summary": "ExtendedMessageFormat: OutOfMemory with custom format registry and a pattern containing single quotes"
+                },
+                "id": "12412010",
+                "key": "LANG-477",
+                "self": "https://issues.apache.org/jira/rest/api/2/issue/12412010"
+            },
+            "self": "https://issues.apache.org/jira/rest/api/2/issueLink/12325192",
+            "type": {
+                "id": "12310000",
+                "inward": "is duplicated by",
+                "name": "Duplicate",
+                "outward": "duplicates",
+                "self": "https://issues.apache.org/jira/rest/api/2/issueLinkType/12310000"
+            }
+        }],
+        "issuetype": {
+            "avatarId": 21133,
+            "description": "A problem which impairs or prevents the functions of the product.",
+            "iconUrl": "https://issues.apache.org/jira/secure/viewavatar?size=xsmall&avatarId=21133&avatarType=issuetype",
+            "id": "1",
+            "name": "Bug",
+            "self": "https://issues.apache.org/jira/rest/api/2/issuetype/1",
+            "subtask": false
+        },
+        "labels": [],
+        "lastViewed": null,
+        "priority": {
+            "iconUrl": "https://issues.apache.org/jira/images/icons/priorities/major.svg",
+            "id": "3",
+            "name": "Major",
+            "self": "https://issues.apache.org/jira/rest/api/2/priority/3"
+        },
+        "progress": {
+            "progress": 0,
+            "total": 0
+        },
+        "project": {
+            "avatarUrls": {
+                "16x16": "https://issues.apache.org/jira/secure/projectavatar?size=xsmall&pid=12310481&avatarId=10011",
+                "24x24": "https://issues.apache.org/jira/secure/projectavatar?size=small&pid=12310481&avatarId=10011",
+                "32x32": "https://issues.apache.org/jira/secure/projectavatar?size=medium&pid=12310481&avatarId=10011",
+                "48x48": "https://issues.apache.org/jira/secure/projectavatar?pid=12310481&avatarId=10011"
+            },
+            "id": "12310481",
+            "key": "LANG",
+            "name": "Commons Lang",
+            "projectCategory": {
+                "description": "Apache Commons components",
+                "id": "10260",
+                "name": "Commons",
+                "self": "https://issues.apache.org/jira/rest/api/2/projectCategory/10260"
+            },
+            "self": "https://issues.apache.org/jira/rest/api/2/project/12310481"
+        },
+        "reporter": {
+            "active": true,
+            "avatarUrls": {
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452",
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452"
+            },
+            "displayName": "Kai Hackemesser",
+            "key": "schlaufuchs",
+            "name": "schlaufuchs",
+            "self": "https://issues.apache.org/jira/rest/api/2/user?username=schlaufuchs",
+            "timeZone": "Pacific/Auckland"
+        },
+        "resolution": {
+            "description": "The problem is a duplicate of an existing issue.",
+            "id": "3",
+            "name": "Duplicate",
+            "self": "https://issues.apache.org/jira/rest/api/2/resolution/3"
+        },
+        "resolutiondate": "2009-06-09T19:13:40.000+0000",
+        "status": {
+            "description": "The issue is considered finished, the resolution is correct. Issues which are not closed can be reopened.",
+            "iconUrl": "https://issues.apache.org/jira/images/icons/statuses/closed.png",
+            "id": "6",
+            "name": "Closed",
+            "self": "https://issues.apache.org/jira/rest/api/2/status/6",
+            "statusCategory": {
+                "colorName": "green",
+                "id": 3,
+                "key": "done",
+                "name": "Done",
+                "self": "https://issues.apache.org/jira/rest/api/2/statuscategory/3"
+            }
+        },
+        "subtasks": [],
+        "summary": "OutOfMemory Error caused by ExtendedMessageFormat",
+        "timeestimate": null,
+        "timeoriginalestimate": null,
+        "timespent": null,
+        "updated": "2010-02-25T21:04:50.000+0000",
+        "versions": [{
+            "archived": true,
+            "description": "Bugfix release of the Lang1 codebase",
+            "id": "12312481",
+            "name": "2.4",
+            "releaseDate": "2008-03-18",
+            "released": true,
+            "self": "https://issues.apache.org/jira/rest/api/2/version/12312481"
+        }],
+        "votes": {
+            "hasVoted": false,
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/LANG-509/votes",
+            "votes": 1
+        },
+        "watches": {
+            "isWatching": false,
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/LANG-509/watchers",
+            "watchCount": 0
+        },
+        "workratio": -1
+    },
+    "id": "12427323",
+    "key": "LANG-509",
+    "self": "https://issues.apache.org/jira/rest/api/2/issue/12427323"
+}

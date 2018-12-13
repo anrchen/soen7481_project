@@ -1,0 +1,15 @@
+[Test confirmed:
+
+Testcase: testNumberOverflow(org.apache.commons.lang.EntitiesTest): FAILED
+expected:<&#12345678;> but was:<?>
+junit.framework.ComparisonFailure: expected:<&#12345678;> but was:<?>
+    at org.apache.commons.lang.EntitiesTest.doTestUnescapeEntity(EntitiesTest.java:101)
+    at org.apache.commons.lang.EntitiesTest.testNumberOverflow(EntitiesTest.java:201), Unit test patch with fix. 
+
+Also includes a break; statement in the unescape(Writer) method that was missing (GAH!). It's terrible how these methods have ended up not being coded in the same way.,  svn ci -m "Applying unit test and fix for #LANG-292. Also fixes a couple of problems with the unescape(Writer..) overload that came up" src/test/org/apache/commons/lang/EntitiesTest.java src/java/org/apache/commons/lang/Entities.java 
+
+Sending        src/java/org/apache/commons/lang/Entities.java
+Sending        src/test/org/apache/commons/lang/EntitiesTest.java
+Transmitting file data ..
+Committed revision 469661.
+]

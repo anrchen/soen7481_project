@@ -1,0 +1,3 @@
+[The CVS now contains tests and description about this case. For this problem, 
+the solution is to reference the outer class in a static{} block of the staic 
+nested class. See CVS for more details., 2.1 released, closing.]

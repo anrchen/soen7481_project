@@ -1,0 +1,3 @@
+[This is the documented behavior of the method.  The original reporter wants to use the [StringUtils.removeEnd|http://commons.apache.org/lang/api-release/org/apache/commons/lang3/StringUtils.html#removeEnd(java.lang.String, java.lang.String)] method instead., Thanks for the response. 
+
+I will Use StringUtils.removeEnd() instead.]

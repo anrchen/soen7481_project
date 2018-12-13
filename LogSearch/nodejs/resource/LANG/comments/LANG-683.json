@@ -1,0 +1,6 @@
+[svn ci -m "Dropping the concat methods. Moving the join(Object[]) to join(Object...). LANG-396. LANG-683. "
+Sending        src/main/java/org/apache/commons/lang3/StringUtils.java
+Sending        src/test/java/org/apache/commons/lang3/StringUtilsTest.java
+Transmitting file data ..
+Committed revision 1079173.
+]

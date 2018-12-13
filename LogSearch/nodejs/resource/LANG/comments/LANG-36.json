@@ -1,0 +1,7 @@
+[Created an attachment (id=6338)
+Patch for RandomStringUtils
+, Created an attachment (id=6339)
+Patch to add test case to RandomStringUtilsTest
+, Created an attachment (id=6340)
+Revised patch of RandomStringUtilsTest -- removed System.out displaying chi-square stat
+, Patched with Phil's fix/unit test.]

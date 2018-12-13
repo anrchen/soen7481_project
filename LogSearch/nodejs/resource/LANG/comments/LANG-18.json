@@ -1,0 +1,22 @@
+[Created an attachment (id=10038)
+BitSetUtils.java
+, Created an attachment (id=10039)
+TestBitSetUtils.java
+, or on second thought, perhaps this fits better in [lang]?, Reassign to lang as it already has a BitSet class, changed summary title from [collections] to [lang], attaching new versions of
+BitSetUtils and TestBitSetUtils in package org.apache.commons.lang with Apache
+license version 2.0 and javadoc improvements., Created an attachment (id=10192)
+updated BitSetUtils.java
+, Created an attachment (id=10193)
+updated TestBitSetUtils.java
+, Sorry it's been so long, looking at as a part of releasing Lang 2.1. 
+
+Negative view on this is that it really doesn't do much. Just a helper for a
+couple of for loops. These methods are in themselves fine, but I don't think it
+justifies adding a BitSetUtils.
+
+Not too sure what Stephen meant by Lang has a BitSet below. It does have a
+BitField, but I think that's a different concept to BitSet (pretty sure it is,
+just don't recall why right now)., I concur that this doesn't seem that useful, nor good for lang inclusion. 
+(Also, the proposed implementation is JDK1.4 specific) The main problem is that 
+BitSet is not a class that is used to the same degree as Number , Boolean and 
+String.]

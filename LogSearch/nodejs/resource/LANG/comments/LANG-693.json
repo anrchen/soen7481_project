@@ -1,0 +1,134 @@
+[Can you provide more data? If I run the following test it looks to happily be returning Doubles (and already had a test for BigDecimal):
+
+        // LANG-693
+        assertEquals("createNumber(String) LANG-693 failed", Double.MAX_VALUE, NumberUtils
+                    .createNumber("" + Double.MAX_VALUE));
+        System.err.println( NumberUtils.createNumber(""+Double.MAX_VALUE));
+        System.err.println( NumberUtils.createNumber(""+Double.MAX_VALUE).getClass());   // prints java.lang.Double, We've have tested it in a JUnit with the following string: "0.9090909090909091", that debugging it returns a float with the value 0.90909094, which clearly is wrong. That's why we thought the approach for the conversion is wrong.
+Did you tried to debug it just to be sure that the execution flow is going as you expect?, I can confirm that "0.9090909090909091" is returned as a float 0.90909094.
+
+Whether this is wrong is a different matter. The Javadoc says:
+
+{quote}
+Turns a string value into a java.lang.Number.
+
+First, the value is examined for a type qualifier on the end ('f','F','d','D','l','L'). If it is found, it starts trying to create successively larger types from the type specified until one is found that can represent the value.
+
+If a type specifier is not found, it will check for a decimal point and then try successively larger types from Integer to BigInteger and from Float to BigDecimal.
+{quote}
+
+The second paragraph does not specifically say that the code will return the "best" match, nor does the 3rd para. It's not clear to me whether the method was ever intended to return a "best" match (for some definintion of best). If such behaviour is intended, then the Javadoc needs to be clarified, and the code changed accordingly.
+
+Note that the test of Double.MAX_VALUE works because this is converted to Float.INFINITY.
+Non-infinite values are rounded by Float.valueOf(String) to the nearest value, so are never checked as doubles., In an automatic conversion to string of a number you will not have the qualifier, so if you try to undo the conversion with this method it will fail, because the approach when you don't sent the qualifier is not working. Anyway, we are working with BigDecimal instances that don't have a qualifier.
+
+If you don't want a whole refactor of the method you could at least check if the resulted number has the same toString value than the parameter and if not try with a larger type, that should avoid this kind of problem (not very nice approach anyway)., Setting fix version to 3.x (i.e. post 3.0). Seems like a very fair issue to take a stab at fixing., The toString may not be the nicest, but it definitely works :)
+
+The only test I get failing if I use it is the LANG-521 "2." use case. That switches from being a Float to being a BigDecimal. I suspect there might be problems with exponents though.
+
+All the problems would seem to be creating BigDecimals unnecessarily, rather than creating Floats and losing data. So worst case the String test seems preferable. 
+, Pushing back to 3.0.3; I don't think is ready yet as the toString approach is likely to lead to bugs and there's not another solution on the table., Why not trying to create a double first in the createNumber method:
+
+{noformat}
+                //Must be a float,double,BigDec
+                boolean allZeros = isAllZeros(mant) && isAllZeros(exp);
+                try {
+                    Float f = createFloat(str);
+                    if (!(f.isInfinite() || (f.floatValue() == 0.0F && !allZeros))) {
+                        return f;
+                    }
+                } catch (NumberFormatException nfe) { // NOPMD
+                    // ignore the bad number
+                }
+                try {
+                    Double d = createDouble(str);
+                    if (!(d.isInfinite() || (d.doubleValue() == 0.0D && !allZeros))) {
+                        return d;
+                    }
+                } catch (NumberFormatException nfe) { // NOPMD
+                    // ignore the bad number
+                }
+{noformat}
+
+Right now, we first try to convert it to a float, and if it does not fit, we try it with double.
+But this way we will always lose the precision unless one specifies the 'd' suffix.
+
+The default in java for decimal values is double anyway (without specifying a type qualifier), so it makes sense to use the same behavior in the createNumber method imho.
+
+If somebody really wants to have a float, he/she can specify the 'f' type qualifier., So this proposal is not b-compatible but it sounds like an improvement, or even a bug fix if you consider the loss of precision. +1., bq. So this proposal is not b-compatible ...
+
+I assume you must mean behaviour compatible rather than binary compatible.
+
+As far as I can tell, if the code is changed to try double and then float, the result will always be a double.
+I'm not sure that is much of an improvement.
+, Maybe I was unclear, but the float part afterwards would not be needed anymore, as this would never succeed.
+
+Another idea would be to add something like this (pseudo-code)
+
+{noformat}
+//Must be a float,double,BigDec
+boolean allZeros = isAllZeros(mant) && isAllZeros(exp);
+try {
+    Float f = createFloat(str);
+    BigDecimal one = createBigDecimal(str);
+    BigDecimal two = new BigDecimal(f);
+
+    // check for loss of precision in the conversion
+    if (one.compareTo(two) == 0) {
+       ....
+
+} catch (NumberFormatException nfe) { // NOPMD
+    // ignore the bad number
+}
+{noformat}
+
+Maybe the getPrecision() method from BigDecimal could be used too.
+It is also a problem of definition, as a floating-point number can not always precisely expressed in the related data types, so the question is how to define when a float will be returned, and when a double.
+
+That's why I put my original proposal to just assume a double in case of a missing type qualifier, as this is the default in java anyway., As pointed out in the original issue description, the same problem applies to double/BigDecimal.
+If the code is changed to try double first, then the method will never create a BigDecimal unless it is larger than Double.MAX_VALUE, thus potentially losing precision again.
+
+As I see it, the problem is that the method currently only switches output type based on magnitude, not on precision.
+
+Would it make sense to check the precision of the input number and use that to choose the starting conversion?
+
+e.g. if more than 6 digits are present, use double; if more than 17 digits, use BigDecimal.
+
+This should be fairly cheap to do, and it would be easy to determine in advance what number type would be created.
+
+It would not always choose the minimal representation, but at least it would never lose precision.
+
+
+[AFAICT:
+
+6 is the max number of digits in a number guaranteed not to lose precision (some 7/8 digit numbers are also OK).
+Similarly, double can support 15 digits guaranteed (to 17 max).], I like preserving precision., sounds pretty reasonable., Examples of valid numbers that would trigger an upscale:
+
+Float.MAX_VALUE is 3.4028235e+38 - i.e. 8 digits; that would convert to Double
+Double.MAX_VALUE is 1.7976931348623157e+308 - i.e. 17 digits; would convert to BigDecimal
+
+In theory one could do extra work to handle the boundary cases.
+I've not looked at what is involved., This is a patch that resolves this bug. Any feedback would be greatly appreciated!, Hello All,
+
+I am new to the Apache Community. I have attached a patch that resolves this issue. I would love any feedback you can provide.
+
+Thank you,
+Calvin, Fixed error in comments around bug fix., Thanks very much; neat fix. Applied here:
+
+URL: http://svn.apache.org/r1484263
+Log:
+LANG-693 Method createNumber from NumberUtils doesn't work for floating point numbers other than Float
+
+Modified:
+    commons/proper/lang/trunk/src/changes/changes.xml
+    commons/proper/lang/trunk/src/main/java/org/apache/commons/lang3/math/NumberUtils.java
+    commons/proper/lang/trunk/src/test/java/org/apache/commons/lang3/math/NumberUtilsTest.java
+
+=====
+
+I made two very trivial style changes: moved the declaration of numDecimals closer to where it is first used, and changed less => fewer in a comment (grammatical pedantry on my part!).
+
+Thanks again., Thank you very much!, This still can fail if there are digits before the decimal point.
+
+> System.out.println(NumberUtils.createNumber("169000121.0"));
+1.69000128E8]

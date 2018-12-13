@@ -1,0 +1,10 @@
+[The same comments apply to the method ArrayUtils.add(T[] array, int index, T element)
+
+, Assuming you mean IllegalArgumentException, +1., Yes - I keep forgetting which it is., URL: http://svn.apache.org/viewvc?rev=899929&view=rev
+Log:
+LANG-571 ArrayUtils.add(T[] array[, offset], T element) can create unexpected ClassCastException
+
+Modified:
+   commons/proper/lang/trunk/src/main/java/org/apache/commons/lang3/ArrayUtils.java
+   commons/proper/lang/trunk/src/test/java/org/apache/commons/lang3/ArrayUtilsAddTest.java
+   commons/proper/lang/trunk/xdocs/changes.xml]

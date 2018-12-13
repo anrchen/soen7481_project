@@ -1,0 +1,6 @@
+[Sorry - missed the question.  The compare package was pulled before release; I'm the only one who wants it in :), Thanks Ville :)
+
+svn ci -m "Applying Ville Skyttä's patch from LANG-761 to fix the javadoc warnings in the Ant build"
+Sending        build.xml
+Transmitting file data .
+Committed revision 1225113.]

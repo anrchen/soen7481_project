@@ -1,0 +1,94 @@
+[Other than the stronger typed method signature, how is what you propose any 
+different than the equals method in ObjectUtils?, I was going to comment on this, but this actually answers the comment by Brent.
+ I suggest DateUtils.equals would test the getTime() method.
+
+long now = System.currentTimeMillis();
+java.util.Date date = new java.util.Date(now);
+java.util.Date timestamp = new java.sql.Timestamp(now);
+
+DateUtils.equals(date, timestamp) = true
+however
+ObjectUtils.equals(date, timestamp) = false, Yes, I agree with you. And I propose the code to do this :
+
+    /**
+     * <p>Compares two Dates, returning <code>true</code> if they are equal.</p>
+     *
+     * <p><code>null</code>s are handled without exceptions. Two 
+<code>null</code>
+     * references are considered to be equal.</p>
+     *
+     * <pre>
+     * long now = System.currentTimeMillis();
+     * java.util.Date date = new java.util.Date(now);
+     * java.sql.Timestamp timestamp = new java.sql.Timestamp(now);
+     * DateUtils.equals(null, null)   = true
+     * DateUtils.equals(null, date)  = false
+     * DateUtils.equals(date, null)  = false
+     * DateUtils.equals(date, date) = true
+     * DateUtils.equals(date, timestamp) = true
+     * </pre>
+     *
+     * @see java.util.Date#equals(Object)
+     * @param dt1  the first Date, may be null
+     * @param dt2  the second Date, may be null
+     * @return <code>true</code> if the Dates are equal or both 
+<code>null</code>
+     */
+	  public static boolean equals(Date dt1, Date dt2) {
+	      return (dt1 == null ? dt2 == null : dt1.getTime() == dt2.getTime
+());
+	  }, The assumption that time values are equal for Date and Timestamp is incorrect as
+the basic test below shows. Writting unit tests first avoids this kind of
+misunderstandings ;-) Also, supplying unit tests with your code greatly
+increases the patching process and confidence in submissions compared to "blind"
+submissions. :-)
+
+Index: ObjectUtilsTest.java
+===================================================================
+retrieving revision 1.9
+diff -u -r1.9 ObjectUtilsTest.java
+--- ObjectUtilsTest.java	18 Aug 2003 02:22:25 -0000	1.9
++++ ObjectUtilsTest.java	16 Feb 2004 18:50:39 -0000
+@@ -1,7 +1,6 @@
+-/* ====================================================================
+- * The Apache Software License, Version 1.1
+- *
+- * Copyright (c) 2002-2003 The Apache Software Foundation.  All rights
++/*
++ * 
++ * Copyright (c)  2002-2003 The Apache Software Foundation.  All rights
+  * reserved.
+  *
+  * Redistribution and use in source and binary forms, with or without
+@@ -122,6 +121,15 @@
+         assertTrue("ObjectUtils.equals(\"foo\", \"foo\") returned false",
+ObjectUtils.equals(FOO, FOO));
+     }
+ 
++    public void testDateEquals() {
++        long now = 1076957313284L; // Feb 16, 2004 10:49 PST
++        java.util.Date date = new java.util.Date(now);
++        java.util.Date timestamp = new java.sql.Timestamp(now);
++        assertEquals(date.getTime(), timestamp.getTime());
++        assertEquals(timestamp, date);
++        assertTrue(ObjectUtils.equals(date, timestamp));
++    }
++    
+     public void testIdentityToString() {
+         assertEquals(null, ObjectUtils.identityToString(null));
+         assertEquals(
+, BTW, the 1st assert blows up., Yes, in fact. ObjectUtils can do the job to compare two dates.
+    
+long now= System.currentTimeMillis();
+java.util.Date date= new java.util.Date(now);
+java.sql.Timestamp timestamp= new java.sql.Timestamp(now);
+assertTrue(ObjectUtils.equals(null, null));
+assertFalse(ObjectUtils.equals(null, date));
+assertFalse(ObjectUtils.equals(date, null));
+assertTrue(ObjectUtils.equals(date, date));
+assertTrue(ObjectUtils.equals(date, timestamp));
+
+Then, DateUtils doesn't need a specific 'equals' methode.
+
+Thanks for all., Reopening, this issue is still under discussion on commons-dev., In total, five date comparison methods have been added to DateUtils. Hopefully 
+we can close this call for 2.1 now., 2.1 released, closing., Reopening then closing to deal with migration bug., Reopening then closing to deal with migration bug.]

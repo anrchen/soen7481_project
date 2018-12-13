@@ -1,0 +1,7 @@
+[I agree with you. The NumberRange class is broken. 
+
+I have commented the original as being broken, and created a subpackage of math 
+with specific range implementations for Number, and primitive types.
+
+Check it out and see if it meets your requirements.
+Stephen]

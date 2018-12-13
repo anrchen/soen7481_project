@@ -1,0 +1,23 @@
+[There is also the question of backward compatibility of StringUtils.isBlank.
+Also there are other methods which use Character.isWhiteSpace, for example isNumericSpace.
+
+I'm not convinced that the behaviour should be changed., [~sebb@apache.org], first of all thank you for the reply.
+
+I agree with the backward compatibility point.
+
+However, I stumbled upon this issue using this method in my work project when parsing emails. The thing was that some email clients inserted non-break whitespaces instead of usual ones in their letters. It cost me a few angry letters from users, so I suggest at least mentioning this issue in the documentation ([like JDK developers did|http://docs.oracle.com/javase/7/docs/api/java/lang/Character.html#isWhitespace(char)]), because I had to dig into the source code and investigate what was wrong, so the proper docs would save me some time.
+
+Anyway, now when you know about the issue, you can decide if the library needs new methods which consider non-break whitespaces., Note that isWhiteSpace has been documented as excluding non-breaking spaces since at least Java 1.5 [1], probably earlier.
+
+
+[1] http://docs.oracle.com/javase/1.5.0/docs/api/java/lang/Character.html#isWhitespace%28char%29, I agree that non-breakable whitespace should be treated as whitespace. For example guava https://github.com/google/guava/blob/8fbeb9038cbe8b382b1ee188ae8459203cd04fb5/guava/src/com/google/common/base/CharMatcher.java#L1217 classifies non-breaking space as whitespace.
+
+Of course there is the compatibility issue, so I guess a change like this should only be done in commons-lang 4.0., I think we should consider changing this for 4.0., FYI - [~pascalschumacher] has updated the Javadoc for this method to make it clear which test is used:
+
+{quote}
+Checks if a CharSequence is empty (""), null or whitespace only.
+
+Whitespace is defined by {{Character.isWhitespace(char)}}.
+{quote}
+
+Since the test is now clearly defined and there isn't much appetite for breaking backwards compatibility, I vote we don't attempt to fix this., I agree that this method should not break. We can add a NEW method though. A isAnyWhitespace()? Good Javadocs are key.]

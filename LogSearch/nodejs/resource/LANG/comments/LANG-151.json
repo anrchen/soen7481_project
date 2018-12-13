@@ -1,0 +1,39 @@
+[Bug 15976 seems to be incorrect. 
+
+And what is proposed resolution? I mean, the same situation would arise, even 
+if the ToStringBuilder was not used and the classes used each others toString() 
+method recursively... seems to be incorrect. 
+
+And what is proposed resolution? I mean, the same situation would arise, even 
+if the ToStringBuilder was not used and the classes used each others toString() 
+method recursively..., I meant, that the bug# provided in the original comment seems to be incorrect. 
+It does not refer to inner classes etc., This has been fixed in the nightly build for quite some time as I notice that
+this report is marked for version 1.0Alpha. Can you please check your case
+against a current build? Thanks., For an example test, see the method
+ToStringBuilderTest.testReflectionObjectCycle() v 1.8. 
+
+I would like to close thie PR if the reporter (Jack Wasey) could confirm that
+the current build solves the issue in his code., Hello. I found similar bug.
+I'm not good at English.
+So, if you found "syntax error", please ignore it. ;-)
+
+---------------------------------------------------------------
+private static class Alpha{
+  private Alpha alpha;
+  public Alpha(){
+    this.alpha = this;
+  }
+
+  public String toString(){
+    return ToStringBuilder.reflectionToString(this);
+  }
+}
+---------------------------------------------------------------
+
+This code ends with StackOverflowError. My environment is ...
+
+System.out.println("" + ToStringBuilder.class.getPackage
+().getImplementationVersion()); returns "1.0.1".
+
+Thanks.
+, Closing. This was fixed a long time ago., Not entirely sure, but going with 2.0 as the fix version for this.]

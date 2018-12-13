@@ -1,0 +1,188 @@
+{
+    "expand": "operations,versionedRepresentations,editmeta,changelog,renderedFields",
+    "fields": {
+        "aggregateprogress": {
+            "progress": 0,
+            "total": 0
+        },
+        "aggregatetimeestimate": null,
+        "aggregatetimeoriginalestimate": null,
+        "aggregatetimespent": null,
+        "assignee": null,
+        "components": [],
+        "created": "2003-07-21T19:29:14.000+0000",
+        "creator": {
+            "active": true,
+            "avatarUrls": {
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452",
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452"
+            },
+            "displayName": "KANEUCHI Tetsuya",
+            "key": "tetsuyak@ka2.so-net.ne.jp",
+            "name": "tetsuyak@ka2.so-net.ne.jp",
+            "self": "https://issues.apache.org/jira/rest/api/2/user?username=tetsuyak%40ka2.so-net.ne.jp",
+            "timeZone": "Etc/UTC"
+        },
+        "customfield_10010": 21761,
+        "customfield_12310220": "2003-07-22T06:06:55.000+0000",
+        "customfield_12310222": null,
+        "customfield_12310250": null,
+        "customfield_12310290": null,
+        "customfield_12310291": null,
+        "customfield_12310300": null,
+        "customfield_12310310": "2.0",
+        "customfield_12310420": "34068",
+        "customfield_12310920": "74843",
+        "customfield_12310921": null,
+        "customfield_12311020": null,
+        "customfield_12311024": null,
+        "customfield_12311120": null,
+        "customfield_12311820": "0|i0d6l3:",
+        "customfield_12312022": null,
+        "customfield_12312023": null,
+        "customfield_12312024": null,
+        "customfield_12312026": null,
+        "customfield_12312220": null,
+        "customfield_12312320": null,
+        "customfield_12312321": null,
+        "customfield_12312322": null,
+        "customfield_12312323": null,
+        "customfield_12312324": null,
+        "customfield_12312325": null,
+        "customfield_12312326": null,
+        "customfield_12312327": null,
+        "customfield_12312328": null,
+        "customfield_12312329": null,
+        "customfield_12312330": null,
+        "customfield_12312331": null,
+        "customfield_12312332": null,
+        "customfield_12312333": null,
+        "customfield_12312334": null,
+        "customfield_12312335": null,
+        "customfield_12312336": null,
+        "customfield_12312337": null,
+        "customfield_12312338": null,
+        "customfield_12312339": null,
+        "customfield_12312340": null,
+        "customfield_12312341": null,
+        "customfield_12312520": null,
+        "customfield_12312521": "Tue Jul 22 06:06:55 UTC 2003",
+        "customfield_12312720": null,
+        "customfield_12312823": null,
+        "customfield_12312920": null,
+        "customfield_12312921": null,
+        "customfield_12312923": null,
+        "customfield_12313422": "false",
+        "customfield_12313520": null,
+        "description": "SystemUtils.IS_OS_*, IS_JAVA_* always returns false.\n\nThis case is on Mac OS X.\n\n----\n% java -version\njava version \"1.4.1_01\"\nJava(TM) 2 Runtime Environment, Standard Edition (build 1.4.1_01-39)\nJava HotSpot(TM) Client VM (build 1.4.1_01-14, mixed mode)\n----\n\nThe test code is:\n---\n\nimport org.apache.commons.lang.*;\n\npublic class OSNameTest {\n\n    static public void main(String[] arg) {\n        System.out.println(System.getProperty(\"os.name\"));\n        System.out.println(SystemUtils.IS_OS_MAC_OSX);\n        System.out.println(SystemUtils.IS_OS_WINDOWS);\n        System.out.println(SystemUtils.IS_JAVA_1_4);\n    }\n}\n\n--\nThe result is:\n---\nMac OS X\nfalse\nfalse\nfalse\n---\n\nIt should be:\n--\nMac OS X\ntrue\nfalse\ntrue\n--\n\nThe cause:  IS_JAVA_*, IS_OS_* values are based on\nJAVA_VERSOIN, OS_NAME, OS_VERSION. But JAVA_VERSION, OS_NAME,\nOS_VERSION are initialized after IS_JAVA_*, IS_OS_* values.\nWhen IS_OS_* are initialized, OS_NAME == null.\n\nThey should be declared considering the initialization order.",
+        "duedate": null,
+        "environment": "Operating System: other\nPlatform: Other",
+        "fixVersions": [{
+            "archived": true,
+            "description": "",
+            "id": "12311706",
+            "name": "2.0",
+            "releaseDate": "2003-09-02",
+            "released": true,
+            "self": "https://issues.apache.org/jira/rest/api/2/version/12311706"
+        }],
+        "issuelinks": [],
+        "issuetype": {
+            "avatarId": 21133,
+            "description": "A problem which impairs or prevents the functions of the product.",
+            "iconUrl": "https://issues.apache.org/jira/secure/viewavatar?size=xsmall&avatarId=21133&avatarType=issuetype",
+            "id": "1",
+            "name": "Bug",
+            "self": "https://issues.apache.org/jira/rest/api/2/issuetype/1",
+            "subtask": false
+        },
+        "labels": [],
+        "lastViewed": null,
+        "priority": {
+            "iconUrl": "https://issues.apache.org/jira/images/icons/priorities/major.svg",
+            "id": "3",
+            "name": "Major",
+            "self": "https://issues.apache.org/jira/rest/api/2/priority/3"
+        },
+        "progress": {
+            "progress": 0,
+            "total": 0
+        },
+        "project": {
+            "avatarUrls": {
+                "16x16": "https://issues.apache.org/jira/secure/projectavatar?size=xsmall&pid=12310481&avatarId=10011",
+                "24x24": "https://issues.apache.org/jira/secure/projectavatar?size=small&pid=12310481&avatarId=10011",
+                "32x32": "https://issues.apache.org/jira/secure/projectavatar?size=medium&pid=12310481&avatarId=10011",
+                "48x48": "https://issues.apache.org/jira/secure/projectavatar?pid=12310481&avatarId=10011"
+            },
+            "id": "12310481",
+            "key": "LANG",
+            "name": "Commons Lang",
+            "projectCategory": {
+                "description": "Apache Commons components",
+                "id": "10260",
+                "name": "Commons",
+                "self": "https://issues.apache.org/jira/rest/api/2/projectCategory/10260"
+            },
+            "self": "https://issues.apache.org/jira/rest/api/2/project/12310481"
+        },
+        "reporter": {
+            "active": true,
+            "avatarUrls": {
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452",
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452"
+            },
+            "displayName": "KANEUCHI Tetsuya",
+            "key": "tetsuyak@ka2.so-net.ne.jp",
+            "name": "tetsuyak@ka2.so-net.ne.jp",
+            "self": "https://issues.apache.org/jira/rest/api/2/user?username=tetsuyak%40ka2.so-net.ne.jp",
+            "timeZone": "Etc/UTC"
+        },
+        "resolution": {
+            "description": "A fix for this issue is checked into the tree and tested.",
+            "id": "1",
+            "name": "Fixed",
+            "self": "https://issues.apache.org/jira/rest/api/2/resolution/1"
+        },
+        "resolutiondate": "2006-05-16T12:37:12.000+0000",
+        "status": {
+            "description": "The issue is considered finished, the resolution is correct. Issues which are not closed can be reopened.",
+            "iconUrl": "https://issues.apache.org/jira/images/icons/statuses/closed.png",
+            "id": "6",
+            "name": "Closed",
+            "self": "https://issues.apache.org/jira/rest/api/2/status/6",
+            "statusCategory": {
+                "colorName": "green",
+                "id": 3,
+                "key": "done",
+                "name": "Done",
+                "self": "https://issues.apache.org/jira/rest/api/2/statuscategory/3"
+            }
+        },
+        "subtasks": [],
+        "summary": "[lang] SystemUtils.IS_OS_*, IS_JAVA_* are always false.",
+        "timeestimate": null,
+        "timeoriginalestimate": null,
+        "timespent": null,
+        "updated": "2013-10-16T08:55:04.000+0000",
+        "versions": [],
+        "votes": {
+            "hasVoted": false,
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/LANG-132/votes",
+            "votes": 0
+        },
+        "watches": {
+            "isWatching": false,
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/LANG-132/watchers",
+            "watchCount": 0
+        },
+        "workratio": -1
+    },
+    "id": "12340862",
+    "key": "LANG-132",
+    "self": "https://issues.apache.org/jira/rest/api/2/issue/12340862"
+}

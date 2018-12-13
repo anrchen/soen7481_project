@@ -1,0 +1,20 @@
+[I don't follow your bug report. There is no Enum.build method or variable.
+
+Can you identify the problem more clearly, perhaps with a test case?, I don't quite remember anymore, but I suspect it was enum.equals.
+
+I do note that enum.compare does not work for enums in different class loaders.
+Should it?, Removing from NEEDINFO - which means moving to ASSIGNED in Bugzilla., Tasks being:
+
+Check javadoc for Enum.equals to ensure it matches the code - especially
+concerning enumerations.
+
+Examine source of Enum.compare for multiple classloader problems. I'm not
+stunned there might be problems in such a thing, anything we can do about it?, Javadoc looks fine to me. Classloader problem does look like it exists in compareTo., "Fixing the lack of ClassLoader consideration in the compareTo methods of
+enum.Enum and enums.Enum, along with unit tests, as mentioned on Bugzilla entry
+#32619 by Kathy Van Stone. " 
+Sending        src/java/org/apache/commons/lang/enum/Enum.java
+Sending        src/java/org/apache/commons/lang/enums/Enum.java
+Sending        src/test/org/apache/commons/lang/enum/EnumTest.java
+Sending        src/test/org/apache/commons/lang/enums/EnumTest.java
+Transmitting file data ....
+Committed revision 398812.         ]

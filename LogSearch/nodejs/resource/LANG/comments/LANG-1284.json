@@ -1,0 +1,8 @@
+[I'm not sure if this can be prevented without very inefficient scanning of the input array. Perhaps the best approach here is a warning in the Javadocs.
+
+The Javadocs need a clean up anyway, I can't really understand the opening paragraphs:
+
+{quote}
+If start and end are both 0, start and end are set to ' ' and 'z', the ASCII printable characters, will be used, unless letters and numbers are both false, in which case, start and end are set to 0 and Integer.MAX_VALUE.
+
+If set is not null, characters between start and end are chosen.{quote}, Maybe the better is a warning in the Javadoc., RandomStringUtils will be deprecated in commons-lang 3.6 in favor of RandomStringGenerator from commons-text. Please use [RandomStringGenerator|https://commons.apache.org/proper/commons-text/javadocs/api-release/org/apache/commons/text/RandomStringGenerator.html] instead.]

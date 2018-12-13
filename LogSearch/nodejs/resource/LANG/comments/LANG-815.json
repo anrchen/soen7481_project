@@ -1,0 +1,60 @@
+[a suggested patch, This patch breaks a unit test:
+
+{noformat}
+junit.framework.ComparisonFailure: expected:<01 2[6]> but was:<01 2[3]>
+	at junit.framework.Assert.assertEquals(Assert.java:85)
+	at junit.framework.Assert.assertEquals(Assert.java:91)
+	at org.apache.commons.lang3.time.DurationFormatUtilsTest.assertEqualDuration(DurationFormatUtilsTest.java:553)
+	at org.apache.commons.lang3.time.DurationFormatUtilsTest.assertEqualDuration(DurationFormatUtilsTest.java:540)
+	at org.apache.commons.lang3.time.DurationFormatUtilsTest.testEdgeDurations(DurationFormatUtilsTest.java:421)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(Unknown Source)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(Unknown Source)
+	at java.lang.reflect.Method.invoke(Unknown Source)
+	at junit.framework.TestCase.runTest(TestCase.java:168)
+	at junit.framework.TestCase.runBare(TestCase.java:134)
+	at junit.framework.TestResult$1.protect(TestResult.java:110)
+	at junit.framework.TestResult.runProtected(TestResult.java:128)
+	at junit.framework.TestResult.run(TestResult.java:113)
+	at junit.framework.TestCase.run(TestCase.java:124)
+	at junit.framework.TestSuite.runTest(TestSuite.java:243)
+	at junit.framework.TestSuite.run(TestSuite.java:238)
+	at org.junit.internal.runners.JUnit38ClassRunner.run(JUnit38ClassRunner.java:83)
+	at org.eclipse.jdt.internal.junit4.runner.JUnit4TestReference.run(JUnit4TestReference.java:50)
+	at org.eclipse.jdt.internal.junit.runner.TestExecution.run(TestExecution.java:38)
+	at org.eclipse.jdt.internal.junit.runner.RemoteTestRunner.runTests(RemoteTestRunner.java:467)
+	at org.eclipse.jdt.internal.junit.runner.RemoteTestRunner.runTests(RemoteTestRunner.java:683)
+	at org.eclipse.jdt.internal.junit.runner.RemoteTestRunner.run(RemoteTestRunner.java:390)
+	at org.eclipse.jdt.internal.junit.runner.RemoteTestRunner.main(RemoteTestRunner.java:197)
+{noformat}
+
+- Base your patch on trunk
+- Please provide a unit test to cover your specific case.
+- Make sure existing tests break (unless there is a bug in the test itself.)
+
+Thank you.
+
+, I don't believe this is a bug. Below is a test case that should demonstrate the issue, but it passes just fine:
+
+{code}
+@Test
+public void testLANG815() {
+    Calendar calendar = Calendar.getInstance();
+    calendar.set(2012, 6, 30, 0, 0, 0);
+    long startMillis = calendar.getTimeInMillis();
+    
+    calendar.set(2012, 8, 8);
+    long endMillis = calendar.getTimeInMillis();
+    
+    
+    assertEquals("1 9", DurationFormatUtils
+            .formatPeriod(startMillis, endMillis, "M d"));
+}
+{code}, URL: http://svn.apache.org/viewvc?rev=1390971&view=rev
+Log:
+LANG-815 DurationFormatUtils.formatPeriod() mis-calculation
+Add test case to show there is no issue
+
+Modified:
+    commons/proper/lang/trunk/src/test/java/org/apache/commons/lang3/time/DurationFormatUtilsTest.java
+]

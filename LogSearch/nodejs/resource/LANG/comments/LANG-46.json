@@ -1,0 +1,48 @@
+[You're going to have to do better than that if you want support :-), Sorry for the short comments, 
+
+I have this example to show why it doesnÂ´t work.
+
+
+
+import org.apache.commons.lang.StringUtils;
+
+public class p {
+  public static void main(String[] args) {
+    String loc = "es_AR";
+    System.out.println(StringUtils.chomp(loc, "_"));
+    System.out.println(StringUtils.prechomp(loc, "_"));
+  }
+}
+
+The result of that is:
+es_AR
+AR
+
+when should be:
+es
+AR
+
+Thanks
+, Although this may not be what you expected, this behaviour is as documented in 
+the Javadocs (see below).  chomp only removes the separator from the end of 
+the string if it's there.  The proposed alternate - substringBeforeLast - may 
+do more of what you are looking for.
+
+--JAVADOC CLIPPING--
+
+public static String chomp(String str,
+                           String separator)
+
+Removes separator from the end of str if it's there, otherwise leave it alone.
+
+NOTE: This method changed in version 2.0. It now more closely matches Perl 
+chomp. For the previous behavior, use substringBeforeLast(String, String). 
+This method uses String.endsWith(String).
+, Thanks!
+
+There is a problem reagarding that TAGLIB String 1.0.1 that users the chomp 
+function like the older way.
+
+How could change that TAG to work ok?
+
+]

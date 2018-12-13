@@ -1,0 +1,43 @@
+[Created an attachment (id=7847)
+Javadoc patch for lang
+, Created an attachment (id=7848)
+Fix typos patch
+, I have applied all of the testing patch.
+
+For the main patch, I have applied as much as I can. This includes everything 
+except the builder package and StringUtils.
+
+Unfortunately, the main patch was really too large, and contained too many 
+changes. You have put a lot of work into the builder package, however I found 
+some mistakes in the changes, and also a serious problem where a method was 
+renamed. This shook my confidence in applying the patch.
+
+I applied changes for CompareToBuilder manually, agreeing with some of your 
+changes, disagreeing with others. This took about 2 hours for the one class, so 
+I cannot procede to the others at present.
+
+I don't want to dishearten you, as javadoc patches are very useful. For the 
+future however I suggest contacting the mailing list first. I would also 
+suggest separating javadoc fixes (eg.missing @param/@return) from javadoc text 
+changes (better/different description) from javadoc style (html tags etc.). For 
+me, each patch should take less than 30 mins (preferably 15mins) and be about 
+one thing and one thing only.
+
+thanks
+
+, I understand your perspective and agree that it was too large.  I guess I was
+trying to get it all in before 2.0, but perhaps that was optimistic.
+
+I don't remember the instance of a changed method name.  But I do remember
+running the lang tests numerous times and never got an failure.  Did I change
+the test too?
+
+As for the other minor errors, did the tests not cover them?
+
+Anyway, lesson learned. I will be more proactive asking about things on the list
+before making changes.
+
+Thanks for looking at it!, The changed method name was in ToStringStyle (isShortClassName).
+
+The 'other errors' referred to a couple of places in the new javadoc that 
+didn't describe the classes functionality accurately. Can't remember where., Closed IIRC]

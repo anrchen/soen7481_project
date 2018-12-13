@@ -1,0 +1,8 @@
+[Confirmed (visually). As appendNull's effect is to do nothing if it is set to null, my assumption is that having nullText be null is merely an optmization for the empty String.
+
+So I think the solution will be to make the fixed width methods use an empty string if they get back a null nullText., Attaching tests and a fix (null -> "")., svn ci -m "Applying my patch from LANG-412; fixing Peter Oxenham's report that the appendFixedWidthPadRight and appendFixedWidthPadLeft are not null safe if the nullText has not been set" src
+
+Sending        src/java/org/apache/commons/lang/text/StrBuilder.java
+Sending        src/test/org/apache/commons/lang/text/StrBuilderTest.java
+Transmitting file data ..
+Committed revision 627248.]

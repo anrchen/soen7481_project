@@ -1,0 +1,20 @@
+[Created an attachment (id=9237)
+tests and patch to implement new methods
+, I can't read the patch.  Can you resubmit it as plain text, please?, Created an attachment (id=9245)
+Resubmitting test case patch in plain text format.
+, Created an attachment (id=9246)
+Resubmitting implementation patch in plain text format.
+, Given the changes made in response to COM-960, should I submit new patches based on the 
+state of CVS now?  The old patches did not change the contract of this family of methods, and 
+neither would new ones., There is an informal rule in StringUtils that we don't use a boolean flag to 
+distinguish between two method variants. Instead we use an alternate 
+descriptive name. splitByString() may be a possible name.
+
+Also, any patches should use the style of the surrounding code - brackets at 
+end on line in this case., Darn, I was hoping this would be a generalization of the existing split() family, and the way I came 
+up with to delegate existing behavior to the existing methods was to change the method 
+signature.
+
+I'm happy to change the method name if that's what's needed (and reformat opening brace 
+placement)., Methods committed as splitByWholeSeparator method. Opinions and a better name
+are both desired., 2.1 released, closing.]

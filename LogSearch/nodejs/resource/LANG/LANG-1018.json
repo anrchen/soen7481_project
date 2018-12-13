@@ -1,0 +1,310 @@
+{
+    "expand": "operations,versionedRepresentations,editmeta,changelog,renderedFields",
+    "fields": {
+        "aggregateprogress": {
+            "progress": 0,
+            "total": 0
+        },
+        "aggregatetimeestimate": null,
+        "aggregatetimeoriginalestimate": null,
+        "aggregatetimespent": null,
+        "assignee": {
+            "active": true,
+            "avatarUrls": {
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452",
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452"
+            },
+            "displayName": "Pascal Schumacher",
+            "key": "pascalschumacher",
+            "name": "pascalschumacher",
+            "self": "https://issues.apache.org/jira/rest/api/2/user?username=pascalschumacher",
+            "timeZone": "Europe/Berlin"
+        },
+        "components": [{
+            "id": "12313200",
+            "name": "lang.math.*",
+            "self": "https://issues.apache.org/jira/rest/api/2/component/12313200"
+        }],
+        "created": "2014-05-27T10:24:53.000+0000",
+        "creator": {
+            "active": true,
+            "avatarUrls": {
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452",
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452"
+            },
+            "displayName": "sydng",
+            "key": "sydng",
+            "name": "sydng",
+            "self": "https://issues.apache.org/jira/rest/api/2/user?username=sydng",
+            "timeZone": "Etc/UTC"
+        },
+        "customfield_10010": null,
+        "customfield_12310220": "2014-09-12T12:07:01.662+0000",
+        "customfield_12310222": "1_*:*_1_*:*_64544694898_*|*_5_*:*_1_*:*_0",
+        "customfield_12310250": null,
+        "customfield_12310290": null,
+        "customfield_12310291": null,
+        "customfield_12310300": null,
+        "customfield_12310310": "0.0",
+        "customfield_12310420": "394975",
+        "customfield_12310920": "395110",
+        "customfield_12310921": null,
+        "customfield_12311020": null,
+        "customfield_12311024": null,
+        "customfield_12311120": null,
+        "customfield_12311820": "0|i1w073:",
+        "customfield_12312022": null,
+        "customfield_12312023": null,
+        "customfield_12312024": null,
+        "customfield_12312026": null,
+        "customfield_12312220": null,
+        "customfield_12312320": null,
+        "customfield_12312321": null,
+        "customfield_12312322": null,
+        "customfield_12312323": null,
+        "customfield_12312324": null,
+        "customfield_12312325": null,
+        "customfield_12312326": null,
+        "customfield_12312327": null,
+        "customfield_12312328": null,
+        "customfield_12312329": null,
+        "customfield_12312330": null,
+        "customfield_12312331": null,
+        "customfield_12312332": null,
+        "customfield_12312333": null,
+        "customfield_12312334": null,
+        "customfield_12312335": null,
+        "customfield_12312336": null,
+        "customfield_12312337": null,
+        "customfield_12312338": null,
+        "customfield_12312339": null,
+        "customfield_12312340": null,
+        "customfield_12312341": null,
+        "customfield_12312520": null,
+        "customfield_12312521": "Sun Jun 12 11:29:48 UTC 2016",
+        "customfield_12312720": null,
+        "customfield_12312823": null,
+        "customfield_12312920": null,
+        "customfield_12312921": null,
+        "customfield_12312923": null,
+        "customfield_12313422": "false",
+        "customfield_12313520": null,
+        "description": "With commons-lang 3.2.2:\nNumberUtils.createNumber(\"-160952.54\");\nThe result is \"-160952.55\".\n\nShould not be based on the length of the decimal point number to judge whether the floating point number.\nUsing the method (createFloat(str)) of dealing with the valid number greater than seven Numbers will cause accuracy loss.\nThe source code is as follows:\n\n{code:java}\ntry {\n            if(numDecimals <= 7){// If number has 7 or fewer digits past the decimal point then make it a float\n                final Float f = createFloat(str);\n                if (!(f.isInfinite() || (f.floatValue() == 0.0F && !allZeros))) {\n                    return f;\n                }\n            }\n        } catch (final NumberFormatException nfe) { // NOPMD\n            // ignore the bad number\n        }\n        try {\n            if(numDecimals <= 16){// If number has between 8 and 16 digits past the decimal point then make it a double\n                final Double d = createDouble(str);\n                if (!(d.isInfinite() || (d.doubleValue() == 0.0D && !allZeros))) {\n                    return d;\n                }\n            }\n        } catch (final NumberFormatException nfe) { // NOPMD\n            // ignore the bad number\n        }\n\n        return createBigDecimal(str);\n    }\n{code}",
+        "duedate": null,
+        "environment": "windows 7",
+        "fixVersions": [{
+            "archived": false,
+            "description": "New features including Java 9 support",
+            "id": "12331955",
+            "name": "3.5",
+            "releaseDate": "2016-10-14",
+            "released": true,
+            "self": "https://issues.apache.org/jira/rest/api/2/version/12331955"
+        }],
+        "issuelinks": [
+            {
+                "id": "12467170",
+                "inwardIssue": {
+                    "fields": {
+                        "issuetype": {
+                            "avatarId": 21133,
+                            "description": "A problem which impairs or prevents the functions of the product.",
+                            "iconUrl": "https://issues.apache.org/jira/secure/viewavatar?size=xsmall&avatarId=21133&avatarType=issuetype",
+                            "id": "1",
+                            "name": "Bug",
+                            "self": "https://issues.apache.org/jira/rest/api/2/issuetype/1",
+                            "subtask": false
+                        },
+                        "priority": {
+                            "iconUrl": "https://issues.apache.org/jira/images/icons/priorities/critical.svg",
+                            "id": "2",
+                            "name": "Critical",
+                            "self": "https://issues.apache.org/jira/rest/api/2/priority/2"
+                        },
+                        "status": {
+                            "description": "The issue is considered finished, the resolution is correct. Issues which are not closed can be reopened.",
+                            "iconUrl": "https://issues.apache.org/jira/images/icons/statuses/closed.png",
+                            "id": "6",
+                            "name": "Closed",
+                            "self": "https://issues.apache.org/jira/rest/api/2/status/6",
+                            "statusCategory": {
+                                "colorName": "green",
+                                "id": 3,
+                                "key": "done",
+                                "name": "Done",
+                                "self": "https://issues.apache.org/jira/rest/api/2/statuscategory/3"
+                            }
+                        },
+                        "summary": "Method createNumber from NumberUtils doesn't work for floating point numbers other than Float"
+                    },
+                    "id": "12915772",
+                    "key": "LANG-1187",
+                    "self": "https://issues.apache.org/jira/rest/api/2/issue/12915772"
+                },
+                "self": "https://issues.apache.org/jira/rest/api/2/issueLink/12467170",
+                "type": {
+                    "id": "12310000",
+                    "inward": "is duplicated by",
+                    "name": "Duplicate",
+                    "outward": "duplicates",
+                    "self": "https://issues.apache.org/jira/rest/api/2/issueLinkType/12310000"
+                }
+            },
+            {
+                "id": "12467169",
+                "inwardIssue": {
+                    "fields": {
+                        "issuetype": {
+                            "avatarId": 21133,
+                            "description": "A problem which impairs or prevents the functions of the product.",
+                            "iconUrl": "https://issues.apache.org/jira/secure/viewavatar?size=xsmall&avatarId=21133&avatarType=issuetype",
+                            "id": "1",
+                            "name": "Bug",
+                            "self": "https://issues.apache.org/jira/rest/api/2/issuetype/1",
+                            "subtask": false
+                        },
+                        "priority": {
+                            "iconUrl": "https://issues.apache.org/jira/images/icons/priorities/critical.svg",
+                            "id": "2",
+                            "name": "Critical",
+                            "self": "https://issues.apache.org/jira/rest/api/2/priority/2"
+                        },
+                        "status": {
+                            "description": "The issue is considered finished, the resolution is correct. Issues which are not closed can be reopened.",
+                            "iconUrl": "https://issues.apache.org/jira/images/icons/statuses/closed.png",
+                            "id": "6",
+                            "name": "Closed",
+                            "self": "https://issues.apache.org/jira/rest/api/2/status/6",
+                            "statusCategory": {
+                                "colorName": "green",
+                                "id": 3,
+                                "key": "done",
+                                "name": "Done",
+                                "self": "https://issues.apache.org/jira/rest/api/2/statuscategory/3"
+                            }
+                        },
+                        "summary": "NumberUtils.createNumber() method lost precision sometimes"
+                    },
+                    "id": "12954902",
+                    "key": "LANG-1215",
+                    "self": "https://issues.apache.org/jira/rest/api/2/issue/12954902"
+                },
+                "self": "https://issues.apache.org/jira/rest/api/2/issueLink/12467169",
+                "type": {
+                    "id": "12310000",
+                    "inward": "is duplicated by",
+                    "name": "Duplicate",
+                    "outward": "duplicates",
+                    "self": "https://issues.apache.org/jira/rest/api/2/issueLinkType/12310000"
+                }
+            }
+        ],
+        "issuetype": {
+            "avatarId": 21133,
+            "description": "A problem which impairs or prevents the functions of the product.",
+            "iconUrl": "https://issues.apache.org/jira/secure/viewavatar?size=xsmall&avatarId=21133&avatarType=issuetype",
+            "id": "1",
+            "name": "Bug",
+            "self": "https://issues.apache.org/jira/rest/api/2/issuetype/1",
+            "subtask": false
+        },
+        "labels": [],
+        "lastViewed": null,
+        "priority": {
+            "iconUrl": "https://issues.apache.org/jira/images/icons/priorities/major.svg",
+            "id": "3",
+            "name": "Major",
+            "self": "https://issues.apache.org/jira/rest/api/2/priority/3"
+        },
+        "progress": {
+            "progress": 0,
+            "total": 0
+        },
+        "project": {
+            "avatarUrls": {
+                "16x16": "https://issues.apache.org/jira/secure/projectavatar?size=xsmall&pid=12310481&avatarId=10011",
+                "24x24": "https://issues.apache.org/jira/secure/projectavatar?size=small&pid=12310481&avatarId=10011",
+                "32x32": "https://issues.apache.org/jira/secure/projectavatar?size=medium&pid=12310481&avatarId=10011",
+                "48x48": "https://issues.apache.org/jira/secure/projectavatar?pid=12310481&avatarId=10011"
+            },
+            "id": "12310481",
+            "key": "LANG",
+            "name": "Commons Lang",
+            "projectCategory": {
+                "description": "Apache Commons components",
+                "id": "10260",
+                "name": "Commons",
+                "self": "https://issues.apache.org/jira/rest/api/2/projectCategory/10260"
+            },
+            "self": "https://issues.apache.org/jira/rest/api/2/project/12310481"
+        },
+        "reporter": {
+            "active": true,
+            "avatarUrls": {
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452",
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452"
+            },
+            "displayName": "sydng",
+            "key": "sydng",
+            "name": "sydng",
+            "self": "https://issues.apache.org/jira/rest/api/2/user?username=sydng",
+            "timeZone": "Etc/UTC"
+        },
+        "resolution": {
+            "description": "A fix for this issue is checked into the tree and tested.",
+            "id": "1",
+            "name": "Fixed",
+            "self": "https://issues.apache.org/jira/rest/api/2/resolution/1"
+        },
+        "resolutiondate": "2016-06-12T11:29:48.000+0000",
+        "status": {
+            "description": "The issue is considered finished, the resolution is correct. Issues which are not closed can be reopened.",
+            "iconUrl": "https://issues.apache.org/jira/images/icons/statuses/closed.png",
+            "id": "6",
+            "name": "Closed",
+            "self": "https://issues.apache.org/jira/rest/api/2/status/6",
+            "statusCategory": {
+                "colorName": "green",
+                "id": 3,
+                "key": "done",
+                "name": "Done",
+                "self": "https://issues.apache.org/jira/rest/api/2/statuscategory/3"
+            }
+        },
+        "subtasks": [],
+        "summary": "NumberUtils.createNumber(final String str)  Precision will be lost",
+        "timeestimate": null,
+        "timeoriginalestimate": null,
+        "timespent": null,
+        "updated": "2016-10-19T07:01:25.000+0000",
+        "versions": [{
+            "archived": false,
+            "description": "Bugfix release for 3.3.1",
+            "id": "12326666",
+            "name": "3.3.2",
+            "releaseDate": "2014-04-09",
+            "released": true,
+            "self": "https://issues.apache.org/jira/rest/api/2/version/12326666"
+        }],
+        "votes": {
+            "hasVoted": false,
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/LANG-1018/votes",
+            "votes": 0
+        },
+        "watches": {
+            "isWatching": false,
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/LANG-1018/watchers",
+            "watchCount": 5
+        },
+        "workratio": -1
+    },
+    "id": "12716767",
+    "key": "LANG-1018",
+    "self": "https://issues.apache.org/jira/rest/api/2/issue/12716767"
+}

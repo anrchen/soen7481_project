@@ -1,0 +1,7 @@
+[They're the same character. Looks like something we did in 2003 to stop the javadoc doclet complaining. 
+
+https://svn.apache.org/viewvc?view=revision&revision=137345
+
+Marking as Wontfix., No, the problem is that <code> was replaced by {@code} which does not behave the same.
+
+I'll fix shortly.]

@@ -1,0 +1,11 @@
+[Please see if your use case is covered in trunk in the method org.apache.commons.lang3.StringUtilsEqualsIndexOfTest.testLastIndexOf_StringInt()
+
+If not, and the trunk code fails for you, please provide your use case, preferably as a patch., Looks to me that this is the intended behaviour.
+
+The startPos is perhaps misnamed; the search works backwards from the index.
+
+So it should not find a match for characters after the startPos.
+
+It will only search the whole string if you provide a startIndex >= to the max index in the string, i.e. length -1.
+
+The documentation (and examples) could be improved.]

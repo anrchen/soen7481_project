@@ -1,0 +1,4 @@
+[Added JAVA_AWT_FONTS, JAVA_AWT_GRAPHICSENV, JAVA_AWT_PRINTERJOB,
+JAVA_UTIL_PREFS_PREFERENCES_FACTORY, USER_TIMEZONE.
+
+Not a system property per se, but IS_OS_UNIX is new to 2.1., 2.1 released, closing.]

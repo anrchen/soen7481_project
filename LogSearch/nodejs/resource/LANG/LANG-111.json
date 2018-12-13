@@ -1,0 +1,196 @@
+{
+    "expand": "operations,versionedRepresentations,editmeta,changelog,renderedFields",
+    "fields": {
+        "aggregateprogress": {
+            "progress": 0,
+            "total": 0
+        },
+        "aggregatetimeestimate": null,
+        "aggregatetimeoriginalestimate": null,
+        "aggregatetimespent": null,
+        "assignee": null,
+        "components": [],
+        "created": "2003-04-27T21:49:50.000+0000",
+        "creator": {
+            "active": true,
+            "avatarUrls": {
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452",
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452"
+            },
+            "displayName": "Phil Steitz",
+            "key": "phil@steitz.com",
+            "name": "phil@steitz.com",
+            "self": "https://issues.apache.org/jira/rest/api/2/user?username=phil%40steitz.com",
+            "timeZone": "Etc/UTC"
+        },
+        "customfield_10010": 19364,
+        "customfield_12310220": "2003-04-30T02:52:33.000+0000",
+        "customfield_12310222": null,
+        "customfield_12310250": null,
+        "customfield_12310290": null,
+        "customfield_12310291": null,
+        "customfield_12310300": null,
+        "customfield_12310310": "2.0",
+        "customfield_12310420": "147059",
+        "customfield_12310920": "74864",
+        "customfield_12310921": null,
+        "customfield_12311020": null,
+        "customfield_12311024": null,
+        "customfield_12311120": null,
+        "customfield_12311820": "0|i0d6pr:",
+        "customfield_12312022": null,
+        "customfield_12312023": null,
+        "customfield_12312024": null,
+        "customfield_12312026": null,
+        "customfield_12312220": null,
+        "customfield_12312320": null,
+        "customfield_12312321": null,
+        "customfield_12312322": null,
+        "customfield_12312323": null,
+        "customfield_12312324": null,
+        "customfield_12312325": null,
+        "customfield_12312326": null,
+        "customfield_12312327": null,
+        "customfield_12312328": null,
+        "customfield_12312329": null,
+        "customfield_12312330": null,
+        "customfield_12312331": null,
+        "customfield_12312332": null,
+        "customfield_12312333": null,
+        "customfield_12312334": null,
+        "customfield_12312335": null,
+        "customfield_12312336": null,
+        "customfield_12312337": null,
+        "customfield_12312338": null,
+        "customfield_12312339": null,
+        "customfield_12312340": null,
+        "customfield_12312341": null,
+        "customfield_12312520": null,
+        "customfield_12312521": "Mon Jun 09 06:18:52 UTC 2003",
+        "customfield_12312720": null,
+        "customfield_12312823": null,
+        "customfield_12312920": null,
+        "customfield_12312921": null,
+        "customfield_12312923": null,
+        "customfield_12313422": "false",
+        "customfield_12313520": null,
+        "description": "The time unit tests fail when run on a Sunday:\n\ntest.time:\n     [echo] Running time package tests ...\n     [java] ...F.F................\n     [java] Time: 4.394\n     [java] There were 2 failures:\n     [java] 1)\ntestParse(org.apache.commons.lang.time.CalendarUtilsTest)junit.framework.AssertionFailedError:\nparse last Sunday expected Sun Apr 27 06:39:17 MST 2003 but got Sun Apr 20\n06:39:17 MST 2003\n     [java] \tat\norg.apache.commons.lang.time.CalendarUtilsTest.assertEquals(CalendarUtilsTest.java:373)\n     [java] \tat\norg.apache.commons.lang.time.CalendarUtilsTest.testParse(CalendarUtilsTest.java:243)\n     [java] \tat sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)\n     [java] \tat\nsun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:39)\n     [java] \tat\nsun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:25)\n     [java] 2)\ntestWeekIterator(org.apache.commons.lang.time.CalendarUtilsTest)junit.framework.AssertionFailedError:\n expected Mon Apr 28 00:00:00 MST 2003 but got Mon Apr 21 00:00:00 MST 2003\n     [java] \tat\norg.apache.commons.lang.time.CalendarUtilsTest.assertEquals(CalendarUtilsTest.java:373)\n     [java] \tat\norg.apache.commons.lang.time.CalendarUtilsTest.assertWeekIterator(CalendarUtilsTest.java:346)\n     [java] \tat\norg.apache.commons.lang.time.CalendarUtilsTest.assertWeekIterator(CalendarUtilsTest.java:324)\n     [java] \tat\norg.apache.commons.lang.time.CalendarUtilsTest.testWeekIterator(CalendarUtilsTest.java:284)\n     [java] \tat sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)\n     [java] \tat\nsun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:39)\n     [java] \tat\nsun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:25)\n\nLooks to me like the unit test code is checking the value of Calendar.DATE, when\nit should be looking at Calendar.DAY_OF_WEEK (at line 237 and below) to decide\nwhether to make adjustments for today==Sunday.\n\nWhen I fix this, testParse succeeds but testWeekIterator hangs at the statement\nit = CalendarUtils.getCalendarIterator(now, CalendarUtils.RANGE_WEEK_RELATIVE);",
+        "duedate": null,
+        "environment": "Operating System: other\nPlatform: Other",
+        "fixVersions": [{
+            "archived": true,
+            "description": "",
+            "id": "12311706",
+            "name": "2.0",
+            "releaseDate": "2003-09-02",
+            "released": true,
+            "self": "https://issues.apache.org/jira/rest/api/2/version/12311706"
+        }],
+        "issuelinks": [],
+        "issuetype": {
+            "avatarId": 21133,
+            "description": "A problem which impairs or prevents the functions of the product.",
+            "iconUrl": "https://issues.apache.org/jira/secure/viewavatar?size=xsmall&avatarId=21133&avatarType=issuetype",
+            "id": "1",
+            "name": "Bug",
+            "self": "https://issues.apache.org/jira/rest/api/2/issuetype/1",
+            "subtask": false
+        },
+        "labels": [],
+        "lastViewed": null,
+        "priority": {
+            "iconUrl": "https://issues.apache.org/jira/images/icons/priorities/major.svg",
+            "id": "3",
+            "name": "Major",
+            "self": "https://issues.apache.org/jira/rest/api/2/priority/3"
+        },
+        "progress": {
+            "progress": 0,
+            "total": 0
+        },
+        "project": {
+            "avatarUrls": {
+                "16x16": "https://issues.apache.org/jira/secure/projectavatar?size=xsmall&pid=12310481&avatarId=10011",
+                "24x24": "https://issues.apache.org/jira/secure/projectavatar?size=small&pid=12310481&avatarId=10011",
+                "32x32": "https://issues.apache.org/jira/secure/projectavatar?size=medium&pid=12310481&avatarId=10011",
+                "48x48": "https://issues.apache.org/jira/secure/projectavatar?pid=12310481&avatarId=10011"
+            },
+            "id": "12310481",
+            "key": "LANG",
+            "name": "Commons Lang",
+            "projectCategory": {
+                "description": "Apache Commons components",
+                "id": "10260",
+                "name": "Commons",
+                "self": "https://issues.apache.org/jira/rest/api/2/projectCategory/10260"
+            },
+            "self": "https://issues.apache.org/jira/rest/api/2/project/12310481"
+        },
+        "reporter": {
+            "active": true,
+            "avatarUrls": {
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452",
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452"
+            },
+            "displayName": "Phil Steitz",
+            "key": "phil@steitz.com",
+            "name": "phil@steitz.com",
+            "self": "https://issues.apache.org/jira/rest/api/2/user?username=phil%40steitz.com",
+            "timeZone": "Etc/UTC"
+        },
+        "resolution": {
+            "description": "A fix for this issue is checked into the tree and tested.",
+            "id": "1",
+            "name": "Fixed",
+            "self": "https://issues.apache.org/jira/rest/api/2/resolution/1"
+        },
+        "resolutiondate": "2006-05-16T12:40:25.000+0000",
+        "status": {
+            "description": "The issue is considered finished, the resolution is correct. Issues which are not closed can be reopened.",
+            "iconUrl": "https://issues.apache.org/jira/images/icons/statuses/closed.png",
+            "id": "6",
+            "name": "Closed",
+            "self": "https://issues.apache.org/jira/rest/api/2/status/6",
+            "statusCategory": {
+                "colorName": "green",
+                "id": 3,
+                "key": "done",
+                "name": "Done",
+                "self": "https://issues.apache.org/jira/rest/api/2/statuscategory/3"
+            }
+        },
+        "subtasks": [],
+        "summary": "[Lang] time unit tests fail on Sundays",
+        "timeestimate": null,
+        "timeoriginalestimate": null,
+        "timespent": null,
+        "updated": "2006-05-16T12:40:25.000+0000",
+        "versions": [{
+            "archived": true,
+            "description": "",
+            "id": "12311706",
+            "name": "2.0",
+            "releaseDate": "2003-09-02",
+            "released": true,
+            "self": "https://issues.apache.org/jira/rest/api/2/version/12311706"
+        }],
+        "votes": {
+            "hasVoted": false,
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/LANG-111/votes",
+            "votes": 0
+        },
+        "watches": {
+            "isWatching": false,
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/LANG-111/watchers",
+            "watchCount": 0
+        },
+        "workratio": -1
+    },
+    "id": "12340679",
+    "key": "LANG-111",
+    "self": "https://issues.apache.org/jira/rest/api/2/issue/12340679"
+}

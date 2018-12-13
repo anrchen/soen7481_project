@@ -1,0 +1,26 @@
+[Discuss what to do for this as a part of a 2.3.1., I wonder if the solution is simply to state the 'if different classloader' better.
+
+ie) Rather than doing:
+
+        if (other.getClass() != this.getClass()) {
+
+Instead do:
+
+        if (other.getClass().getClassLoader() != this.getClass().getClassLoader()) {
+
+That wouldn't help if your two separate grandchildren enums are in different classloaders and you still want them viewed equal, but I'm not sure what would (without turning into lots of code).
+
+That allows RandomEnum.RED to equal MyEnum.RED, so you also need to check for inheritence:
+
+Attaching patch., Not sure that last patch has the right idea or not. equals() would also have to change. 
+
+I've also made a unit test for this. Attaching that now., The whole cross ClassLoader thing for enums was a Bad Idea :-(, Does 'Bad Idea' imply any suggestions? :), >> That allows RandomEnum.RED to equal MyEnum.RED, so you also need to check for inheritence: 
+
+The JDK has the strict policy that enums cannot be inherited. That is to say, that you can't subclass one Enum with another Enum. In JDK 7, there is a possibility of an abstract Enum may exist, but that only defines methods and no enumerated constants., I do not believe that you should be able to inherit enum constants. Only the final concrete class should be able to have them. That seems to be the direction of the JDK, and I recommend the fix be comparable. 
+
+There's a whole discussion on this topic here:
+http://bugs.sun.com/bugdatabase/view_bug.do?bug_id=6570766, It's just ugly in there... :(
+
+I agree with Stephen that it was a Bad Idea; that aside, I don't see any easy way to address this. Henri's fix will take care of compareTo(), but it also breaks equals(). My first thought was to replace the enum classname Map with an ordinal assigned at creation time, but that'll break serialization for 2.2/2.3 users. Argh.
+
+It's not ideal now, but I don't know how to fix this without breaking something else. Maybe we should push this back to 3.0 where we can have a more general discussion about the purpose of Enum., Moving back to 3.0 - though I suspect the 'solution' will happen when we remove the enum packages., lang.enum package has been removed in the 3.0 release. Unless there are plans for a 2.7 release, we could close this one as Won't Fix., Close this as Won't Fix after more than 5 years, as there are no plans for another 2.x release.]

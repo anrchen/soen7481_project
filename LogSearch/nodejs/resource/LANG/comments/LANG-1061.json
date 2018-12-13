@@ -1,0 +1,107 @@
+[I would like to work on this issue. I was able to reproduce this issue on my machine. I am unable to assign it to myself though. , I followed the instructions on this wiki  http://www.apache.org/dev/git.html and uploaded the patch. Please let me know if there is anything else I need to do. I added the relevant test cases for the fix., Thanks for the patch.
+However, part of the patch looks wrong:
+
+{code}
+-            sb.append("(GMT[+\\-]\\d{0,1}\\d{2}|[+\\-]\\d{2}:?\\d{2}|");
++            sb.append("(GMT[+\\-]\\d{0,1}\\d{2}:?\\d{2}|[+\\-]\\d{2}?\\d{2}|");
+{code}
+
+The second part of the match, i.e.
+
+{code}
+[+\\-]\\d{2}:?\\d{2}
+{code}
+
+has been changed to
+
+{code}
+[+\\-]\\d{2}?\\d{2}
+{code}
+
+This does not make sense to me - why was the colon dropped?, Thanks Sebb. The reason I remove it was to match the SimpleDateFormat where it supports "+0000 2010" for "z yyyy"
+and not support "+00:00 2010" for "z yyyy" (Simple date format throws an exception for this)
+
+Do we want to support both the formats ?
+, Need to look at that further, but the RE still does not make sense.
+If support for the colon is to be dropped, then the ? needs to be removed as well, and it would become:
+
+{code}
+[+\\-]\\d{4}
+{code}
+
+There's some other strangeness, but that was already present.
+
+The RE
+
+{code}
+\\d{0,1}\\d{2}
+{code}
+
+could be simplified to
+
+{code}
+\\d{2,3}
+{code}
+
+but does it make sense to have 3 digits there?
+
+And does it make sense to have 3 digits followed by optional colon then another two digits? i.e. a maximum of 5 digits?
+
+, Thanks Sebb. 
+
+Regarding the first comment, I will change it to 
+{code} [+\\-]\\d{4} {code}
+
+But instead of
+{code}
+ \\d{0,1}\\d{2}:?\\d{2} => \\d{2,3}:?\\d{2}
+{code}
+
+I think the change should be 
+
+{code} \\d{0,1}\\d{2}:?\\d{2} => \\d{1,2}:?\\d{2} {code} 
+
+As SimpleDateFormat also does not support the 3 digits before the colon.Please let me know what you think
+
+
+, Hi [~sebb@apache.org],
+       I uploaded the new patch as discussed. Please let me know what you think.
+
+Thanks,
+Shweta, I don't understand the patches. The latest patch (0002) does not apply properly. The original patch has some spurious changes in it.
+
+Is there a single patch which shows the proposed changes as they are now?, Let me  sync the repo and reapply my changes. I will send out another patch by EOD, Hi [~sebb@apache.org],
+        I synced my forked repository and created the patch again. Please let me know if this patch makes sense now. Else please let me know if I am doing it wrong.
+
+Thanks,
+Shweta, The patch is a clearer now. Still has some spurious white space changes, but can ignore those.
+
+It will take a bit of time to review this, but it's looking good so far., It looks like the TimeZone parsing has always been wrong for both General time zone zones and RFC 822 time zones.
+
+The current code accepts "-12:34" and "GMT-123" (which are not accepted by SDF) and does not accept "GMT-12:34" or "GMT-1:23" which are both accepted by SDF.
+
+I agree that the colon is not allowed in the RFC 822 time zone format, and is required in the General time zone format., The latest patch uses the following RE
+
+{noformat}
+sb.append("(GMT[+\\-]\\d{0,1}\\d{2}:?\\d{2}|[+\\-]\\d{2}?\\d{2}|");
+{noformat}
+
+This is wrong; it should be
+
+{noformat}
+sb.append("(GMT[+\\-]\\d{1,2}:?\\d{2}|[+\\-]\\d{4}|");
+{noformat}
+
+This was discussed previously, and is included in the 0002-patch dated 02/Jan/15.
+It looks like the 0001-patch dated 28/Feb is not complete; it seems 0002 is needed as well.
+
+However rather than go through the process yet again, I will make changes based on the previous discussion and the Javadoc for SimpleDateFormat., URL: http://svn.apache.org/r1663140
+Log:
+LANG-1061 FastDateParser error - timezones not handled correctly
+
+Added:
+    commons/proper/lang/trunk/src/test/java/org/apache/commons/lang3/time/FastDateParserSDFTest.java
+Modified:
+    commons/proper/lang/trunk/src/changes/changes.xml
+    commons/proper/lang/trunk/src/main/java/org/apache/commons/lang3/time/FastDateParser.java
+]

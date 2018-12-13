@@ -1,0 +1,6 @@
+[I'm currently unable to write to the site svn repository location. I'll try again later. In the mean time you can get the release notes for 3.4 from https://dist.apache.org/repos/dist/release/commons/lang/RELEASE-NOTES.txt, {code}
+$ svn ci -m "LANG-1125: No release notes for version 3.4" lang-site/
+Adding         lang-site/release-notes/RELEASE-NOTES-3.4.txt
+Transmitting file data .
+Committed revision 949862.
+{code}, Release notes for 3.4 are now there. Thanks :-)]

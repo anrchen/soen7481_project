@@ -1,0 +1,45 @@
+[I'm not sure this is a bug. The IllegalStateException was throwned because your substitution pattern triggers a (though little) recursion, it's a kind of prevention, in order to avoid StackOverflowError, I solved this problem by making this call instead:
+
+StringUtils.replaceEachRepeatedly("aaa", new String[]{"aa", ""}, new String[]{"aXa", ""});
+
+Maybe there should be a limit to number of iterations or something similar. I didn't know that this function is not supposed to support recursion. I think this function is good suited when (java) regex fail in matching already replaced part of string and hence it shouldn't be dicouraged to use this function as a solution imho., At the very least the exception could explain what the problem is rather than what the state of an obscure private variable is., Digging into this, the search should have been:
+
+"aaa"
+"aXaa"
+"aXaXa"
+
+Which is hardly the deepest loop.
+
+The TTL would have been 1, ie) the length of the inputted String[] { "aXa" }.
+
+I wonder if the issue is that TTL needs to be longer (which is what qed did by adding extra ""s)., For this regexp; and I suspect it's the worst, yet vaguely sane, case; the TTL would have needed to have been text.length() - 1. For large text that's going to offer no protection against StackOverflowError. Options would seem to be:
+
+1) Leave as is, improve IllegalStateException message (and update in javadoc which says IllegalArgumentException).
+2) Stop protecting against StackOverflowError.
+3) Increase the size by a marginal, yet arbitrary, amount.
+
+I'm going to continue to go with #1., Improved error message added (I hope):
+
+"Output of one loop is the input of another; protecting from potential StackOverflowError"
+
+I think there is value in #3 above as well. Some arbitrarily small number to be a minimum TTL. , The message is ambiguous; protecting could refer to the first part of the sentence rather than the exception itself.
+
+How about
+
+"Aborting to protect against StackOverflowError - output of one loop is the input of another", > output of one loop is the input of another
+And that's a problem? That's how grammars are working. I don't think that this function should prevent such behaviour (ie. output of one loop should be allowed to be input of another loop)., Sebb: I've changed to your suggested text (r1152021).
+
+qed: Not disagreeing. For 3.0.1, improving the error message to avoid your 'WTF???' is an improvement. Whether we simply strip out the TTL code and let the StackOverflowError happen is another question. My personal feeling is in line with yours (I think). That is - "let it happen"., Moving to 3.0.2. Note that the error message was improved and javadoc Exceptions fixed in 3.0.1. When resolving, make 3.0.1 a fix version as well., I have worked on this a bit and provide a patch that does the following:
+
+ * refactor the replaceEach method to avoid code duplication
+ * change loop detection code
+
+Instead of using a timeToLive variable that tries to detect infinite loops, I used a quite simple but effective method:
+
+Whenever at the end of a replace cycle we end up having a result string that has already be seen so far, we have possibly detected an infinite loop and thus abort the execution (with an exception as before).
+
+I have also added two additional unit test cases.
+
+Edit:
+
+The new loop detection code does not prevent stackoverflow exceptions of course. But as others have pointed out, just let it happen (it is anyway very unlikely to occur, need to come up with a test case for it somehow). I would prefer correct behavior in normal cases, and a robust loop detection for recursive/weird cases.]

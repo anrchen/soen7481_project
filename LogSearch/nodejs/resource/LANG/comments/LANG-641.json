@@ -1,0 +1,1 @@
+[I have fixed the problem you can apply the patch attached with this issue. Test was failing because it was not specifying the type to be used while creating an empty generic array., I've made the changes.]

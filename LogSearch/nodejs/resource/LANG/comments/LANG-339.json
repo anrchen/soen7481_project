@@ -1,0 +1,1 @@
+[Probably the same code as LANG-66, but leaving open so a separate unit test can be written., Unit test added with current (bad) behaviour). LANG-515 and its subtasks to deal with how we want to do this in the future, and the unit test will ensure this issue is confirmed.]

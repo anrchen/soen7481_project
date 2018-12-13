@@ -1,0 +1,16 @@
+[Agreed, setting fix version to 3.0., Fixed - Exception caught now instead of Throwable. That handles RuntimeException too.
+
+svn ci -m "Fixing LANG-585. Don't catch Throwable, catch Exception instead. "
+Sending        src/main/java/org/apache/commons/lang3/exception/DefaultExceptionContext.java
+Transmitting file data .
+Committed revision 905922.
+, Also fixed Javadoc that referred to Throwable:
+
+URL: http://svn.apache.org/viewvc?rev=906015&view=rev
+Log:
+LANG-585. Don't suggest catching Throwable, catch Exception instead.
+
+Modified:
+   commons/proper/lang/trunk/src/main/java/org/apache/commons/lang3/exception/ContextedException.java
+   commons/proper/lang/trunk/src/main/java/org/apache/commons/lang3/exception/ContextedRuntimeException.java
+]

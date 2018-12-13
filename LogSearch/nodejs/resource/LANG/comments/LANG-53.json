@@ -1,0 +1,32 @@
+[Source: 
+-----Original Message-----
+From: KANEUCHI Tetsuya [mailto:tetsuyak@ka2.so-net.ne.jp] 
+Sent: Friday, July 18, 2003 08:12
+To: commons-dev@jakarta.apache.org
+Subject: [lang] 2.0RC SystemUtils.IS_OS_OS2's JavaDoc is wrong.
+
+I found small mistake in Commons Lang 2.0RC1.
+SystemUtils.IS_OS_OS2's javadoc says "if this is Mac."
+It should be "OS/2".
+
+RCS file: /home/cvspublic/jakarta-commons/lang/src/java/org/apache/commons/lang/
+SystemUtils.java,v
+retrieving revision 1.17
+diff -u -r1.17 SystemUtils.java
+--- SystemUtils.java    8 Jul 2003 05:59:58 -0000       1.17
++++ SystemUtils.java    18 Jul 2003 15:03:21 -0000
+@@ -185,7 +185,7 @@
+     public static final boolean IS_OS_MAC_OSX = getOSMatches("Mac OS X");
+ 
+     /**
+-     * <p>Is <code>true</code> if this is Mac.</p>
++     * <p>Is <code>true</code> if this is OS/2.</p>
+      *
+      * <p>The field will return <code>false</code> if <code>OS_NAME</code> 
+is
+      * <code>null</code>.</p>
+
+--
+KANEUCHI Tetsuya
+
+]

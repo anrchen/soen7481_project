@@ -1,0 +1,29 @@
+[URL: http://svn.apache.org/viewvc?rev=1389976&view=rev
+Log:
+LANG-828 FastDateParser does not handle non-Gregorian calendars properly
+
+Modified:
+    commons/proper/lang/trunk/src/changes/changes.xml
+    commons/proper/lang/trunk/src/main/java/org/apache/commons/lang3/time/FastDateParser.java
+    commons/proper/lang/trunk/src/test/java/org/apache/commons/lang3/time/FastDateParserTest.java
+, Much searching and experimentation reveals that the reason for the problems is as mentioned here: [1]
+
+i.e. DateFormatSymbols#getEras() returns a pair of strings for Gregorian calendar AD and BC; the method does not return the correct eras for th_TH or ja_JP_JP locales.
+
+Also, these locales have long and short versions.
+
+The solution is as mentioned in [1], i.e. use
+
+Calendar.getDisplayNames(Calendar.ERA, Calendar.SHORT, locale);
+
+for all locales.
+
+[1] https://issues.apache.org/jira/browse/TRINIDAD-2126, URL: http://svn.apache.org/viewvc?rev=1390626&view=rev
+Log:
+LANG-828 FastDateParser does not handle non-Gregorian calendars properly
+Use Calendar#getDisplayNames() instead of DateFormatSymbols#getEras()
+
+Modified:
+    commons/proper/lang/trunk/src/main/java/org/apache/commons/lang3/time/FastDateParser.java
+    commons/proper/lang/trunk/src/test/java/org/apache/commons/lang3/time/FastDateParserTest.java
+]

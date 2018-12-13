@@ -1,0 +1,29 @@
+[Howdy,
+
+A thread local is used so that calling reflectionToString on the same object (and any of its referred objects) from multiple threads works (returns the same String).
+
+If the registry was _not_ a thread local, then all threads would share the registry and that would lead to some threads not getting a proper toString of an object because another thread already registered it, erroneously thinking it was already visited.
+
+For example for an object o that has one ivar x which itself has a y ivar pointing to "y":
+
+Thread 1: registers x and does a deep toStrings on x
+Thread 2: checks that x is registered, it is, so it uses the default toString for x (not the deep toString)
+Thread 1: ungisters x
+...
+
+Thread 1 gets x[y["y"]] OK
+Thread 2 gets x[y@123] BAD
+
+Also, with a thread local, the registry does not need to be a thread-safe data structure., bq. If the registry was not a thread local, then all threads would share the registry
+
+That is only true if the ToStringStyle (TSS) instance is shared between threads.
+
+I had assumed that each ToStringBuilder would use its own TSS instance, but that is not the case.
+Looking again at the code, I see that the ToStringStyle (TSS) classes seem to be intended to be used as singletons which are then shared between threads. 
+
+That explains why the ThreadLocal is needed.
+
+Also, I now realise that the earlier problem with the test cases failing on Gump is that some of them created a builder but then failed to use the toString() method on it. That left entries in the registry, and caused the subsequent test to fail if it checked that the registry was empty.
+
+In normal use, the toString() method is required; the registry will then be cleaned up.
+The test cases need to do so too; I'll fix them up again., Seems to be OK; have added comment to source code to say why ThreadLocal is needed, and updated tests.]

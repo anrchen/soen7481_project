@@ -1,0 +1,4 @@
+[FIxed by converting the production version of RELEASE-NOTES-3.3.1.txt to UTF-8.
+
+However additional work needs to be done to fix this for future releases
+, should be fixed by https://github.com/apache/commons-lang/commit/86a59601b570585dcb7a1ce3d1ccc8e16008f53a]

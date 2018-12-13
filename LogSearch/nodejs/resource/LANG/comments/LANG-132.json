@@ -1,0 +1,6 @@
+[Created an attachment (id=7421)
+patch to o.a.c.l.SystemUtils.java. Modified declaration order.
+, Created an attachment (id=7422)
+patch to o.a.c.l.SystemUtilsTest.java. Proposal of the test for this bug.
+, Very good catch. This would have been very embarrasing...
+Thanks]

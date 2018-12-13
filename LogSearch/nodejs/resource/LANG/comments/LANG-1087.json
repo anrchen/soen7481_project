@@ -1,0 +1,10 @@
+[Attaching (lang-1087-patch1.diff) a possible fix., {code}
+$ svn ci -m "LANG-1087: NumberUtils#createNumber() returns positive BigDecimal when negative Float is expected. Thanks to Renat Zhilkibaev."
+Sending        src/changes/changes.xml
+Sending        src/main/java/org/apache/commons/lang3/math/NumberUtils.java
+Sending        src/test/java/org/apache/commons/lang3/math/NumberUtilsTest.java
+Transmitting file data ...
+Committed revision 1663129.
+{code}
+
+Thank you!]

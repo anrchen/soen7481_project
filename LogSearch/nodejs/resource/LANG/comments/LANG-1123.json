@@ -1,0 +1,3 @@
+[Git patch to fix missing timezone set in actualValue, LANG-1123 bug appears now because it was hidden by LANG-916 bug., If I understand correctly this has to be fixed before LANG-916 can be fixed. Setting this to be required by LANG-916., I confirm that this order is fine :-), changelist 775203dd2cfce017910d04c58a0b1b4e0a64923c
+
+Note that there were other unit tests needing repair.  Many of DateFormatUtilsTest made improper assumptions about the active TimeZone.]

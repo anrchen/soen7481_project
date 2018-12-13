@@ -1,0 +1,43 @@
+[I changed the following three methods to fix the issue:
+
+    private static float getJavaVersionAsFloat() {
+        if (JAVA_VERSION == null) {
+            return 0f;
+        }
+        String trimmedVersion = trimJavaVersion();
+        String str = trimmedVersion.substring(0, 3);
+        if (trimmedVersion.length() >= 5) {
+            str = str + trimmedVersion.substring(4, 5);
+        }
+        return Float.parseFloat(str);
+    }
+    
+    private static int getJavaVersionAsInt() {
+        if (JAVA_VERSION == null) {
+            return 0;
+        }
+        String trimmedVersion = trimJavaVersion();
+        String str = JAVA_VERSION.substring(0, 1);
+        str = str + JAVA_VERSION.substring(2, 3);
+        if (JAVA_VERSION.length() >= 5) {
+            str = str + JAVA_VERSION.substring(4, 5);
+        } else {
+            str = str + "0";
+        }
+        return Integer.parseInt(str);
+    }
+
+    private static String trimJavaVersion()
+    {
+        if (Character.isDigit(JAVA_VERSION.charAt(0)))
+        {
+            return JAVA_VERSION.substring(
+                    StringUtils.indexOf(JAVA_VERSION, "0123456789"));
+            
+        }
+        else
+        {
+            return JAVA_VERSION;
+        }
+    }, Added code to handle text prefixes, based on code supplied. Please retest CVS
+code on HP-UX, as its not a platform we have ready access to ;-), 2.1 released, closing.]

@@ -1,0 +1,44 @@
+[GitHub user PascalSchumacher opened a pull request:
+
+    https://github.com/apache/commons-lang/pull/158
+
+    LANG-1190: TypeUtils.isAssignable throws NullPointerException when fr…
+
+    …omType has type variables and toType generic superclass specifies type variable
+    
+    Not sure if this is the right/best solution, so review carefully.
+
+You can merge this pull request into a Git repository by running:
+
+    $ git pull https://github.com/PascalSchumacher/commons-lang lang_1190
+
+Alternatively you can review and apply these changes as the patch at:
+
+    https://github.com/apache/commons-lang/pull/158.patch
+
+To close this pull request, make a commit to your master/trunk branch
+with (at least) the following in the commit message:
+
+    This closes #158
+    
+----
+commit b1ed6725807382608ed45d9803f80b129a79c5a8
+Author: pascalschumacher <pascalschumacher@gmx.net>
+Date:   2016-05-29T18:30:36Z
+
+    LANG-1190: TypeUtils.isAssignable throws NullPointerException when fromType has type variables and toType generic superclass specifies type variable
+
+----
+, Github user coveralls commented on the pull request:
+
+    https://github.com/apache/commons-lang/pull/158#issuecomment-222375773
+  
+    
+    [![Coverage Status](https://coveralls.io/builds/6379480/badge)](https://coveralls.io/builds/6379480)
+    
+    Coverage increased (+0.03%) to 93.391% when pulling **b1ed6725807382608ed45d9803f80b129a79c5a8 on PascalSchumacher:lang_1190** into **afedbae8aca69a092d65766640361801bf2b5d9b on apache:master**.
+
+, Github user asfgit closed the pull request at:
+
+    https://github.com/apache/commons-lang/pull/158
+, Thanks for reporting.]

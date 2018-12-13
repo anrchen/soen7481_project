@@ -1,0 +1,27 @@
+[The Javadocs for {{isNumber()}} state (from trunk):
+
+bq. Valid numbers include hexadecimal marked with the {{0x}} or {{0X}} qualifier, octal numbers, scientific notation and numbers marked with a type qualifier (e.g. 123L).
+
+There is nothing there that suggests a relationship to the equivalent parse function from {{Integer}} or any other class. Nor is there anything that suggests a leading {{+}} sign is supported.
+
+Consequently, I'd suggest this is an Improvement, not a Bug. We should discuss whether a change in behaviour is welcome., Documentation notwithstanding, there are two cogent pro points to keep in mind:
+
+ 1. In Java: int i = Integer.parseInt("+2"), produces: int = 2
+ 2. In mathematics: +2 is a number.
+
+Also, for consistency, if isNumber("-1") is true, a leading plus sign will be expected to be valid by end-users (not programmers).  A typical use case for isNumber() is to verify input from a device, file or user input -- I submit that isNumber ought support syntax recognised by parser functions such as, Integer.parseInt().
+
+The point of discussion should be about user accessibility, serviceability & maintainability of client code and accepted arithmetic notation. , 
+I think the first line of the Javadoc makes the case that this is a bug:
+
+"Checks whether the String a valid Java number.", To me, that sentence doesn't mean anything. Hence raising LANG-1040. I think we need to resolve that issue before we can conclude if this is a bug or not. , I agree with what Duncan Jones said in LANG-1040.  whether it's a improvement or bug doesn't matter. The more important thing is to "Always try to keep consistent". it will make the APIs easily to understand/use. and make the future design decision not so difficult to make.
+
+personally, i prefer to replace code with:
+{code}
+  try {
+            return createNumber(str) !- null;
+        } catch (NumberFormatException e) {
+            return false;
+        }
+{code}
+, If you ask me this method is broken beond repair. It was never clearly defined what is a number and therefore we have conflicting ideas. We seen that in the past with ranges, digits, signs, octal/hex prefix and so on., There seems to be clear inconsistency between {{NumberUtils.createNumber(final String val)}} and {{NumberUtils.isNumber(final String str)}}. I agree here that the javadoc should be clarified as to what {{isNumber}} should return, but either way there should be consistency., https://github.com/apache/commons-lang/pull/186 fixes this.]

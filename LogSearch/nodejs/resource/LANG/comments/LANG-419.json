@@ -1,0 +1,9 @@
+[here is a patch with the corresponding unit-test
+
+I also had to fix another assert statement in the unit test, Congrats on the logging the first 2.4 bug., When I apply the patch, the tests don't pass. ie) Looks like the fix doesn't fix it., ok my mistake, I should have done something wrong yesterday while playing with it.
+I've done a clean checkout and fixed the patch : the new one (...fixed.patch) is good, I checked it with "mvn test"., svn ci -m "Applying Vincent Behar's second patch for LANG-419 - fixing a bug in abbreviate such that lower limits greater than the length of the string weren't working correctly" src
+
+Sending        src/java/org/apache/commons/lang/WordUtils.java
+Sending        src/test/org/apache/commons/lang/WordUtilsTest.java
+Transmitting file data ..
+Committed revision 655246.]

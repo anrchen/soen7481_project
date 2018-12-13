@@ -1,0 +1,3 @@
+[Why don't you provide your test as a junit test? ;-), The timezone is an invariant of a FastDateFormat.  If changing the global timezone affected the behavior of an instance, the instance would have concurrency concerns.
+
+If you want the current global timezone to be used on each invocation, use one of the FastDateFormat.getTimeInstance() factory methods which does not take a timezone parameter.  If the timezone has not been changed, you'll get a cached FastDateFormat instance; If the timezone has been changed, you'll get a new FastDateFormat that reflects the current global timezone. ]

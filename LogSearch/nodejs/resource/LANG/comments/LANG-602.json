@@ -1,0 +1,10 @@
+[If it helps, I've attached a slightly modified ContextedRuntimeException class that fixes the issue -- just changes the class to extend RuntimeException instead of Exception.
+
+Thanks, again, for looking at this., Thanks for heads-up.
+
+{noformat}
+commit -m "ContextedRuntimeException must extend RuntimeException (LANG-602)." 
+    Sending        src/Commons/proper/lang/src/main/java/org/apache/commons/lang3/exception/ContextedRuntimeException.java
+    Transmitting file data ...
+    Committed revision 920544.
+{noformat}]

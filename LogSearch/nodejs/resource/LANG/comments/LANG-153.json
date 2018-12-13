@@ -1,0 +1,11 @@
+[Can you write a test case to clarify the issue for us, thanks., Created an attachment (id=17904)
+Test case
+
+A test case showing this bug.
+
+You need to compile it using "target 1.5". When using "target 1.4", everything
+works as expected., Sounds like it might be linked to:
+
+http://issues.apache.org/bugzilla/show_bug.cgi?id=36666, Removing from NEEDINFO - which means moving to ASSIGNED in Bugzilla., In an effort to get 2.2 out sooner rather than later, I'm assiging all the Enum issues to 2.3. There's been no work on them currently and might be best to focus on them in a 2.3 release instead of trying to squeeze them into the 2.2 release.
+
+Hopefully this will keep the 2.3 release scope pretty tight., LANG-76 seems to be the right place for Cedric's attached test; not this issue., The XMLDecoder part of this is not important as far as I can tell, the underlying problem is the class loading issue described in LANG-76., Resolving this as a duplicate of the LANG-76 class loading issue for Enums.]

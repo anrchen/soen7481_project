@@ -1,0 +1,41 @@
+[GitHub user jodastephen opened a pull request:
+
+    https://github.com/apache/commons-lang/pull/304
+
+    Fix DateUtilsTest to work reliably on Java 9
+
+    Fixes failures due to MST time-zone not being formatted as "MST"
+    Also sets and unsets time-zones in finally blocks
+    to avoid pollution global state when tests fail
+    
+    See [LANG-1362](https://issues.apache.org/jira/browse/LANG-1362)
+
+You can merge this pull request into a Git repository by running:
+
+    $ git pull https://github.com/jodastephen/commons-lang date-tests
+
+Alternatively you can review and apply these changes as the patch at:
+
+    https://github.com/apache/commons-lang/pull/304.patch
+
+To close this pull request, make a commit to your master/trunk branch
+with (at least) the following in the commit message:
+
+    This closes #304
+    
+----
+commit 0a6d43fc284b9a085d1b72ca38011187c761321e
+Author: Stephen Colebourne <stephen@opengamma.com>
+Date:   2017-10-27T11:56:28Z
+
+    Fix DateUtilsTest to work reliably on Java 9
+    
+    Fixes failures due to MST time-zone not being formatted as "MST"
+    Also sets and unsets time-zones in finally blocks
+    to avoid pollution global state when tests fail
+
+----
+, To replicated add {code}-Duser.country=GB -Duser.language=en{code} to surefire argLine., Github user asfgit closed the pull request at:
+
+    https://github.com/apache/commons-lang/pull/304
+]

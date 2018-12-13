@@ -1,0 +1,18 @@
+["But UnicodeEscaper.java should not be specified for Java, I think. We need to discuss about it."
+
+Can you elaborate please?
+
+Thank you,
+Gary, Ah, I see, you mean UnicodeEscaper should not be _specific_ or _tied_ to Java because Java requires a surrogate pair and not just one value., For instance, Python supports {{\Uxxxxxxxx}}, and Perl supports {{\u\{xxxxxxxx\}}} styles to express the character outside of BMP.
+It's preferable to support the several type of unicode literal., I've added some more tests and @Ignore'd the failing ones. 
+
+escapeJava() should behave correctly, we need to see how to make that work under the hood without loosing our current flexibility and making the whole escaping process Java-specific., {noformat}
+commit -m "<action issue="LANG-858" type="fix">StringEscapeUtils.escapeJava() and escapeEcmaScript() do not output the escaped surrogate pairs that are Java parsable</action>" C:/svn/org/apache/commons/trunks-proper/lang/src/changes/changes.xml C:/svn/org/apache/commons/trunks-proper/lang/src/test/java/org/apache/commons/lang3/StringUtilsTest.java C:/svn/org/apache/commons/trunks-proper/lang/src/main/java/org/apache/commons/lang3/text/translate/JavaUnicodeEscaper.java C:/svn/org/apache/commons/trunks-proper/lang/src/main/java/org/apache/commons/lang3/StringEscapeUtils.java C:/svn/org/apache/commons/trunks-proper/lang/src/main/java/org/apache/commons/lang3/text/translate/UnicodeEscaper.java
+    Sending        C:/svn/org/apache/commons/trunks-proper/lang/src/changes/changes.xml
+    Sending        C:/svn/org/apache/commons/trunks-proper/lang/src/main/java/org/apache/commons/lang3/StringEscapeUtils.java
+    Adding         C:/svn/org/apache/commons/trunks-proper/lang/src/main/java/org/apache/commons/lang3/text/translate/JavaUnicodeEscaper.java
+    Sending        C:/svn/org/apache/commons/trunks-proper/lang/src/main/java/org/apache/commons/lang3/text/translate/UnicodeEscaper.java
+    Sending        C:/svn/org/apache/commons/trunks-proper/lang/src/test/java/org/apache/commons/lang3/StringUtilsTest.java
+    Transmitting file data ...
+    Committed revision 1413114.
+{noformat}]

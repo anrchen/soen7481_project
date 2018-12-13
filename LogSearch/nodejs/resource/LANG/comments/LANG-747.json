@@ -1,0 +1,20 @@
+[Originally: A combination of the original code being written for Java 1.1 (on a Psion netBook!) and my lack of awareness/knowledge when moving to Java 1.2. :)
+
+For leading zeroes - could you look for the first non-zero character and then length check?, createNumber() still does not handle 8-digit hex longs (e.g.: "0x80000000"). , Thanks for the report.
+
+If 0x80000000 is unsigned, it is the same as Integer.MIN_VALUE, whereas if it is signed, it is invalid as a posititve int.
+
+The NumberUtils code currently assumes that any 8 digit hex number is valid as an Integer, i.e. the code assumes that hex numbers are unsigned.
+
+The documentation does say that hex numbers may be negative, so the assumption that hex numbers are unsigned is wrong, and 0x80000000-0xFFFFFFFF should be treated as positive and therefore will require conversion to Long.
+Likewise for a 16 digit hex number starting with 0x8-0xF; that will require a BigInteger., Fixed 8 and 16 digit hex numbers
+Also now ignores leading zeros when calculating which number type to use
+
+URL: http://svn.apache.org/r1507169
+Log:
+LANG-747 NumberUtils does not handle Long Hex numbers
+
+Modified:
+    commons/proper/lang/trunk/src/main/java/org/apache/commons/lang3/math/NumberUtils.java
+    commons/proper/lang/trunk/src/test/java/org/apache/commons/lang3/math/NumberUtilsTest.java
+]

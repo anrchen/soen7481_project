@@ -1,0 +1,13 @@
+[How about outside of Eclipse?
+
+It works fine for me on OS X with 1.3., Works fine for my with Sun JDK 1.3.1_21 / Linux from within Eclipse., What do you think Gary, do we keep this open, or decide that we don't care? :)
+
+Looking at your first error, it's coming from inside JUnit, but there's nothing on those line that to me should be happening inside JUnit. 
+
+        assertEquals(1, cons.length);
+        assertEquals(true, Modifier.isPublic(cons[0].getModifiers()));
+        assertEquals(true, Modifier.isPublic(ClassUtils.class.getModifiers()));
+        assertEquals(false, Modifier.isFinal(ClassUtils.class.getModifiers()));
+
+I think the answer might have been that the junit jar you were using (maybe the one in Eclipse by default?) was not happy with 1.3.
+, Resolving as WONTFIX - I think this was just a wonky environment., I think we have a policy against the word "wonky" around here.]

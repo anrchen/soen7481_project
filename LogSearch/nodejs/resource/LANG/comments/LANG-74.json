@@ -1,0 +1,28 @@
+[Created an attachment (id=10783)
+patch for ArrayUtils
+, Created an attachment (id=10784)
+patch for ArrayUtilsAddTest
+, I think we need to discuss this. You are correct that the Javadoc states that a
+new array is returned but the Javadoc ALSO states the special cases:
+
+ArrayUtils.addAll(array1, null)   = array1
+ArrayUtils.addAll(null, array2)   = array2
+
+Which clearly show the boundary cases. So the code and Javadoc DO match. The
+real question for the API is: Should a new array ALWAYS be created?, I think the behaviour of the addAll mehod should be the same in all situations.
+I use this method in a scenario where I modify the returned array. I thought it
+would be safe to modify the array, because I was working on a new array. So
+modifying the result wasn't going to change the input arrays in any way ...
+wrong ... I spent some time to find the cause of what was going wrong in my
+algorithm.
+
+Perhahps it was a bit naive from me and I should have read the javadocs more
+carefully, maybe I should have created a clone of the result and modify that
+clone (and doing some unnecessary array creations), or maybe I can check myself
+if one of the input arrays is null .... but I thought it would be easier if the
+addAll method always returned a new array, regardless of whether one of the
+arguments is null., IIRC this is a new API method so we can change it at this point. Although a 
+little wasteful, I think that this is a valid change to make the API more 
+consistent. With arrays, whether it is cloned or not is significant.
+
+So, I'm +1 to the change., Yes, it is a post 2.0 method. Patches applied, thank you., 2.1 released, closing.]

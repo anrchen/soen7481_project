@@ -1,0 +1,14 @@
+[cvs log -d '23:50 EST' NOTICE.txt
+cvs [log aborted]: Can't parse date/time: 23:50 EST
+
+However, if parseCVS can handle it, current System date seems to make the most
+sense. 
+
+Nice comment for parseCVS:
+
+    // TODO: Decide whether this code is removed or goes into 2.1
+
+If it used current System date, it would have to make sure it didn't get 24
+hours off due to timezone confusion., Since cvs doesn't parse just a time, maybe parseCVS should behave the same way., The method needs further development. It has been moved into the DateFormatter
+class in the lang sandbox. Accompanying test (testParseCVS) has been moved to
+DateformatterTest.java in the lang sandbox.]

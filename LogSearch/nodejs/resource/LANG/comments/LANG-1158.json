@@ -1,0 +1,68 @@
+[I also tried this one as a workaround, but it also fails:
+{code}
+    @Test
+    public void testReplaceEscapingDollarSign() {
+        values.put("amount", "20.00");
+        values.put("dollar", "$");
+        doTestReplace("The quick brown fox paid $20.00 to jump over the lazy dog.",
+                      "The ${animal} paid ${dollar}${amount} to jump over the ${target}.", false);
+    }
+{code}
+{noformat}
+org.junit.ComparisonFailure: expected:<...ick brown fox paid $[20.00] to jump over the la...> but was:<...ick brown fox paid $[{amount}] to jump over the la...>
+	at org.junit.Assert.assertEquals(Assert.java:115)
+	at org.junit.Assert.assertEquals(Assert.java:144)
+	at org.apache.commons.lang3.text.StrSubstitutorTest.doTestReplace(StrSubstitutorTest.java:643)
+	at org.apache.commons.lang3.text.StrSubstitutorTest.testReplaceEscapingDollarSign(StrSubstitutorTest.java:171)
+{noformat}
+
+If you set the 'amount' variable with a dollar sign prefix, or if you put a space between dollar variable and amount variable, then it may look working, but it gives a big limitation in my use case., Anthony gave a good explanation about what the escape character means and how I can circumvent the issue in the user@ list [1]:
+
+{noformat}
+The escape character just tells StrSubstitutor "Ignore the following
+variable reference." When you change the default escape character, you
+don't need to use it get a dollar sign before a variable reference in your
+interpolated string. Try the following:
+
+@Test
+    public void testReplaceEscapingDollarSign() {
+        values.put("amount", "20.00");
+
+        final StrSubstitutor sub = new StrSubstitutor(values);
+        sub.setEscapeChar('<');
+
+        String replaceTemplate = "The <${animal} jumps over the ${target}.";
+        String expectedResult = "The ${animal} jumps over the lazy dog.";
+        String replacedResult = sub.replace(replaceTemplate);
+        assertEquals(expectedResult, replacedResult);
+
+        replaceTemplate = "The ${animal} paid $${amount} to jump over
+the ${target}.";
+        expectedResult = "The quick brown fox paid $20.00 to jump over
+the lazy dog.";
+        replacedResult = sub.replace(replaceTemplate);
+        assertEquals(expectedResult, replacedResult);
+    }
+{noformat}
+
+{noformat}
+Sorry, the second sentence in the first paragraph should read: "When you
+change the default escape character, you don't need to use it _to_ get a
+dollar sign before a variable reference in your interpolated string."
+
+To explain a little more, consider what happens to " $${amount}" when
+you're using StrSubstitutor's default escape character. StrSubstitutor sees
+that you've got a variable reference ("${amount}"), and that you've got the
+escape character ("$") before it, so it replaces "$${amount}" with
+"${amount}".
+
+Now consider what happens to " $${amount}" when you've set StrSubstitutor's
+escape character to something other than the default. StrSubstitutor sees
+the variable reference ("${amount}"), notes that the character ("$") before
+the variable reference is _not_ the user-defined escape character, and so
+replaces "${amount}" with the appropriate value form the map.
+{noformat}
+
+I think I can live with using a different escape character for my use case. So I'll close this issue.
+
+[1] http://markmail.org/message/6p74g52hxkdaswtv]

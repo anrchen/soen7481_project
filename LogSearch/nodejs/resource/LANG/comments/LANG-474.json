@@ -1,0 +1,18 @@
+[Given that these were added for backwards compatibility, they could now be removed.
+
+If the original behaviour is still required, then this should be provided in a thread-safe manner.
+, Most of the above is gone. The following is still open:
+
+The following fields could be made final:
+
+org.apache.commons.lang.text.StrMatcher - class variables in nested classes could be made final
+
+These have already been made final:
+
+org.apache.commons.lang.text.ExtendedMessageFormat.registry
+org.apache.commons.lang.CharSet.set, StrMatch inner class fields now final. Closing.
+
+svn ci -m "Making inner class private fields final per LANG-474"
+Sending        src/java/org/apache/commons/lang/text/StrMatcher.java
+Transmitting file data .
+Committed revision 803006.]

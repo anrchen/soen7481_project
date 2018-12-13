@@ -1,0 +1,76 @@
+[I would favor keeping the current contract in place, patching to make things
+work in JDK < 1.4.  My understanding of the current contract is
+
+(i)   null |-> null
+
+(ii)  valid representable numeric string |-> value represented
+
+(iii) invalid string |-> NumberFormatException
+
+"" and " " fall under (iii). (Need to add tests for " ".)
+
+One way to achieve this would be to change the guard on the createXxx methods to: 
+
+(4)
+
+  if (str == null) {
+      return null;
+  }
+  if (StringUtils.isBlank(str)) {
+      throw new NumberFormatException("A blank string is not a valid Xxx.");
+  }  
+
+Or even (following createNumber)
+
+(5)
+
+  if (str == null) {
+      return null;
+  }
+  if (str.length() == 0) {
+            throw new NumberFormatException("\"\" is not a valid Xxx.");
+  }
+ 
+This should work, but we would have to add tests to verify that " " throws
+NumberformatException in all cases, all JDKs when the conversion is attempted.
+
+Phil, I agree with Phil's comments, and option 4, I have added tests for " " locally and run against 1.4.2, 1.3.1_08 and 1.2_2_016
+and found that all tests (including " ") give expected results with current code
+in all cases with the one exception of createBigDecimal on 1.3.1_08. I see this
+as a JDK bug. Therefore I think that my option (4) is overkill, introducing a
+needless function call and string search for each activation to handle an
+isolated JDK bug. 
+
+I would recommend option (5), possibly applied only to createBigDecimal (i.e.
+leave the other methods alone).  
+ 
+, Fixes commited as suggested but with the guard clause factored in a method. 
+The tests pass on:
+
+java version "1.3.1_08"
+Java(TM) 2 Runtime Environment, Standard Edition (build 1.3.1_08-b03)
+Java HotSpot(TM) Client VM (build 1.3.1_08-b03, mixed mode)
+
+java version "1.4.2"
+Java(TM) 2 Runtime Environment, Standard Edition (build 1.4.2-b28)
+Java HotSpot(TM) Client VM (build 1.4.2-b28, mixed mode)
+
+, Ah! It looks like we are stepping on each others Bugzilla toes ;-)
+
+Feel free to change the NumberUtils code as you best see fit but do note the
+added bullet-proofing I've added to the unit tests, I believe these changes
+should stay in., Sorry to keep going back and forth on this, but I think that just patching
+createBigDecimal is sufficient.  I am attaching a patch to do this.  The new
+(better!) tests all succeed with this patch under 1.4.2, 1.3.1_08 and 1.2_2_016.
+
+I am OK with either Gary's mods or the more limited patch attached below.  Both
+solve the problem.   , Created an attachment (id=7530)
+NumberUtils patch fixing only createBigDecimal
+, OK, I've had a look at this.
+
+I agree with Phil's last comments that the extra checking is generally not 
+required, and that we should treat this as a JDK bug workaround. (Performance 
+matters too)
+
+So, I've removed the validate method and retested on JDK1.2.2, 1.3.1 and 1.4.1 
+and all is fine., Great, thanks for tidying things up.]

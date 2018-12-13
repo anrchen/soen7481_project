@@ -1,0 +1,13 @@
+[Change made which should deal with this situation.
+Thanks for the report and test.
+Stephen, I just checked the changes in CVS. If I read the code correctly, it will now 
+discard any field name containing a '$' character. This may be too restrictive 
+since '$' is a legal identifier part AFAIK.
+
+Also, I have thought a bit more about the problem. It is actually a more 
+general problem than the one I reported. Inner classes are not the only way you 
+could have mutually recursive data structures. So perhaps we should think of a 
+more general way of preventing this infinite loop. I have not made any solution 
+yet, but I think it might be solved using a Set of references to already 
+traversed instances and then avoid traversing an instance if it has already 
+been traversed.]

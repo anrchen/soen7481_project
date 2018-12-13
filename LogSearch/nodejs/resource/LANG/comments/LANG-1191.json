@@ -1,0 +1,7 @@
+[This has been fixed in the javadoc
+Reference URL - http://commons.apache.org/proper/commons-lang/apidocs/org/apache/commons/lang3/StringUtils.html#containsAny(java.lang.CharSequence,%20java.lang.CharSequence...)
+, There does appear to be an inconsistency with:
+
+StringUtils.containsAny("abcd", "ab", null) = false
+
+This does assert to true when added as a test case., @Brent: StringUtils.containsAny("abcd", "ab", "cd") = false, not StringUtils.containsAny("abcd", "ab", null) = false, @Brent: I'm sorry, I didn't notice you are talking about the line above., In Git master, please verify and close.]

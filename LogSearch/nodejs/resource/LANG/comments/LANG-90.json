@@ -1,0 +1,7 @@
+[Created an attachment (id=6262)
+Patch for JVMRandom
+, Created an attachment (id=6263)
+Test  suite for RandomUtils
+, Created an attachment (id=6264)
+Patch to add RandomUtilsTest to MathTestSuite
+, Committed., *** COM-529 has been marked as a duplicate of this bug. ***]

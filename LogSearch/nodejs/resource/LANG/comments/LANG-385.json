@@ -1,0 +1,5 @@
+[svn ci -m "Updating the build instructions to fix Sebb's reported problems in LANG-385" xdocs 
+
+Sending        xdocs/developerguide.xml
+Transmitting file data .
+Committed revision 606676.]

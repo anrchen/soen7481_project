@@ -1,0 +1,72 @@
+[Here is the simple testcase for this problem.  If you run it with one thread everything is fine.  If you run it with 1000 it starts blowing up!, Here is my suggested solution.  Its about 5 lines of change.  Switch the HashSet to an ArrayList and stop using the HashCode method for equality., Hi Andrew, it is a lot easier for us to look over a patch, if you use a diff as attachment. Especially if development continues, nobody knows in the end, what you really changed when your version of the code was current.
+-- Jörg, Joerg,  no problem, what do you want me to use to create the diff file?  Andrew., Unified diff format is the usual method.
+
+For example, as created by Eclipse or "svn diff".
+
+By the way, I can confim that I have seen the bug, and it is a problem with indentityHashCode - identical system hashcodes can be generated for both the class MyClass1 and the field containing the class MyClass2. Object.equals() on the two objects gives false (I commented out the overrides of equals) so the objects are different.
+
+A quick google shows that this has been noticed elsewhere. 
+
+It is not a bug in indentityHashCode bcause that is not guaranteed to generate unique hashes for distinct objects.
+- it just has to try to do so. The hashcode is only an int (rather than long), which reduces the number of possible values somewhat.
+
+It's not possible to use HashMap on the original object, as HashMap uses the hash to decide where to store the key.
+If there is no other way of generating a unique value for an object, then something other than a HashMap will have to be used - e.g. ArrayList.
+
+Debuggers seem to be able to generate unique names for objects, but the code may be rather expensive.
+, Or it may be possible to use the IdentityHashMap - I'll try that now.
+...
+Unfortunately that is Java 1.4+ and Lang currently targets 1.3+, Javadoc for Object.hashCode():
+{quote}
+The general contract of hashCode is:
+
+* Whenever it is invoked on the same object more than once during an execution of a Java application, the hashCode method must consistently return the same integer, provided no information used in equals comparisons on the object is modified. This integer need not remain consistent from one execution of an application to another execution of the same application.
+* If two objects are equal according to the equals(Object) method, then calling the hashCode method on each of the two objects must produce the same integer result.
+* It is not required that if two objects are unequal according to the equals(java.lang.Object) method, then calling the hashCode method on each of the two objects must produce distinct integer results. However, the programmer should be aware that producing distinct integer results for unequal objects may improve the performance of hashtables. 
+{quote}
+
+The problem is that a common implementation like
+
+{code}
+    public static class MyClass {
+        public Object arg;
+
+        public MyClass(Object arg) {
+            this.arg = arg;
+        }
+
+        public boolean equals(Object o) {
+            return EqualsBuilder.reflectionEquals(o, this);
+        }
+
+        public int hashCode() {
+            return HashCodeBuilder.reflectionHashCode(this);
+        }
+    }
+{code}
+
+... will simply violate point two of the upper specification if HashCodeBuilder.reflectionHashCode(Object) will use the identityHashCode., More googling shows that Mina and Axis have hit the same problem.
+
+Axis has a neat solution - they wrap the identityHashCode in an object which also contains a copy of the value to disambiguate the hash collisions.
+
+I can apply that as a fix - it should be cheaper than switching to a List., Sounds good to me.  I can run my TestCase against this afterwards (I have a few) and help to verify the fix.  Many thanks for your prompt response.  Andrew.
+
+PS. I'm presuming the fix is this http://marc.info/?l=axis-dev&m=103079325806666&w=2 , @Andrew
+
+Yes, my suggested fix is as you mention.
+
+I copied IDKey from Axis, and then replaced 
+
+    toIdentityHashCodeInteger(value)
+
+with
+
+   new IDKey(value)
+
+throughout. The private toIdentityHashCodeInteger(value) method can then be deleted.
+
+It seems to work for me, but it would be worth trying some more tests., Yup, that fix seemed to work well for me.  Andrew., Fixes applied to SVN:
+
+URL: http://svn.apache.org/viewvc?rev=695951&view=rev
+Log:
+LANG-459 HashCodeBuilder.reflectionHashCode() can generate incorrect hashcodes]

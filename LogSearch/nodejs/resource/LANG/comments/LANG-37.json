@@ -1,0 +1,51 @@
+[Created an attachment (id=14912)
+StrBuilderTest.java
+, Patch applied and tweaked a bit. 
+Thank you Michael.
+Clover now reports 46% instead of 0%.
+, Created an attachment (id=15659)
+svn diff src/
+
+svn commit r209943 causes two tests to fail for me:
+	  
+---
+Testsuite: org.apache.commons.lang.text.TextTestSuite
+Tests run: 65, Failures: 1, Errors: 1, Time elapsed: 2.531 sec
+   
+Testcase:    
+testAppendFixedWidthPadLeft(org.apache.commons.lang.text.StrBuilderTest):
+FAILED
+expected:<-null> but was:<null->
+junit.framework.ComparisonFailure: expected:<-null> but was:<null->
+	at
+org.apache.commons.lang.text.StrBuilderTest.testAppendFixedWidthPadLeft(StrBuilderTest.java:571)
+
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at
+sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:39)
+	at
+sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:25)
+
+
+
+Testcase:
+testAppendWithSeparators_Iterator(org.apache.commons.lang.text.StrBuilderTest):
+
+Caused an ERROR
+null
+java.util.NoSuchElementException
+	at java.util.AbstractList$Itr.next(AbstractList.java:427)
+	at
+org.apache.commons.lang.text.StrBuilder.appendWithSeparators(StrBuilder.java:614)
+
+	at
+org.apache.commons.lang.text.StrBuilderTest.testAppendWithSeparators_Iterator(StrBuilderTest.java:727)
+
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at
+sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:39)
+	at
+sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:25)
+
+
+diff attached., Patch applied, thank you., Further tests can go in a new or reopened call]

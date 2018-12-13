@@ -1,0 +1,59 @@
+[Github user britter commented on the pull request:
+
+    https://github.com/apache/commons-lang/pull/47#issuecomment-97514318
+  
+    Hello @beradrian,
+    
+    sorry for being so oblivious. Yes it would be best to create a separate PR for this issue. I've already created a new jira issue for tracking this: https://issues.apache.org/jira/browse/LANG-1122
+, I guess start is the start of first block (in swap methods - offset1), end is the start of second block (in swap methods - offset2) and offset is the length of block to swap (in swap methods - len).
+For case 1, 2, 3, 4, 5, 7, 8 I propose to result in no op. For case 6, it actually doesn't matter which block is first.
+For case 9 and 10 - what do you think it should happen with swap([1, 2, 3, 4, 5], 0, 3, 3)? It should result in no op or it should result in [4, 5, 3, 1, 2], meaning that it will swap as many as possible? I would incline to go for the latter., Hello [~beradrian],
+
+yes I meant offset1, offset2 and len. I've adjusted the description of this issue.
+
+I agree with your assessment of 1, 2, and 6, 7, 8. For 3, 4, and 5 we should take into account how other methods with index parameters behave for negative inputs. For example the indexOf methods treat a negative startIndex as zero. However the remove methods throw an {{IndexOutOfBoundsException}}. We should do either of this, but we shouldn't introduce yet another way of handling negative indicies.
+
+For case 9 and 10, I'm fine with the proposed solution.
+, For case 5, even if we promote len to zero, it will have the same result - no op.
+If we will use the principle "swap as many as possible from the given offset onwards" in all cases then 5 and 6 will promote the indices to zero. And then it will be consistent with 9 and 10 behavior too. And it will also be easy to document it too :).
+What do you think?, Go for it!, GitHub user beradrian opened a pull request:
+
+    https://github.com/apache/commons-lang/pull/86
+
+    Fix issue 1122
+
+    Fixes issue https://issues.apache.org/jira/browse/LANG-1122 as discussed.
+    I also added a link to an article on my blog about shift algorithm, as it was discussed previously. Hope it's fine, if not, I can remove it.
+
+You can merge this pull request into a Git repository by running:
+
+    $ git pull https://github.com/beradrian/commons-lang master
+
+Alternatively you can review and apply these changes as the patch at:
+
+    https://github.com/apache/commons-lang/pull/86.patch
+
+To close this pull request, make a commit to your master/trunk branch
+with (at least) the following in the commit message:
+
+    This closes #86
+    
+----
+commit 5b7608d1549989d92dd159392c19d9ba8ce0e62e
+Author: beradrian <beradrian@yahoo.com>
+Date:   2015-05-07T06:50:41Z
+
+    consistent treatment for negative indices for swap method
+
+commit e79a590e0cdabd93883aca964db2a862ff3f8490
+Author: beradrian <beradrian@yahoo.com>
+Date:   2015-05-07T08:31:28Z
+
+    new test case
+    explanations about algorithm
+
+----
+, Github user asfgit closed the pull request at:
+
+    https://github.com/apache/commons-lang/pull/86
+, Fixed in commit 13d7ce9fb65e8f05014daf4ee6cebc76f4781e6c]

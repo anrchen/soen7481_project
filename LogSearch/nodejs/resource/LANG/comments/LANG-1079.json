@@ -1,0 +1,8 @@
+[ClassUtils is a general purpose tools. It is *your* job to ensure that your code is calling the methods only with validated class names., I'm tempted to close this as invalid., The report appears to be complaining about the method
+{{Class<?> org.apache.commons.lang3.ClassUtils.getClass(ClassLoader classLoader, String className, boolean initialize)}}
+which calls {{Class.forName}}.
+
+I agree that it is the caller's job to ensure that the appropriate class name is used -- just as it is when calling {{Class.forName}} directly.
+
+I agree - close as invalid.
+, Closing this as invalid.]

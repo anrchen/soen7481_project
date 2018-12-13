@@ -1,0 +1,5 @@
+[Note that version 2.6 is a legacy release; it is 4 years old.
+
+Please consider upgrading to 3.4., The current code has been completely rewritten in this area and does not appear to have the same problem.
+
+Feel free to open a new JIRA issue if there is a problem with LANG 3.4 or later]

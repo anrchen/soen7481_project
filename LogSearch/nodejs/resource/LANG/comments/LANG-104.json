@@ -1,0 +1,11 @@
+[Going back to at least JDK 1.2.2, java.lang.Throwable implemented Serializable. Anyone 
+with ideas on what could be going wrong here?
+
+I thought maybe that Nestable was declaring itself to be Serializable at one point, but 
+looking at the CVS history it never has been such. The only class in the lang.exception 
+package to mess with Serializable has been NestableDelegate.
+, FWIW, Sun's Java 1.1.8 defines Throwable as:
+public class Throwable extends Object implements Serializable , Looks to me like serialization of NestableException is tested in
+NestableExceptionTestCase.testSerialization()
+
+It would help to see some sample code showing the failure., Closing as WORKSFORME (unreproducable)]

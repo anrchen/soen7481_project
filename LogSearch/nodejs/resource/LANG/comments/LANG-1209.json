@@ -1,0 +1,11 @@
+[Please can you include a code sample to reproduce this issue?, FastDateFormat.getInstance( "u" );, I can reproduce this with the 3.4 release, but not the latest code in Git. Clearly something has "solved" the problem, although looking at recent commits I'm struggling to pin down where the fix happened, inadvertent or otherwise.
+
+Not sure we can take this much further without a reproducible issue to fix., I'd expect the change to be in FastDateParser.
+
+The 3.4 version is missing
+
+case 'u':
+            return DAY_OF_WEEK_STRATEGY;, 1. Look at [apache/commons-lang|https://github.com/apache/commons-lang] repository in github,
+2. find file [FastDatePrinter.java|https://github.com/apache/commons-lang/blob/master/src/main/java/org/apache/commons/lang3/time/FastDatePrinter.java]
+3. push [blame|https://github.com/apache/commons-lang/blame/master/src/main/java/org/apache/commons/lang3/time/FastDatePrinter.java]
+4. search for 'u' - you will see that the code was committed in [cc340ad|https://github.com/apache/commons-lang/commit/2ebf9a21d2dc99ab2f434111cac9dcd6da99d574] as part of LANG-1192, Thanks Charles!]

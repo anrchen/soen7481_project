@@ -1,0 +1,9 @@
+[Thanks Christian.
+
+svn ci -m "Fixing LANG-685 so that EqualsBuilder synchronizes on itself and not HashCodeBuilder"
+Sending        src/main/java/org/apache/commons/lang3/builder/EqualsBuilder.java
+Sending        src/site/changes/changes.xml
+Sending        src/site/xdoc/upgradeto3_0.xml
+Transmitting file data ...
+Committed revision 1082042.
+]

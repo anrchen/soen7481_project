@@ -1,0 +1,5 @@
+[Fix asap issue; so marking for 2.3.1., Attaching a unit test/fix patch for this.,  svn ci -m "Applying unit test/fix for LANG-328"
+Sending        src/java/org/apache/commons/lang/LocaleUtils.java
+Sending        src/test/org/apache/commons/lang/LocaleUtilsTest.java
+Transmitting file data ..
+Committed revision 534277.]

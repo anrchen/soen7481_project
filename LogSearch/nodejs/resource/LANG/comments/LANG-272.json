@@ -1,0 +1,14 @@
+[1, 2 and 4 look good. As do the checkstyle changes. Feel free to commit if you want, otherwise I'll hit them at some point.
+
+3 is changing a target called 'dist-build-2.1'. Either we shoud leave it as it is, or remove the target itself., I've committed the JavaDoc/Checkstyle changes and 1, 2 and 4.
+
+Wrt to 3 ("Remove the exclusion of the "text" package from the source distro") - looks like the target 'dist-build-2.1' should be removed. If we don't remove the exclusion in maven.xml and the "dist-build" target is used to build lang 2.2 then it will mean that the binary distro includes classes which are missing from the source distro.
+
+  http://svn.apache.org/viewvc?view=rev&revision=209004
+
+Anyway I'll leave it up to you as I'm not a lang dev - just trying to be pro-active and get my nitpicks in before a RC was done, rather than after :-)
+, I'm not sure why we have the old release notes files hanging around. IMHO they should be deleted from svn not included in the release.
+
+On the text package issue, we should be including it in the release, both bin and src, Old release notes can be useful if you're thinking of upgrading or need to upgrade because of a bug - anyway I'll leave it up to you lang devs to decide.
+
+I've removed the remaining bits that were put in to exclude the "org.apache.commons.lang.text" package from version 2.1, Release notes removed.]

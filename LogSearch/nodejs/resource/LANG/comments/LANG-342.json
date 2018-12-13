@@ -1,0 +1,13 @@
+[Setting fix version to 2.3.1 so the javadoc can be added. Then it should be reversioned to 3.0 for consideration there., Non-javadoc note added to HashCodeBuilder.append., It doesn't matter if >>> or >> is used. We shift down the upper half of the long and XOR with the lower half. Of course, we also XOR the unshifted upper half with the shifted upper half (which consists of zeros or ones), but then we cast to int, which simply throws away the upper half. It doesn't matter at all if there were zeros or ones in the shifted upper half.
+
+Here's a little test. Looping through all longs takes too long, let's just use random numbers.
+
+java.util.Random rnd = new java.util.Random();
+for (;;)
+{
+  long value = rnd.nextLong();
+  int signed = (int)(value ^ (value >> 32));
+  int unsigned = (int)(value ^ (value >>> 32));
+  if (signed != unsigned) System.out.println(value+" "+signed+" "+unsigned);
+}
+, Thanks for the analysis. I'll close the issue as 'Won't fix', as a comment has already been added to the sourcebase.]

@@ -1,0 +1,6 @@
+[svn ci -m "Applying test for LANG-304 and fix to LocaleUtils" src/
+
+Sending        src/java/org/apache/commons/lang/LocaleUtils.java
+Sending        src/test/org/apache/commons/lang/LocaleUtilsTest.java
+Transmitting file data ..
+Committed revision 489749.]

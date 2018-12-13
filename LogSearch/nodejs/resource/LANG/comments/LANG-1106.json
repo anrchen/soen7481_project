@@ -1,0 +1,35 @@
+[Please have a look at [StringUtilsEqualsIndexOfTest|http://svn.apache.org/viewvc/commons/proper/lang/trunk/src/test/java/org/apache/commons/lang3/StringUtilsEqualsIndexOfTest.java?view=markup], line 543:
+
+{code}
+assertFalse(StringUtils.equals(fooCs, null));
+{code}
+
+Where fooCs is initialized with the value {{"foo"}}. The test succeeds, so I think this issue is invalid. The Code you've posted with the wrong logic doesn't look like the logic from {{org.apache.commons.lang3.StringUtils}}. Maybe you're talking about a different class with the same name?, I have checked with "org.apache.commons.lang3.StringUtils" class for the equals method. It produces wrong results.
+please find the logic which is present in the "org.apache.commons.lang3.StringUtils" class and try it.
+
+package org.apache.commons.lang3;
+ public static boolean equals(CharSequence cs1, CharSequence cs2)
+  {
+    return cs1 == null ? false : cs2 == null ? true : cs1.equals(cs2);
+  }
+
+If cs2 is null, the above logic returns "true", that means it doesn't produce correct result., [~naren_k], I don't know what code you're looking at. The current implementation is:
+
+{code:java}
+    public static boolean equals(final CharSequence cs1, final CharSequence cs2) {
+        if (cs1 == cs2) {
+            return true;
+        }
+        if (cs1 == null || cs2 == null) {
+            return false;
+        }
+        if (cs1 instanceof String && cs2 instanceof String) {
+            return cs1.equals(cs2);
+        }
+        return CharSequenceUtils.regionMatches(cs1, false, 0, cs2, 0, Math.max(cs1.length(), cs2.length()));
+    }
+{code}
+
+(see https://github.com/apache/commons-lang/blob/trunk/src/main/java/org/apache/commons/lang3/StringUtils.java#L784)
+
+Please make sure you're using the latest release of Commons Lang, which is 3.4 (http://search.maven.org/#artifactdetails%7Corg.apache.commons%7Ccommons-lang3%7C3.4%7Cjar), Sorry Benedikt.. I was checking version 3.3 , my mistake.. got it.. thanks for your time :)]

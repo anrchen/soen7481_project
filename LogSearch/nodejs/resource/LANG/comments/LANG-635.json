@@ -1,0 +1,8 @@
+[Thanks Robert. I've fixed that line to pass the compareTransients along:
+
+
+svn ci -m "Fixing the pass along of compareTransients to the reflectionCompare method as identified by Robert Radkiewicz in LANG-635"
+Sending        src/main/java/org/apache/commons/lang3/builder/CompareToBuilder.java
+Transmitting file data .
+Committed revision 965941.
+]

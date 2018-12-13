@@ -1,0 +1,18 @@
+[I think it's possible because the cInstanceCache field is not final - see LANG-367.
+
+Updating to version 2.4 should fix the problem., This issue appears to be the same, IMHO, this is rather an example of a data-race issue due to the cInstanceCache field not being final and not being synchronized in <clinit> in FastDateFormat in Lang 2.2.
+
+I suppose that the following scenario could explain your problem:
+- at least two Threads concurrently access to FastDateFormat.getInstance() method, while FastDateFormat is not being loaded by the current classloader:
+- Thread A loads FastDateFormat.class, and creates cInstanceCache.
+- Thread B enters the FastDateFormat.getInstance() method, BUT FastDateFormat.class is in a incoherent state (cInstanceCache is null) because of memory synchronization and/or compiler optimizations
+     => this causes the NullPointerException in Thread B
+- Thread A enters in FastDateFormat.getInstance() method and everything is correct.
+
+I suggest you to upgrade to Lang 2.4 in which the cInstanceCache field has been made final, and see if this problem still occurs.
+
+Furthermore, the semantic of final keyword has been strengthen due to JSR-133 , which is part of Java 5.
+I encourage you to read the following section: http://www.cs.umd.edu/~pugh/java/memoryModel/jsr-133-faq.html#finalWrong
+and the Final Fields paragraph in JSR-133: http://www.cs.umd.edu/~pugh/java/memoryModel/jsr133.pdf
+, Ugh, my comment came in late :-), this issue is indeed the same as LANG-37., Thanks for your VERY fast answers!
+I will give it a try with 2.4, Did 2.4 fix things Kai?, Closing with the assumption that this fixed things.]

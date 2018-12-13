@@ -1,0 +1,6 @@
+[Current trunk had addressed this, but had transposed the 4 and 5 results. I've fixed that in r960831, namely:
+
+     * StringUtils.lastIndexOf("aabaabaa", "a")  = 7
+     * StringUtils.lastIndexOf("aabaabaa", "b")  = 5
+     * StringUtils.lastIndexOf("aabaabaa", "ab") = 4
+]

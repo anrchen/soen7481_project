@@ -1,0 +1,5 @@
+[sample code, The second parameter is not a String - it is the *set* of characters to strip.
+
+So StringUtils.stripEnd("120.00", ".00") - which is the same as StringUtils.stripEnd("120.00", ".0") - results in "12" because there is a "0" on the end.
+
+However, StringUtils.stripEnd("121.00", ".0") gives "121".]

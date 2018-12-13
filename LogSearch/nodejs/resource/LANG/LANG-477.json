@@ -1,0 +1,260 @@
+{
+    "expand": "operations,versionedRepresentations,editmeta,changelog,renderedFields",
+    "fields": {
+        "aggregateprogress": {
+            "progress": 0,
+            "total": 0
+        },
+        "aggregatetimeestimate": null,
+        "aggregatetimeoriginalestimate": null,
+        "aggregatetimespent": null,
+        "assignee": {
+            "active": true,
+            "avatarUrls": {
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452",
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452"
+            },
+            "displayName": "Niall Pemberton",
+            "key": "niallp",
+            "name": "niallp",
+            "self": "https://issues.apache.org/jira/rest/api/2/user?username=niallp",
+            "timeZone": "Etc/UTC"
+        },
+        "components": [{
+            "id": "12313194",
+            "name": "lang.text.*",
+            "self": "https://issues.apache.org/jira/rest/api/2/component/12313194"
+        }],
+        "created": "2009-01-09T10:05:53.000+0000",
+        "creator": {
+            "active": true,
+            "avatarUrls": {
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452",
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452"
+            },
+            "displayName": "Duncan Eley",
+            "key": "djeley",
+            "name": "djeley",
+            "self": "https://issues.apache.org/jira/rest/api/2/user?username=djeley",
+            "timeZone": "Etc/UTC"
+        },
+        "customfield_10010": null,
+        "customfield_12310220": "2009-01-09T22:08:19.541+0000",
+        "customfield_12310222": "1_*:*_1_*:*_43346585_*|*_6_*:*_1_*:*_0_*|*_5_*:*_1_*:*_4402148956",
+        "customfield_12310250": null,
+        "customfield_12310290": null,
+        "customfield_12310291": null,
+        "customfield_12310300": null,
+        "customfield_12310310": "3.0",
+        "customfield_12310420": "147344",
+        "customfield_12310920": "74734",
+        "customfield_12310921": null,
+        "customfield_12311020": null,
+        "customfield_12311024": null,
+        "customfield_12311120": null,
+        "customfield_12311820": "0|i0d5wv:",
+        "customfield_12312022": null,
+        "customfield_12312023": null,
+        "customfield_12312024": null,
+        "customfield_12312026": null,
+        "customfield_12312220": null,
+        "customfield_12312320": null,
+        "customfield_12312321": null,
+        "customfield_12312322": null,
+        "customfield_12312323": null,
+        "customfield_12312324": null,
+        "customfield_12312325": null,
+        "customfield_12312326": null,
+        "customfield_12312327": null,
+        "customfield_12312328": null,
+        "customfield_12312329": null,
+        "customfield_12312330": null,
+        "customfield_12312331": null,
+        "customfield_12312332": null,
+        "customfield_12312333": null,
+        "customfield_12312334": null,
+        "customfield_12312335": null,
+        "customfield_12312336": null,
+        "customfield_12312337": null,
+        "customfield_12312338": null,
+        "customfield_12312339": null,
+        "customfield_12312340": null,
+        "customfield_12312341": null,
+        "customfield_12312520": null,
+        "customfield_12312521": "Sat Oct 03 01:52:50 UTC 2009",
+        "customfield_12312720": null,
+        "customfield_12312823": null,
+        "customfield_12312920": null,
+        "customfield_12312921": null,
+        "customfield_12312923": null,
+        "customfield_12313422": "false",
+        "customfield_12313520": null,
+        "description": "When using ExtendedMessageFormat with a custom format registry and a pattern conatining single quotes, an OutOfMemoryError will occur.\n\nExample that will cause error:\n\n{code:title=ExtendedMessageFormatTest.java|borderStyle=solid}\n\nprivate static Map<String, Object> formatRegistry = new HashMap<String, Object>();    \n    static {\n        formatRegistry.put(DummyFormatFactory.DUMMY_FORMAT, new DummyFormatFactory());\n    }\n    \n    public static void main(String[] args) {\n        ExtendedMessageFormat mf = new ExtendedMessageFormat(\"it''s a {dummy} 'test'!\", formatRegistry);\n        String formattedPattern = mf.format(new String[] {\"great\"});\n        System.out.println(formattedPattern);\n    }\n}\n\n{code}\n\nThe following change starting at line 421 on the 2.4 release seems to fix the problem:\n\n{code:title=ExtendedMessageFormat.java|borderStyle=solid}\nCURRENT (Broken):\nif (escapingOn && c[start] == QUOTE) {\n        return appendTo == null ? null : appendTo.append(QUOTE);\n}\n\nWORKING:\nif (escapingOn && c[start] == QUOTE) {\n        next(pos);\n        return appendTo == null ? null : appendTo.append(QUOTE);\n}\n{code}",
+        "duedate": null,
+        "environment": null,
+        "fixVersions": [{
+            "archived": true,
+            "description": "",
+            "id": "12314743",
+            "name": "2.5",
+            "releaseDate": "2010-02-25",
+            "released": true,
+            "self": "https://issues.apache.org/jira/rest/api/2/version/12314743"
+        }],
+        "issuelinks": [{
+            "id": "12325192",
+            "inwardIssue": {
+                "fields": {
+                    "issuetype": {
+                        "avatarId": 21133,
+                        "description": "A problem which impairs or prevents the functions of the product.",
+                        "iconUrl": "https://issues.apache.org/jira/secure/viewavatar?size=xsmall&avatarId=21133&avatarType=issuetype",
+                        "id": "1",
+                        "name": "Bug",
+                        "self": "https://issues.apache.org/jira/rest/api/2/issuetype/1",
+                        "subtask": false
+                    },
+                    "priority": {
+                        "iconUrl": "https://issues.apache.org/jira/images/icons/priorities/major.svg",
+                        "id": "3",
+                        "name": "Major",
+                        "self": "https://issues.apache.org/jira/rest/api/2/priority/3"
+                    },
+                    "status": {
+                        "description": "The issue is considered finished, the resolution is correct. Issues which are not closed can be reopened.",
+                        "iconUrl": "https://issues.apache.org/jira/images/icons/statuses/closed.png",
+                        "id": "6",
+                        "name": "Closed",
+                        "self": "https://issues.apache.org/jira/rest/api/2/status/6",
+                        "statusCategory": {
+                            "colorName": "green",
+                            "id": 3,
+                            "key": "done",
+                            "name": "Done",
+                            "self": "https://issues.apache.org/jira/rest/api/2/statuscategory/3"
+                        }
+                    },
+                    "summary": "OutOfMemory Error caused by ExtendedMessageFormat"
+                },
+                "id": "12427323",
+                "key": "LANG-509",
+                "self": "https://issues.apache.org/jira/rest/api/2/issue/12427323"
+            },
+            "self": "https://issues.apache.org/jira/rest/api/2/issueLink/12325192",
+            "type": {
+                "id": "12310000",
+                "inward": "is duplicated by",
+                "name": "Duplicate",
+                "outward": "duplicates",
+                "self": "https://issues.apache.org/jira/rest/api/2/issueLinkType/12310000"
+            }
+        }],
+        "issuetype": {
+            "avatarId": 21133,
+            "description": "A problem which impairs or prevents the functions of the product.",
+            "iconUrl": "https://issues.apache.org/jira/secure/viewavatar?size=xsmall&avatarId=21133&avatarType=issuetype",
+            "id": "1",
+            "name": "Bug",
+            "self": "https://issues.apache.org/jira/rest/api/2/issuetype/1",
+            "subtask": false
+        },
+        "labels": [],
+        "lastViewed": null,
+        "priority": {
+            "iconUrl": "https://issues.apache.org/jira/images/icons/priorities/major.svg",
+            "id": "3",
+            "name": "Major",
+            "self": "https://issues.apache.org/jira/rest/api/2/priority/3"
+        },
+        "progress": {
+            "progress": 0,
+            "total": 0
+        },
+        "project": {
+            "avatarUrls": {
+                "16x16": "https://issues.apache.org/jira/secure/projectavatar?size=xsmall&pid=12310481&avatarId=10011",
+                "24x24": "https://issues.apache.org/jira/secure/projectavatar?size=small&pid=12310481&avatarId=10011",
+                "32x32": "https://issues.apache.org/jira/secure/projectavatar?size=medium&pid=12310481&avatarId=10011",
+                "48x48": "https://issues.apache.org/jira/secure/projectavatar?pid=12310481&avatarId=10011"
+            },
+            "id": "12310481",
+            "key": "LANG",
+            "name": "Commons Lang",
+            "projectCategory": {
+                "description": "Apache Commons components",
+                "id": "10260",
+                "name": "Commons",
+                "self": "https://issues.apache.org/jira/rest/api/2/projectCategory/10260"
+            },
+            "self": "https://issues.apache.org/jira/rest/api/2/project/12310481"
+        },
+        "reporter": {
+            "active": true,
+            "avatarUrls": {
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452",
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452"
+            },
+            "displayName": "Duncan Eley",
+            "key": "djeley",
+            "name": "djeley",
+            "self": "https://issues.apache.org/jira/rest/api/2/user?username=djeley",
+            "timeZone": "Etc/UTC"
+        },
+        "resolution": {
+            "description": "A fix for this issue is checked into the tree and tested.",
+            "id": "1",
+            "name": "Fixed",
+            "self": "https://issues.apache.org/jira/rest/api/2/resolution/1"
+        },
+        "resolutiondate": "2009-01-09T22:08:19.000+0000",
+        "status": {
+            "description": "The issue is considered finished, the resolution is correct. Issues which are not closed can be reopened.",
+            "iconUrl": "https://issues.apache.org/jira/images/icons/statuses/closed.png",
+            "id": "6",
+            "name": "Closed",
+            "self": "https://issues.apache.org/jira/rest/api/2/status/6",
+            "statusCategory": {
+                "colorName": "green",
+                "id": 3,
+                "key": "done",
+                "name": "Done",
+                "self": "https://issues.apache.org/jira/rest/api/2/statuscategory/3"
+            }
+        },
+        "subtasks": [],
+        "summary": "ExtendedMessageFormat: OutOfMemory with custom format registry and a pattern containing single quotes",
+        "timeestimate": null,
+        "timeoriginalestimate": null,
+        "timespent": null,
+        "updated": "2010-02-25T19:45:04.000+0000",
+        "versions": [{
+            "archived": true,
+            "description": "Bugfix release of the Lang1 codebase",
+            "id": "12312481",
+            "name": "2.4",
+            "releaseDate": "2008-03-18",
+            "released": true,
+            "self": "https://issues.apache.org/jira/rest/api/2/version/12312481"
+        }],
+        "votes": {
+            "hasVoted": false,
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/LANG-477/votes",
+            "votes": 0
+        },
+        "watches": {
+            "isWatching": false,
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/LANG-477/watchers",
+            "watchCount": 0
+        },
+        "workratio": -1
+    },
+    "id": "12412010",
+    "key": "LANG-477",
+    "self": "https://issues.apache.org/jira/rest/api/2/issue/12412010"
+}

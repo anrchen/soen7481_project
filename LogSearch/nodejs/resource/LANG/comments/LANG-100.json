@@ -1,0 +1,82 @@
+[Can you please provide a unit test case patch to demonstrate the issue? Thanks,
+Gary., Sorry, have never added a unit test patch. 
+
+Here is a junit test case showing the problem. 
+
+	/**
+	 * Creates a human readable representation of any unicode character.
+	 * @param c - a unicode character
+	 * @return human readable representation for c
+	 */
+	static public String makeStringFromChar(char c)
+	{
+		// dirty for getting the char code from a character
+		return Integer.toHexString((new Character(c)).hashCode());
+	}
+
+	/**
+	 * Checks if the string got by {@link RandomStringUtils#random(int)} 
+	 * can be converted to UTF-8 and back without loss.
+	 * 
+	 * @author stefanhoehne@fastmail.fm
+	 * @throws Exception
+	 */
+	public void testRandom() throws Exception
+	{
+		final int size = 5000;
+		final String encoding = "UTF-8";
+		final String orig = RandomStringUtils.random(size);
+		final byte[] bytes = orig.getBytes(encoding);
+		final String copy = new String(bytes, encoding);
+
+		// for a verbose compare:
+		for (int i=0; i<orig.length() && i<copy.length(); ++i)
+		{
+			char o = orig.charAt(i);
+			char c = copy.charAt(i);
+			assertEquals("differs at " + i + "(" + makeStringFromChar(o) + "," +
+makeStringFromChar(c) + ")", o, c);
+		}
+		// compare length also
+		assertEquals(orig.length(), copy.length());
+		// just to be complete
+		assertEquals(orig, copy);
+	}, Test indeed fails. 
+
+Codewise, the a start of 0 and an end of Integer.MAX_VALUE are used. Each time
+around the loop a random number is created and the following test is applied:
+
+            if ((letters && Character.isLetter(ch))
+                || (numbers && Character.isDigit(ch))
+                || (!letters && !numbers)) { 
+
+In this case, letters and numbers are false, so it passes quite happily (as it's
+not a random restricted to letters or digits). 
+
+So we need to be adding another test here, whether the character is correct
+unicode for the high/low surrogate bit. Googling, it looks like high surrogates
+are on the range 55296 (D800) to 56191 (DB7F); and there are 'private use high
+surrogates' from 56192 (DB80) to 56319 (DBFF). So if a random character exists
+within that range, the following character must be a low surrogate. 
+
+Low surrogates are 56320 (DC00) to 57343 (DFFF). 
+
+So, dumb pseudo-code:
+
+if(char > 55296 && char < 56191)
+    count--
+    char[count] = 56320 + random(128)
+
+But I don't get what the private high surrogates are, I can't find the 'low'
+alternative (not that I understand much of this). Was looking at this site: 
+http://www.alanwood.net/unicode/private_use_high_surrogates.html
+
+Any thoughts?, Fixed for high/low I believe, but private high get skipped currently.
+
+svn ci -m "Adding a test and a fix for LANG-100. This is a bug in which the randomly created String can some
+times be illegal unicode; because the code does not consider when relationships exist between characters. High and low surrogates are now dealt with, but I'm skipping private high surrogates because I can't find out what to do. Need to go plod very slowly through the spec. This site was very useful: http://www.alanwood.net/unicode/private_use_high_surrogates.html" src/*/org/apache/commons/lang/Random*
+
+Sending        src/java/org/apache/commons/lang/RandomStringUtils.java
+Sending        src/test/org/apache/commons/lang/RandomStringUtilsTest.java
+Transmitting file data ..
+Committed revision 417319.]

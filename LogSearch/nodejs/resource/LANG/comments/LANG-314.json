@@ -1,0 +1,9 @@
+[Fix for the two broken tests. No one else uses the public method in ClassUtilsTest, so it was deleted and a simpler method of creating a second classloader created., Fixed:
+
+r501606 | bayard | 2007-01-30 14:26:38 -0800 (Tue, 30 Jan 2007) | 1 line
+Changed paths:
+   M /jakarta/commons/proper/lang/trunk/src/test/org/apache/commons/lang/ClassUtilsTest.java
+   M /jakarta/commons/proper/lang/trunk/src/test/org/apache/commons/lang/enum/EnumTest.java
+   M /jakarta/commons/proper/lang/trunk/src/test/org/apache/commons/lang/enums/EnumTest.java
+
+Applying my fix from LANG-314]

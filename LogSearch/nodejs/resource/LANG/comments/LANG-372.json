@@ -1,0 +1,12 @@
+[Looks like ToStringBuilder doesn't like appending toStrings built with different style types. The multiline style calls setContentEnd to change the content end string from ] to \n]. It fails to append toStrings built with the plain style because it can't find this string.  So the workaround is to use a single style in every object.
+
+I'm attaching a JUnit test patch that reproduces this issue., Yep - it even says so in ToStringBuilder (doh):
+
+     * <p>This method assumes that the other object uses the same <code>ToStringStyle</code>
+     * as this one.</p>
+
+Just not in ToStringStyle where it's obvious when digging into the code.
+
+I've added Javadoc in ToStringStyle to that effect (r594386). , Marking this as WONTFIX. It's a design bug rather than a code bug, and I don't see any obvious ways to surgically fix it.
+
+I've also added Bjorn's unit test as a proof of this so if it does change in the future we can notice (r594387).]

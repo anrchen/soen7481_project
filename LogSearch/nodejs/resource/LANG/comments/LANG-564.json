@@ -1,0 +1,39 @@
+[Agreed that this is confused. I think we should roll back the generics changes., Or consider using <T extends CharSequence>, +1 for T extends CharSequence for parameters, but to guarantee a T return type would a) require a Class<T> parameter, and b) require us to make assumptions about constructors of T subclasses... so either String or CharSequence (returning String) would still seem the appropriate RT., The class is for providing a Str, Str view on a Str, V storage. From the tests:
+
+{code:java}
+        Map<String, Object> map = new HashMap<String, Object>();
+        map.put("number", new Integer(2));
+        assertEquals("2", StrLookup.mapLookup(map).lookup("number"));
+{code}
+
+Based on that, the genercizing looks good to me (yeah I know I'm contradicting my previous comment, I hadn't dug into the previous code). I think a bit more javadoc explanation is in need but not a generics change., URL: http://svn.apache.org/viewvc?rev=899933&view=rev
+Log:
+LANG-564 Improve StrLookup API documentation
+
+Modified:
+   commons/proper/lang/trunk/src/main/java/org/apache/commons/lang3/text/StrLookup.java
+   commons/proper/lang/trunk/xdocs/changes.xml, I was also confused by the StrLookup type parameter while browsing the commons-lang 3.0.1 source. Instead of creating a duplicate issue, I thought it would be better to comment here, even though this issue seems to be closed...
+
+
+I don't see the point of having a generic type parameter on the StrLookup class, if it's not used anywhere. No method / field in StrLookup references this type parameter. IntelliJ IDEA itself reports a warning: "Type parameter 'V' is never used". Moreover, Java generics are not reified, so there is no reliable way to access the type parameter at runtime (and I don't see the point of doing that anyway...).
+
+While the Javadoc tries to clarify the purpose of a StrLookup, the unused type parameter is still confusing, and the client code has to un-necessarily specify type parameters. For example, I have to write:
+
+{code}
+StrLookup<?> lookup = StrLookup.noneLookup();
+StrLookup<String> lookup2 = StrLookup.systemPropertiesLookup();
+StrLookup<Integer> lookup3 = StrLookup.mapLookup(integerMap);
+{code}
+
+instead of
+
+{code}
+StrLookup lookup = StrLookup.noneLookup();
+StrLookup lookup2 = StrLookup.systemPropertiesLookup();
+StrLookup lookup3 = StrLookup.mapLookup(integerMap);
+{code}
+
+
+My best guess is that this type parameter was added when commons-lang was generified, because StringLookup.mapLookup() takes a generified Map. Doing this is not really needed, though: we could remove the <V> type parameter everywhere, and replace the StrLookup.mapLookup()'s Map<String, V> with a Map<String, ?> (which is the same as Map<String, ? extends Object>, but shorter).
+
+I guess it's too late to change this now, due to backward compatibility... But I thought I'd comment just in case it's still possible., I've put your comment in LANG-745. Closed issues are far too easy to miss comments on., Ok. I wasn't sure whether I should create a new issue, but it makes sense since this one was closed 18 months ago. Thanks!]

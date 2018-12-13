@@ -1,0 +1,23 @@
+[Created an attachment (id=5206)
+Patch from src directory
+, The patch doesn't include the Adaptor Registry, but only provides a patch for 
+the LangTestSuite.  I think this is probably because the CVS Diff didn't find 
+the Adaptor Registry in the repository (as might be expected since it is a 
+proposed addition) and therefore did not provide patch information - nothing 
+to patch.  
+
+I think the new files need to be attached separately, and the patch provided 
+be applicable only to the LangTestSuite.  , Created an attachment (id=5361)
+Java source code for AdaptorRegistry
+, Created an attachment (id=5362)
+JUnit test for AdaptorRegistry
+, Just added the missing files.  I should have checked the patch before 
+uploading it (just trying to do too, too much at once).  Looks like something 
+munged the eols (Eclipse? CVS? The Fates?), so the patch isn't very useful 
+anyway., *** COM-379 has been marked as a duplicate of this bug. ***, This is a post 2.0 release., I'm closing this on grounds of WONTFIX. The code definitely seems useful, 
+however in my mind it is at a slightly higher level than [lang] targets 
+(especially as [lang] has now stabilised with slightly fewer packages than it 
+might have had)
+
+It would seem to sit better with the [convert] project, or maybe [hivemind]. It 
+just adds a little element of 'religion' that I would have to -1 in [lang].]

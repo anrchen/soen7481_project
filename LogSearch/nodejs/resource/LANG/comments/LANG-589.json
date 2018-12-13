@@ -1,0 +1,15 @@
+[In the javadoc, the only example with "" as first parameter for the String version is StringUtils.indexOf("", "") = 0
+
+Will this example be still valid ? Do I understand clearly that we must have both this behaviour and StringUtils.indexOf("", *) = -1 ?,           StringUtils.indexOf("","")   returns 0
+          StringUtils.indexOf("","a")  returns -1 
+          StringUtils.indexOf("",'')  cant be given
+          StringUtils.indexOf("",'c') returns  -1
+
+I think API is working correctly or is there any other scenario where it behaves  differently?, Thanks Valentin and Chandrashekar. You're both correct.
+
+I've updated the javadoc to make it clearer, sorry for the false alarm :)
+
+svn ci -m "Adding extra javadoc to point out that usually indexOf on an empty String == -1. LANG-589" src/
+Sending        src/main/java/org/apache/commons/lang3/StringUtils.java
+Transmitting file data .
+Committed revision 907561.]

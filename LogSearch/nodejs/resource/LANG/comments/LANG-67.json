@@ -1,0 +1,36 @@
+[Index: src/test/org/apache/commons/lang/builder/EqualsBuilderTest.java
+===================================================================
+--- src/test/org/apache/commons/lang/builder/EqualsBuilderTest.java    
+(revision 394830)
++++ src/test/org/apache/commons/lang/builder/EqualsBuilderTest.java     (working
+copy)
+@@ -956,4 +956,25 @@
+         // http://issues.apache.org/bugzilla/show_bug.cgi?id=33067
+         new EqualsBuilder().append(x1, x2);
+     }
++
++    /**
++     * Test from http://issues.apache.org/bugzilla/show_bug.cgi?id=34284
++     */
++    public void testNpeForNullElement2() {
++        Object[][] x1 = new Object[2][2];
++        Object[][] x2 = new Object[2][2];
++
++        for (int i = 0; i < x1.length; ++i) {
++            for (int j = 0; j < x1[0].length; j++) {
++                x1[i][j] = new Object();
++                x2[i][j] = new Object();
++            }
++        }
++
++        x1[0][1] = null;
++
++        // causes an NPE in 2.0 according to:
++        // http://issues.apache.org/bugzilla/show_bug.cgi?id=34284
++        new EqualsBuilder().append(x1, x2);
++    }
+ }                       , I've tested this (see the above diff) and it appears to be fixed already. There
+is already a unit test for this (well, basic array rather than multi array) that
+refers to the issue that I'm declaring this issue a duplicate of.
+
+*** This bug has been marked as a duplicate of 33067 ***, Closing this duplicate - hoping to see a notification on the list., Reopening so I can resolve it. Seen this happen occasionally in Jira, though only previously when the workflow was being mucked around with. Artifact of the migration I guess - having an issue that is closed but has an unresolved status., Closing again.]

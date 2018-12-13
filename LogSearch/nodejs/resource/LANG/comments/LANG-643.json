@@ -1,0 +1,12 @@
+[Thanks Volker. The javadoc has been fixed in svn., Thanks ... and now for a little nitpicking (sorry):
+
+As mentioned before the javadoc for param "len" still is a bit overly strict:
+"len - the length of the required String{color:red}, must be zero or positive{color}"
+
+Since it must not, as discussed.
+
+Again: left(), right() and mid().
+
+V., Please, nit pick away :)
+
+Text deleted in r990663.]

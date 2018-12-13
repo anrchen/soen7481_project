@@ -1,0 +1,24 @@
+[Neither StringBuffer, StringBuilder or String itself is cloneable, so we're not doing this because it's needed. , As we don't have the public clone(), this is only of value to subclasses. The state of this class is currently in 4 attributes. Two are protected, two are private. Both of the private attributes have public get/set methods.
+
+So no reason for subclasses to need a clone., svn ci -m "StrBuilder no longer implements Cloneable. #LANG-302" src/java/
+Sending        src/java/org/apache/commons/lang/text/StrBuilder.java
+Transmitting file data .
+Committed revision 490355., I disagree with this. It was probably an error to be Clonable, but now its there its doing no harm. Removing it breaks binary compatability, and thats a big deal in [lang]. -1 to the change., Reopening due to Stephen's -1.
+
+I'll roll the commit back and move this fix to 3.0., svn ci -m "Rolling back r490355 - StrBuilder implements Cloneable again" src/java/org/apache/commons/lang/text/StrBuilder.java 
+
+Sending        src/java/org/apache/commons/lang/text/StrBuilder.java
+Transmitting file data .
+Committed revision 491073., Moving up to 2.4 - we should look into writing a clone method. , If StringBuilder or StringBuffer implemented Cloneable, then I'd say do it here too. But Henri already confirmed it does not, so do remove the interface since its implementation was never complete., Pondered again for 2.4; but we shouldn't fix clone(). The less people who are able to get it to work, the less people are affected when it's removed in 3.0. Moving back to 3.0., We're on 3.0 now, so removing the interface implementation. 
+
+svn ci -m "Removing the Cloneable interface from StrBuilder as per LANG-302"
+
+Sending        src/java/org/apache/commons/lang/text/StrBuilder.java
+Transmitting file data .
+Committed revision 655251., Question - is this okay for 3.0, or does it need to be LangTwo?, I know this is resolved for 3.0 - but Sebb raised this again concerning a 2.6 release (also LANG-603):
+    * http://markmail.org/message/qa42zi27j4svsuna
+
+I agree with Stephen that we can't remove Cloneable in the 2.x branch because of compatibility issues. IMO the best solution is to implement clone(). As it stands this implementation is breaking the contract of Cloneable and I think that is worse than any difference with StringBuilder or StringBuffer. Its also very trivial to implement.
+
+Attaching a patch to implement clone, v2 of patch attached, v2 of patch attached, Implemented clone() method in LANG 2.x branch:
+    http://svn.apache.org/viewvc?view=revision&revision=1057349]

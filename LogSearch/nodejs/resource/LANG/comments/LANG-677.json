@@ -1,0 +1,9 @@
+[Looks like Niall fixed this.
+
+r1066645 | niallp | 2011-02-02 13:55:15 -0800 (Wed, 02 Feb 2011) | 1 line
+Changed paths:
+   M /commons/proper/lang/trunk/src/main/java/org/apache/commons/lang3/time/DateUtils.java
+   M /commons/proper/lang/trunk/src/test/java/org/apache/commons/lang3/time/DateUtilsTest.java
+
+LANG-677 DateUtils isSameLocalTime() compares the hour using 12hour Calendar.HOUR instead of 24hour Calendar.HOUR_OF_DAY - thanks to Christian
+]

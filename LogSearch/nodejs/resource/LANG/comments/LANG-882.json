@@ -1,0 +1,19 @@
+[Thanks Mark. At the very least we should note this in the javadoc for 3.2, assuming a fix isn't readily available.
+
+How did the work around go?, I've added a note to this in the Javadoc for the moment.
+
+Options that jump out to me are to go with calling .toString() on the key and taking any performance hits, or perhaps using TreeMap with a custom CharSequenceComparator if CharSequences are passed in that don't have refined equals(Object)/hashCode() methods and taking a lookup time performance hit. , Next step is to write a unit test showing the problem so there's something to fix. Might release 3.2 without this. , Test is easy - take the current LookupTranslator test and make a StringBuffer version. 
+
+Solutions; naively throwing in a TreeMap doesn't work. A ClassCast occurs between StringBuffer and String. This is because calling subSequence on StringBuffer returns a String (boo!), and for some reason the call to compareTo in getEntry of TreeMap doesn't like the different types. Presumably this could be solved with a custom comparator.
+
+Changing the key of the HashMap to be a String resolves the issue. It feels weird for the key to be typed; ie) if it was StringBuffer("foo"), I'd expect it to match the String "foo" as well. Only matching the type of the input seems odd. I can see value in keeping the translate-to part of the system as CharSequence; you could have large items of text that won't be read until such a time as they need to be obtained.
+
+, I've gone ahead with the simple solution of using String as the key. It's not ideal, but I think it's an improvement over the current code.
+
+svn ci -m "Allow LookupTranslator to support CharSequence properly; previously it was working only for CharSequence's that implemented hashCode and equals(Object). LANG-882" src/
+Sending        src/changes/changes.xml
+Sending        src/main/java/org/apache/commons/lang3/text/translate/LookupTranslator.java
+Sending        src/test/java/org/apache/commons/lang3/text/translate/LookupTranslatorTest.java
+Transmitting file data ...
+Committed revision 1470822.
+]

@@ -1,0 +1,12 @@
+[javac PsiStatus.java
+
+PsiStatus.java:59: cannot access org.apache.commons.lang.exception.
+
+I don't get how this is related to jetspeed, what is PsiStatus.java ?, Hi,
+PsiStatus was my class; it's irrelevant, what matters is the function I was 
+calling which showed that the documentation of apache commons NestableException 
+is incorrect.
+
+regards
+Paul, What's the link with jetspeed ???, oops, was in the wrong bug list... I was working on jetspeed when I discovered 
+this., Closed, see jetspeed]

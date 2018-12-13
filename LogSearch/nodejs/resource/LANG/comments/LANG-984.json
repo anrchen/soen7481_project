@@ -1,0 +1,9 @@
+[URL: http://svn.apache.org/r1573749
+Log:
+LANG-984 DurationFormatUtils does not handle large durations correctly
+
+Modified:
+    commons/proper/lang/trunk/src/changes/changes.xml
+    commons/proper/lang/trunk/src/main/java/org/apache/commons/lang3/time/DurationFormatUtils.java
+    commons/proper/lang/trunk/src/test/java/org/apache/commons/lang3/time/DurationFormatUtilsTest.java
+]

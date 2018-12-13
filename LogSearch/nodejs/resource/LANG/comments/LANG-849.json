@@ -1,0 +1,11 @@
+[commit -m "[LANG-849] FastDateFormat generates Date objects wastefully." C:/svn/org/apache/commons/trunks-proper/lang/src/main/java/org/apache/commons/lang3/time/FastDatePrinter.java C:/svn/org/apache/commons/trunks-proper/lang/src/main/java/org/apache/commons/lang3/time/FastDateFormat.java C:/svn/org/apache/commons/trunks-proper/lang/src/changes/changes.xml
+    Sending        C:/svn/org/apache/commons/trunks-proper/lang/src/changes/changes.xml
+    Sending        C:/svn/org/apache/commons/trunks-proper/lang/src/main/java/org/apache/commons/lang3/time/FastDateFormat.java
+    Sending        C:/svn/org/apache/commons/trunks-proper/lang/src/main/java/org/apache/commons/lang3/time/FastDatePrinter.java
+    Transmitting file data ...
+    Committed revision 1406026.
+commit -m "[LANG-849] FastDateFormat and FastDatePrinter generates Date objects wastefully." C:/svn/org/apache/commons/trunks-proper/lang/src/changes/changes.xml
+    Sending        C:/svn/org/apache/commons/trunks-proper/lang/src/changes/changes.xml
+    Transmitting file data ...
+    Committed revision 1406027.
+]

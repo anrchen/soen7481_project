@@ -1,0 +1,61 @@
+[[~skotsj] we just released Commons Lang 3.5 Do you see the same problem with 3.5?
+
+Thank you!, Seems to be still present in 3.5, Patches welcome!, GitHub user andyklimczak opened a pull request:
+
+    https://github.com/apache/commons-lang/pull/200
+
+    LANG-1276
+
+    Fix issue of buf using nonupdated buffer in StrBuilder replaceImpl
+    Avoid array OoB error by keeping variable buf consistent with buffer
+
+You can merge this pull request into a Git repository by running:
+
+    $ git pull https://github.com/andyklimczak/commons-lang LANG-1276
+
+Alternatively you can review and apply these changes as the patch at:
+
+    https://github.com/apache/commons-lang/pull/200.patch
+
+To close this pull request, make a commit to your master/trunk branch
+with (at least) the following in the commit message:
+
+    This closes #200
+    
+----
+commit 0dd44493d70188ed6145cdb130537532cbc68522
+Author: Andy Klimczak <andyklimczak@fastmail.com>
+Date:   2016-10-23T01:54:14Z
+
+    LANG-1276
+    Avoid array OOB error by keeping variable buf consistent with buffer in
+    StrBuilder replaceImpl
+
+----
+, Github user coveralls commented on the issue:
+
+    https://github.com/apache/commons-lang/pull/200
+  
+    
+    [![Coverage Status](https://coveralls.io/builds/8463388/badge)](https://coveralls.io/builds/8463388)
+    
+    Coverage increased (+0.02%) to 93.57% when pulling **0dd44493d70188ed6145cdb130537532cbc68522 on andyklimczak:LANG-1276** into **e2dbe55d56bd6c1209276050f527d36717e33e1d on apache:master**.
+
+, Github user coveralls commented on the issue:
+
+    https://github.com/apache/commons-lang/pull/200
+  
+    
+    [![Coverage Status](https://coveralls.io/builds/8463388/badge)](https://coveralls.io/builds/8463388)
+    
+    Coverage increased (+0.02%) to 93.57% when pulling **0dd44493d70188ed6145cdb130537532cbc68522 on andyklimczak:LANG-1276** into **e2dbe55d56bd6c1209276050f527d36717e33e1d on apache:master**.
+
+, Github user asfgit closed the pull request at:
+
+    https://github.com/apache/commons-lang/pull/200
+, Github user PascalSchumacher commented on the issue:
+
+    https://github.com/apache/commons-lang/pull/200
+  
+    Thanks! :+1: 
+, Pull request merged. Thanks for the pull request and thanks for reporting!]

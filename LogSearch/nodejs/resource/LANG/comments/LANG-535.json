@@ -1,0 +1,67 @@
+[I wonder if the package name equivalent is prefixed by '[' for arrays., Doing this in java :
+
+String sArray[] = new String[2];
+sArray[0] = "mark";
+sArray[1] = "is cool";
+String simpleString = "chris";
+
+sArray.getClass() = "class [Ljava.lang.String;"
+
+I am sure this is where they are going wrong.  I have not looked into the code, however, I would imagine they are taking everything past the last ".".
+
+I am not sure what the correct return should be.  I know what I would like it to be, and that is apparent.  However, an "array" is a primitive data type and therefore not an Object,  so I believe it should throw and exception.  But that would not be helpful...
+, Actually ClassUtils.getShortName should do what Class.getSimpleName does in JDK 1.5, Or it needs deleting if there is a JDK 1.5 alternative., Since 3.0 targets JDK 1.5 only - yes., So I put it all together in 1.5:
+
+String sArray[] = new String[2];
+sArray[0] = "mark";
+sArray[1] = "is cool";
+sArray.getClass().getSimpleName();
+
+this returns:  String[]
+
+I guess the java team has spoken.  I suggest deleting since 1.5 has an alternative...
+
+ I still think I would rather have just the name and no brackets, however.   For my use I would have to do some additional editing.  I am sending in an Object[] or an Object into a method and need the same behavior for both.  
+
+This failed when I sent in an array:
+
+protected void createXML(XStream xStream, PrintWriter pw, Object o) {
+		pw.write("<?xml version=\"1.0\" encoding=\"UTF-8\" ?>");
+		xStream.alias(ClassUtils.getShortClassName(o, null), o.getClass());
+		xStream.toXML(o, pw);
+}
+
+So I changed it to this:
+
+protected void createXML(XStream xStream, PrintWriter pw, Object o, Class c) {
+		pw.write("<?xml version=\"1.0\" encoding=\"UTF-8\" ?>");
+		xStream.alias(ClassUtils.getShortClassName(c), c);
+		xStream.toXML(o, pw);
+}
+
+Not a big change, but it is something.., In that case you could have written:
+
+{code:java}
+ClassUtils.getShortClassName(o.getClass().isArray() ? o.getClass().getComponentType() : o.getClass())
+{code}
+
+However, we're getting OT here. Come to the user's list of Commons, or for XStream specific questions to XStream's user's list ...
+
+Cheers,
+Jörg, Difference in behaviour between JDK getSimpleName and Lang getShortClassName:
+
+  JDK returns the class name for an inner class.
+  Lang returns the surrounding class name and the class name of the inner class as the class name.
+
+Difficult to say which is correct imo. Lang relies on '$' as the inner class name separator., Plus Lang provides a String API in addition to the Class API. Given that a Class may not be available, this isn't the same as say relying on the File API instead of Strings for IO work., Attaching a patch that adds support for:
+
+* arrays
+* primitive arrays
+* multiple dimension arrays
+* Stops getPackageName using the underlying cls.getPackage().getName() after discovering java.lang.String[]'s getPackage to be null (at least within the Maven2/JUnit classloader).
+
+Plus various tests.,  svn ci -m "Applying my patch from LANG-535 - adding support to getShortClassName and getPackageName for arrays, including primitive arrays and multi-dimensional arrays. Also stopped getPackageName relying on the underlying class.getPackage as it's sometimes null" src/test/org/apache/commons/lang/ClassUtilsTest.java src/java/org/apache/commons/lang/ClassUtils.java 
+Sending        src/java/org/apache/commons/lang/ClassUtils.java
+Sending        src/test/org/apache/commons/lang/ClassUtilsTest.java
+Transmitting file data ..
+Committed revision 825420.]

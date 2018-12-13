@@ -1,0 +1,7 @@
+[I thought we'd hit this for escapeXml before and the spec said that such characters were not escaped., It is crystal clear, that escapeXml *must* not escape such characters, but should throw an exception.
+
+I haven't got any idea for HTML documents. I'd be in favour for the same handling as XML, though, for practical reasons. Whoever needs these binary characters should use BASE64 or something similar. At least I'd wait for an explicit hint, that escaped 0x00 characters *are* valid in HTML.
+
+However, I must admit, that I do not like the current implementation. Simply *ignoring* such characters is, IMO, worse than trying to escape them. IMO, we should throw an exception, if we find characters that we suspect to be invalid.
+
+, actualy 9(tab),10(newline),13(c-return) are valid chars. But only these 3 are valid from the range from 0 to 0x20, Closing as LANG-505 has given the user the ability to customize their escaping, and LANG-515 drives deciding what our standard default pattern should be.]

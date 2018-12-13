@@ -1,0 +1,17 @@
+[I've attached a patch that I believe addresses this issue, plus a unit test to prove correctness.
+
+The only minor issue is that the estimated length provided by TimeZoneNameRule.estimateLength() is now based on the wrong timezone. I can't see a way to avoid this.
+
+Perhaps it would be better to artificially increase the returned estimated length value on the basis that over-provisioning a StringBuffer is better than under-provisioning?, That patch looks good to me., Slightly tweaked the patch - in the test case I had imported assertNotNull from a different package to the other static imports., Thanks for the code patch and test case.
+Test case fails before code patch is applied and succeeds afterwards (as it should!).
+Applied:
+
+URL: http://svn.apache.org/viewvc?rev=1390980&view=rev
+Log:
+LANG-818 FastDateFormat's "z" pattern does not respect timezone of Calendar instances passed to format()
+
+Modified:
+    commons/proper/lang/trunk/src/changes/changes.xml
+    commons/proper/lang/trunk/src/main/java/org/apache/commons/lang3/time/FastDatePrinter.java
+    commons/proper/lang/trunk/src/test/java/org/apache/commons/lang3/time/FastDatePrinterTest.java
+]

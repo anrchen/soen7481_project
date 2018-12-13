@@ -1,0 +1,32 @@
+[I suppose following code in the StringUtil.join() makes the issue
+
+3297:bufSize *= ((array[startIndex] == null ? 16 :
+                                       array[startIndex].toString().length()) + 1);
+3298:StringBuilder buf = new StringBuilder(bufSize);
+
+since StringBuilder any inter, {code:java}  
+  StringUtils.join(new Object[]{
+        new Object() {
+          @Override
+          public String toString() {
+            return "";
+          }
+        },
+        new Object() {
+          @Override
+          public String toString() {
+            return null;
+          }
+        }
+
+    }, ',');
+{code}
+
+NPE occurs only when first Object toString method returns null, fix the NPE and anded Unit Tests for that, Seems to me that the simplest solution would be just to assume that the average entry size is 16, and not bother with trying to use the actual sizes at all., create a patch assuming average string length is 16, Thanks Ilya, I've applied the 2nd patch:
+
+svn ci -m "Applying Ilya's patch from LANG-703 fixing an NPE when toString returns null"
+Sending        src/main/java/org/apache/commons/lang3/StringUtils.java
+Sending        src/test/java/org/apache/commons/lang3/StringUtilsTest.java
+Transmitting file data ..
+Committed revision 1142381.
+]

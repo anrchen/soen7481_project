@@ -1,0 +1,63 @@
+[Created an attachment (id=9238)
+tests to demonstrate desired behavior and patch to implement it
+, Most likely my zipped patch files won't be readable.  That's just as well, given
+that they patch the current contents of CVS rather than the state I would expect
+to exist if my patch for COM-960 is committed.  I'll re-diff and resubmit a
+patch if/when that's desired., I don't understand what the problem is.  The following tests (taken from your
+patch, eliminating the added boolean parameter) succeed with the current code:
+
+String stringToSplitOnNulls = "ab   de fg" ;
+        String[] splitOnNullExpectedResults = { "ab", "de", "fg" };
+        
+        String[] splitOnNullResults = StringUtils.split( "ab   de fg", null);
+        assertEquals(splitOnNullExpectedResults.length, splitOnNullResults.length);
+        for (int i = 0 ; i < splitOnNullExpectedResults.length ; i+= 1) {
+            assertEquals(splitOnNullExpectedResults[i], splitOnNullResults[i]);
+        }
+        
+        String[] expectedResults = { "ab", "de fg" };
+        splitOnNullResults = StringUtils.split( "ab   de fg", null, 2);
+        assertEquals(expectedResults.length, splitOnNullResults.length);
+        for ( int i = 0 ; i < expectedResults.length ; i+= 1 ) {
+            assertEquals(expectedResults[i], splitOnNullResults[i]);
+        }
+
+Looks to me like the current code is functioning as advertised. See the example
+in the javadoc:
+
+StringUtils.split("ab:cd:ef", ":", 2)    = ["ab", "cdef"]
+
+Probably should add your example, which shows that in the case of a whitspace
+delimiter, the delimiter is not stripped from the terminal segment.
+
+I would not support changing this behavior, since this would change the
+contract.  It might be a good idea, however, to drop the javadoc reference to
+the StringTokenizer., Sorry, the patch was too big to easily pinpoint the changes to the tests that
+demonstrate my desired behavior for the existing methods.  They're actually in
+innerTestSplit():
+
+-        assertEquals(msg, str, res[0]);
++        assertEquals(msg, "a", res[0]);
+
+-        assertEquals(msg, str.substring(2), res[1]);
++        assertEquals(msg, "b", res[1]);
+
+I agree the above is a change to the contract of these methods; I wanted to
+raise the question as to whether the existing contract is the most
+useful/sensible one.  It sure surprised me that the last substring returned by
+the method had different properties from the others.  It doesn't make sense to
+me, but maybe it does to other people.  If so, that's fine.
+
+
+Furthermore, the Javadoc example
+
+StringUtils.split("ab:cd:ef", ":", 2)    = ["ab", "cdef"]
+
+should read
+
+StringUtils.split("ab:cd:ef", ":", 2)    = ["ab", "cd:ef"]
+
+in order to reflect what the code currently does (what it does is in some sense
+sensible, though not what I would expect).  What the Javadoc says is just plain
+weird, but I assume it was a typo., You are correct.  There was an error in the javadoc.  I have fixed the error and
+added test cases to verify current behavior., Closing this for now, as the javadoc has been fixed, 2.1 released, closing.]

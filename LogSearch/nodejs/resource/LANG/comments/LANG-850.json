@@ -1,0 +1,19 @@
+[I'm not sure what the issue is here: the two calendars objects are not the same, because they have different TimeZones.
+
+This seems to be more about how calendar objects behave when their timezone is changed., I agree with that (the objects aren't the same), but shouldn't the months of both calendars match? Which is the same as saying that the last line should return 0, right?
+
+As a clear example, the month of 11-6-2012 (GMT-3) is the same as the month of 11-20-2012 (GMT-7), right? 
+What am I thinking wrong here?, AFAICT, the problem arises in your test because the calendar objects are created with the default timezone and the timezone is then changed.
+
+If you change the default timezone before creating the calendar objects, then they truncate as expected.
+However they still won't be equal because of the time zone difference.
+
+I'm also not clear what the use case is here., Thanks for clearing that, so the method truncates taking account of the current timezone of the calendar.
+
+I was having problems when comparing:
+1-an XMLGregorianCalendar converted to Calendar (XMLGregorianCalendar doesn't have the concept of DST, so the timezone is converted to GMT-2 in this timezone) with
+2-a GregorianCalendar created with "new GregorianCalendar()" which has a timezone of "America/Montevideo".
+
+According to the comments, my code should set the timezone of the converted XMLGregorianCalendar to America/Montevideo before using the truncate method.
+
+Thanks again, I had thought that the truncatedCompareTo should compare dates managing the timezone before comparing., Looks like this conversation was resolved :)]

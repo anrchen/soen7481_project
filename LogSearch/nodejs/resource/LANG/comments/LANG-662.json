@@ -1,0 +1,30 @@
+[The current implementation:
+
+{code:title=Fraction.java|borderStyle=solid}
+    private static int greatestCommonDivisor(int u, int v) {
+        //if either op. is abs 0 or 1, return 1:
+        if (Math.abs(u) <= 1 || Math.abs(v) <= 1) {
+            return 1;
+        }
+{code} 
+
+The case u==0 || v==0 is already handled at the calling site (). So you might switch to testing for abs==1 only:
+
+{code:title=Fraction.java|borderStyle=solid}
+    private static int greatestCommonDivisor(int u, int v) {
+    	// the case u==0 || v==0 is handled by the caller.
+        // if either op. is abs 1, return 1:
+        if (Math.abs(u) == 1 || Math.abs(v) == 1) {
+            return 1;
+        }
+{code} 
+
+Dropping this test altogether does not change correctness, but might influence performance. If you expect many fractions with numerator 1 or denominator 1, keep the test.
+, See LANG-663. Commons Math solved this, as such, by adding a BigFraction. My suggestion is that we drop Fraction from Lang and point people towards Math's more in depth implementation., Need to resolve before 3.0 release., The commons-math version does not have this overflow in its gcd implementation, and it can be easily prevented.
+But as written in LANG-663, I'd drop the commons-lang Fraction class in favor of commons-math Fraction.
+, Definitely fix then - general task here should be to examine Math Fraction for changes that need to be applied to Lang Fraction., svn ci -m "Adding first method check from Math's MathUtils.gcd method; and unit tests showing that this was needed. Bug reported and solved by Christian Semrau [LANG-662]"
+Sending        src/main/java/org/apache/commons/lang3/math/Fraction.java
+Sending        src/test/java/org/apache/commons/lang3/math/FractionTest.java
+Transmitting file data ..
+Committed revision 1059749.
+]

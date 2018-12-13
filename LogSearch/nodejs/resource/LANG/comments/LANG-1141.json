@@ -1,0 +1,8 @@
+[Proposed patch to solve both LANG-1055 and LANG-1141. This patch implements the lookup for system properties in a very straight-forward way. It ensures live access to system properties in all cases in a consistent way., Hello Oliver,
+
+patch looks good to me. I'm not sure but I think that os.name is set to HAL-9000 on the ASF build servers. So maybe it would be better to set the {{differentOsName}} like this:
+
+{code:java}
+final String differentOsName = originalOsName + "-TEST";
+System.setProperty(osName, differentOsName);
+{code}, I am fine with a different name. This test was from the original report for LANG-1055., [~oliver.heger@t-online.de], feel free to apply the patch yourself., Patch applied in commit 80644cdab9a77db0a52d09d9ebb1f406912997d1.]

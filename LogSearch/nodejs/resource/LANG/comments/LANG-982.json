@@ -1,0 +1,9 @@
+[URL: http://svn.apache.org/r1573754
+Log:
+LANG-982 DurationFormatUtils.formatDuration(61999, "s.SSSS") - ms field size should be 4 digits
+
+Modified:
+    commons/proper/lang/trunk/src/changes/changes.xml
+    commons/proper/lang/trunk/src/test/java/org/apache/commons/lang3/time/DurationFormatUtilsTest.java
+    commons/proper/lang/trunk/src/test/java/org/apache/commons/lang3/time/FastDateParserTest.java
+]

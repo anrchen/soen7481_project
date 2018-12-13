@@ -1,0 +1,94 @@
+[Sorry, ignore the previous comments (now deleted). I misinterpreted your issue entirely.
+
+I see your point now - if {{createDouble(str)}} had been used on your example string, the results would be more accurate. Clearly our logic for determining when to use the different data types may need improving.
+
+If you have suggestions for a patch, please post one. Otherwise I'll do some research to see if things can be improved.
+
+I've changed to "Patch Needed" since there is no patch here to review., Closely related discussion found at LANG-693.
+
+The problem is that [Java allocates 23-bits|http://stackoverflow.com/a/13543600/474189] for the [significand|http://en.wikipedia.org/wiki/Significand] in a float. This guarantees *6* decimal figures in the significand, not 7. The fix for LANG-693 checks for the wrong values.
+
+I need to do some more investigation, but I see two solutions:
+
+# Leave the simple test in place, but change to {{< 7}} and {{< 16}} for floats and doubles respectively. And change it to count the size of the significand, not just the decimal places.
+# Change the approach and calculate the bit-length of the significand and switch types based on that. 
+
+, After further research (and a [Stack Overflow question on the subject|http://stackoverflow.com/q/25831817/474189]), I've concluded that making decisions based on significand length is nigh-on impossible, not least because the significand length must be calculated when in binary form (not decimal).
+
+The correct approach depends upon what we intend to achieve with this method. The Javadocs are not specific on this topic, but I presume we want to guarantee (where possible) the following test result:
+
+{code:java}
+assertEquals(inputString, NumberUtils.createNumber(inputString).toString());
+{code}
+
+If so, a simple approach is to convert to {{float}} and test the {{toString()}} representation. If this doesn't match, use {{double}}. Finally we use {{BigDecimal}} if neither matches. Does anyone have any thoughts on that approach?, Personally, I prefer to use double for decimals by default, instead of float., GitHub user NickManley opened a pull request:
+
+    https://github.com/apache/commons-lang/pull/156
+
+    LANG-1018: Fix precision loss on NumberUtils.createNumber(String)
+
+    **Warning: This patch will break backwards compatibility.**
+    
+    This patch is designed to fix the loss of precision when using NumberUtils.createNumber(String). However, the fix is not 100% backwards compatible with the currently released commons-lang 3.4. To fix the loss of precision, values that were previously returning Floats are now returning Doubles. Some explicit casts may break as a result.
+    
+    ```java
+    // Works in 3.4, but causes ClassCastException in patch.
+    Float f = (Float) NumberUtils.createNumber("-160952.54");
+    System.out.println(f); // prints "-160952.55"
+    
+    // Works with patch.
+    Double d = (Double) NumberUtils.createNumber("-160952.54");
+    System.out.println(d); // prints "-160952.54"
+    ```
+
+You can merge this pull request into a Git repository by running:
+
+    $ git pull https://github.com/NickManley/commons-lang LANG-1018
+
+Alternatively you can review and apply these changes as the patch at:
+
+    https://github.com/apache/commons-lang/pull/156.patch
+
+To close this pull request, make a commit to your master/trunk branch
+with (at least) the following in the commit message:
+
+    This closes #156
+    
+----
+commit b77db22614da6f0c674b57cd0086048b58b30135
+Author: Nick Manley <nickmanley89@outlook.com>
+Date:   2016-05-24T09:10:29Z
+
+    LANG-1018: Fix precision loss on NumberUtils.createNumber(String)
+
+----
+, @everybody: Any opinions on the pull request?, The calls to createDouble and createBigDecimal could be pushed down into the conditionals so they are only done if necessary.
+Otherwise looks OK.
+
+Also, I wonder about the allZeros checks - could the condition allZeros == true be dealt with earlier?
+(not directly related to the patch), Github user PascalSchumacher commented on the issue:
+
+    https://github.com/apache/commons-lang/pull/156
+  
+    @NickManley Not sure if you checking jira, so I thought I let you know there is some feedback on your pull request there: https://issues.apache.org/jira/browse/LANG-1018?focusedCommentId=15316755&page=com.atlassian.jira.plugin.system.issuetabpanels:comment-tabpanel#comment-15316755
+
+, [~sebb@apache.org] - I updated the commit. I was not able to move the call to createDouble into the conditional because it is used in both conditional checks. I was however able to move the createBigDecimal call down., Github user coveralls commented on the issue:
+
+    https://github.com/apache/commons-lang/pull/156
+  
+    
+    [![Coverage Status](https://coveralls.io/builds/6540761/badge)](https://coveralls.io/builds/6540761)
+    
+    Coverage increased (+0.02%) to 93.466% when pulling **07354e2df2189ba5a99a17c0a1583fd96723f685 on NickManley:LANG-1018** into **f08c4f6ae9f8190bcaf0a8bbb82530233bf51bf9 on apache:master**.
+
+, Github user asfgit closed the pull request at:
+
+    https://github.com/apache/commons-lang/pull/156
+, Github user PascalSchumacher commented on the issue:
+
+    https://github.com/apache/commons-lang/pull/156
+  
+    Thanks! :+1: 
+, [~nmanley] Thanks for the pull request!
+
+[~sebb@apache.org] Thanks for the review!]

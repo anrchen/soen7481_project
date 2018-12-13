@@ -1,0 +1,23 @@
+[Created an attachment (id=8535)
+patch for NumberRange.java and NumberRangeTest.java
+, This seems like a reasonable extension to the API, however it does add a level 
+of complexity. Is this now covered by [math]?
+
+Also, the patch would affect Serialization, so this needs to be thought about., In response to Stephen's comment, we have nothing like this in [math]. 
+
+I am -0 on this change, however, for the following reasons.
+First, as Stephen points out, the change would affect serialization. Second,
+while the extension makes sense logically, I am not sure that is has tremendous
+practical value.  For integer ranges, (a,b) is no different from [a+1, b-1] --
+i.e., being able to specify "inclusivity" does not really buy you anything other
+than convenience (at the expense of a more complicated API and some overhead). 
+For floating point ranges, counting on the difference between (a,b) and [a,b]
+would in most cases I can imagine be dangerous -- so here again, the extension
+does not really buy you anything.  
+
+I may of course be missing some important and valuable use cases, in which case
+I will happily move to +0 once I know what they are.
+, I've marked this as WONTFIX.  I had a reason to use something like this, but 
+in the meantime, I've solved this problem through other means.  I do agree 
+with Phil that this adds unnecessary complexity in Math at a time when math 
+should be reaching a point of stability.]

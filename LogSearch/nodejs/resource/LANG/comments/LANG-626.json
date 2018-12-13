@@ -1,0 +1,27 @@
+[mail-archive isn't working for me right now; I'm guessing it's this thread from 2004:
+
+http://commons.markmail.org/thread/trfdrjeb6qohru7p
+
+The right solution, imo, is for Weblogic to do what all containers do/should do and use a package name rewrite at build time so they have their dependencies in private space. Presumably not likely to happen.
+
+Need to look at the attached mailing list code, also consider the option in LANG-241 that asked for an optional ClassLoader parameter., Yes, that appears to be the same thread I was referring to.
+
+I agree that it seems like WebLogic should repackage the code to avoid this issue, but I also agree that's not likely to happen. :(, I encountered the same problem within the Tomcat-Container and my web-application. commons-lang is on the shared classpath, but the objects to clone are in the web-application.
+
+I vote for this issue to be fixed in such a way that the developer does not need to do more than call the right method on SerializationUtils. In these modern days it would be nice to have a working clone tool that saves one the potentially large hassle of keeping track of deep-clone methods or deep-clone copy-constructors.
+, w.r.t. WebLogic: I assume folks using it have a support contract and since this is a clear bug I'd recommend using your support contract to pressure Oracle into a fix. Yes it takes time and requires generally making a nuisance of yourself but it can be done - at least I got a handful of Oracle app server bugs fixed that way.
+
+w.r.t. Tomcat: if commons-lang is on the common class path it is because the user put it there. Tomcat does not use and does not ship with commons-lang and to the best of my recollection never has. The correct solution in this case is to put commons-lang where it belongs - in WEB-INF/lib. This would also work for any spec compliant servlet container.
+
+In terms of the original proposed patch, I am not a fan of configuration via system properties unless there is no other choice. I'm not convinced that is the case here. I would also recommend testing to ensure that this patch does not trigger a class-loader memory leak. It shouldn't, but based on past experience I wouldn't be surprised if it did. Assuming no memory leak, the only remaining argument against the patch is one of bloat. Should we add code to commons-lang just to work around another product's bugs? My general view is that we shouldn't so I'd be -0 for applying this patch.
+, Proposal of additional method for the SerializationUtils that works with the current thread context ClassLoader. Fixes the problem under Tomcat. Attached ContextClassLoaderAwareCloneMethod.zip with two java files. Note that the code makes use of generics, but it can be easily adjusted to work under Java 1.4., @Mark:
+Whats about a OSGi environment? There are many classloaders around and i could not copy commons-lang.jar to every plugin it use commons-lang.
+
+Why not add all SerializationUtils methods a second method with classloader attribute and then resolve classes within the ObjectOutputStream with the submitted classloader and/or ContextClassLoader?, Assigning to 3.1 to consider Sven's patch., Attaching new second version as a good alternative. In this one it is possible to specify a ClassLoader that takes precedence over the Context-ClassLoader. We needed this, because in a Mock-Scenario we had some cglib-generated classes that could not be found on the Context-ClassLoader., Thanks Sven :)
+
+svn ci -m "Applying Sven Ludwig's patch from LANG-626. This modifies the SerializationUtils.clone method to use the threadContextLoader if it is unable to find a class using the object's current classloader. This should (hopefully) help with Weblogic and Tomcat situations where Lang is outside the web-inf for some reason (likely user error with Tomcat, by design for Weblogic)"
+Sending        pom.xml
+Sending        src/main/java/org/apache/commons/lang3/SerializationUtils.java
+Transmitting file data ..
+Committed revision 1153046.
+]

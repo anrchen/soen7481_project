@@ -1,0 +1,15 @@
+[Looks like, apart from one comment, we removed being able to modify the cause names in 3.0. 
+
+API is (the deprecated):
+
+    public static Throwable getCause(Throwable throwable) {
+    public static Throwable getCause(Throwable throwable, String[] methodNames) {
+, javadoc mention of addCauseMethodName removed. 
+
+Do you think this should stay open against 2.x, or minor and close?, If the methods are to be kept, then the easiest solution is just to create an immutable lock object and use that instead.
+
+If that's OK, I'm happy to implement it., Sticking in 2.x in case such a thing ever happens. Not an issue in 3.0., Looks like this was fixed in trunk before the locks were removed:
+    * http://svn.apache.org/viewvc?view=revision&revision=755391
+
+So I ported that change back to the 2.x branch:
+    * http://svn.apache.org/viewvc?view=revision&revision=905837]

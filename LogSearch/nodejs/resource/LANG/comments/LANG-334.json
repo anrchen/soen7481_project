@@ -1,0 +1,27 @@
+[Fix for 2.3.1. First step, write a test., I made an attempt at a test, but it couldn't replicate the issue. , Well, the bug description refers to two enum classes, but your test only uses one enum class, so I'm completely unsurprised you didn't replicate the problem.
+
+The bug is caused by one thread calling getEnum(A.class, 0) while another thread is initializing B.class, and those two threads are excuting in such a way that the first thread is reading the cEnumClasses map while the second thread is modifying the same map by registering the mapping for B.class. If you use only one enum class, the bug won't be seen. If you use two enum classes, but statically reference them so that both classes are initialized before getEnum() is called, no bug. If you use two classes, or ten classes, or 10000 classes, but fail to overlap the threads reading the map and writing the map in just the right (or wrong) way, no bug.
+
+Unit testing isn't a great approach for testing synchronization problems since it's impossible for the test to control the execution order, especially when the bug requires actual concurrency. This bug cropped up when we started using new multi-core hardware. I could write a unit test for you, but I wouldn't expect it to fail unless you had identical hardware and software.
+, Sorry for missing the two class bit.  I'm not looking for a unit test, just a way to replicate the issue so that a fix can be created. 
+
+Failing that, find time to sit and think hard :), I think it will be sufficient to simply use Collections.synchronizedMap() to wrap the map instance that is assigned to cEnumClasses.
+, I agree - but I really hate solving things without being able to show there was a problem and then confirming that the problem no longer appears. 
+
+Did this change fix the symptoms you were seeing in your system?, Sadly, it was much easier for us to use a common subclass that provided synchronization between the constructor and all the static accessors than it was get set up to build our own version of the package, then distribute and install it. So a different form a serialization did fix it.
+
+I understand your discomfort in dealing with race conditions since I've had to deal with solving them myself many, many times, but I don't know of any practical solution other than reasoning about the temporal logic of the code.
+, We have also encountered the issue of thread safety in the Enum  
+class. In our case, it shows up when running in a application server  
+where there are many threads and other applications are loading  
+classes at arbitrary times.
+
+I've attached the patch that we are using which seems to correct this  
+issue for us. Rather than synchronize all access to the cEnumClasses  
+map (which seems like it would be rather expensive and highly  
+contended), we adopted a copy-on-write approach that only involves  
+synchronization when new classes are loaded., It's great that you've got a fix working in production Jason, the patch seems good to me.
+
+Any thoughts Michael? I like the simplicity of using synchronizedMap, but the copy-on-write optimization seems attractive.
+
+And yeah... I've given up trying to replicate this :) I'd need to be using something like cglib so I could generate new enum subclasses by the thousand and see if it hits the race condition that way., I've applied Jason's patch to enums.Enum and enum.Enum. Many thanks to both of you for working on this issue.]

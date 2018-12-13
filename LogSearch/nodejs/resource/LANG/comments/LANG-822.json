@@ -1,0 +1,13 @@
+[Attached patch moves the check for "--" to the corresponding createBigDecimal method and throws an appropriate exception instead., Thanks for the patch; applied with minor changes to strengthen test case.
+
+URL: http://svn.apache.org/viewvc?rev=1407973&view=rev
+Log:
+LANG-822: NumberUtils#createNumber - bad behaviour for leading "--"
+
+Modified:
+    commons/proper/lang/trunk/src/changes/changes.xml
+    commons/proper/lang/trunk/src/main/java/org/apache/commons/lang3/math/NumberUtils.java
+    commons/proper/lang/trunk/src/test/java/org/apache/commons/lang3/math/NumberUtilsTest.java
+
+
+It's still possible that the check for "--" is redundant, but at least now the code is consistent in applying the check and reporting the exception.]

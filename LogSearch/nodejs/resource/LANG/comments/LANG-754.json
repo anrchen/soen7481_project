@@ -1,0 +1,8 @@
+[I digged into this problem and the problem you describe occurs only when using setUseShortName(true), and the class is located in the default package and the name is one of [IZFJSBDC], explanation follows.
+
+The ToStringStyle uses ClassUtils to get the short name for the class, which uses an internal reverse abbreviation map to resolve primitive array types which are something like [B for a byte[]. Now there seems to be a bug in the ClassUtils.getShortName method as it does this reverse resolve all the time, and if you happen to have a class called B in the default package, it is wrongly identified as byte., The attached patch fixes ClassUtils.getShortName(String) to only do the reverseAbbreviation lookup if the supplied className contains an array definition.
+
+Otherwise the abbreviated class names for primitive types are not used imho.
+, Any testing you wanted to do before applying the patch Thomas?
+
+It builds fine for me, and your explanation makes sense (though I tend not to do much with the builder code as I don't use it)., I just wanted to wait if there are other opinions on this reverse abbreviation stuff, but I think it is ok., Applied patch in r1470174.]

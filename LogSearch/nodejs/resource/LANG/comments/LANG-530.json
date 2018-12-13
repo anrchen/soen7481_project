@@ -1,0 +1,31 @@
+[Issue seems to be that DateFormatUtils.ISO_DATETIME objects are
+FastDateFormat objects; whereas parseDate uses SimpleDateFormat. The
+former supports "ZZ" whereas the latter does not.
+
+Java 1.4 (not sure about later) had 'Z' which meant +0100.
+FastDateFormat adds 'ZZ' to support the ISO standard of +01:00. ie)
+presumably your actual value is +0100+0100.
+
+Solution is probably to have parseDate use FastDateFormat, though
+there will always be the issue that getPattern from FastDateFormat may
+not work with SimpleDateFormat., Fixing this is not so easy. LANG-462 points out that FastDateFormat does not currently support parse/parseObject., I think the solution (so to speak) here is for DateUtils to throw an exception if a pattern is passed in containing ZZ. Might need a bit of parsing to avoid causing problems for people using the literal 'ZZ'., Alternatively, implement parse(..) such that it handles ZZ before relying on SimpleDateFormat., In either case - the better place for the fix is inside DateUtils rather than FastDateFormat., No simple matter to parse the ZZ and then send the code on to SimpleDateFormat.parseObject. 
+
+Definitely an option to point DateUtils to FastDateFormat and have an exception thrown if TimeZoneNumberRule.INSTANCE.COLON is in the pattern. Potential downside - FastDateFormat maintains a static cache of patterns used and we'd be exposing DateUtils users to that memory usage.
+
+Another option is to modify the incoming String to not have the ':'. Either in DateUtils, or as it's a better fit, in the same code as above but with the modification instead of the exception. Downside is who knows what's in the pattern's literals.
+
+A meld of the two:
+
+Switch to FastDateFormat
+If the pattern in use equals one of DateFormatUtils' ones, then use regexp.
+Otherwise throw exception., Suggested regexp: str.replaceAll("([-+][0-9][0-9]):([0-9][0-9])", "$1$2");, Patch attached showing exception throwing option., 
+Arbitrarily moving DateUtils to FastDateFormat concerns me. So does running regexp on the user input. However I think the following will a) fix 80% of issues and b) be safe:
+
+if the pattern in question ends in ZZ, which all of the ones in DateFormatUtils do, then go ahead and do the regexp. If it ends in ZZ, then it's not part of a literal, so there's no concern for clash. There might be other ZZ's that don't get fixed, but this will ensure the items in DateFormatUtils work and cover another set of formats., Attaching patch to protect SimpleDateFormat from ZZ as mentioned in previous comment., Applying the least worst of the various suggestions I've come up with :)
+
+svn ci -m "Applying 'fix' for LANG-530. DateUtils.parseDate now protects the common use case of FastDateFormat ZZ output, namely ZZ on the end of the pattern, from being passed to SimpleDateFormat as is. Use of ZZ elsewhere in the pattern isn't protected and will want to consider emulating the String changes made in this patch. "
+Sending        src/java/org/apache/commons/lang3/time/DateUtils.java
+Sending        src/test/org/apache/commons/lang3/time/DateUtilsTest.java
+Transmitting file data ..
+Committed revision 891572.
+]

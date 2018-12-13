@@ -1,0 +1,50 @@
+[We should fix this for 3.3, I can confirm, that the following worked with 3.1 but not with current trunk:
+
+{code:java}
+    public void testName() throws Exception {
+        String pattern = "yyyy-MM-dd'T";
+        final FastDateFormat formatter = FastDateFormat.getInstance(pattern);
+    }
+{code}
+
+We most certainly introduced this with LANG-462. Gotta dig deeper., Now it starts to get complicated, because the following also fails:
+
+{code:java}
+    @Test
+    public void testSimpleDateFormat() throws Exception {
+        String pattern = "yyyy-MM-dd'T";
+        Date result = SimpleDateFormat.getInstance().parse(pattern);
+    }
+{code}
+
+No I'm really wondering why this worked with 3.1, since this does not seem to be a valid date format..., Should there be a closing single-quote, i.e. as below:?
+
+{code}
+String pattern = "yyyy-MM-dd'T'";
+{code}, Good catch. Seems that I've messed that up while copy pasting. I've committed a test with the pattern in question. It works in my environment. My guess it, that is may have something to do with Android?, It might be. I tried the very same library as the failing one (directly from the cgeo project) with a Scala REPL on x86_64 and it seems to work fine indeed:
+
+{code}
+cgeo/main/libs% scala -cp :commons-lang3-3.2.1.jar
+Welcome to Scala version 2.10.3 (Java HotSpot(TM) 64-Bit Server VM, Java 1.7.0_51).
+Type in expressions to have them evaluated.
+Type :help for more information.
+
+scala> org.apache.commons.lang3.time.FastDateFormat.getInstance("yyyy-MM-dd'T'").parse("2014-01-21T")
+res0: java.util.Date = Tue Jan 21 00:00:00 CET 2014
+{code}, A co-worker tested this for me with the latest Android versions. It seems that this is broken there as well. So it doesn't only affect Android 2.1., I suspect the problem is that Android does not support \p{IsNd} which is the Unicode block for Number, Decimal digit.
+If so, that would seem to be a bug in Android.
+
+The IsNd block includes characters such as Arabic numerals which may perhaps appear in dates to be parsed., Just noticed that the change from \d to \p{IsNd} was done as part of LANG-826 - support for Locales that don't use ASCII digits, Some experimentation on my phone shows that Android does not like {code}\p{IsNd}{code}
+However, it does seem to be OK with {code}\p{Nd}{code}
+Android does not seem to like the "Is" optional prefix (nor does it like "is"), URL: http://svn.apache.org/r1561045
+Log:
+LANG-954 uncaught PatternSyntaxException in FastDateFormat on Android
+
+Modified:
+    commons/proper/lang/trunk/src/changes/changes.xml
+    commons/proper/lang/trunk/src/main/java/org/apache/commons/lang3/time/FastDateParser.java, URL: http://svn.apache.org/r1561071
+Log:
+Oops - wrong section
+
+Modified:
+    commons/proper/lang/trunk/src/changes/changes.xml]

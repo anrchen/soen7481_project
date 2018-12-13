@@ -1,0 +1,9 @@
+[Patches welcome :-), Something like this?, {code}
+$ svn ci -m "LANG-1071: Fix wrong examples in JavaDoc of StringUtils.replaceEachRepeatedly(...), StringUtils.replaceEach(...). Thanks to Arno Noordover."
+Sending        src/changes/changes.xml
+Sending        src/main/java/org/apache/commons/lang3/StringUtils.java
+Transmitting file data ..
+Committed revision 1648067.
+{code}
+
+Thanks for contributing!]

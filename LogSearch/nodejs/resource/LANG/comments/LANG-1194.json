@@ -1,0 +1,7 @@
+[travis-ci documentation mentions that build will be killed if more than 10 minutes passes between log messages or if total memory of VM exceeds 3G.  Since entire build takes less than 8 minutes, I've investigated the memory concern., Dumping the memory usage using the MemoryMXBean:
+
+heap init:493,929,088 commited:2,930,245,632 max:7,025,983,488 used:2,307,514,072
+non-heap init:24,576,000 commited:25,034,752 max:224,395,264 used:17,364,104
+
+The committed heap memory is close to 3G limit.  Travis 3G limit is probably total footprint.  We'll need to allow for the maven footprint and jvm non-heap memory., limit heap memory to prevent from bumping into Travis CI 3G memory limit.
+commit 39ed92fff74cfd4be4ca728fc4258feea26b696c]

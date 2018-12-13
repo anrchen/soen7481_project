@@ -1,0 +1,53 @@
+[
+The error is in my use of the phrase 'binary backwards compatible' - I meant that the API has not changed so you should be able to drop it in place without a recompile. Not that you could serialize objects between 2.1 and 2.2.
+
+We have applied serialVersionIDs in 2.2; so between 2.2 and 2.3 serialization should work. , Keeping this open to remind me to check this when 2.3 is released (though it may not be released and instead go straight to 3.0).
+
+I've requested that jardiff support diffs on serialVersionId for Serializable classes., Changed issue title, Any news on this?
+
+I'm extending NestableRuntimeException and NestableException - and expiriencing serialization errors between a WebSphere 5.0.2 server and a WebSphere 6.1 server - probably due to changed serializationUIDs on some of the classes that are used within NestableDelegate:
+
+org.omg.CORBA.MARSHAL: Unable to read value from underlying bridge : Mismatched serialization UIDs : Source (RepId RMI:org.apache.commons.lang.exception.NestableDelegate:4F998DA78EFC2530:EAEF728564560A6A) = EAEF728564560A6A whereas Target (RepId RMI:org.apache.commons.lang.exception.NestableDelegate:4F998DA78EFC2530:F68F1455DDEE96BB) = F68F1455DDEE96BB  vmcid: IBM  minor code: 89A  completed: No
+        at com.ibm.rmi.iiop.CDRInputStream.read_value(CDRInputStream.java:2105)
+
+explicitly setting an serializationUID on NestableDelegate would probably solve the case.
+
+Using commons-lang 2.1 in both JVM/servers., The following had serialVersionUID set for the 2.2 release. There have been no new ones added for 2.3. So when 2.3 is released, you shouldn't get the problems you've had from 2.1 to 2.2 for these files.
+
+./src/java/org/apache/commons/lang/builder/StandardToStringStyle.java
+./src/java/org/apache/commons/lang/builder/ToStringStyle.java
+./src/java/org/apache/commons/lang/CharRange.java
+./src/java/org/apache/commons/lang/CharSet.java
+./src/java/org/apache/commons/lang/enum/Enum.java
+./src/java/org/apache/commons/lang/enum/ValuedEnum.java
+./src/java/org/apache/commons/lang/enums/Enum.java
+./src/java/org/apache/commons/lang/enums/ValuedEnum.java
+./src/java/org/apache/commons/lang/exception/NestableDelegate.java
+./src/java/org/apache/commons/lang/exception/NestableError.java
+./src/java/org/apache/commons/lang/exception/NestableException.java
+./src/java/org/apache/commons/lang/exception/NestableRuntimeException.java
+./src/java/org/apache/commons/lang/IllegalClassException.java
+./src/java/org/apache/commons/lang/IncompleteArgumentException.java
+./src/java/org/apache/commons/lang/math/DoubleRange.java
+./src/java/org/apache/commons/lang/math/FloatRange.java
+./src/java/org/apache/commons/lang/math/Fraction.java
+./src/java/org/apache/commons/lang/math/IntRange.java
+./src/java/org/apache/commons/lang/math/JVMRandom.java
+./src/java/org/apache/commons/lang/math/LongRange.java
+./src/java/org/apache/commons/lang/math/NumberRange.java
+./src/java/org/apache/commons/lang/mutable/MutableBoolean.java
+./src/java/org/apache/commons/lang/mutable/MutableByte.java
+./src/java/org/apache/commons/lang/mutable/MutableDouble.java
+./src/java/org/apache/commons/lang/mutable/MutableFloat.java
+./src/java/org/apache/commons/lang/mutable/MutableInt.java
+./src/java/org/apache/commons/lang/mutable/MutableLong.java
+./src/java/org/apache/commons/lang/mutable/MutableObject.java
+./src/java/org/apache/commons/lang/mutable/MutableShort.java
+./src/java/org/apache/commons/lang/NotImplementedException.java
+./src/java/org/apache/commons/lang/NullArgumentException.java
+./src/java/org/apache/commons/lang/ObjectUtils.java
+./src/java/org/apache/commons/lang/SerializationException.java
+./src/java/org/apache/commons/lang/text/CompositeFormat.java
+./src/java/org/apache/commons/lang/text/StrBuilder.java
+./src/java/org/apache/commons/lang/time/FastDateFormat.java
+./src/java/org/apache/commons/lang/UnhandledException.java, This was effectively fixed in 2.2 (no new serialUIDs in 2.3)- however it's not until you go from 2.2 to a new version that you notice.]

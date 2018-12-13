@@ -1,0 +1,3 @@
+[Originally I'm sure I thought of it as a password generator, so ASCII was an assumption I wasn't noticing. 
+
+We should note this in the javadoc, see if we can clean any of it up and consider if there's a possible refactoring of the API that would be more valuable., RandomStringUtils will be deprecated in commons-lang 3.6 in favor of RandomStringGenerator from commons-text. Please use [RandomStringGenerator|https://commons.apache.org/proper/commons-text/javadocs/api-release/org/apache/commons/text/RandomStringGenerator.html] instead. Thanks!]

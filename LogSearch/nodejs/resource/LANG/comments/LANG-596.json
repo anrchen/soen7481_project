@@ -1,0 +1,12 @@
+[Sounds good - assigning to 3.1. Needs code/test patch., hello,
+I went up the patch with the code
+
+Regards
+Tom, Thanks - patch commited.
+
+svn ci -m "Adding Ulrich + Tomas' patch to LANG-596 adding a replace(String, Properties) variant to StrSubstitutor"
+Sending        src/main/java/org/apache/commons/lang3/text/StrSubstitutor.java
+Sending        src/test/java/org/apache/commons/lang3/text/StrSubstitutorTest.java
+Transmitting file data ..
+Committed revision 990671.
+]

@@ -1,0 +1,149 @@
+[GitHub user rikles opened a pull request:
+
+    https://github.com/apache/commons-lang/pull/68
+
+    LANG-1118 Fix StringUtils.repeat(char, int)
+
+    Now doing what is said in JavaDoc comment :
+    when passing a negative repeat value to the StringUtils.repeat(char, int) function, it returns an empty String instead of throwing a NegativeArraySizeException.
+
+You can merge this pull request into a Git repository by running:
+
+    $ git pull https://github.com/rikles/commons-lang fix-LANG-1118
+
+Alternatively you can review and apply these changes as the patch at:
+
+    https://github.com/apache/commons-lang/pull/68.patch
+
+To close this pull request, make a commit to your master/trunk branch
+with (at least) the following in the commit message:
+
+    This closes #68
+    
+----
+commit daa95a18a153190ec9928dc19f3e9c0433954ee9
+Author: Loic Guibert <lfdummy-apache@yahoo.fr>
+Date:   2015-04-23T11:41:51Z
+
+    LANG-1118 Fix StringUtils.repeat(char, int) dealing with negative repeat value
+
+commit b3a36ae0fa0fc2a892f04ac53b1100ff7c5e9f4c
+Author: Loic Guibert <lfdummy-apache@yahoo.fr>
+Date:   2015-04-23T11:43:21Z
+
+    LANG-1118 Adding a test case for StringUtils.repeat(String, int) checking dealing with negative repeat value
+
+----
+, We're in the middle of the SVN -> git migration. I will apply this fix after the migration has finished., Github user asfgit closed the pull request at:
+
+    https://github.com/apache/commons-lang/pull/68
+, GitHub user rikles reopened a pull request:
+
+    https://github.com/apache/commons-lang/pull/68
+
+    LANG-1118 Fix StringUtils.repeat(char, int)
+
+    Now doing what is said in JavaDoc comment :
+    when passing a negative repeat value to the StringUtils.repeat(char, int) function, it returns an empty String instead of throwing a NegativeArraySizeException.
+
+You can merge this pull request into a Git repository by running:
+
+    $ git pull https://github.com/rikles/commons-lang fix-LANG-1118
+
+Alternatively you can review and apply these changes as the patch at:
+
+    https://github.com/apache/commons-lang/pull/68.patch
+
+To close this pull request, make a commit to your master/trunk branch
+with (at least) the following in the commit message:
+
+    This closes #68
+    
+----
+commit daa95a18a153190ec9928dc19f3e9c0433954ee9
+Author: Loic Guibert <lfdummy-apache@yahoo.fr>
+Date:   2015-04-23T11:41:51Z
+
+    LANG-1118 Fix StringUtils.repeat(char, int) dealing with negative repeat value
+
+commit b3a36ae0fa0fc2a892f04ac53b1100ff7c5e9f4c
+Author: Loic Guibert <lfdummy-apache@yahoo.fr>
+Date:   2015-04-23T11:43:21Z
+
+    LANG-1118 Adding a test case for StringUtils.repeat(String, int) checking dealing with negative repeat value
+
+----
+, Github user britter commented on the pull request:
+
+    https://github.com/apache/commons-lang/pull/68#issuecomment-96796970
+  
+    @rikles Commons Lang has been migrated from svn to git. Because of this the main branch has been renamed to 'master'. Can you please rebase your work against the master branch? Thank you!
+, Github user rikles commented on the pull request:
+
+    https://github.com/apache/commons-lang/pull/68#issuecomment-97105866
+  
+    Close due to rebase on master
+, Github user rikles closed the pull request at:
+
+    https://github.com/apache/commons-lang/pull/68
+, GitHub user rikles opened a pull request:
+
+    https://github.com/apache/commons-lang/pull/72
+
+     LANG-1118: Fix StringUtils.repeat(char, int)
+
+    _Close PR #68. Recreated due to rebase on master._
+    
+    Now doing what is said in JavaDoc comment :
+    when passing a negative repeat value to the *StringUtils.repeat(char, int)* function, it returns an empty String instead of throwing a _NegativeArraySizeException_.
+
+You can merge this pull request into a Git repository by running:
+
+    $ git pull https://github.com/rikles/commons-lang fix-LANG-1118
+
+Alternatively you can review and apply these changes as the patch at:
+
+    https://github.com/apache/commons-lang/pull/72.patch
+
+To close this pull request, make a commit to your master/trunk branch
+with (at least) the following in the commit message:
+
+    This closes #72
+    
+----
+commit 78b30f509834d81b8814d46471b75e3167a6460f
+Author: Loic Guibert <lfdummy-apache@yahoo.fr>
+Date:   2015-04-23T11:41:51Z
+
+    LANG-1118 Fix StringUtils.repeat(char, int) dealing with negative repeat value
+
+commit 9cc91332ff252f6e3f41719526f930dcb5908c31
+Author: Loic Guibert <lfdummy-apache@yahoo.fr>
+Date:   2015-04-23T11:43:21Z
+
+    LANG-1118 Adding a test case for StringUtils.repeat(String, int) checking dealing with negative repeat value
+
+----
+, Github user coveralls commented on the pull request:
+
+    https://github.com/apache/commons-lang/pull/72#issuecomment-97126145
+  
+    
+    [![Coverage Status](https://coveralls.io/builds/2441805/badge)](https://coveralls.io/builds/2441805)
+    
+    Coverage decreased (-0.0%) to 93.83% when pulling **9cc91332ff252f6e3f41719526f930dcb5908c31 on rikles:fix-LANG-1118** into **63d8a025e6f38ddfc966c4104ac783bcb59031e0 on apache:master**.
+
+, PR #72 has been merged. Thank you for contributing to Apache Commons Lang!, Github user britter commented on the pull request:
+
+    https://github.com/apache/commons-lang/pull/72#issuecomment-97181212
+  
+    Hello @rikles I'm still trying to find out how to correctly merge PRs from the command line. Looks like it didn't work with this PR. Your changes have been merged. Can you close this PR please? :) Thank you!
+, Github user rikles commented on the pull request:
+
+    https://github.com/apache/commons-lang/pull/72#issuecomment-97894359
+  
+    Merged into master. Close PR.
+, Github user rikles closed the pull request at:
+
+    https://github.com/apache/commons-lang/pull/72
+]

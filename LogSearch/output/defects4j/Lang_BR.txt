@@ -1,0 +1,124 @@
+LANG-747 [ 'org.apache.commons.lang3.math.NumberUtilsTest' ]
+LANG-879 [ 'org.apache.commons.lang3.LocaleUtilsTest' ]
+LANG-857 [ 'org.apache.commons.lang3.StringUtilsTest' ]
+LANG-677 [ 'org.apache.commons.lang3.time.DateUtilsTest' ]
+LANG-786 [ 'org.apache.commons.lang3.StringUtilsEqualsIndexOfTest' ]
+LANG-832 [ 'org.apache.commons.lang3.time.FastDateFormat_ParserTest',
+  'org.apache.commons.lang3.time.FastDateParserTest' ]
+LANG-586 [ 'org.apache.commons.lang3.builder.ToStringBuilderTest',
+  'org.apache.commons.lang3.builder.ToStringBuilderTest',
+  'org.apache.commons.lang3.builder.ToStringBuilderTest',
+  'org.apache.commons.lang3.builder.ToStringBuilderTest',
+  'org.apache.commons.lang3.builder.ToStringBuilderTest',
+  'org.apache.commons.lang3.builder.ToStringBuilderTest',
+  'org.apache.commons.lang3.builder.ToStringBuilderTest',
+  'org.apache.commons.lang3.builder.ToStringBuilderTest',
+  'org.apache.commons.lang3.builder.ToStringBuilderTest',
+  'org.apache.commons.lang3.builder.ToStringBuilderTest',
+  'org.apache.commons.lang3.builder.ToStringBuilderTest',
+  'org.apache.commons.lang3.builder.ToStringBuilderTest',
+  'org.apache.commons.lang3.builder.ToStringBuilderTest',
+  'org.apache.commons.lang3.builder.ToStringBuilderTest',
+  'org.apache.commons.lang3.builder.ToStringBuilderTest',
+  'org.apache.commons.lang3.builder.ToStringBuilderTest',
+  'org.apache.commons.lang3.builder.ToStringBuilderTest',
+  'org.apache.commons.lang3.builder.ToStringBuilderTest',
+  'org.apache.commons.lang3.builder.ToStringBuilderTest',
+  'org.apache.commons.lang3.builder.ToStringBuilderTest',
+  'org.apache.commons.lang3.builder.ToStringBuilderTest',
+  'org.apache.commons.lang3.builder.ToStringBuilderTest',
+  'org.apache.commons.lang3.builder.ToStringBuilderTest',
+  'org.apache.commons.lang3.builder.ToStringBuilderTest',
+  'org.apache.commons.lang3.builder.ToStringBuilderTest',
+  'org.apache.commons.lang3.builder.ToStringBuilderTest',
+  'org.apache.commons.lang3.builder.ToStringBuilderTest' ]
+LANG-662 [ 'org.apache.commons.lang3.math.FractionTest',
+  'org.apache.commons.lang3.math.FractionTest' ]
+LANG-807 [ 'org.apache.commons.lang3.RandomStringUtilsTest' ]
+LANG-636 [ 'org.apache.commons.lang3.text.ExtendedMessageFormatTest' ]
+LANG-788 [ 'org.apache.commons.lang3.SerializationUtilsTest' ]
+LANG-535 [ 'org.apache.commons.lang.ClassUtilsTest',
+  'org.apache.commons.lang.ClassUtilsTest' ]
+LANG-822 [ 'org.apache.commons.lang3.math.NumberUtilsTest' ]
+LANG-617 [ 'org.apache.commons.lang3.text.translate.NumericEntityUnescaperTest' ]
+LANG-587 [ 'org.apache.commons.lang3.ClassUtilsTest' ]
+LANG-365 [ 'org.apache.commons.lang.BooleanUtilsTest' ]
+LANG-658 [ 'org.apache.commons.lang3.text.translate.EntityArraysTest' ]
+LANG-831 [ 'org.apache.commons.lang3.time.FastDateFormat_ParserTest',
+  'org.apache.commons.lang3.time.FastDateParserTest' ]
+LANG-259 [ 'org.apache.commons.lang.enums.ValuedEnumTest' ]
+LANG-719 [ 'org.apache.commons.lang3.time.FastDateFormatTest' ]
+LANG-480 [ 'org.apache.commons.lang.StringEscapeUtilsTest' ]
+LANG-664 [ 'org.apache.commons.lang3.math.NumberUtilsTest' ]
+LANG-393 [ 'org.apache.commons.lang.builder.EqualsBuilderTest' ]
+LANG-607 [ 'org.apache.commons.lang3.StringUtilsEqualsIndexOfTest',
+  'org.apache.commons.lang3.StringUtilsEqualsIndexOfTest' ]
+LANG-710 [ 'org.apache.commons.lang3.text.translate.NumericEntityUnescaperTest',
+  'org.apache.commons.lang3.text.translate.NumericEntityUnescaperTest' ]
+LANG-775 [ 'org.apache.commons.lang3.reflect.TypeUtilsTest',
+  'org.apache.commons.lang3.reflect.TypeUtilsTest' ]
+LANG-607 [ 'org.apache.commons.lang3.StringUtilsEqualsIndexOfTest',
+  'org.apache.commons.lang3.StringUtilsEqualsIndexOfTest',
+  'org.apache.commons.lang3.StringUtilsEqualsIndexOfTest',
+  'org.apache.commons.lang3.StringUtilsEqualsIndexOfTest',
+  'org.apache.commons.lang3.StringUtilsEqualsIndexOfTest',
+  'org.apache.commons.lang3.StringUtilsEqualsIndexOfTest',
+  'org.apache.commons.lang3.StringUtilsEqualsIndexOfTest',
+  'org.apache.commons.lang3.StringUtilsEqualsIndexOfTest',
+  'org.apache.commons.lang3.StringUtilsEqualsIndexOfTest',
+  'org.apache.commons.lang3.StringUtilsEqualsIndexOfTest' ]
+LANG-567 [ 'org.apache.commons.lang3.ArrayUtilsAddTest' ]
+LANG-624 [ 'org.apache.commons.lang3.SystemUtilsTest' ]
+LANG-818 [ 'org.apache.commons.lang3.time.FastDateFormat_PrinterTest',
+  'org.apache.commons.lang3.time.FastDatePrinterTest' ]
+LANG-586 [ 'org.apache.commons.lang3.builder.HashCodeBuilderTest' ]
+LANG-805 [ 'org.apache.commons.lang3.RandomStringUtilsTest',
+  'org.apache.commons.lang3.RandomStringUtilsTest' ]
+LANG-720 [ 'org.apache.commons.lang3.StringEscapeUtilsTest' ]
+LANG-368 [ 'org.apache.commons.lang.time.FastDateFormatTest',
+  'org.apache.commons.lang.time.FastDateFormatTest' ]
+LANG-432 [ 'org.apache.commons.lang.StringUtilsEqualsIndexOfTest' ]
+LANG-552 [ 'org.apache.commons.lang3.StringUtilsTest' ]
+LANG-571 [ 'org.apache.commons.lang3.ArrayUtilsAddTest' ]
+LANG-521 [ 'org.apache.commons.lang3.math.NumberUtilsTest',
+  'org.apache.commons.lang3.math.NumberUtilsTest' ]
+LANG-693 [ 'org.apache.commons.lang3.math.NumberUtilsTest' ]
+LANG-292 [ 'org.apache.commons.lang.EntitiesTest' ]
+LANG-304 [ 'org.apache.commons.lang.LocaleUtilsTest',
+  'org.apache.commons.lang.LocaleUtilsTest',
+  'org.apache.commons.lang.LocaleUtilsTest',
+  'org.apache.commons.lang.LocaleUtilsTest',
+  'org.apache.commons.lang.LocaleUtilsTest',
+  'org.apache.commons.lang.LocaleUtilsTest',
+  'org.apache.commons.lang.LocaleUtilsTest',
+  'org.apache.commons.lang.LocaleUtilsTest',
+  'org.apache.commons.lang.LocaleUtilsTest',
+  'org.apache.commons.lang.LocaleUtilsTest',
+  'org.apache.commons.lang.LocaleUtilsTest' ]
+LANG-328 [ 'org.apache.commons.lang.LocaleUtilsTest' ]
+LANG-294 [ 'org.apache.commons.lang.text.StrBuilderTest',
+  'org.apache.commons.lang.text.StrBuilderTest' ]
+LANG-419 [ 'org.apache.commons.lang.WordUtilsTest' ]
+LANG-299 [ 'org.apache.commons.lang.text.StrBuilderAppendInsertTest' ]
+LANG-59 [ 'org.apache.commons.lang.time.DateUtilsTest' ]
+LANG-477 [ 'org.apache.commons.lang.text.ExtendedMessageFormatTest' ]
+LANG-346 [ 'org.apache.commons.lang.time.DateUtilsTest' ]
+LANG-412 [ 'org.apache.commons.lang.text.StrBuilderTest',
+  'org.apache.commons.lang.text.StrBuilderTest' ]
+LANG-421 [ 'org.apache.commons.lang.StringEscapeUtilsTest' ]
+LANG-300 [ 'org.apache.commons.lang.math.NumberUtilsTest' ]
+LANG-882 [ 'org.apache.commons.lang3.text.translate.LookupTranslatorTest' ]
+LANG-303 [ 'org.apache.commons.lang.time.FastDateFormatTest' ]
+LANG-295 [ 'org.apache.commons.lang.text.StrBuilderTest' ]
+LANG-380 [ 'org.apache.commons.lang.math.FractionTest' ]
+LANG-645 [ 'org.apache.commons.lang3.time.FastDateFormatTest' ]
+LANG-638 [ 'org.apache.commons.lang3.math.NumberUtilsTest' ]
+LANG-363 [ 'org.apache.commons.lang.StringEscapeUtilsTest' ]
+LANG-703 [ 'org.apache.commons.lang3.StringUtilsTest',
+  'org.apache.commons.lang3.StringUtilsTest' ]
+LANG-457 [ 'org.apache.commons.lang.NumberUtilsTest' ]
+LANG-865 [ 'org.apache.commons.lang3.LocaleUtilsTest' ]
+LANG-315 [ 'org.apache.commons.lang.time.StopWatchTest' ]
+LANG-281 [ 'org.apache.commons.lang.time.DurationFormatUtilsTest' ]
+LANG-538 [ 'org.apache.commons.lang3.time.FastDateFormatTest' ]
+LANG-746 [ 'org.apache.commons.lang3.math.NumberUtilsTest' ]

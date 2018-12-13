@@ -1,0 +1,6 @@
+[Created an attachment (id=7692)
+patch for pass test.time in Japanese locale.
+, This patch makes sure use correct locale.
+So, I removed partsCVS(String, Locale) and always use Locale.ENGLISH
+because, as I said, the "CVS format" means that the language is English.
+, applied patch]

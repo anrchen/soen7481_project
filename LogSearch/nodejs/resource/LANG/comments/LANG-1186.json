@@ -1,0 +1,51 @@
+[GitHub user NickManley opened a pull request:
+
+    https://github.com/apache/commons-lang/pull/117
+
+    LANG-1186 Fix NullPointerException in FastDateParser$TimeZoneStrategy
+
+    Java 8u60 has a change where `DateFormatSymbols.getZoneStrings` returns arrays with 7 elements instead of 5 like it previously had. For some locales, the additional two elements are null.
+    
+    Example from the unit tests:
+    ```
+    Running org.apache.commons.lang3.time.FastDateParser_TimeZoneStrategyTest
+    Tests run: 1, Failures: 0, Errors: 1, Skipped: 0, Time elapsed: 0.597 sec <<< FAILURE! - in org.apache.commons.lang3.time.FastDateParser_TimeZoneStrategyTest
+    testTimeZoneStrategyPattern(org.apache.commons.lang3.time.FastDateParser_TimeZoneStrategyTest)  Time elapsed: 0.597 sec  <<< ERROR!
+    java.lang.NullPointerException: null
+    	at org.apache.commons.lang3.time.FastDateParser$TimeZoneStrategy.<init>(FastDateParser.java:856)
+    	at org.apache.commons.lang3.time.FastDateParser.getLocaleSpecificStrategy(FastDateParser.java:647)
+    	at org.apache.commons.lang3.time.FastDateParser.getStrategy(FastDateParser.java:616)
+    	at org.apache.commons.lang3.time.FastDateParser.access$100(FastDateParser.java:74)
+    	at org.apache.commons.lang3.time.FastDateParser$StrategyParser.letterPattern(FastDateParser.java:230)
+    	at org.apache.commons.lang3.time.FastDateParser$StrategyParser.getNextStrategy(FastDateParser.java:214)
+    	at org.apache.commons.lang3.time.FastDateParser.init(FastDateParser.java:161)
+    	at org.apache.commons.lang3.time.FastDateParser.<init>(FastDateParser.java:147)
+    	at org.apache.commons.lang3.time.FastDateParser.<init>(FastDateParser.java:108)
+    	at org.apache.commons.lang3.time.FastDateParser_TimeZoneStrategyTest.testTimeZoneStrategyPattern(FastDateParser_TimeZoneStrategyTest.java:31)
+    ```
+
+You can merge this pull request into a Git repository by running:
+
+    $ git pull https://github.com/NickManley/commons-lang master
+
+Alternatively you can review and apply these changes as the patch at:
+
+    https://github.com/apache/commons-lang/pull/117.patch
+
+To close this pull request, make a commit to your master/trunk branch
+with (at least) the following in the commit message:
+
+    This closes #117
+    
+----
+commit 5556026ed1dc17e70946a4a030842ade3a33baeb
+Author: Nick Manley <nm3n8@mail.umkc.edu>
+Date:   2015-11-20T05:24:05Z
+
+    Fix NullPointerException in FastDateParser$TimeZoneStrategy
+
+----
+, Github user asfgit closed the pull request at:
+
+    https://github.com/apache/commons-lang/pull/117
+, merged pull request]

@@ -1,0 +1,4 @@
+[svn ci -m "Fixing the component-name (aka artifactId in Maven language). LANG-741" default.properties 
+Sending        default.properties
+Transmitting file data .
+Committed revision 1158501.]

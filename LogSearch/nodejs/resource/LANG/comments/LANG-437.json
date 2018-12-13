@@ -1,0 +1,9 @@
+[This change broke our application www.andromda.org. We use StringEscapeUtils to fix documentation contained in Strings for inclusion in Java files and then compile those java files, resulting in the error:
+
+Invalid escape sequence (valid ones are  \b  \t  \n  \f  \r  \"  \'  \\ )
+
+Note that \/ is not a valid String escape sequence.
+
+Should use escapeJavaScript if String is meant to be used in html or XML environment rather than in a Java environment.
+
+See also https://issues.apache.org/jira/browse/LANG-421., Does LANG-421 not fix this for you?, Problems are because the escapeJavaScript change leaked into escapeJava due to shared code. Fixed in LANG-421.]

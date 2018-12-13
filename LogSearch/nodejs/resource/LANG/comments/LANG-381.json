@@ -1,0 +1,69 @@
+[Confirmed; and same problem exists for doubles., Float.compare(float, float) is 1.4 specific, however we have our own implementation in NumberUtils so should be able to use that., Also a bug on the max() methods., Looks like the min(double, double, double) (and probably others) have the same problem. Interesting given that they use Math.min.
+
+The bug on the max() methods is the inverse. They don't consider NaN to be > than all others as Float.compareTo does., Last spammy comment on this I promise....
+
+This seems like a confusing bit. If we look at the JDK, we get:
+
+Math.min(Double.NaN, 1.0) => NaN
+Math.max(Double.NaN, 1.0) => NaN
+
+However:
+
+Double.compare(Double.NaN, 1.0) => 1
+Double.compare(1.0, Double.NaN) => -1
+
+That is, the JDK is not without its problems. It seems to me that the min/max methods need to take their leads from the JDK ones. So the (double, double, double) ones are implicitly correct as they are nothing more than wrappers for a couple of Math.min calls.
+
+This bug is not that NaN is returned, but that 1.2 is returned.
+
+ie) If NaN is found in min(double[]), then the min is NaN.
+The same holds for max - it should never return 42.0 in the above example.
+
+Thoughts?, I see your point. I think the JavaDoc comment in Float.compareTo(Float) (since 1.2) says what was intended:
+
+"There are two ways in which comparisons performed by this method differ from those performed by the Java language numerical comparison operators (<, <=, ==, >= >) when applied to primitive floats:
+- Float.NaN is considered by this method to be equal to itself and greater than all other float values (including Float.POSITIVE_INFINITY).
+- 0.0f is considered by this method to be greater than -0.0f."
+
+So assuming this is the correct way to do things, I guess the min-method should return 1.2 and the max-method should return NaN. In any case the result should not depend on the value of the first element of the array., The comparator has to impose a total ordering, so it has to put NaN somewhere.  The min/max functions do not have to do this - i.e., we could define the contract of min/max to be to return NaN iff there are no non-NaN values in the array, so NaNs are effectively excluded.  This is what we did in [math].  See, e.g., 
+http://commons.apache.org/math/api-1.1/org/apache/commons/math/stat/StatUtils.html#min(double[],%20int,%20int), The JDK already implies that the contract is that if a NaN appears in the min or max, then the min or max is NaN.
+
+Why not just go with that? Any idea if that is defined by IEEE?, The orignial IEEE 754 spec prescribes behavior like the JDK, i.e. min(x, NaN) = max(x, NaN) = NaN.  This is under discussion for change in IEEE 745r.  See [1] for a summary of the issues.   The rationale for returning NaN in these cases is to propagate the signal that something has gone awry in computation somewhere - *not* to pretend that the comparison actually makes sense.   A better approach for most applications, IMO, is to treat NaNs as missing data, especially in cases like the present where they appear as elements in a set.  In any case, the important thing is to document clearly what the API contract is.  I will adapt the [math] code and test cases if this is what we want to do for lang.
+
+[1] http://en.wikipedia.org/wiki/NaN, So, from http://en.wikipedia.org/wiki/IEEE_754r we get:
+
+*********************
+min and max
+
+The min and max operations are defined but leave some leeway for the case where the inputs are equal in value but differ in representation. In particular:
+
+    * min(+0,-0) or min(-0,+0) must produce something with a value of zero but may always return the first argument.
+
+In order to support operations such as windowing in which a NaN input should be quietly replaced with one of the end points, min and max are defined to select a number, x, in preference to a quiet NaN:
+
+    * min(x,NaN) = min(NaN,x) = x
+    * max(x,NaN) = max(NaN,x) = x
+
+In the current draft, these functions are called minnum and maxnum to indicate their preference for a number over a NaN.
+*********************
+
+Regardless of the various options, we need to make sure our pairs of min functions are equivalent; the (double, double, double) and the (double[]) variants.
+
+Our options for 'correct' seem to be:
+
+1) JDK functionality; current IEEE. NaN is always the answer to min and max if an argument.
+2) IEEE-754r. NaN is only the answer to min and max functions if there is no non NaN element.
+3) Keep JDK functionality as is and add minnum/maxnum variants for IEEE-754r.
+
+I'm surprised by the IEEE-754r change, it feels to me that I would prefer to have a clear sign that something went wrong and not have the other number be the minimum and no awareness of the problem having happened. I'm tending towards 1) or 3)., My vote goes for 2) or perhaps 3) if it must be. At least I'd strongly suggest to add a word of explanation to the docs. The behavior should be consistent across all float comparisons in any case., Patch attached that makes minimum and maximum obey the JDK rule of "if it has NaN, then return NaN"., Attaching patch that makes min/max use the IEEE-754r approach. Turned out to be nice and easy.
+
+Javadoc improvement needed if this is used., Attaching a patch with the JDK approach applied to NumberUtils methods, and a new IEEE754rUtils class added with those variants of the methods. Javadoc'd etc.
+
+This is the one I plan to apply., svn ci -m "Applying third patch from LANG-381. Fixes the minimum(float[]) type methods to correctly return NaN when it is in the array, and adds an IEEE754rUtils class that obeys the IEEE 754r update in which NaN in min/max methods should be ignored unless all values are NaN. " src
+
+Adding         src/java/org/apache/commons/lang/math/IEEE754rUtils.java
+Sending        src/java/org/apache/commons/lang/math/NumberUtils.java
+Adding         src/test/org/apache/commons/lang/math/IEEE754rUtilsTest.java
+Sending        src/test/org/apache/commons/lang/math/NumberUtilsTest.java
+Transmitting file data ....
+Committed revision 609475.]

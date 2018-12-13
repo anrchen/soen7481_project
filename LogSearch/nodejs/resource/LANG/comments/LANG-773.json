@@ -1,0 +1,1 @@
+[The comment means that the class is thread-safe if the objects it pairs are both threadsafe, Comment clarified]

@@ -1,0 +1,5 @@
+[Created an attachment (id=13984)
+This patch introduces testcases for, and fixes, bugs 33067 and 33069.
+, See also COM-1842., This issue is already fixed in CVS and should be the current nightly build. I
+have added a unit test EqualsBuilderTest.testUnrelatedClasses() which is almost
+identical to the example in this ticket., 2.1 released, closing.]

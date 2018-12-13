@@ -1,0 +1,80 @@
+[It is possible to load Enum static fields using code below:
+
+           Field[] fields = enumCl.getFields();
+            if(fields.length>0){
+                try {
+                    fields[0].get(null); //get value of first static  - actual
+access to this class instance
+                } catch (Exception e) {
+                    log.trace("Can't access static field of " + enumCl);
+                } 
+            }
+, In an effort to get 2.2 out sooner rather than later, I'm assiging all the Enum issues to 2.3. There's been no work on them currently and might be best to focus on them in a 2.3 release instead of trying to squeeze them into the 2.2 release.
+
+Hopefully this will keep the 2.3 release scope pretty tight., See also http://bright-green.com/blog/2006_08_14/class_loading_vs_class_initial.html, I've filed a RFE for solving the problem in the correct way: <a href="http://bugs.sun.com/bugdatabase/view_bug.do?bug_id=6459208">http://bugs.sun.com/bugdatabase/view_bug.do?bug_id=6459208</a>, Apologies for how long it's taken to get around to this issue - largely because it doesn't seem like an issue with much of a solution. Even if the RFE is solved (and it looks like it might be someday), I suspect it's unlikely it would be backported to Java 5.0.
+
+If I'm understanding things correctly, the problem is that in 1.4 Igor had code that just said IgorEnum.class. This initialised all the constant enum declarations within his IgorEnum class - which I presume was necessary for some reason (ie: he couldn't just say 'IgorEnum.ONE' and have it work). 
+
+The work-around would appear to be to create a static enumInitialize() method within the IgorEnum class that looks much like this:
+
+    static void enumInitialize() {
+        TT tmp = ONE;    // or whatever kind of setup call is needed
+    }
+
+Then change the 'Class tmp = IgorEnum.class' to 'IgorEnum.enumInitialize()'. 
+
+I suspect I'm missing something in the complexity behind why the IgorEnum.class call was desirable in the first place., I can't see this being fixed in 2.3 (or ever). Assigning to 3.0 for the moment., Alternative workaround from Peter Knuts (received via email):
+
+I have a work around that can be used to mitigate the problem that was not suggested previously.
+The solution is simpler than the previously suggested workarounds.
+
+Define a static method inside the defining enum class to load the enum, ex:
+
+public class TestEnum extends Enum {
+  private TestEnum(String name) {
+    super(name);
+  }
+  public static final TestEnum VALUE_ONE = new TestEnum("Value one");
+
+  public static TestEnum getEnum(String name) {
+    return (TestEnum) EnumUtils.getEnum(TestEnum.class, name);
+  }
+}
+
+This works fine and the class will be loaded due to the static method call
+Java Language Specification:
+A class or interface type T will be initialized immediately before the first occurance of any one of the following:
+* T is a class and an instance of T is created
+* T is a class and a static method declared by T is invoked.
+...
+
+The downside of this is that the method can not be implemented in a common super class but needs to be (re)implemented in every enum class that needs this capability (also true for other EnumUtils methods like getEnumList etc).
+
+The upside is that the calling side will be simpler:
+  Before: (TestEnum) EnumUtils.getEnum(TestEnum.class, name);
+  After: TestEnum.getEnum(name); , I think EnumUtils.getEnum() should force class initialization, e.g. by calling
+
+Class.forName(enumClass.getFullName(), true, enumClass.getClassLoader())
+
+Otherwise it will simply not reliably do what it is advertised to do. Plus it will spare people a hard-to-find bug popping up after migrating their code to 5.0., I like Marcus Schulte's suggestion. EnumUtils.getEnum() should force class initialization., Bringing forward into 2.4 for consideration again. , Relying on .class to perform class initialization is, to the best of my knowledge, a well-known behavior of past JVMs but also an undocumented feature. Unless someone can show from a JVM spec, that referencing .class *must* perform class initialization, then I strongly believe this issue is based on an undocumented developer assumption. The "problem" in JDK 5 is therefore neither right or wrong and I recommend this as a WONTFIX.
+
+If you want to force initialization, create a static initialization block (static { }) and do what needs to be done there., Gotta agree with Paul. 1.5's behavior is to spec, so it's correct by definition. Since this Enum is for pre-1.5 users, I don't see a benefit to the work involved reconciling it with 1.5. I'd say wontfix., Marking as wontfix as I don't see it being likely that anything will be done here.
+
+Joe's suggestion is interesting, and if anyone would like to explore that, prove that it solves the problem and attach as a patch, then please reopen., It is egregious that the project refuses to fix a bug caused by its own intentional violation of the Java Language Specification (JLS).  It is also strange that the powers that be think this library will never be used in a Java 5+ environment - there are use cases for having a well-thought-out typesafe enumeration that can do things not available to standard 'enum' classes, e.g., inherit from other enumerations or interoperate with legacy pre-1.5 systems.  This shunning of responsibility is a saddening disappointment coming from an Apache project, especially one so fundamental and widely used as commons-lang.  Palming the bug off as "[r]elying on ... an undocumented feature" is especially disingenuous.  That classes used to initialize on references to the 'class' literal was a bug, not a feature, and contravened the explicit statement in the JLS second edition, s.12.4.1: "A class or interface will not be initialized under any other circumstance." (Statement follows list of class-initialization triggers that does not include reference to the 'class' literal.)  For shame., Reopening issue based on Lew's diatribe. Fix version will be set to 2.x. I don't expect to see such a release happen and this code has been removed from 3.0, however if a 2.x release does happen then I want to make sure this is up for consideration along with the other Enum issues.
+
+Plus it will be easier to find the problem if it is in an open issue than a closed issue., So whats the solution for this? I've never looked at Lang's enums, anyone care to submit a patch as I'm hoping to do a 2.5 release, I added a test case for this:
+
+  http://svn.apache.org/viewvc?rev=911954&view=rev
+
+And I tried testing using Sun's JDK 1.5.0_01 and 1.5.0_22 on a Windows XP machine and I cannot reproduce it.
+
+Can anyone see whats wrong with my test case - or provide one that can reproduce the error?, OK I managed to re-produce it by creating a separate test (EnumUtilsLang76Test) and compiling that test with source/target set to 1.5 in the ant build.
+
+http://svn.apache.org/viewvc?view=revision&revision=912292
+
+I used Marcus Schulte's suggestion to fix it
+
+{code}
+     Class.forName(enumClass.getFullName(), true, enumClass.getClassLoader())
+{code}
+]

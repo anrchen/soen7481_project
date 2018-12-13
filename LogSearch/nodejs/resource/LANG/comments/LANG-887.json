@@ -1,0 +1,1 @@
+[Not a blocker for 3.2 though as I think this has been in the code a long time and is only leading to an inefficiency (cache never used)., fixed in r1483568.]

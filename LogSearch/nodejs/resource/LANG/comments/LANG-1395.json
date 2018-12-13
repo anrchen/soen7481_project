@@ -1,0 +1,8 @@
+[It looks like the code needs to use the (now deprecated) StringEscapeUtils#escapeJson() method to transform strings, LANG-1395 - JsonToStringStyle does not escape double quote in a string
+value
+
+Project: http://git-wip-us.apache.org/repos/asf/commons-lang/repo
+Commit: http://git-wip-us.apache.org/repos/asf/commons-lang/commit/e7d16c27
+Tree: http://git-wip-us.apache.org/repos/asf/commons-lang/tree/e7d16c27
+Diff: http://git-wip-us.apache.org/repos/asf/commons-lang/diff/e7d16c27
+, 3.8 Released.]

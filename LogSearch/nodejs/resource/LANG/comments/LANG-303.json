@@ -1,0 +1,24 @@
+[The latter seems to make the most sense - the Rule objects are a tokenized version of the mPattern String, and that is going to be happily serialized.
+
+(I've no clue why java.text.Format is Serializable anyway), svn ci -m "Applying test for #LANG-303, and a fix. " src/
+Sending        src/java/org/apache/commons/lang/time/FastDateFormat.java
+Sending        src/test/org/apache/commons/lang/time/FastDateFormatTest.java
+Transmitting file data ..
+Committed revision 490387.
+
+mRules and mMaxLengthEstimate have been made transient as the init() method sets both of them up.
+
+The deserialize method is:
+
++    // Serializing
++    //-----------------------------------------------------------------------
++    private void readObject(ObjectInputStream in) throws IOException, ClassNotFoundException {
++        in.defaultReadObject();
++        init();
++    }
+
+, svn ci -m "Improved #LANG-303 test to prove the formatting works on each side of the serializing" src/
+
+Sending        src/test/org/apache/commons/lang/time/FastDateFormatTest.java
+Transmitting file data .
+Committed revision 490388.]

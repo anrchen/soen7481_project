@@ -1,0 +1,29 @@
+[From the BigDecimal javadoc:
+
+    "Compares this BigDecimal with the specified Object for equality. Unlike compareTo, this method considers two BigDecimal objects equal only if they are equal in value and scale (thus 2.0 is not equal to 2.00 when compared by this method). "
+
+So I can definitely see that in BigDecimal's case, most users would want compareTo to be used., Need to create unit test/fix., Hm... is there a way to refactor our code so that the Equals and CompareTo be mixed and matched? At least, it sounds we need some kind of configurable map to tell us which class should use compareTo., Do we need it? 
+
+This is our first compareTo instance. Looks like we need an if instanceof BigDecimal inside the if(!lhsClass.isArray()) block of append(Object, Object)., Strictly XP-speaking, no. You are correct, we should start with the required case and refactor and generalize only if needed., Suggested fix attached.  How does it look?, svn ci -m "Applying my patch from LANG-393; EqualsBuilder uses compareTo for BigDecimal and not equals" src
+
+Sending        src/java/org/apache/commons/lang/builder/EqualsBuilder.java
+Sending        src/test/org/apache/commons/lang/builder/EqualsBuilderTest.java
+Transmitting file data ..
+Committed revision 611543., The following simple test case shows that the applied patch throws a ClassCastException:
+public static void main(String[] args) {
+		class Test {
+			public Object o;
+		}
+
+		BigDecimal d = new BigDecimal(1000);
+		Long l = new Long(1000);
+
+		Test t1 = new Test();
+		Test t2 = new Test();
+
+		t1.o = d;
+		t2.o = l;
+
+		System.out.println(EqualsBuilder.reflectionEquals(t1, t2));
+	}
+, I hadn't spotted this one. While I understand the motivation, I do think that EqualsBuilder should use .equals(). There are people who will consider that to be the only valid equals comparison (all the state of the object being equal)., @Stephen:  Might be late now; @Nicolas:  The compilation error only happens with Java 5, so yes, when [lang] moves to Java 5 it must be corrected., @Matt: You are right, I should have mentioned that (java5). But don't  you think it should be fixed now? It is not a compilation error but a runtime error, and it occurs for everyone using Java 5 in their project while using this library., Btw - this is fixed in trunk now. Separate issue is whether this change needs to be reverted or not., Note that due to inconsistency with HashCodeBuilder and hashCode in general, this fix has been reverted and will go back to its old behaviour of using equals() in Lang 3.0.]

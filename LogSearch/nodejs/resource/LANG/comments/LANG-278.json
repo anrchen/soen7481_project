@@ -1,0 +1,6 @@
+[ svn ci -m "Fixing javadoc example and adding a unit test to prove the example; as 
+reported in #LANG-278" src/test/org/apache/commons/lang/StringUtilsTest.java src/java/org/apache/commons/lang/StringUtils.java 
+Sending        src/java/org/apache/commons/lang/StringUtils.java
+Sending        src/test/org/apache/commons/lang/StringUtilsTest.java
+Transmitting file data ..
+Committed revision 442618.]

@@ -1,0 +1,9 @@
+[Attaching a patch to remove caching from MethodUtils, which I plan to apply, I have no problems with this.  Apply away!  Thanks, Niall!, OK removed
+
+http://svn.apache.org/viewvc?view=rev&revision=654159, So you removed caching for org.apache.commons.lang.reflect.MethodUtils.java. Should the same not also happen for org.apache.commons.beanutils/MethodUtils.java? This is where I discovered a memory leak today.
+
+As far as I can see, it uses a WeakHashMap, whose keys are weak references. However, the map is filled with MethodDescriptor instances, which are created in the same method as where they are put as keys in the map. So one would expect that the get garbage collected on the first occasion. It looks like the cache should have been one where the values are weak. Why we still had the memory leak, I cannot explain., Whoever implemented MethodUtils's caching in BeanUtils presumably did so to improve performance and therefore removing it could negatively affect existing applications - for example Struts1 users. The copy of MethodUtils here in lang has only recently been added - its not in a released version and therefore has no existing users to be concerned about. Better then IMO to just provide the reflection functionality here without the caching which is much cleaner.
+
+I have done some work on the memory leak associated with the WeakHashMap (nothing to do with the lack of synchronization - which I agree is another issue, thanks for reporting it) and problem seems to be caused by the Method reference held in the MethodDescriptor - see BEANUTILS-291 and http://tinyurl.com/5ksjrh which seems to fix this.
+
+The BEANUTILS-291 memory leak issues is still on my todo list - but its currently in a broken state - with the same kind of issue as BEANUTILS-318, caused by me replacing the FastHashMap with WeakHashMap. I need to find time to finish up so that we can get a BeanUtils release out with these issues resolved.]

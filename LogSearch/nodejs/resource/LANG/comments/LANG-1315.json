@@ -1,0 +1,6 @@
+[Please attach a unit test that demonstrates a failure., Pls run the main method present in class FastDateMain, The test case is hard to use as it's in two files buried deep in a file structure.
+
+In future, please provide a single file which exihibts the problem.
+Ideally as a unit test (LANG uses JUnit).
+
+As it stands, the test proves nothing, as it does not compare the output of FastDateFormat with the output of SimpleDateFormat.]

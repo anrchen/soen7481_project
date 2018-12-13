@@ -1,0 +1,7 @@
+[{code}
+$ git merge LANG-1126 --no-ff
+Merge made by the 'recursive' strategy.
+ src/changes/changes.xml                                              |  1 +
+ src/test/java/org/apache/commons/lang3/time/DateFormatUtilsTest.java | 34 ++++++++++++++++++++--------------
+ 2 files changed, 21 insertions(+), 14 deletions(-)
+{code}]

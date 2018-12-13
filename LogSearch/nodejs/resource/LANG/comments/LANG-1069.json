@@ -1,0 +1,16 @@
+[Tried to explain corner-case usage of negating character and added unittest.
+* CharSet.getInstance("^^a-d")
+* CharSet.getInstance("a-d^"), Can you explain why you think {{CharSet.getInstance("^^a-d")}} is a corner case? You've explicitly listed it in the documentation as an example, but I don't understand why it requires special attention., I tried to show with this example that parsing is executed from left to right. So the set containing a ^ is negated. The second ^ could also negate the set containing a-d and then interpreting the first ^ in some undefined way., Thanks for the patch. I edited it a little and have now committed it:
+
+Author: djones
+Date: Sat Apr 11 06:02:34 2015
+New Revision: 1672833
+
+URL: http://svn.apache.org/r1672833
+Log:
+Update for LANG-1069: CharSet.getInstance documentation does not clearly explain how to include negation character in set. Javadoc expanded and unit tests added to match examples. Based on patch by Arno Noordover.
+
+Modified:
+    commons/proper/lang/trunk/src/changes/changes.xml
+    commons/proper/lang/trunk/src/main/java/org/apache/commons/lang3/CharSet.java
+    commons/proper/lang/trunk/src/test/java/org/apache/commons/lang3/CharSetTest.java]

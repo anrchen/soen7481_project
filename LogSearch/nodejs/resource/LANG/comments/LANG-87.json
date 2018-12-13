@@ -1,0 +1,7 @@
+[I came accross this bug as well, it really stops the CompareToBuilder being
+useful and easy to use.  If there is a compelling reason why it shouldn't
+support nulls (althogh it does when both null), then maybe a strict flag could
+be added to another constructor, defaulting to strict in the no-args constructor.
+
+Note, it aso affects the primitive array methods when they are called directly., I have recoded the class to handle nulls (nulls are low). Please retry the 
+class from the CVS and reopen the bug if you still have problems.]

@@ -1,0 +1,14 @@
+[Confirmed. Adding to 3.0 (though that may mostly end up being 2.3)., The bug is actually in indexOf. Here's a test for it:
+
+    public void testIndexOfLang294() {
+    	StrBuilder sb = new StrBuilder("onetwothree");
+    	sb.deleteFirst("three");
+    	assertEquals(-1, sb.indexOf("three"));  // fails as the indexOf is 6
+    }
+
+The problem being that IndexOf does not look at whether it has gone over the actual size of the String being built and into the flotsam that is floating at the end of the buffer array beyond the length of the size variable., Unit test and fix for this bug. The indexOf method needed to understand that the buffer did not represent the entire underlying String but had more junk data at the end for performance reasons., svn ci -m "Fixing #LANG-294. The indexOf method did not take into account the size variable that limited the amount of the buffer that should be looked at. "
+
+Sending        src/java/org/apache/commons/lang/text/StrBuilder.java
+Sending        src/test/org/apache/commons/lang/text/StrBuilderTest.java
+Transmitting file data ..
+Committed revision 469677.]

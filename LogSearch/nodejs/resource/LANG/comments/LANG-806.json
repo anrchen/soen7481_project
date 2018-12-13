@@ -1,0 +1,11 @@
+[Is this bug fixed already?
+If not, I would like to look into it., Please feel free to take a look :), I have attached a fix to this error. My fix implements what was discussed in the description by tracking concurrent failures to find a valid character in the range, and throwing an exception if this occurs.
+
+I would love any feedback!, I haven't thought on the solution yet, but on the Exception, I'm tempted by a more generic exception. TooManyTriesException(String, Throwable).  , If implemented, the variable names should be CONSECUTIVE rather than CONCURRENT!, Github user PascalSchumacher commented on the issue:
+
+    https://github.com/apache/commons-lang/pull/211
+  
+    related issue: https://issues.apache.org/jira/browse/LANG-806 
+    
+    I guess this pull request fixes the most important part of the issue.
+, RandomStringUtils will be deprecated in commons-lang 3.6 in favor of RandomStringGenerator from commons-text. Please use [RandomStringGenerator|https://commons.apache.org/proper/commons-text/javadocs/api-release/org/apache/commons/text/RandomStringGenerator.html] instead.]

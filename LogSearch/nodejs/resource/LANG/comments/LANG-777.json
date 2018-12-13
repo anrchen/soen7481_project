@@ -1,0 +1,59 @@
+[It looks like the RM used a different method for generating the release notes
+
+Ideally the .vm file is updated, and and then can run
+
+mvn changes:announcement-generate
+mv target/announcement/RELEASE-NOTES.txt RELEASE-NOTES.txt
+
+Commons Parent 22 has a profile for this:
+
+mvn changes:announcement-generate -Prelease-notes
+
+but this requires the vm file to be located under
+
+src/changes
+
+rather than
+
+arc/main/resources/templates
+
+OK to move the file accordingly?, Alternatively, I suppose one could override the CP release-notes profile to fix the location.
+
+Or copy them to the new location.
+
+Depends on whether there is any need to keep the existing location or not., Yeah, I forgot all about the template. It was so simple to write the release notes by hand (changes.xml, then update release notes).
+
+Is there any value in the velocity approach? I know I added it back in August but I've no idea why., The file changes.xml is used to create the changes-report.html file, so needs to be kept up to date anyway.
+
+Using the same file for the release notes means that they are consistent.
+
+Note: one can select the required version for the release notes as follows:
+
+mvn changes:announcement-generate -Dchanges.version=3.1
+
+This overrides the default, which is taken from the POM version., Seems much simpler to edit changes.xml and then copy to the release notes before release. The template approach sounds overly complex., You don't often need to edit the template, especially now it does not have a fixed version in it.
+
+Mostly you only need to edit changes.xml and then run
+
+mvn changes:announcement-generate -Dchanges.version=x.x
+
+Check that the new file looks OK, and check it in.
+
+That's it.
+
+Try it and see., The parent pom version 23 defines as default location for the release-notes template:
+
+  src/changes/release-notes.vm
+  src/changes/changes.xml
+
+So the templates can not slip into the resulting jar. CM3 for example already follows this scheme., Noticing we have two release-notes.vm files since r1342642. Not sure what the plan is. , Log:
+LANG-777 jar contains velocity template of release notes
+Merge releases notes into standard location
+
+Removed:
+    commons/proper/lang/trunk/src/main/resources/templates/release-notes.vm
+Modified:
+    commons/proper/lang/trunk/RELEASE-NOTES.txt
+    commons/proper/lang/trunk/src/changes/changes.xml
+    commons/proper/lang/trunk/src/changes/release-notes.vm
+]

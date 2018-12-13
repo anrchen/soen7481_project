@@ -1,0 +1,3 @@
+[StringUtils.split treats the separator as a String, not a regular expression.
+
+So "\b" does not mean word-boundary.]

@@ -1,0 +1,126 @@
+[GitHub user PascalSchumacher opened a pull request:
+
+    https://github.com/apache/commons-lang/pull/205
+
+    LANG-1281: Javadoc of StringUtils.ordinalIndexOf is contradictory
+
+    
+
+You can merge this pull request into a Git repository by running:
+
+    $ git pull https://github.com/PascalSchumacher/commons-lang StringUtils#ordialIndexOf_javadoc
+
+Alternatively you can review and apply these changes as the patch at:
+
+    https://github.com/apache/commons-lang/pull/205.patch
+
+To close this pull request, make a commit to your master/trunk branch
+with (at least) the following in the commit message:
+
+    This closes #205
+    
+----
+commit e5997106b568d321462278911980b8c81d0679e6
+Author: pascalschumacher <pascalschumacher@gmx.net>
+Date:   2016-11-03T20:14:36Z
+
+    LANG-1281: Javadoc of StringUtils.ordinalIndexOf is contradictory
+
+----
+, Github user kinow commented on the issue:
+
+    https://github.com/apache/commons-lang/pull/205
+  
+    +1
+, Github user aioobe commented on the issue:
+
+    https://github.com/apache/commons-lang/pull/205
+  
+    But the implementation of the method does NOT increment by 1 if given the empty string. So this change causes the documentation to contradict the implementation.
+, I had voted +1 for the pull request, but then read the Javadoc again, and now I'm not sure about it :-)
+
+>"The code increments the starting index by one, rather than by the length of the match string, so matches may overlap."
+
+I'm not sure if there's anything wrong with the above statement for StringUtils#ordinalOf.
+
+> But the implementation of the method does NOT increment by 1 if given the empty string. So this change causes the documentation to contradict the implementation.
+
+Given the empty string, as far as I can tell, the implementation returns (as in the doc) "the n-th index of the search CharSequence", which is 0. It never increments the starting index (which is done here https://github.com/apache/commons-lang/blob/ff4497aff8cc9de4e0b2c6e5e23e5b6550f76f29/src/main/java/org/apache/commons/lang3/StringUtils.java#L1477).
+
+As it was given an empty string, this check in ordinalOf method returns the empty string: https://github.com/apache/commons-lang/blob/ff4497aff8cc9de4e0b2c6e5e23e5b6550f76f29/src/main/java/org/apache/commons/lang3/StringUtils.java#L1466, Github user PascalSchumacher commented on the issue:
+
+    https://github.com/apache/commons-lang/pull/205
+  
+    `...incrementing the starting index by one after each successful match, so matches may overlap.` For empty String there is no match, so no incrementing is done.
+    
+    Please do not hesitate to suggest better solution for this issue. Thanks!
+, Github user PascalSchumacher commented on the issue:
+
+    https://github.com/apache/commons-lang/pull/205
+  
+    I guess we should hide the implementation details and just state `Note: Matches may overlap.`.
+    
+    What do you think?
+, Github user aioobe commented on the issue:
+
+    https://github.com/apache/commons-lang/pull/205
+  
+    Of course there are matches for the empty string. a) there is both a leading and trailing empty string in "a" for instance. b) the implementation doesn't return INDEX_NOT_FOUND when given the empty string.
+    
+    As far as I can tell, the implementation increments the position with 1 each time a match is found, except if the sought string is the empty string, in which case it increments with 0 (conceptually that is; in practice it obviously returns 0 right away for that case, since if it increments by 0 each match, it will never move away from 0).
+    
+    Personally I think the implementation is messy and hard to formalize. It would have been much better if the implementation consistently stuck the idea of incrementing by 1 for each match. This would not rule out the optimization because one would simply return n for the empty search string case.
+    
+    Given the situation I guess it's not an option to change the implementation though, so the only option left is to adjust the documentation to reflect the current behavior. Here are two suggestions:
+    
+    "increments by 1 unless the search string is the empty string in which case the position is never incremented"
+    
+    or something like
+    
+    "always returns 0 if the search string is the empty string, otherwise it increments the position by 1 for each match found"
+, Github user coveralls commented on the issue:
+
+    https://github.com/apache/commons-lang/pull/205
+  
+    
+    [![Coverage Status](https://coveralls.io/builds/8658876/badge)](https://coveralls.io/builds/8658876)
+    
+    Coverage increased (+0.007%) to 93.563% when pulling **e5997106b568d321462278911980b8c81d0679e6 on PascalSchumacher:StringUtils#ordialIndexOf_javadoc** into **ff4497aff8cc9de4e0b2c6e5e23e5b6550f76f29 on apache:master**.
+
+, Github user kinow commented on the issue:
+
+    https://github.com/apache/commons-lang/pull/205
+  
+    Oh, now it makes sense @aioobe 
+    
+    I like 
+    
+    "increments by 1 unless the search string is the empty string in which case the position is never incremented"
+, Github user PascalSchumacher commented on the issue:
+
+    https://github.com/apache/commons-lang/pull/205
+  
+    Updated the pull request using "increments by 1 unless the search string is the empty string in which case the position is never incremented".
+, Github user aioobe commented on the issue:
+
+    https://github.com/apache/commons-lang/pull/205
+  
+    Looks good to me, even though I think it's a terrible idea to view empty strings as some form of special strings and treat them differently than other strings.
+, Github user coveralls commented on the issue:
+
+    https://github.com/apache/commons-lang/pull/205
+  
+    
+    [![Coverage Status](https://coveralls.io/builds/8673668/badge)](https://coveralls.io/builds/8673668)
+    
+    Coverage increased (+0.02%) to 93.58% when pulling **ac05015befda654b2cd6e7a07c2eca5785d49045 on PascalSchumacher:StringUtils#ordialIndexOf_javadoc** into **ff4497aff8cc9de4e0b2c6e5e23e5b6550f76f29 on apache:master**.
+
+, Github user PascalSchumacher commented on the issue:
+
+    https://github.com/apache/commons-lang/pull/205
+  
+    Thanks everybody!
+, Github user asfgit closed the pull request at:
+
+    https://github.com/apache/commons-lang/pull/205
+, Thanks for reporting.]

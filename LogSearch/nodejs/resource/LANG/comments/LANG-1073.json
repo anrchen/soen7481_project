@@ -1,0 +1,6 @@
+[Hello again Haiyang! Nice catch. It was working as expecting due to {{Array.newInstance}} taking care of creating new arrays with the correct type. Furthermore, the {{public static <T> T[] add(final T[] array, final int index, final T element)}} method uses {{.getComponentType()}} as you suggested too.
+
+Tested locally and all tests passed. 
+
+Thank you!
+Bruno, Fixed in r1645483.]

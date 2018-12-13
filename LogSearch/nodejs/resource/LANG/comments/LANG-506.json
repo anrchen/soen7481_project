@@ -1,0 +1,6 @@
+[The attached patch adds final modifiers where possible.
+It requires a minor change to the test code.
+
+There are still some internal classes that are not yet thread-safe; these have been marked with TODO comments, Oops - overlooked another test that needs access to the map, Planning to rewrite Entities., Entities deleted from 3.0 codebase., Applied the patch (manually) to the 2.x branch
+
+http://svn.apache.org/viewvc?view=revision&revision=905846]

@@ -1,0 +1,7 @@
+[I don't see any particular reason to keep serialVersionUID so removing it.
+
+svn ci -m "Dropping the serialVersionUID from EventListenerSupport per LANG-765"
+Sending        src/main/java/org/apache/commons/lang3/event/EventListenerSupport.java
+Transmitting file data .
+Committed revision 1225109.
+]

@@ -1,0 +1,32 @@
+[Benedikt. have a look at the patch., Hi Michael,
+
+nice patch! However I'm a bit afraid this change will break clients that are using the method as it is now. What do you think? The main use case is probably formatting for displaying a value (in the GUI or in some kind of log file). So it may not be a problem?
+
+Benedikt
+
+EDIT: how about providing a new method called {{formatDurationISOHMS}} which formats the way you propose?, I guess you are right about the usecase but we *cannot* do assumptions about the client. So the impact should be minimal. In this case, we should stick to {{HH:mm:ss.SSS}} and improve the docs. However, we could spawn another ticket for Lang 4 to split method into two methods, one for {{HH:mm:ss}} and one {{formatDurationHMSwithFrac}} or something like this (maybe a boolean flag) which will use {{HH:mm:ss.SSS}}. Same applies for the ISO duration of course.
+
+I wouldn't bloat the API with another method but I would rather add something like I did for [MNG-5176|https://jira.codehaus.org/browse/MNG-5176?focusedCommentId=340413&page=com.atlassian.jira.plugin.system.issuetabpanels:comment-tabpanel#comment-340413]., Have a look at the new patch., Hello Michael, 
+
+After applying your patch I get two test failures:
+
+{code}
+Failed tests: 
+  StopWatchTest.testStopWatchSimpleGet:55 expected:<0[]:00:00.000> but was:<0[0]:00:00.000>
+  StopWatchTest.testStopWatchSplit:76 Formatted split string not the correct length expected:<12> but was:<11>
+{code}
+
+Those two test cases fail because StopWatch uses DurationFormatUtils internally. You will have to update the tests as well ;)
+
+TIA!
+Benedikt, True, here is an all new patch., {code}
+bene@localhost:~/workspace/apache/commons/lang$ svn ci -m "LANG-1004: DurationFormatUtils#formatDurationHMS implementation does not correspond to Javadoc and vice versa. Thanks to Michael Osipov"
+Sending        src/changes/changes.xml
+Sending        src/main/java/org/apache/commons/lang3/time/DurationFormatUtils.java
+Sending        src/test/java/org/apache/commons/lang3/time/DurationFormatUtilsTest.java
+Sending        src/test/java/org/apache/commons/lang3/time/StopWatchTest.java
+Transmitting file data ....
+Committed revision 1592360.
+{code}
+
+Thanks for contributing!, With pleasure, being a Commons Lang user for several years and an Apache Maven committer, that's the least I can do., Benedikt has committed the patch, thus resolving the issue.]

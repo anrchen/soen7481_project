@@ -1,0 +1,9 @@
+[this one is for me :-)
+I will fix that , fixed., Thanks Oliver - will this populate nightly? (I ask because I am still getting 404 on http://commons.apache.org/proper/commons-lang/api-release/index.html.), Hallo Robert,
+
+the link from the website has changed. You can browse the JavaDoc via http://commons.apache.org/lang/api-release/index.html (which is now linked to the website).
+
+Regards,
+Benedikt, http://commons.apache.org/proper/commons-lang/
+The link Javadoc (Latest release) is now working., maybe I can add a redirect  http://commons.apache.org/lang/api-release/to http://commons.apache.org/proper/commons-lang/javadocs/api-release 
+WDYT ?, I don't think that is necessary. The link from the website works., Thanks for the fix. A redirect is definitely a good idea, because right now googling "commons Lang javadocs" results are 404s., Not sure if you are waiting on me to resolve the issue or is there a process you follow... :)]

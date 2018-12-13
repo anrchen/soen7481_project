@@ -1,0 +1,11 @@
+[Better example, +1, Added test.
+Changed code to catch ArrayStoreException and report IllegalArgument if types are not compatible
+
+URL: http://svn.apache.org/viewvc?rev=892114&view=rev
+Log:
+LANG-567 - ArrayUtils.addAll(T[] array1, T... array2) does not handle mixed types very well
+Also remove unnecessary main() and suite() from test class, Do you want to include the root cause to the IAE? I am not a fan of swapping exception types without chaining them., I did consider checking the types before trying the array copy in which case the issue would not have arisen.
+
+However it should be cheaper to wait until a problem occurs, and also slightly safer in case the check is too strict.
+
+I'll update the code shortly., Sebb, I agree. The code should assume things work, and catch exceptions for the exceptional cases. ]

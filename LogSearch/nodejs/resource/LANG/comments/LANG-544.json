@@ -1,0 +1,51 @@
+[If we're unable to move to JDK 1.6, a possibility is implementing Collections.newSetFromMap(Map) in Lang.
+
+Alternatively, implement an IdentityHashSet (rough draft):
+
+{code:java}
+package org.apache.commons.lang3.collections;
+
+import java.util.AbstractSet;
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.IdentityHashMap;
+import java.util.Iterator;
+
+public class IdentityHashSet<E> extends AbstractSet<E> {
+
+    private IdentityHashMap<E, E> decorated;
+
+    public IdentityHashSet() {
+        super();
+    }
+
+    public IdentityHashSet(Collection<E> collection) {
+        if (collection != null) {
+            HashMap<E, E> map = new HashMap<E, E>();
+            for (E element : collection) {
+                map.put(element, element);
+            }
+            decorated = new IdentityHashMap<E, E>(map);
+        } else {
+            decorated = new IdentityHashMap<E, E>();
+        }
+    }
+
+    public int size() {
+        return decorated.size();
+    }
+
+    public Iterator<E> iterator() {
+        return decorated.keySet().iterator();
+    }
+
+    public boolean add(E element) {
+        if (decorated.contains(element) ) {
+            return false;
+        } else {
+            decorated.put(element, element);
+            return true;
+        }
+    }
+}
+{code}, Moving to 3.1 as no activity on a patch and I don't have an itch for the builder package. I'd like to see us move to Java 6 in a later 3.x version so might be best implemented then.]

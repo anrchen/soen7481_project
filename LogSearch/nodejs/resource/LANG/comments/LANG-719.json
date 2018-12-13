@@ -1,0 +1,7 @@
+[{noformat}
+commit -m "Adjust FastDateFormat for Java 7 behavior regarding format of the year pattern (LANG-719)." /home/joehni/src/Commons/proper/lang/src/main/java/org/apache/commons/lang3/time/FastDateFormat.java /home/joehni/src/Commons/proper/lang/src/test/java/org/apache/commons/lang3/time/FastDateFormatTest.java
+    Sending        /home/joehni/src/Commons/proper/lang/src/main/java/org/apache/commons/lang3/time/FastDateFormat.java
+    Sending        /home/joehni/src/Commons/proper/lang/src/test/java/org/apache/commons/lang3/time/FastDateFormatTest.java
+    Transmitting file data ...
+    Committed revision 1146138.
+{noformat}, This is a duplicate of LANG-593]

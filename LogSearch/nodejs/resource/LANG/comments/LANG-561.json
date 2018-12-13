@@ -1,0 +1,9 @@
+[A 2.4.1 version can be released to deprecate the method appropriately?, Agreed that unescapeHtml3 needs Javadoc.
+
+I don't see any reason to deprecate unescapeHtml. There is lots of backwards incompatible changes in Lang, there's no point trying to sugar coat other changes and putting the pain off until later. Better to get it done with now when people are having to go to the work of making their code work., To go further - there should be no deprecated code in Lang 3.0., How about keeping unescapeHtml as an alias for unescapeHtml4 in LANG3?
+(With suitable Javadoc).
+
+This would not be the same as keeping deprecated code in LANG3.
+
+I found the problem with the Gump build of JMeter.
+There's currently no easy way to fix this, as unescapeHtml4 does not exist in LANG2 and LANG3 has yet to be released., Presumably there is going to be a package name change before Lang 3.0 is released? If so everything breaks., Closing per Sebb's comment on dev now that the package name has been changed.]

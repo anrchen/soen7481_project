@@ -1,0 +1,7 @@
+[Patch for class org.apache.commons.lang.Entities (src/java/org/apache/commons/lang/Entities.java), I have one comment regarding the patch I've contibuted.
+
+There is a minor issue with IOException that could be thown by Entities.*escape(Writer, String) methods. Methods Entities.*escape(String) don't declare IOException so I decided to catch it and wrap within bare RuntimeException. Although the exception can't occur since I pass java.io.StringWriter instance into Entities.*escape(Writer, String) methods.
+
+If you don't like this approach pleas let me know., Patch for class org.apache.commons.lang.Entities (src/java/org/apache/commons/lang/Entities.java)
+
+/ignore previously submitted patch, it's a wrong file/, Refactored escape and unescape methods to remove code duplication., FWIW, I could not use the attached patch files. They appear to be too old to match against what was in SVN. So I refactored from scratch, no biggie., committed.]

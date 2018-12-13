@@ -1,0 +1,5 @@
+[New methods:
+appendSuper(super.toString());
+appendToString(delegate.toString());
+
+]

@@ -1,0 +1,22 @@
+[Note that *EqualsBuilder* has the exact same issue.
+See:  http://svn.apache.org/viewvc/commons/proper/lang/trunk/src/java/org/apache/commons/lang3/builder/EqualsBuilder.java?view=markup
+*reflectionAppend*, line 321:
+{code}
+List<String> excludedFieldList = excludeFields != null ? Arrays.asList(excludeFields) : Collections.<String>emptyList();
+{code}
+
+And so does *CompareToBuilder*...
+See:  http://svn.apache.org/viewvc/commons/proper/lang/trunk/src/java/org/apache/commons/lang3/builder/CompareToBuilder.java?view=markup
+*reflectionAppend*, line 356:
+{code}
+List<String> excludedFieldList = excludeFields != null ? Arrays.asList(excludeFields) : Collections.<String>emptyList();
+{code}
+, Considering how repetitive this issue is, you may want to consider LANG-283 because there does seem to be a refactoring opportunity here., Definitely hoping to challenge the builder code before 3.0 is released. Its got the most duplication and the most JIRA items open.
+
+Thanks for both of your optimization suggestions., svn ci -m "Replacing the creation of a List in the core of each Builder class to test contains on the excludeFields with a call to ArrayUtils.contains. Reported by Anthony Whitford in LANG-575"
+Sending        src/main/java/org/apache/commons/lang3/builder/CompareToBuilder.java
+Sending        src/main/java/org/apache/commons/lang3/builder/EqualsBuilder.java
+Sending        src/main/java/org/apache/commons/lang3/builder/HashCodeBuilder.java
+Transmitting file data ...
+Committed revision 897421.
+]

@@ -1,0 +1,35 @@
+[We could do with writing a new StringTokeniser replacement class in [lang] for 
+this. Does anyone know of one to use as a starting point?, Created an attachment (id=9068)
+Source file for the DelimitedTokenizer class
+, Created an attachment (id=9069)
+TestCase for the DelimitedTokenizer class
+, I have created a new class called DelimitedTokenizer which tokenizes strings 
+according to a delimited format, such as CSV.  There are certain properties 
+which are configurable, including the delimiter character, the quote character, 
+ignoring leading whitespace, ignoring trailing whitesapce, and treating zero 
+length strings as nulls.  Also enclosed is a small testcase for this class.
+, Created an attachment (id=9070)
+Delimited Tokenizer source code
+, The attachment uploaded at 14:56 supercedes the one uploaded at 13:20, Created an attachment (id=9116)
+DelimitedTokenizer source [ supercedes attachments 11/12/03 13:20 and 11/12/03 14:56]
+, Created an attachment (id=9117)
+DelimitedTokenizerTest source [ supercedes attachment 11/12/03 13:21]
+, Created an attachment (id=9118)
+DelimitedTokenizerTest [supercedes 11/14/03 23:07]
+, Created an attachment (id=9119)
+DelimitedTokenizer [ supercedes 11/14/03 23:06 ]
+, Initial version now checked in., Created an attachment (id=9192)
+DelimitedTokenizer [ supercedes 11/14/03 23:29]
+, Have you had a look at the CVS version? I adapted it a bit before I checked it 
+in..., I can't find the cvs version., Created an attachment (id=9273)
+PatchFile for Tokenizer.java to add reset methods
+, Created an attachment (id=9274)
+Patch file for TokenizerTest.java to fix expected output
+, "Adjacent separators are treated as one separator."
+
+I think this should not be so. Rather it should behave as 1.4 String.split().
+Merging the separators makes having optional parts between delimeters difficult,
+e.g. in corbaloc:iiop:my.host.net:4812/MyName the iiop is optional and can be
+written as corbaloc::my.host.net:4812/MyName. This is easy to parse with
+String.split() but not with StringUtils.split()., Created new methods splitPreserveAllTokens to mirror the existing split methods,
+adding the functionality of preserving empty tokens indicated by adjacent separators, 2.1 released, closing.]

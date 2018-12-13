@@ -1,0 +1,2 @@
+[I just take a quick look and it's seem to be caused by the order of conversion priority for decimal number (Float > Double > BigDecimal) and the test for select between those types is based on the number of digits past the decimal point.
+But wouldn't it be on significant digits instead ? (if significant digits >=7 there is a risk that float can be unable to represents the entire number), The fix for LANG-1018 also solves this, so this will be fixed in 3.5.]

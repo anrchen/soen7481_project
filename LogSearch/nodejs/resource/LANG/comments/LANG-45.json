@@ -1,0 +1,4 @@
+[Created an attachment (id=15842)
+Bug fix patch.
+
+The bug seems to have been a typo in the replace(int,int,String) method., Patch applied. Thank you.]

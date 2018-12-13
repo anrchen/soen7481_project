@@ -1,0 +1,10 @@
+[Looks like the examples in the test are wrong.
+
+The documentation of the parseDateStrictly method reads:
+ * @throws ParseException if none of the date patterns were suitable
+
+and for the date 13:05:15 03.05 there is no suitable pattern in the test. The pattern "hh:mm dd.MM" is not suitable for the date. It should be "HH:mm:ss dd.MM"
+
+ , There are two problems with the format strings:
+* none of them allow for the seconds in "13:05:15 03.05"
+* the format char 'h' expects a number from 1-12; 13 is not such a number]

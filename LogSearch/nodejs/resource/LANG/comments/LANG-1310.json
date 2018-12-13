@@ -1,0 +1,220 @@
+[The issue is because in the below line from method getVarArgs (in MethodUtils class)
+
+System.arraycopy(args, methodParameterTypes.length - 1, varArgsArray, 0, varArgLength);
+
+for the example shared in the ticket 
+args is of type java.lang.Integer and varArgsArray is of type java.lang.Long
+
+and hence the exception ArrayStoreException is thrown.
+
+The reason for args to be of type java.lang.Integer is because at the top of the execution of invokeMethod, in the below line, when args is passed (which is nothing but 1 a primitive type) is considered as  java.lang.Integer and not primitive type int
+final Class<?>[] parameterTypes = ClassUtils.toClass(args);
+
+parameterTypes in this case is java.lang.Integer and not primitive type int.
+
+This is the inference made on this so far.
+
+Working on it further, will update the ticket with more details/fix., GitHub user drajakumar opened a pull request:
+
+    https://github.com/apache/commons-lang/pull/256
+
+    fix for LANG-1310
+
+    
+
+You can merge this pull request into a Git repository by running:
+
+    $ git pull https://github.com/drajakumar/commons-lang master
+
+Alternatively you can review and apply these changes as the patch at:
+
+    https://github.com/apache/commons-lang/pull/256.patch
+
+To close this pull request, make a commit to your master/trunk branch
+with (at least) the following in the commit message:
+
+    This closes #256
+    
+----
+
+----
+, Github user coveralls commented on the issue:
+
+    https://github.com/apache/commons-lang/pull/256
+  
+    
+    [![Coverage Status](https://coveralls.io/builds/10583606/badge)](https://coveralls.io/builds/10583606)
+    
+    Coverage increased (+0.06%) to 94.588% when pulling **6daa417fe9826d0bfa9c2366fc520a1519e8579f on drajakumar:master** into **39a2a6fa38c5e4d1293e00f98a89698a962d6775 on apache:master**.
+
+, Github user jvz commented on a diff in the pull request:
+
+    https://github.com/apache/commons-lang/pull/256#discussion_r105941464
+  
+    --- Diff: src/test/java/org/apache/commons/lang3/reflect/MethodUtilsTest.java ---
+    @@ -110,32 +114,32 @@ private void privateStuff() {
+     
+             @SuppressWarnings("unused")
+             private String privateStringStuff() {
+    -        	return "privateStringStuff()";
+    +         return "privateStringStuff()";
+    --- End diff --
+    
+    Think you could fix the formatting here?
+, Github user Abrasha commented on a diff in the pull request:
+
+    https://github.com/apache/commons-lang/pull/256#discussion_r106018789
+  
+    --- Diff: src/test/java/org/apache/commons/lang3/reflect/MethodUtilsTest.java ---
+    @@ -357,16 +369,23 @@ public void testInvokeMethod() throws Exception {
+             assertEquals("foo(int)", MethodUtils.invokeMethod(testBean, "foo",
+                     NumberUtils.BYTE_ONE));
+             assertEquals("foo(double)", MethodUtils.invokeMethod(testBean, "foo",
+    -                NumberUtils.LONG_ONE));
+    -        assertEquals("foo(double)", MethodUtils.invokeMethod(testBean, "foo",
+                     NumberUtils.DOUBLE_ONE));
+             assertEquals("foo(String...)", MethodUtils.invokeMethod(testBean, "foo",
+                     "a", "b", "c"));
+             assertEquals("foo(String...)", MethodUtils.invokeMethod(testBean, "foo",
+                     "a", "b", "c"));
+             assertEquals("foo(int, String...)", MethodUtils.invokeMethod(testBean, "foo",
+                     5, "a", "b", "c"));
+    -
+    +        assertEquals("foo(long...)", MethodUtils.invokeMethod(testBean, "foo",
+    +                1L, 2L));
+    +        
+    +        try {
+    +            MethodUtils.invokeMethod(testBean, "foo",
+    +                    1, 2);
+    +            fail("should throw NoSuchMethodException");
+    +        } catch (final NoSuchMethodException e) {
+    --- End diff --
+    
+    Maybe it will be better to extract it to another test method with expected exception?
+    
+    ```
+    @Test(expected = NoSuchMethodException.class)
+    public void methodName(){
+    
+    }
+    ```
+, Github user PascalSchumacher commented on the issue:
+
+    https://github.com/apache/commons-lang/pull/256
+  
+    @drajakumar It's really great to get a pull request for this. :+1:  
+    
+    I took a look at this issue some time ago, but gave up trying to solve it. Sadly I'm too tired for a review at the moment. I will get back to you in a few days, if nobody has reviewed/merged the pull request already.
+, Github user PascalSchumacher commented on a diff in the pull request:
+
+    https://github.com/apache/commons-lang/pull/256#discussion_r106023700
+  
+    --- Diff: src/test/java/org/apache/commons/lang3/reflect/MethodUtilsTest.java ---
+    @@ -357,16 +369,23 @@ public void testInvokeMethod() throws Exception {
+             assertEquals("foo(int)", MethodUtils.invokeMethod(testBean, "foo",
+                     NumberUtils.BYTE_ONE));
+             assertEquals("foo(double)", MethodUtils.invokeMethod(testBean, "foo",
+    -                NumberUtils.LONG_ONE));
+    -        assertEquals("foo(double)", MethodUtils.invokeMethod(testBean, "foo",
+                     NumberUtils.DOUBLE_ONE));
+             assertEquals("foo(String...)", MethodUtils.invokeMethod(testBean, "foo",
+                     "a", "b", "c"));
+             assertEquals("foo(String...)", MethodUtils.invokeMethod(testBean, "foo",
+                     "a", "b", "c"));
+             assertEquals("foo(int, String...)", MethodUtils.invokeMethod(testBean, "foo",
+                     5, "a", "b", "c"));
+    -
+    +        assertEquals("foo(long...)", MethodUtils.invokeMethod(testBean, "foo",
+    +                1L, 2L));
+    +        
+    +        try {
+    +            MethodUtils.invokeMethod(testBean, "foo",
+    +                    1, 2);
+    +            fail("should throw NoSuchMethodException");
+    +        } catch (final NoSuchMethodException e) {
+    --- End diff --
+    
+    In general I agree, but commons lang has a lot similar tests, so it's o.k/more consistent with existing code. 
+, Github user Abrasha commented on a diff in the pull request:
+
+    https://github.com/apache/commons-lang/pull/256#discussion_r106028522
+  
+    --- Diff: src/test/java/org/apache/commons/lang3/reflect/MethodUtilsTest.java ---
+    @@ -357,16 +369,23 @@ public void testInvokeMethod() throws Exception {
+             assertEquals("foo(int)", MethodUtils.invokeMethod(testBean, "foo",
+                     NumberUtils.BYTE_ONE));
+             assertEquals("foo(double)", MethodUtils.invokeMethod(testBean, "foo",
+    -                NumberUtils.LONG_ONE));
+    -        assertEquals("foo(double)", MethodUtils.invokeMethod(testBean, "foo",
+                     NumberUtils.DOUBLE_ONE));
+             assertEquals("foo(String...)", MethodUtils.invokeMethod(testBean, "foo",
+                     "a", "b", "c"));
+             assertEquals("foo(String...)", MethodUtils.invokeMethod(testBean, "foo",
+                     "a", "b", "c"));
+             assertEquals("foo(int, String...)", MethodUtils.invokeMethod(testBean, "foo",
+                     5, "a", "b", "c"));
+    -
+    +        assertEquals("foo(long...)", MethodUtils.invokeMethod(testBean, "foo",
+    +                1L, 2L));
+    +        
+    +        try {
+    +            MethodUtils.invokeMethod(testBean, "foo",
+    +                    1, 2);
+    +            fail("should throw NoSuchMethodException");
+    +        } catch (final NoSuchMethodException e) {
+    --- End diff --
+    
+    @PascalSchumacher what do you think about refactoring existing tests? Or it is fine to community? I can take care about it
+, Github user Claudenw commented on a diff in the pull request:
+
+    https://github.com/apache/commons-lang/pull/256#discussion_r106778971
+  
+    --- Diff: src/test/java/org/apache/commons/lang3/reflect/MethodUtilsTest.java ---
+    @@ -357,16 +369,23 @@ public void testInvokeMethod() throws Exception {
+             assertEquals("foo(int)", MethodUtils.invokeMethod(testBean, "foo",
+                     NumberUtils.BYTE_ONE));
+             assertEquals("foo(double)", MethodUtils.invokeMethod(testBean, "foo",
+    -                NumberUtils.LONG_ONE));
+    -        assertEquals("foo(double)", MethodUtils.invokeMethod(testBean, "foo",
+                     NumberUtils.DOUBLE_ONE));
+             assertEquals("foo(String...)", MethodUtils.invokeMethod(testBean, "foo",
+                     "a", "b", "c"));
+             assertEquals("foo(String...)", MethodUtils.invokeMethod(testBean, "foo",
+                     "a", "b", "c"));
+             assertEquals("foo(int, String...)", MethodUtils.invokeMethod(testBean, "foo",
+                     5, "a", "b", "c"));
+    -
+    +        assertEquals("foo(long...)", MethodUtils.invokeMethod(testBean, "foo",
+    +                1L, 2L));
+    +        
+    +        try {
+    +            MethodUtils.invokeMethod(testBean, "foo",
+    +                    1, 2);
+    +            fail("should throw NoSuchMethodException");
+    +        } catch (final NoSuchMethodException e) {
+    --- End diff --
+    
+    I find that the expect exception works well only with very short tests.  In this case if any of the earlier method calls throws the NoSuchMethodException the test will not fail.  In my opinion the current construct is the better one.
+, Github user coveralls commented on the issue:
+
+    https://github.com/apache/commons-lang/pull/256
+  
+    
+    [![Coverage Status](https://coveralls.io/builds/10660236/badge)](https://coveralls.io/builds/10660236)
+    
+    Coverage increased (+0.04%) to 94.571% when pulling **2ef748c444b50ccce4819d876225cd134a903139 on drajakumar:master** into **39a2a6fa38c5e4d1293e00f98a89698a962d6775 on apache:master**.
+
+, Github user drajakumar commented on the issue:
+
+    https://github.com/apache/commons-lang/pull/256
+  
+    the comment on indentation from@jvz is fixed now.
+, Github user asfgit closed the pull request at:
+
+    https://github.com/apache/commons-lang/pull/256
+, Github user PascalSchumacher commented on the issue:
+
+    https://github.com/apache/commons-lang/pull/256
+  
+    Thanks! :+1: 
+, Thanks for reporting and thanks for the pull request!]

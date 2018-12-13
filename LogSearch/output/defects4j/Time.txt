@@ -1,0 +1,861 @@
+<start>
+Summary of configuration for Project: Time
+--------------------------------------------------------------------------------
+    Script dir: /Users/mac/Documents/GitHub/SOEN7481/defects4j/framework
+      Base dir: /Users/mac/Documents/GitHub/SOEN7481/defects4j
+    Major root: /Users/mac/Documents/GitHub/SOEN7481/defects4j/major
+      Repo dir: /Users/mac/Documents/GitHub/SOEN7481/defects4j/project_repos
+--------------------------------------------------------------------------------
+    Project ID: Time
+       Program: joda-time
+    Build file: /Users/mac/Documents/GitHub/SOEN7481/defects4j/framework/build-scripts/Time/Time.build.xml
+--------------------------------------------------------------------------------
+           Vcs: Vcs::Git
+    Repository: /Users/mac/Documents/GitHub/SOEN7481/defects4j/project_repos/joda-time.git
+     Commit db: /Users/mac/Documents/GitHub/SOEN7481/defects4j/framework/projects/Time/commit-db
+Number of bugs: 32
+--------------------------------------------------------------------------------
+
+Summary for Bug: 1
+--------------------------------------------------------------------------------
+Root cause in triggering tests:
+ - org.joda.time.TestPartial_Constructors::testConstructorEx7_TypeArray_intArray
+   --> junit.framework.AssertionFailedError
+--------------------------------------------------------------------------------
+List of modified sources:
+ - org.joda.time.Partial
+ - org.joda.time.field.UnsupportedDurationField
+--------------------------------------------------------------------------------
+<end>
+<start>
+Summary of configuration for Project: Time
+--------------------------------------------------------------------------------
+    Script dir: /Users/mac/Documents/GitHub/SOEN7481/defects4j/framework
+      Base dir: /Users/mac/Documents/GitHub/SOEN7481/defects4j
+    Major root: /Users/mac/Documents/GitHub/SOEN7481/defects4j/major
+      Repo dir: /Users/mac/Documents/GitHub/SOEN7481/defects4j/project_repos
+--------------------------------------------------------------------------------
+    Project ID: Time
+       Program: joda-time
+    Build file: /Users/mac/Documents/GitHub/SOEN7481/defects4j/framework/build-scripts/Time/Time.build.xml
+--------------------------------------------------------------------------------
+           Vcs: Vcs::Git
+    Repository: /Users/mac/Documents/GitHub/SOEN7481/defects4j/project_repos/joda-time.git
+     Commit db: /Users/mac/Documents/GitHub/SOEN7481/defects4j/framework/projects/Time/commit-db
+Number of bugs: 32
+--------------------------------------------------------------------------------
+
+Summary for Bug: 2
+--------------------------------------------------------------------------------
+Root cause in triggering tests:
+ - org.joda.time.TestPartial_Basics::testWith_baseAndArgHaveNoRange
+   --> java.lang.IllegalArgumentException: Types array must not contain duplicate: year
+--------------------------------------------------------------------------------
+List of modified sources:
+ - org.joda.time.Partial
+ - org.joda.time.field.UnsupportedDurationField
+--------------------------------------------------------------------------------
+<end>
+<start>
+Summary of configuration for Project: Time
+--------------------------------------------------------------------------------
+    Script dir: /Users/mac/Documents/GitHub/SOEN7481/defects4j/framework
+      Base dir: /Users/mac/Documents/GitHub/SOEN7481/defects4j
+    Major root: /Users/mac/Documents/GitHub/SOEN7481/defects4j/major
+      Repo dir: /Users/mac/Documents/GitHub/SOEN7481/defects4j/project_repos
+--------------------------------------------------------------------------------
+    Project ID: Time
+       Program: joda-time
+    Build file: /Users/mac/Documents/GitHub/SOEN7481/defects4j/framework/build-scripts/Time/Time.build.xml
+--------------------------------------------------------------------------------
+           Vcs: Vcs::Git
+    Repository: /Users/mac/Documents/GitHub/SOEN7481/defects4j/project_repos/joda-time.git
+     Commit db: /Users/mac/Documents/GitHub/SOEN7481/defects4j/framework/projects/Time/commit-db
+Number of bugs: 32
+--------------------------------------------------------------------------------
+
+Summary for Bug: 3
+--------------------------------------------------------------------------------
+Root cause in triggering tests:
+ - org.joda.time.TestMutableDateTime_Adds::testAddYears_int_dstOverlapWinter_addZero
+   --> junit.framework.ComparisonFailure: expected:<...10-30T02:30:00.000+0[1]:00> but was:<...10-30T02:30:00.000+0[2]:00>
+ - org.joda.time.TestMutableDateTime_Adds::testAddDays_int_dstOverlapWinter_addZero
+   --> junit.framework.ComparisonFailure: expected:<...10-30T02:30:00.000+0[1]:00> but was:<...10-30T02:30:00.000+0[2]:00>
+ - org.joda.time.TestMutableDateTime_Adds::testAddWeeks_int_dstOverlapWinter_addZero
+   --> junit.framework.ComparisonFailure: expected:<...10-30T02:30:00.000+0[1]:00> but was:<...10-30T02:30:00.000+0[2]:00>
+ - org.joda.time.TestMutableDateTime_Adds::testAdd_DurationFieldType_int_dstOverlapWinter_addZero
+   --> junit.framework.ComparisonFailure: expected:<...10-30T02:30:00.000+0[1]:00> but was:<...10-30T02:30:00.000+0[2]:00>
+ - org.joda.time.TestMutableDateTime_Adds::testAddMonths_int_dstOverlapWinter_addZero
+   --> junit.framework.ComparisonFailure: expected:<...10-30T02:30:00.000+0[1]:00> but was:<...10-30T02:30:00.000+0[2]:00>
+--------------------------------------------------------------------------------
+List of modified sources:
+ - org.joda.time.MutableDateTime
+--------------------------------------------------------------------------------
+<end>
+<start>
+Summary of configuration for Project: Time
+--------------------------------------------------------------------------------
+    Script dir: /Users/mac/Documents/GitHub/SOEN7481/defects4j/framework
+      Base dir: /Users/mac/Documents/GitHub/SOEN7481/defects4j
+    Major root: /Users/mac/Documents/GitHub/SOEN7481/defects4j/major
+      Repo dir: /Users/mac/Documents/GitHub/SOEN7481/defects4j/project_repos
+--------------------------------------------------------------------------------
+    Project ID: Time
+       Program: joda-time
+    Build file: /Users/mac/Documents/GitHub/SOEN7481/defects4j/framework/build-scripts/Time/Time.build.xml
+--------------------------------------------------------------------------------
+           Vcs: Vcs::Git
+    Repository: /Users/mac/Documents/GitHub/SOEN7481/defects4j/project_repos/joda-time.git
+     Commit db: /Users/mac/Documents/GitHub/SOEN7481/defects4j/framework/projects/Time/commit-db
+Number of bugs: 32
+--------------------------------------------------------------------------------
+
+Summary for Bug: 4
+--------------------------------------------------------------------------------
+Root cause in triggering tests:
+ - org.joda.time.TestPartial_Basics::testWith3
+   --> junit.framework.AssertionFailedError
+--------------------------------------------------------------------------------
+List of modified sources:
+ - org.joda.time.Partial
+--------------------------------------------------------------------------------
+<end>
+<start>
+Summary of configuration for Project: Time
+--------------------------------------------------------------------------------
+    Script dir: /Users/mac/Documents/GitHub/SOEN7481/defects4j/framework
+      Base dir: /Users/mac/Documents/GitHub/SOEN7481/defects4j
+    Major root: /Users/mac/Documents/GitHub/SOEN7481/defects4j/major
+      Repo dir: /Users/mac/Documents/GitHub/SOEN7481/defects4j/project_repos
+--------------------------------------------------------------------------------
+    Project ID: Time
+       Program: joda-time
+    Build file: /Users/mac/Documents/GitHub/SOEN7481/defects4j/framework/build-scripts/Time/Time.build.xml
+--------------------------------------------------------------------------------
+           Vcs: Vcs::Git
+    Repository: /Users/mac/Documents/GitHub/SOEN7481/defects4j/project_repos/joda-time.git
+     Commit db: /Users/mac/Documents/GitHub/SOEN7481/defects4j/framework/projects/Time/commit-db
+Number of bugs: 32
+--------------------------------------------------------------------------------
+
+Summary for Bug: 5
+--------------------------------------------------------------------------------
+Root cause in triggering tests:
+ - org.joda.time.TestPeriod_Basics::testNormalizedStandard_periodType_months1
+   --> java.lang.UnsupportedOperationException: Field is not supported
+ - org.joda.time.TestPeriod_Basics::testNormalizedStandard_periodType_months2
+   --> java.lang.UnsupportedOperationException: Field is not supported
+ - org.joda.time.TestPeriod_Basics::testNormalizedStandard_periodType_monthsWeeks
+   --> java.lang.UnsupportedOperationException: Field is not supported
+--------------------------------------------------------------------------------
+List of modified sources:
+ - org.joda.time.Period
+--------------------------------------------------------------------------------
+<end>
+<start>
+Summary of configuration for Project: Time
+--------------------------------------------------------------------------------
+    Script dir: /Users/mac/Documents/GitHub/SOEN7481/defects4j/framework
+      Base dir: /Users/mac/Documents/GitHub/SOEN7481/defects4j
+    Major root: /Users/mac/Documents/GitHub/SOEN7481/defects4j/major
+      Repo dir: /Users/mac/Documents/GitHub/SOEN7481/defects4j/project_repos
+--------------------------------------------------------------------------------
+    Project ID: Time
+       Program: joda-time
+    Build file: /Users/mac/Documents/GitHub/SOEN7481/defects4j/framework/build-scripts/Time/Time.build.xml
+--------------------------------------------------------------------------------
+           Vcs: Vcs::Git
+    Repository: /Users/mac/Documents/GitHub/SOEN7481/defects4j/project_repos/joda-time.git
+     Commit db: /Users/mac/Documents/GitHub/SOEN7481/defects4j/framework/projects/Time/commit-db
+Number of bugs: 32
+--------------------------------------------------------------------------------
+
+Summary for Bug: 6
+--------------------------------------------------------------------------------
+Root cause in triggering tests:
+ - org.joda.time.chrono.TestGJDate::test_cutoverPreZero
+   --> junit.framework.AssertionFailedError
+ - org.joda.time.chrono.TestGJDate::test_plusWeekyears_positiveToNegative_crossCutover
+   --> junit.framework.AssertionFailedError: expected:<-0002-06-30> but was:<-0001-06-28>
+ - org.joda.time.chrono.TestGJDate::test_plusYears_positiveToZero_crossCutover
+   --> org.joda.time.IllegalFieldValueException: Value 0 for year is not supported
+ - org.joda.time.chrono.TestGJDate::test_plusYears_positiveToNegative_crossCutover
+   --> junit.framework.AssertionFailedError: expected:<-0002-06-30> but was:<-0001-06-30>
+ - org.joda.time.chrono.TestGJDate::test_plusWeekyears_positiveToZero_crossCutover
+   --> org.joda.time.IllegalFieldValueException: Value 0 for year is not supported
+--------------------------------------------------------------------------------
+List of modified sources:
+ - org.joda.time.chrono.GJChronology
+--------------------------------------------------------------------------------
+<end>
+<start>
+Summary of configuration for Project: Time
+--------------------------------------------------------------------------------
+    Script dir: /Users/mac/Documents/GitHub/SOEN7481/defects4j/framework
+      Base dir: /Users/mac/Documents/GitHub/SOEN7481/defects4j
+    Major root: /Users/mac/Documents/GitHub/SOEN7481/defects4j/major
+      Repo dir: /Users/mac/Documents/GitHub/SOEN7481/defects4j/project_repos
+--------------------------------------------------------------------------------
+    Project ID: Time
+       Program: joda-time
+    Build file: /Users/mac/Documents/GitHub/SOEN7481/defects4j/framework/build-scripts/Time/Time.build.xml
+--------------------------------------------------------------------------------
+           Vcs: Vcs::Git
+    Repository: /Users/mac/Documents/GitHub/SOEN7481/defects4j/project_repos/joda-time.git
+     Commit db: /Users/mac/Documents/GitHub/SOEN7481/defects4j/framework/projects/Time/commit-db
+Number of bugs: 32
+--------------------------------------------------------------------------------
+
+Summary for Bug: 7
+--------------------------------------------------------------------------------
+Root cause in triggering tests:
+ - org.joda.time.format.TestDateTimeFormatter::testParseInto_monthDay_feb29_newYork_startOfYear
+   --> org.joda.time.IllegalFieldValueException: Cannot parse "2 29": Value 29 for dayOfMonth must be in the range [1,28]
+ - org.joda.time.format.TestDateTimeFormatter::testParseInto_monthDay_feb29_tokyo_endOfYear
+   --> org.joda.time.IllegalFieldValueException: Cannot parse "2 29": Value 29 for dayOfMonth must be in the range [1,28]
+--------------------------------------------------------------------------------
+List of modified sources:
+ - org.joda.time.format.DateTimeFormatter
+--------------------------------------------------------------------------------
+<end>
+<start>
+Summary of configuration for Project: Time
+--------------------------------------------------------------------------------
+    Script dir: /Users/mac/Documents/GitHub/SOEN7481/defects4j/framework
+      Base dir: /Users/mac/Documents/GitHub/SOEN7481/defects4j
+    Major root: /Users/mac/Documents/GitHub/SOEN7481/defects4j/major
+      Repo dir: /Users/mac/Documents/GitHub/SOEN7481/defects4j/project_repos
+--------------------------------------------------------------------------------
+    Project ID: Time
+       Program: joda-time
+    Build file: /Users/mac/Documents/GitHub/SOEN7481/defects4j/framework/build-scripts/Time/Time.build.xml
+--------------------------------------------------------------------------------
+           Vcs: Vcs::Git
+    Repository: /Users/mac/Documents/GitHub/SOEN7481/defects4j/project_repos/joda-time.git
+     Commit db: /Users/mac/Documents/GitHub/SOEN7481/defects4j/framework/projects/Time/commit-db
+Number of bugs: 32
+--------------------------------------------------------------------------------
+
+Summary for Bug: 8
+--------------------------------------------------------------------------------
+Root cause in triggering tests:
+ - org.joda.time.TestDateTimeZone::testForOffsetHoursMinutes_int_int
+   --> java.lang.IllegalArgumentException: Minutes out of range: -15
+--------------------------------------------------------------------------------
+List of modified sources:
+ - org.joda.time.DateTimeZone
+--------------------------------------------------------------------------------
+<end>
+<start>
+Summary of configuration for Project: Time
+--------------------------------------------------------------------------------
+    Script dir: /Users/mac/Documents/GitHub/SOEN7481/defects4j/framework
+      Base dir: /Users/mac/Documents/GitHub/SOEN7481/defects4j
+    Major root: /Users/mac/Documents/GitHub/SOEN7481/defects4j/major
+      Repo dir: /Users/mac/Documents/GitHub/SOEN7481/defects4j/project_repos
+--------------------------------------------------------------------------------
+    Project ID: Time
+       Program: joda-time
+    Build file: /Users/mac/Documents/GitHub/SOEN7481/defects4j/framework/build-scripts/Time/Time.build.xml
+--------------------------------------------------------------------------------
+           Vcs: Vcs::Git
+    Repository: /Users/mac/Documents/GitHub/SOEN7481/defects4j/project_repos/joda-time.git
+     Commit db: /Users/mac/Documents/GitHub/SOEN7481/defects4j/framework/projects/Time/commit-db
+Number of bugs: 32
+--------------------------------------------------------------------------------
+
+Summary for Bug: 9
+--------------------------------------------------------------------------------
+Root cause in triggering tests:
+ - org.joda.time.TestDateTimeZone::testForOffsetHoursMinutes_int_int
+   --> junit.framework.AssertionFailedError
+--------------------------------------------------------------------------------
+List of modified sources:
+ - org.joda.time.DateTimeZone
+--------------------------------------------------------------------------------
+<end>
+<start>
+Summary of configuration for Project: Time
+--------------------------------------------------------------------------------
+    Script dir: /Users/mac/Documents/GitHub/SOEN7481/defects4j/framework
+      Base dir: /Users/mac/Documents/GitHub/SOEN7481/defects4j
+    Major root: /Users/mac/Documents/GitHub/SOEN7481/defects4j/major
+      Repo dir: /Users/mac/Documents/GitHub/SOEN7481/defects4j/project_repos
+--------------------------------------------------------------------------------
+    Project ID: Time
+       Program: joda-time
+    Build file: /Users/mac/Documents/GitHub/SOEN7481/defects4j/framework/build-scripts/Time/Time.build.xml
+--------------------------------------------------------------------------------
+           Vcs: Vcs::Git
+    Repository: /Users/mac/Documents/GitHub/SOEN7481/defects4j/project_repos/joda-time.git
+     Commit db: /Users/mac/Documents/GitHub/SOEN7481/defects4j/framework/projects/Time/commit-db
+Number of bugs: 32
+--------------------------------------------------------------------------------
+
+Summary for Bug: 10
+--------------------------------------------------------------------------------
+Root cause in triggering tests:
+ - org.joda.time.TestMonths::testFactory_monthsBetween_RPartial_MonthDay
+   --> org.joda.time.IllegalFieldValueException: Value 29 for dayOfMonth must be in the range [1,28]
+ - org.joda.time.TestDays::testFactory_daysBetween_RPartial_MonthDay
+   --> org.joda.time.IllegalFieldValueException: Value 29 for dayOfMonth must be in the range [1,28]
+--------------------------------------------------------------------------------
+List of modified sources:
+ - org.joda.time.base.BaseSingleFieldPeriod
+--------------------------------------------------------------------------------
+<end>
+<start>
+Summary of configuration for Project: Time
+--------------------------------------------------------------------------------
+    Script dir: /Users/mac/Documents/GitHub/SOEN7481/defects4j/framework
+      Base dir: /Users/mac/Documents/GitHub/SOEN7481/defects4j
+    Major root: /Users/mac/Documents/GitHub/SOEN7481/defects4j/major
+      Repo dir: /Users/mac/Documents/GitHub/SOEN7481/defects4j/project_repos
+--------------------------------------------------------------------------------
+    Project ID: Time
+       Program: joda-time
+    Build file: /Users/mac/Documents/GitHub/SOEN7481/defects4j/framework/build-scripts/Time/Time.build.xml
+--------------------------------------------------------------------------------
+           Vcs: Vcs::Git
+    Repository: /Users/mac/Documents/GitHub/SOEN7481/defects4j/project_repos/joda-time.git
+     Commit db: /Users/mac/Documents/GitHub/SOEN7481/defects4j/framework/projects/Time/commit-db
+Number of bugs: 32
+--------------------------------------------------------------------------------
+
+Summary for Bug: 11
+--------------------------------------------------------------------------------
+Root cause in triggering tests:
+ - org.joda.time.tz.TestCompiler::testDateTimeZoneBuilder
+   --> junit.framework.AssertionFailedError
+--------------------------------------------------------------------------------
+List of modified sources:
+ - org.joda.time.tz.ZoneInfoCompiler
+--------------------------------------------------------------------------------
+<end>
+<start>
+Summary of configuration for Project: Time
+--------------------------------------------------------------------------------
+    Script dir: /Users/mac/Documents/GitHub/SOEN7481/defects4j/framework
+      Base dir: /Users/mac/Documents/GitHub/SOEN7481/defects4j
+    Major root: /Users/mac/Documents/GitHub/SOEN7481/defects4j/major
+      Repo dir: /Users/mac/Documents/GitHub/SOEN7481/defects4j/project_repos
+--------------------------------------------------------------------------------
+    Project ID: Time
+       Program: joda-time
+    Build file: /Users/mac/Documents/GitHub/SOEN7481/defects4j/framework/build-scripts/Time/Time.build.xml
+--------------------------------------------------------------------------------
+           Vcs: Vcs::Git
+    Repository: /Users/mac/Documents/GitHub/SOEN7481/defects4j/project_repos/joda-time.git
+     Commit db: /Users/mac/Documents/GitHub/SOEN7481/defects4j/framework/projects/Time/commit-db
+Number of bugs: 32
+--------------------------------------------------------------------------------
+
+Summary for Bug: 12
+--------------------------------------------------------------------------------
+Root cause in triggering tests:
+ - org.joda.time.TestLocalDateTime_Constructors::testFactory_fromDateFields_beforeYearZero1
+   --> junit.framework.AssertionFailedError: expected:<0000-02-03T04:05:06.007> but was:<0001-02-03T04:05:06.007>
+ - org.joda.time.TestLocalDateTime_Constructors::testFactory_fromDateFields_beforeYearZero3
+   --> junit.framework.AssertionFailedError: expected:<-0002-02-03T04:05:06.007> but was:<0003-02-03T04:05:06.007>
+ - org.joda.time.TestLocalDateTime_Constructors::testFactory_fromCalendarFields_beforeYearZero1
+   --> junit.framework.AssertionFailedError: expected:<0000-02-03T04:05:06.007> but was:<0001-02-03T04:05:06.007>
+ - org.joda.time.TestLocalDateTime_Constructors::testFactory_fromCalendarFields_beforeYearZero3
+   --> junit.framework.AssertionFailedError: expected:<-0002-02-03T04:05:06.007> but was:<0003-02-03T04:05:06.007>
+ - org.joda.time.TestLocalDate_Constructors::testFactory_fromDateFields_beforeYearZero1
+   --> junit.framework.AssertionFailedError: expected:<0000-02-03> but was:<0001-02-03>
+ - org.joda.time.TestLocalDate_Constructors::testFactory_fromDateFields_beforeYearZero3
+   --> junit.framework.AssertionFailedError: expected:<-0002-02-03> but was:<0003-02-03>
+ - org.joda.time.TestLocalDate_Constructors::testFactory_fromCalendarFields_beforeYearZero1
+   --> junit.framework.AssertionFailedError: expected:<0000-02-03> but was:<0001-02-03>
+ - org.joda.time.TestLocalDate_Constructors::testFactory_fromCalendarFields_beforeYearZero3
+   --> junit.framework.AssertionFailedError: expected:<-0002-02-03> but was:<0003-02-03>
+--------------------------------------------------------------------------------
+List of modified sources:
+ - org.joda.time.LocalDate
+ - org.joda.time.LocalDateTime
+--------------------------------------------------------------------------------
+<end>
+<start>
+Summary of configuration for Project: Time
+--------------------------------------------------------------------------------
+    Script dir: /Users/mac/Documents/GitHub/SOEN7481/defects4j/framework
+      Base dir: /Users/mac/Documents/GitHub/SOEN7481/defects4j
+    Major root: /Users/mac/Documents/GitHub/SOEN7481/defects4j/major
+      Repo dir: /Users/mac/Documents/GitHub/SOEN7481/defects4j/project_repos
+--------------------------------------------------------------------------------
+    Project ID: Time
+       Program: joda-time
+    Build file: /Users/mac/Documents/GitHub/SOEN7481/defects4j/framework/build-scripts/Time/Time.build.xml
+--------------------------------------------------------------------------------
+           Vcs: Vcs::Git
+    Repository: /Users/mac/Documents/GitHub/SOEN7481/defects4j/project_repos/joda-time.git
+     Commit db: /Users/mac/Documents/GitHub/SOEN7481/defects4j/framework/projects/Time/commit-db
+Number of bugs: 32
+--------------------------------------------------------------------------------
+
+Summary for Bug: 13
+--------------------------------------------------------------------------------
+Root cause in triggering tests:
+ - org.joda.time.format.TestISOPeriodFormat::testFormatStandard_negative
+   --> junit.framework.ComparisonFailure: expected:<PT[-]0.008S> but was:<PT[]0.008S>
+--------------------------------------------------------------------------------
+List of modified sources:
+ - org.joda.time.format.PeriodFormatterBuilder
+--------------------------------------------------------------------------------
+<end>
+<start>
+Summary of configuration for Project: Time
+--------------------------------------------------------------------------------
+    Script dir: /Users/mac/Documents/GitHub/SOEN7481/defects4j/framework
+      Base dir: /Users/mac/Documents/GitHub/SOEN7481/defects4j
+    Major root: /Users/mac/Documents/GitHub/SOEN7481/defects4j/major
+      Repo dir: /Users/mac/Documents/GitHub/SOEN7481/defects4j/project_repos
+--------------------------------------------------------------------------------
+    Project ID: Time
+       Program: joda-time
+    Build file: /Users/mac/Documents/GitHub/SOEN7481/defects4j/framework/build-scripts/Time/Time.build.xml
+--------------------------------------------------------------------------------
+           Vcs: Vcs::Git
+    Repository: /Users/mac/Documents/GitHub/SOEN7481/defects4j/project_repos/joda-time.git
+     Commit db: /Users/mac/Documents/GitHub/SOEN7481/defects4j/framework/projects/Time/commit-db
+Number of bugs: 32
+--------------------------------------------------------------------------------
+
+Summary for Bug: 14
+--------------------------------------------------------------------------------
+Root cause in triggering tests:
+ - org.joda.time.TestMonthDay_Basics::testPlusMonths_int_negativeFromLeap
+   --> org.joda.time.IllegalFieldValueException: Value 29 for dayOfMonth must be in the range [1,28]
+ - org.joda.time.TestMonthDay_Basics::testMinusDays_int_negativeFromLeap
+   --> org.joda.time.IllegalFieldValueException: Value 29 for dayOfMonth must be in the range [1,28]
+ - org.joda.time.TestMonthDay_Basics::testPlusMonths_int_fromLeap
+   --> org.joda.time.IllegalFieldValueException: Value 29 for dayOfMonth must be in the range [1,28]
+ - org.joda.time.TestMonthDay_Basics::testPlusMonths_int_negativeEndOfMonthAdjust
+   --> junit.framework.AssertionFailedError: expected:<--02-29> but was:<--02-28>
+ - org.joda.time.TestMonthDay_Basics::testMinusMonths_int_endOfMonthAdjust
+   --> junit.framework.AssertionFailedError: expected:<--02-29> but was:<--02-28>
+ - org.joda.time.TestMonthDay_Basics::testMinusMonths_int_negativeFromLeap
+   --> org.joda.time.IllegalFieldValueException: Value 29 for dayOfMonth must be in the range [1,28]
+ - org.joda.time.TestMonthDay_Basics::testMinusMonths_int_fromLeap
+   --> org.joda.time.IllegalFieldValueException: Value 29 for dayOfMonth must be in the range [1,28]
+ - org.joda.time.TestMonthDay_Basics::testPlusDays_int_fromLeap
+   --> org.joda.time.IllegalFieldValueException: Value 29 for dayOfMonth must be in the range [1,28]
+--------------------------------------------------------------------------------
+List of modified sources:
+ - org.joda.time.chrono.BasicMonthOfYearDateTimeField
+--------------------------------------------------------------------------------
+<end>
+<start>
+Summary of configuration for Project: Time
+--------------------------------------------------------------------------------
+    Script dir: /Users/mac/Documents/GitHub/SOEN7481/defects4j/framework
+      Base dir: /Users/mac/Documents/GitHub/SOEN7481/defects4j
+    Major root: /Users/mac/Documents/GitHub/SOEN7481/defects4j/major
+      Repo dir: /Users/mac/Documents/GitHub/SOEN7481/defects4j/project_repos
+--------------------------------------------------------------------------------
+    Project ID: Time
+       Program: joda-time
+    Build file: /Users/mac/Documents/GitHub/SOEN7481/defects4j/framework/build-scripts/Time/Time.build.xml
+--------------------------------------------------------------------------------
+           Vcs: Vcs::Git
+    Repository: /Users/mac/Documents/GitHub/SOEN7481/defects4j/project_repos/joda-time.git
+     Commit db: /Users/mac/Documents/GitHub/SOEN7481/defects4j/framework/projects/Time/commit-db
+Number of bugs: 32
+--------------------------------------------------------------------------------
+
+Summary for Bug: 15
+--------------------------------------------------------------------------------
+Root cause in triggering tests:
+ - org.joda.time.field.TestFieldUtils::testSafeMultiplyLongInt
+   --> junit.framework.AssertionFailedError
+--------------------------------------------------------------------------------
+List of modified sources:
+ - org.joda.time.field.FieldUtils
+--------------------------------------------------------------------------------
+<end>
+<start>
+Summary of configuration for Project: Time
+--------------------------------------------------------------------------------
+    Script dir: /Users/mac/Documents/GitHub/SOEN7481/defects4j/framework
+      Base dir: /Users/mac/Documents/GitHub/SOEN7481/defects4j
+    Major root: /Users/mac/Documents/GitHub/SOEN7481/defects4j/major
+      Repo dir: /Users/mac/Documents/GitHub/SOEN7481/defects4j/project_repos
+--------------------------------------------------------------------------------
+    Project ID: Time
+       Program: joda-time
+    Build file: /Users/mac/Documents/GitHub/SOEN7481/defects4j/framework/build-scripts/Time/Time.build.xml
+--------------------------------------------------------------------------------
+           Vcs: Vcs::Git
+    Repository: /Users/mac/Documents/GitHub/SOEN7481/defects4j/project_repos/joda-time.git
+     Commit db: /Users/mac/Documents/GitHub/SOEN7481/defects4j/framework/projects/Time/commit-db
+Number of bugs: 32
+--------------------------------------------------------------------------------
+
+Summary for Bug: 16
+--------------------------------------------------------------------------------
+Root cause in triggering tests:
+ - org.joda.time.format.TestDateTimeFormatter::testParseInto_monthOnly_baseStartYear
+   --> junit.framework.AssertionFailedError: expected:<2004-05-01T12:20:30.000+09:00> but was:<2000-05-01T12:20:30.000+09:00>
+ - org.joda.time.format.TestDateTimeFormatter::testParseInto_monthOnly_parseStartYear
+   --> junit.framework.AssertionFailedError: expected:<2004-01-01T12:20:30.000+09:00> but was:<2000-01-01T12:20:30.000+09:00>
+ - org.joda.time.format.TestDateTimeFormatter::testParseInto_monthOnly_baseEndYear
+   --> junit.framework.AssertionFailedError: expected:<2004-05-31T12:20:30.000+09:00> but was:<2000-05-31T12:20:30.000+09:00>
+ - org.joda.time.format.TestDateTimeFormatter::testParseInto_monthOnly
+   --> junit.framework.AssertionFailedError: expected:<2004-05-09T12:20:30.000+01:00> but was:<2000-05-09T12:20:30.000+01:00>
+ - org.joda.time.format.TestDateTimeFormatter::testParseInto_monthDay_withDefaultYear_feb29
+   --> junit.framework.AssertionFailedError: expected:<2004-02-29T12:20:30.000Z> but was:<2012-02-29T12:20:30.000Z>
+ - org.joda.time.format.TestDateTimeFormatter::testParseInto_monthDay_feb29
+   --> junit.framework.AssertionFailedError: expected:<2004-02-29T12:20:30.000Z> but was:<2000-02-29T12:20:30.000Z>
+ - org.joda.time.format.TestDateTimeFormatter::testParseInto_monthOnly_parseEndYear
+   --> junit.framework.AssertionFailedError: expected:<2004-12-31T12:20:30.000+09:00> but was:<2000-12-31T12:20:30.000+09:00>
+--------------------------------------------------------------------------------
+List of modified sources:
+ - org.joda.time.format.DateTimeFormatter
+--------------------------------------------------------------------------------
+<end>
+<start>
+Summary of configuration for Project: Time
+--------------------------------------------------------------------------------
+    Script dir: /Users/mac/Documents/GitHub/SOEN7481/defects4j/framework
+      Base dir: /Users/mac/Documents/GitHub/SOEN7481/defects4j
+    Major root: /Users/mac/Documents/GitHub/SOEN7481/defects4j/major
+      Repo dir: /Users/mac/Documents/GitHub/SOEN7481/defects4j/project_repos
+--------------------------------------------------------------------------------
+    Project ID: Time
+       Program: joda-time
+    Build file: /Users/mac/Documents/GitHub/SOEN7481/defects4j/framework/build-scripts/Time/Time.build.xml
+--------------------------------------------------------------------------------
+           Vcs: Vcs::Git
+    Repository: /Users/mac/Documents/GitHub/SOEN7481/defects4j/project_repos/joda-time.git
+     Commit db: /Users/mac/Documents/GitHub/SOEN7481/defects4j/framework/projects/Time/commit-db
+Number of bugs: 32
+--------------------------------------------------------------------------------
+
+Summary for Bug: 17
+--------------------------------------------------------------------------------
+Root cause in triggering tests:
+ - org.joda.time.TestDateTimeZoneCutover::testBug3476684_adjustOffset
+   --> junit.framework.AssertionFailedError: expected:<2012-02-25T23:15:00.000-03:00> but was:<2012-02-25T23:15:00.000-02:00>
+--------------------------------------------------------------------------------
+List of modified sources:
+ - org.joda.time.DateTimeZone
+--------------------------------------------------------------------------------
+<end>
+<start>
+Summary of configuration for Project: Time
+--------------------------------------------------------------------------------
+    Script dir: /Users/mac/Documents/GitHub/SOEN7481/defects4j/framework
+      Base dir: /Users/mac/Documents/GitHub/SOEN7481/defects4j
+    Major root: /Users/mac/Documents/GitHub/SOEN7481/defects4j/major
+      Repo dir: /Users/mac/Documents/GitHub/SOEN7481/defects4j/project_repos
+--------------------------------------------------------------------------------
+    Project ID: Time
+       Program: joda-time
+    Build file: /Users/mac/Documents/GitHub/SOEN7481/defects4j/framework/build-scripts/Time/Time.build.xml
+--------------------------------------------------------------------------------
+           Vcs: Vcs::Git
+    Repository: /Users/mac/Documents/GitHub/SOEN7481/defects4j/project_repos/joda-time.git
+     Commit db: /Users/mac/Documents/GitHub/SOEN7481/defects4j/framework/projects/Time/commit-db
+Number of bugs: 32
+--------------------------------------------------------------------------------
+
+Summary for Bug: 18
+--------------------------------------------------------------------------------
+Root cause in triggering tests:
+ - org.joda.time.chrono.TestGJChronology::testLeapYearRulesConstruction
+   --> org.joda.time.IllegalFieldValueException: Value 29 for dayOfMonth must be in the range [1,28]
+--------------------------------------------------------------------------------
+List of modified sources:
+ - org.joda.time.chrono.GJChronology
+--------------------------------------------------------------------------------
+<end>
+<start>
+Summary of configuration for Project: Time
+--------------------------------------------------------------------------------
+    Script dir: /Users/mac/Documents/GitHub/SOEN7481/defects4j/framework
+      Base dir: /Users/mac/Documents/GitHub/SOEN7481/defects4j
+    Major root: /Users/mac/Documents/GitHub/SOEN7481/defects4j/major
+      Repo dir: /Users/mac/Documents/GitHub/SOEN7481/defects4j/project_repos
+--------------------------------------------------------------------------------
+    Project ID: Time
+       Program: joda-time
+    Build file: /Users/mac/Documents/GitHub/SOEN7481/defects4j/framework/build-scripts/Time/Time.build.xml
+--------------------------------------------------------------------------------
+           Vcs: Vcs::Git
+    Repository: /Users/mac/Documents/GitHub/SOEN7481/defects4j/project_repos/joda-time.git
+     Commit db: /Users/mac/Documents/GitHub/SOEN7481/defects4j/framework/projects/Time/commit-db
+Number of bugs: 32
+--------------------------------------------------------------------------------
+
+Summary for Bug: 19
+--------------------------------------------------------------------------------
+Root cause in triggering tests:
+ - org.joda.time.TestDateTimeZoneCutover::testDateTimeCreation_london
+   --> junit.framework.ComparisonFailure: expected:<...1-10-30T01:15:00.000[+01:00]> but was:<...1-10-30T01:15:00.000[Z]>
+--------------------------------------------------------------------------------
+List of modified sources:
+ - org.joda.time.DateTimeZone
+--------------------------------------------------------------------------------
+<end>
+<start>
+Summary of configuration for Project: Time
+--------------------------------------------------------------------------------
+    Script dir: /Users/mac/Documents/GitHub/SOEN7481/defects4j/framework
+      Base dir: /Users/mac/Documents/GitHub/SOEN7481/defects4j
+    Major root: /Users/mac/Documents/GitHub/SOEN7481/defects4j/major
+      Repo dir: /Users/mac/Documents/GitHub/SOEN7481/defects4j/project_repos
+--------------------------------------------------------------------------------
+    Project ID: Time
+       Program: joda-time
+    Build file: /Users/mac/Documents/GitHub/SOEN7481/defects4j/framework/build-scripts/Time/Time.build.xml
+--------------------------------------------------------------------------------
+           Vcs: Vcs::Git
+    Repository: /Users/mac/Documents/GitHub/SOEN7481/defects4j/project_repos/joda-time.git
+     Commit db: /Users/mac/Documents/GitHub/SOEN7481/defects4j/framework/projects/Time/commit-db
+Number of bugs: 32
+--------------------------------------------------------------------------------
+
+Summary for Bug: 20
+--------------------------------------------------------------------------------
+Root cause in triggering tests:
+ - org.joda.time.format.TestDateTimeFormatterBuilder::test_printParseZoneDawsonCreek
+   --> java.lang.IllegalArgumentException: Invalid format: "2007-03-04 12:30 America/Dawson_Creek" is malformed at "_Creek"
+--------------------------------------------------------------------------------
+List of modified sources:
+ - org.joda.time.format.DateTimeFormatterBuilder
+--------------------------------------------------------------------------------
+<end>
+<start>
+Summary of configuration for Project: Time
+--------------------------------------------------------------------------------
+    Script dir: /Users/mac/Documents/GitHub/SOEN7481/defects4j/framework
+      Base dir: /Users/mac/Documents/GitHub/SOEN7481/defects4j
+    Major root: /Users/mac/Documents/GitHub/SOEN7481/defects4j/major
+      Repo dir: /Users/mac/Documents/GitHub/SOEN7481/defects4j/project_repos
+--------------------------------------------------------------------------------
+    Project ID: Time
+       Program: joda-time
+    Build file: /Users/mac/Documents/GitHub/SOEN7481/defects4j/framework/build-scripts/Time/Time.build.xml
+--------------------------------------------------------------------------------
+           Vcs: Vcs::Git
+    Repository: /Users/mac/Documents/GitHub/SOEN7481/defects4j/project_repos/joda-time.git
+     Commit db: /Users/mac/Documents/GitHub/SOEN7481/defects4j/framework/projects/Time/commit-db
+Number of bugs: 32
+--------------------------------------------------------------------------------
+
+Summary for Bug: 21
+--------------------------------------------------------------------------------
+Root cause in triggering tests:
+ - org.joda.time.TestDateTimeZone::testGetName_berlin
+   --> junit.framework.ComparisonFailure: expected:<[Mitteleuropäische Zeit]> but was:<[+01:00]>
+ - org.joda.time.TestDateTimeZone::testGetShortName_berlin
+   --> junit.framework.ComparisonFailure: expected:<[MEZ]> but was:<[+01:00]>
+--------------------------------------------------------------------------------
+List of modified sources:
+ - org.joda.time.tz.DefaultNameProvider
+--------------------------------------------------------------------------------
+<end>
+<start>
+Summary of configuration for Project: Time
+--------------------------------------------------------------------------------
+    Script dir: /Users/mac/Documents/GitHub/SOEN7481/defects4j/framework
+      Base dir: /Users/mac/Documents/GitHub/SOEN7481/defects4j
+    Major root: /Users/mac/Documents/GitHub/SOEN7481/defects4j/major
+      Repo dir: /Users/mac/Documents/GitHub/SOEN7481/defects4j/project_repos
+--------------------------------------------------------------------------------
+    Project ID: Time
+       Program: joda-time
+    Build file: /Users/mac/Documents/GitHub/SOEN7481/defects4j/framework/build-scripts/Time/Time.build.xml
+--------------------------------------------------------------------------------
+           Vcs: Vcs::Git
+    Repository: /Users/mac/Documents/GitHub/SOEN7481/defects4j/project_repos/joda-time.git
+     Commit db: /Users/mac/Documents/GitHub/SOEN7481/defects4j/framework/projects/Time/commit-db
+Number of bugs: 32
+--------------------------------------------------------------------------------
+
+Summary for Bug: 22
+--------------------------------------------------------------------------------
+Root cause in triggering tests:
+ - org.joda.time.TestDuration_Basics::testToPeriod_fixedZone
+   --> junit.framework.AssertionFailedError: expected:<0> but was:<64>
+ - org.joda.time.TestPeriod_Constructors::testConstructor_long_fixedZone
+   --> junit.framework.AssertionFailedError: expected:<0> but was:<64>
+--------------------------------------------------------------------------------
+List of modified sources:
+ - org.joda.time.base.BasePeriod
+ - org.joda.time.MutablePeriod
+ - org.joda.time.Period
+--------------------------------------------------------------------------------
+<end>
+<start>
+Summary of configuration for Project: Time
+--------------------------------------------------------------------------------
+    Script dir: /Users/mac/Documents/GitHub/SOEN7481/defects4j/framework
+      Base dir: /Users/mac/Documents/GitHub/SOEN7481/defects4j
+    Major root: /Users/mac/Documents/GitHub/SOEN7481/defects4j/major
+      Repo dir: /Users/mac/Documents/GitHub/SOEN7481/defects4j/project_repos
+--------------------------------------------------------------------------------
+    Project ID: Time
+       Program: joda-time
+    Build file: /Users/mac/Documents/GitHub/SOEN7481/defects4j/framework/build-scripts/Time/Time.build.xml
+--------------------------------------------------------------------------------
+           Vcs: Vcs::Git
+    Repository: /Users/mac/Documents/GitHub/SOEN7481/defects4j/project_repos/joda-time.git
+     Commit db: /Users/mac/Documents/GitHub/SOEN7481/defects4j/framework/projects/Time/commit-db
+Number of bugs: 32
+--------------------------------------------------------------------------------
+
+Summary for Bug: 23
+--------------------------------------------------------------------------------
+Root cause in triggering tests:
+ - org.joda.time.TestDateTimeZone::testForID_String_old
+   --> junit.framework.ComparisonFailure: expected:<[WET]> but was:<[Europe/London]>
+--------------------------------------------------------------------------------
+List of modified sources:
+ - org.joda.time.DateTimeZone
+--------------------------------------------------------------------------------
+<end>
+<start>
+Summary of configuration for Project: Time
+--------------------------------------------------------------------------------
+    Script dir: /Users/mac/Documents/GitHub/SOEN7481/defects4j/framework
+      Base dir: /Users/mac/Documents/GitHub/SOEN7481/defects4j
+    Major root: /Users/mac/Documents/GitHub/SOEN7481/defects4j/major
+      Repo dir: /Users/mac/Documents/GitHub/SOEN7481/defects4j/project_repos
+--------------------------------------------------------------------------------
+    Project ID: Time
+       Program: joda-time
+    Build file: /Users/mac/Documents/GitHub/SOEN7481/defects4j/framework/build-scripts/Time/Time.build.xml
+--------------------------------------------------------------------------------
+           Vcs: Vcs::Git
+    Repository: /Users/mac/Documents/GitHub/SOEN7481/defects4j/project_repos/joda-time.git
+     Commit db: /Users/mac/Documents/GitHub/SOEN7481/defects4j/framework/projects/Time/commit-db
+Number of bugs: 32
+--------------------------------------------------------------------------------
+
+Summary for Bug: 24
+--------------------------------------------------------------------------------
+Root cause in triggering tests:
+ - org.joda.time.format.TestDateTimeFormatter::testParseLocalDate_weekyear_month_week_2010
+   --> junit.framework.AssertionFailedError: expected:<2010-01-04> but was:<2008-12-29>
+ - org.joda.time.format.TestDateTimeFormatter::testParseLocalDate_weekyear_month_week_2011
+   --> junit.framework.AssertionFailedError: expected:<2011-01-03> but was:<2010-01-04>
+ - org.joda.time.format.TestDateTimeFormatter::testParseLocalDate_weekyear_month_week_2012
+   --> junit.framework.AssertionFailedError: expected:<2012-01-02> but was:<2011-01-03>
+ - org.joda.time.format.TestDateTimeFormatter::testParseLocalDate_year_month_week_2010
+   --> junit.framework.AssertionFailedError: expected:<2010-01-04> but was:<2008-12-29>
+ - org.joda.time.format.TestDateTimeFormatter::testParseLocalDate_year_month_week_2011
+   --> junit.framework.AssertionFailedError: expected:<2011-01-03> but was:<2010-01-04>
+ - org.joda.time.format.TestDateTimeFormatter::testParseLocalDate_year_month_week_2012
+   --> junit.framework.AssertionFailedError: expected:<2012-01-02> but was:<2011-01-03>
+ - org.joda.time.format.TestDateTimeFormatter::testParseLocalDate_year_month_week_2016
+   --> junit.framework.AssertionFailedError: expected:<2016-01-04> but was:<2014-12-29>
+--------------------------------------------------------------------------------
+List of modified sources:
+ - org.joda.time.format.DateTimeParserBucket
+--------------------------------------------------------------------------------
+<end>
+<start>
+Summary of configuration for Project: Time
+--------------------------------------------------------------------------------
+    Script dir: /Users/mac/Documents/GitHub/SOEN7481/defects4j/framework
+      Base dir: /Users/mac/Documents/GitHub/SOEN7481/defects4j
+    Major root: /Users/mac/Documents/GitHub/SOEN7481/defects4j/major
+      Repo dir: /Users/mac/Documents/GitHub/SOEN7481/defects4j/project_repos
+--------------------------------------------------------------------------------
+    Project ID: Time
+       Program: joda-time
+    Build file: /Users/mac/Documents/GitHub/SOEN7481/defects4j/framework/build-scripts/Time/Time.build.xml
+--------------------------------------------------------------------------------
+           Vcs: Vcs::Git
+    Repository: /Users/mac/Documents/GitHub/SOEN7481/defects4j/project_repos/joda-time.git
+     Commit db: /Users/mac/Documents/GitHub/SOEN7481/defects4j/framework/projects/Time/commit-db
+Number of bugs: 32
+--------------------------------------------------------------------------------
+
+Summary for Bug: 25
+--------------------------------------------------------------------------------
+Root cause in triggering tests:
+ - org.joda.time.TestDateTimeZoneCutover::test_DateTime_constructor_Moscow_Autumn
+   --> junit.framework.ComparisonFailure: expected:<...10-28T02:30:00.000+0[4]:00> but was:<...10-28T02:30:00.000+0[3]:00>
+ - org.joda.time.TestDateTimeZoneCutover::test_getOffsetFromLocal_Moscow_Autumn_overlap_mins
+   --> junit.framework.ComparisonFailure: 2007-10-28T02:00:00.000+03:00 expected:<...10-28T02:00:00.000+0[4]:00> but was:<...10-28T02:00:00.000+0[3]:00>
+ - org.joda.time.TestDateTimeZoneCutover::test_getOffsetFromLocal_Moscow_Autumn
+   --> junit.framework.ComparisonFailure: 2007-10-28T02:00:00.000+03:00 expected:<...10-28T02:00:00.000+0[4]:00> but was:<...10-28T02:00:00.000+0[3]:00>
+--------------------------------------------------------------------------------
+List of modified sources:
+ - org.joda.time.DateTimeZone
+--------------------------------------------------------------------------------
+<end>
+<start>
+Summary of configuration for Project: Time
+--------------------------------------------------------------------------------
+    Script dir: /Users/mac/Documents/GitHub/SOEN7481/defects4j/framework
+      Base dir: /Users/mac/Documents/GitHub/SOEN7481/defects4j
+    Major root: /Users/mac/Documents/GitHub/SOEN7481/defects4j/major
+      Repo dir: /Users/mac/Documents/GitHub/SOEN7481/defects4j/project_repos
+--------------------------------------------------------------------------------
+    Project ID: Time
+       Program: joda-time
+    Build file: /Users/mac/Documents/GitHub/SOEN7481/defects4j/framework/build-scripts/Time/Time.build.xml
+--------------------------------------------------------------------------------
+           Vcs: Vcs::Git
+    Repository: /Users/mac/Documents/GitHub/SOEN7481/defects4j/project_repos/joda-time.git
+     Commit db: /Users/mac/Documents/GitHub/SOEN7481/defects4j/framework/projects/Time/commit-db
+Number of bugs: 32
+--------------------------------------------------------------------------------
+
+Summary for Bug: 26
+--------------------------------------------------------------------------------
+Root cause in triggering tests:
+ - org.joda.time.TestDateTimeZoneCutover::testWithSecondOfMinuteInDstChange
+   --> junit.framework.ComparisonFailure: expected:<...10-31T02:30:00.123+0[2]:00> but was:<...10-31T02:30:00.123+0[1]:00>
+ - org.joda.time.TestDateTimeZoneCutover::testWithMinuteOfHourInDstChange
+   --> junit.framework.ComparisonFailure: expected:<...10-31T02:00:10.123+0[2]:00> but was:<...10-31T02:00:10.123+0[1]:00>
+ - org.joda.time.TestDateTimeZoneCutover::testWithMinuteOfHourInDstChange_mockZone
+   --> junit.framework.ComparisonFailure: expected:<...10-31T01:30:00.000+0[1:0]0> but was:<...10-31T01:30:00.000+0[0:3]0>
+ - org.joda.time.TestDateTimeZoneCutover::testBug2182444_usCentral
+   --> junit.framework.AssertionFailedError: expected:<2008-11-02T01:00:00.000-06:00> but was:<2008-11-02T01:00:00.000-05:00>
+ - org.joda.time.TestDateTimeZoneCutover::testWithMillisOfSecondInDstChange_Paris_summer
+   --> junit.framework.ComparisonFailure: expected:<...10-31T02:30:10.000+0[2]:00> but was:<...10-31T02:30:10.000+0[1]:00>
+ - org.joda.time.TestDateTimeZoneCutover::testWithHourOfDayInDstChange
+   --> junit.framework.ComparisonFailure: expected:<...10-31T02:30:10.123+0[2]:00> but was:<...10-31T02:30:10.123+0[1]:00>
+ - org.joda.time.TestDateTimeZoneCutover::testWithMillisOfSecondInDstChange_NewYork_winter
+   --> junit.framework.ComparisonFailure: expected:<...11-04T01:30:00.000-0[5]:00> but was:<...11-04T01:30:00.000-0[4]:00>
+ - org.joda.time.TestDateTimeZoneCutover::testBug2182444_ausNSW
+   --> junit.framework.AssertionFailedError: expected:<2008-04-06T02:00:00.000+11:00> but was:<2008-04-06T02:00:00.000+10:00>
+--------------------------------------------------------------------------------
+List of modified sources:
+ - org.joda.time.chrono.ZonedChronology
+ - org.joda.time.DateTimeZone
+ - org.joda.time.field.LenientDateTimeField
+--------------------------------------------------------------------------------
+<end>
+<start>
+Summary of configuration for Project: Time
+--------------------------------------------------------------------------------
+    Script dir: /Users/mac/Documents/GitHub/SOEN7481/defects4j/framework
+      Base dir: /Users/mac/Documents/GitHub/SOEN7481/defects4j
+    Major root: /Users/mac/Documents/GitHub/SOEN7481/defects4j/major
+      Repo dir: /Users/mac/Documents/GitHub/SOEN7481/defects4j/project_repos
+--------------------------------------------------------------------------------
+    Project ID: Time
+       Program: joda-time
+    Build file: /Users/mac/Documents/GitHub/SOEN7481/defects4j/framework/build-scripts/Time/Time.build.xml
+--------------------------------------------------------------------------------
+           Vcs: Vcs::Git
+    Repository: /Users/mac/Documents/GitHub/SOEN7481/defects4j/project_repos/joda-time.git
+     Commit db: /Users/mac/Documents/GitHub/SOEN7481/defects4j/framework/projects/Time/commit-db
+Number of bugs: 32
+--------------------------------------------------------------------------------
+
+Summary for Bug: 27
+--------------------------------------------------------------------------------
+Root cause in triggering tests:
+ - org.joda.time.format.TestPeriodFormatterBuilder::testBug2495455
+   --> java.lang.IllegalArgumentException: Invalid format: "PT1003199059S" is malformed at "1003199059S"
+--------------------------------------------------------------------------------
+List of modified sources:
+ - org.joda.time.format.PeriodFormatterBuilder
+--------------------------------------------------------------------------------
+<end>

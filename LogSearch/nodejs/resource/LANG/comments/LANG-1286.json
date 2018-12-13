@@ -1,0 +1,17 @@
+[Fixed in commit 7f7fa03ea.
+
+The class needs an overhaul to make better use of the code point methods in {{Character}}. I'll work on that in future commits.
+
+{quote}
+Repository: commons-lang
+Updated Branches:
+ refs/heads/master 35c27d025 -> 7f7fa03ea
+
+
+Fix for LANG-1286: RandomStringUtils random method can overflow...
+
+Project: http://git-wip-us.apache.org/repos/asf/commons-lang/repo
+Commit: http://git-wip-us.apache.org/repos/asf/commons-lang/commit/f643b4fa
+Tree: http://git-wip-us.apache.org/repos/asf/commons-lang/tree/f643b4fa
+Diff: http://git-wip-us.apache.org/repos/asf/commons-lang/diff/f643b4fa
+{quote}]

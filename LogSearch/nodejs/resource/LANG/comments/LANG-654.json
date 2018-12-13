@@ -1,0 +1,15 @@
+[Assigning to 3.1 for investigation there. It's not blocking for 3.0., What's causing the confusion here  is that there *is* no Sun Oct 10 00:00:00 CLST 2010. The hour between midnight and 1am simply doesn't exist.The time changes immediately to Sun Oct 10 01:00:00 CLST 2010. So it's not possible to truncate the date on this particular date in the Chilean time zone.
+
+In case you're wondering, Java handles this situation by parsing midnight as 1am:
+
+{code:java}
+TimeZone.setDefault(TimeZone.getTimeZone("Chile/Continental"));
+String dateString = "2010-10-10 00:00:00.0";
+SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.S");
+Date date = sdf.parse(dateString);
+System.out.println(date);
+{code}
+
+Output: {{Sun Oct 10 01:00:00 CLST 2010}}.
+
+Consequently, I don't believe this is a bug., Closing as an invalid report. Please comment again if you'd like to reopen this.]

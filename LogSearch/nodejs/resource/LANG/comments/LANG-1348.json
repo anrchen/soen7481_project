@@ -1,0 +1,85 @@
+[Patches welcome ;-), I started poking into this. It's a sweet circular call. 
+You wind up at TypeUtils, Line 1672. This calls typeVariableToString, into the if block.
+This, line 1775, calls the appendToAll method. You will hit line 1846... which calls the same toString function that you called in the first place. 
+
+I don't have a remediation plan. But maybe that will help!, I'm working on a patch trying to stop the circular call., GitHub user mbusso opened a pull request:
+
+    https://github.com/apache/commons-lang/pull/291
+
+    LANG-1348 - StackOverflowError on TypeUtils.toString
+
+    StackOverflowError on TypeUtils.toString(...) for a generic return type of Enum.valueOf
+
+You can merge this pull request into a Git repository by running:
+
+    $ git pull https://github.com/mbusso/commons-lang master
+
+Alternatively you can review and apply these changes as the patch at:
+
+    https://github.com/apache/commons-lang/pull/291.patch
+
+To close this pull request, make a commit to your master/trunk branch
+with (at least) the following in the commit message:
+
+    This closes #291
+    
+----
+commit 1ddc70df56a81a94e4b11813c6da6f107c2ebb0c
+Author: mbusso <matiassbb@gmail.com>
+Date:   2017-09-29T00:17:55Z
+
+    LANG-1348 - StackOverflowError on TypeUtils.toString(...) for a generic return type of Enum.valueOf
+
+----
+, Github user mbusso closed the pull request at:
+
+    https://github.com/apache/commons-lang/pull/291
+, GitHub user mbusso opened a pull request:
+
+    https://github.com/apache/commons-lang/pull/292
+
+    LANG-1348 - StackOverflowError on TypeUtils.toString
+
+    StackOverflowError on TypeUtils.toString(...) for a generic return type of Enum.valueOf
+
+You can merge this pull request into a Git repository by running:
+
+    $ git pull https://github.com/mbusso/commons-lang master
+
+Alternatively you can review and apply these changes as the patch at:
+
+    https://github.com/apache/commons-lang/pull/292.patch
+
+To close this pull request, make a commit to your master/trunk branch
+with (at least) the following in the commit message:
+
+    This closes #292
+    
+----
+commit 39df422dd3f36be889d6e174a94a24449373de6d
+Author: mbusso <matiassbb@gmail.com>
+Date:   2017-09-29T00:51:24Z
+
+    LANG-1348 - StackOverflowError on TypeUtils.toString(...) for a generic return type of Enum.valueOf
+
+----
+, Github user coveralls commented on the issue:
+
+    https://github.com/apache/commons-lang/pull/292
+  
+    
+    [![Coverage Status](https://coveralls.io/builds/13489028/badge)](https://coveralls.io/builds/13489028)
+    
+    Coverage increased (+0.01%) to 95.213% when pulling **39df422dd3f36be889d6e174a94a24449373de6d on mbusso:master** into **1406f2a4f2cda80a05b8dc2506ec9d0a25bdf2db on apache:master**.
+
+, Github user asfgit closed the pull request at:
+
+    https://github.com/apache/commons-lang/pull/292
+, Github user PascalSchumacher commented on the issue:
+
+    https://github.com/apache/commons-lang/pull/292
+  
+    Great pull request! Thanks! :+1: 
+    
+    merged in https://github.com/apache/commons-lang/commit/cc6beb2d05347fba64d933906ae2b712b1a43302
+]

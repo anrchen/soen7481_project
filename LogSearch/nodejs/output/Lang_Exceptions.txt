@@ -1,0 +1,57 @@
+LANG-294.json
+	ArrayIndexOutOfBoundsException in System.java at arraycopy line 1114
+	ArrayIndexOutOfBoundsException in StrBuilder.java at deleteAll line 1188
+	ArrayIndexOutOfBoundsException in NativeMethodAccessorImpl.java at invoke line 39
+	ArrayIndexOutOfBoundsException in DelegatingMethodAccessorImpl.java at invoke line 25
+	ArrayIndexOutOfBoundsException in Method.java at invoke line 585
+	ArrayIndexOutOfBoundsException in TestCase.java at runTest line 154
+	ArrayIndexOutOfBoundsException in TestCase.java at runBare line 127
+	ArrayIndexOutOfBoundsException in TestResult.java at runProtected line 124
+	ArrayIndexOutOfBoundsException in TestResult.java at run line 109
+	ArrayIndexOutOfBoundsException in TestCase.java at run line 118
+	ArrayIndexOutOfBoundsException in TestSuite.java at runTest line 208
+	ArrayIndexOutOfBoundsException in TestSuite.java at run line 203
+	ArrayIndexOutOfBoundsException in TestExecution.java at run line 38
+	ArrayIndexOutOfBoundsException in RemoteTestRunner.java at runTests line 460
+	ArrayIndexOutOfBoundsException in RemoteTestRunner.java at runTests line 673
+	ArrayIndexOutOfBoundsException in RemoteTestRunner.java at run line 386
+	ArrayIndexOutOfBoundsException in RemoteTestRunner.java at main line 196
+	ArrayIndexOutOfBoundsException in System.java at arraycopy line 1256
+	ArrayIndexOutOfBoundsException in StrBuilder.java at replaceAll line 1339
+	ArrayIndexOutOfBoundsException in NativeMethodAccessorImpl.java at invoke line 39
+	ArrayIndexOutOfBoundsException in DelegatingMethodAccessorImpl.java at invoke line 25
+	ArrayIndexOutOfBoundsException in Method.java at invoke line 585
+	ArrayIndexOutOfBoundsException in TestCase.java at runTest line 154
+	ArrayIndexOutOfBoundsException in TestCase.java at runBare line 127
+	ArrayIndexOutOfBoundsException in TestResult.java at runProtected line 124
+	ArrayIndexOutOfBoundsException in TestResult.java at run line 109
+	ArrayIndexOutOfBoundsException in TestCase.java at run line 118
+	ArrayIndexOutOfBoundsException in TestSuite.java at runTest line 208
+	ArrayIndexOutOfBoundsException in TestSuite.java at run line 203
+	ArrayIndexOutOfBoundsException in TestExecution.java at run line 38
+	ArrayIndexOutOfBoundsException in RemoteTestRunner.java at runTests line 460
+	ArrayIndexOutOfBoundsException in RemoteTestRunner.java at runTests line 673
+	ArrayIndexOutOfBoundsException in RemoteTestRunner.java at run line 386
+	ArrayIndexOutOfBoundsException in RemoteTestRunner.java at main line 196
+LANG-43.json
+	NumberFormatException in FloatingDecimal.java at readJavaFormatString line 756
+LANG-567.json
+	ArrayStoreException in System.java at arraycopy line 2962
+LANG-624.json
+	StringIndexOutOfBoundsException in String.java at substring line 1571
+	StringIndexOutOfBoundsException in SystemUtils.java at getJavaVersionAsFloat line 1153
+LANG-710.json
+	StringIndexOutOfBoundsException in String.java at charAt line 686
+	StringIndexOutOfBoundsException in NumericEntityUnescaper.java at translate line 49
+	StringIndexOutOfBoundsException in AggregateTranslator.java at translate line 53
+	StringIndexOutOfBoundsException in CharSequenceTranslator.java at translate line 88
+	StringIndexOutOfBoundsException in CharSequenceTranslator.java at translate line 60
+LANG-857.json
+	StringIndexOutOfBoundsException in String.java at charAt line 658
+	StringIndexOutOfBoundsException in Character.java at codePointAt line 4668
+	StringIndexOutOfBoundsException in CharSequenceTranslator.java at translate line 95
+	StringIndexOutOfBoundsException in CharSequenceTranslator.java at translate line 59
+	StringIndexOutOfBoundsException in StringEscapeUtils.java at escapeCsv line 556
+Total of 122 issues
+	30 issues with exceptions
+	6 issues with exceptions & tests

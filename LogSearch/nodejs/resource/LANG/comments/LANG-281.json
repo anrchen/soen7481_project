@@ -1,0 +1,12 @@
+[Setting for a 2.3 fix version (ie the version being worked on now). I'm starting to hate this class, yet another edge case.
+
+Thanks for finding it though :), Attached unit test., Unit test attached., Attaching a fix. It's not a very good sign that I'm fixing this by deleting a block of code and discovering that no unit tests are suddenly failling. So I need to add more unit tests, and rethink things.
+
+The block of code removed was meant to fix an overshooting when blindly adding 31 days instead of a known month number and I've also changed that to add the number of days in the previous month (with a big TODO to review it).
+
+First step, make some unit tests to identify this case as apparantly I've not got them currently., svn ci -m "Adding a unit test for #LANG-281 and a fix. The fix involves removing the reduceAndCorrect method. It appears that this method was doing sod all - which is worrying as it used to be important. I'm guessing that it was a bad fix for a bug that was then subsequently fixed with other code. I'll create a JIRA issue to create more tests to test out the +31 block of code. " 
+
+Sending        src/java/org/apache/commons/lang/time/DurationFormatUtils.java
+Sending        src/test/org/apache/commons/lang/time/DurationFormatUtilsTest.java
+Transmitting file data ..
+Committed revision 453818.]

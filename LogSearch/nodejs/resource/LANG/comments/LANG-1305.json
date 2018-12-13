@@ -1,0 +1,8 @@
+[According to the API the date pattern in FastDateFormat follows SimpleDateFormat.
+In the issue above the specified date is -
+2014-12-15T19:50:00-05:00
+
+whereas it should be -
+2014-12-15T19:50:00-0500
+
+The reason is that letter 'Z' is used to represent RFC 822 time zone and its format is like - 0500, If you need the colon in the input, then use the 'X' format specifier.  Without the colon, use the 'z' or 'Z' format specifier.  The fact that a prior version of FastDateFormat would accept the colon was a bug.]

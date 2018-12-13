@@ -1,0 +1,46 @@
+[GitHub user PascalSchumacher opened a pull request:
+
+    https://github.com/apache/commons-lang/pull/114
+
+    LANG-1182: adding clarifying examples to StringUtils#containsAny javadoc
+
+    as suggested by Larry West in https://issues.apache.org/jira/browse/LANG-1182
+
+You can merge this pull request into a Git repository by running:
+
+    $ git pull https://github.com/PascalSchumacher/commons-lang LANG-1182
+
+Alternatively you can review and apply these changes as the patch at:
+
+    https://github.com/apache/commons-lang/pull/114.patch
+
+To close this pull request, make a commit to your master/trunk branch
+with (at least) the following in the commit message:
+
+    This closes #114
+    
+----
+commit 1260e09d6f2314c7099d061f1c65e6b4275cb8a1
+Author: Pascal Schumacher <pascalschumacher@gmx.net>
+Date:   2015-11-08T21:44:07Z
+
+    LANG-1182: adding clarifying examples to StringUtils#containsAny javadoc
+    
+    as suggested by Larry West in https://issues.apache.org/jira/browse/LANG-1182
+
+----
+, Github user asfgit closed the pull request at:
+
+    https://github.com/apache/commons-lang/pull/114
+, {code}
+commit 56907c9a96a50af44415111fcea3e76ce4d1890f
+Merge: 4811375 7f0d6b4
+Author: Benedikt Ritter <britter@apache.org>
+Date:   Mon Nov 16 20:16:52 2015 +0100
+
+    Merge branch 'LANG-1182'
+
+    LANG-1182: Clarify JavaDoc of StringUtils.containsAny(). Thanks to
+    Larry West for the suggestion and to Pascal Schuhmacher for implementing
+    it. This fixes #114 from github.
+{code}]

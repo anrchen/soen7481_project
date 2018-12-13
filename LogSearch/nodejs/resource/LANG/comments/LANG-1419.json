@@ -1,0 +1,37 @@
+[I tried mingling with the bnd-plugin configuration but it didn't help to correct the META-data:
+{code:java}
+diff --git a/pom.xml b/pom.xml
+index ff00abca..9ac95673 100644
+--- a/pom.xml
++++ b/pom.xml
+@@ -666,6 +666,14 @@
+             <skip>false</skip>
+           </configuration>
+         </plugin>
++        <plugin>
++          <groupId>org.apache.felix</groupId>
++          <artifactId>maven-bundle-plugin</artifactId>
++          <version>3.5.0</version>
++          <configuration>
++            <Bundle-SymbolicName>org.apache.commons.lang3</Bundle-SymbolicName>
++          </configuration>
++        </plugin>
+       </plugins>
+     </pluginManagement>
+     <plugins>
+@@ -742,8 +750,14 @@
+           <excludeFilterFile>${basedir}/spotbugs-exclude-filter.xml</excludeFilterFile>
+         </configuration>
+       </plugin>
++      <plugin>
++        <groupId>org.apache.felix</groupId>
++        <artifactId>maven-bundle-plugin</artifactId>
++        <configuration>
++          <Bundle-SymbolicName>org.apache.commons.lang3</Bundle-SymbolicName>
++        </configuration>
++      </plugin>
+     </plugins>
+-
+   </build>
+
+   <reporting>{code}, In tag LANG_3_8_1_RC1: https://github.com/apache/commons-lang/blob/LANG_3_8_1_RC1/pom.xml#L574, 3.8.1 released., Thanks for rolling out v3.8.1 which fixed our OSGi setup again.]

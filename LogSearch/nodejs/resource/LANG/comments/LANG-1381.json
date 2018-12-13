@@ -1,0 +1,22 @@
+[Different Handling seems to come from different result of isRegistered(value) in ToStringStyle.appendInternal().
+
+isRegistered(value) checks for getRegistry().containsKey(value), which in case of empty HashMaps is true for any empty HashMap.
+
+Consider also outputs for these cases:
+
+ 
+
+    person.put({color:#008000}"a"{color}, {color:#008000}"b"{color});
+    person.{color:#660e7a}job{color}.put({color:#008000}"a"{color}, {color:#008000}"b"{color});
+    System.{color:#660e7a}out{color}.println(person); // job=Job@...
+    person.clear();
+    System.{color:#660e7a}out{color}.println(person); // job=Manager
+
+ 
+
+At a glance, containsKey(value) might have to be replaced with identity check inside keySet(), Dear Mr. Kruse,
+
+Thank you for taking this issue seriously! Also, thank you for the explanation. I was looking at the source code, but it didn't occur to me to look at the isRegistered method.
+
+Regards,
+Brian Schack ]

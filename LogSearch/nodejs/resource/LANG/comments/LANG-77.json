@@ -1,0 +1,13 @@
+[Created an attachment (id=14285)
+Adds one line to method appendFieldsIn().
+, Created an attachment (id=14299)
+Patch to the unit test to show the problem.
+
+Attached is a patch to ToStringBuilderTest.java.  If you patch the
+ToStringBuilderTest.java and run the test, you will see that the test failed. 
+Apply the patch intended for ReflectionToStringBuilder.java and you will see
+that all tests pass.
+
+The gist of the patch is to show that a cyclical object followed by another
+object will result in a bad output string in that there is not a comma (the
+default field separator) between the two objects., Patch applied., 2.1 released, closing.]

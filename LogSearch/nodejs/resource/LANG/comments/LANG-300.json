@@ -1,0 +1,9 @@
+[Merging the third and fourth parts of that if statement together seems to solve the problem.
+
+Unit test and patch attached., svn ci -m "Fixing LANG-300 (reported by Jeremy Lemaire) - 1L to 9L incorrectly throw exceptions when passed into NumberUtils.createNumber. Fixed in both the math.NumbersUtils and the deprecated NumberUtils classes. "
+
+Sending        src/java/org/apache/commons/lang/NumberUtils.java
+Sending        src/java/org/apache/commons/lang/math/NumberUtils.java
+Sending        src/test/org/apache/commons/lang/math/NumberUtilsTest.java
+Transmitting file data ...
+Committed revision 488819.]

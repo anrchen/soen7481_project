@@ -1,0 +1,45 @@
+[Alternatively, choose end = chars.length.
+
+In any case, the code needs to check for chars.length == 0 to avoid NPE in the modulus or IAE in random.nextInt(gap) as gap will be zero., bq. (Besides start is useless here)
+
+I don't think start is useless; it should be possible to specify a subset of the char array., You're right in both comments and I was wrong in my analysis (thanks for pointing that out).
+I've reworked a fix which adds IAE in error cases : 
+{code}
+		if (start < 0)
+			throw new IllegalArgumentException(
+					"Requested start parameter is negative");
+		if (end < 0)
+			throw new IllegalArgumentException(
+					"Requested end parameter is negative");
+		if ((start == 0) && (end == 0)) {
+			if (chars != null) {
+				throw new IllegalArgumentException(
+						"Requested end parameter is 0 (should be positive)");
+			} else if (!letters && !numbers) {
+				start = 0;
+				end = Integer.MAX_VALUE;
+			} else {
+				end = 'z' + 1;
+				start = ' ';
+			}
+		}
+		if (chars != null && end > chars.length)
+			throw new IllegalArgumentException(
+					"Requested end parameter is greater than chars.length");
+
+		char[] buffer = new char[count];
+		int gap = end - start;
+		if (gap <= 0) {
+			throw new IllegalArgumentException(
+					"Requested gap (=end - start) is negative or zero");
+		}
+{code}, The code has already been fixed.
+Note that start == 0 and end == 0 is specifically allowed as a special case., ... crap
+
+I'm a maven user and I'm relying on maven's version plugin to notify me of library updates.
+The fact that you changed the artifact name for the new version of commons lang made me miss the new version ... At least this bug helped me correcting that.
+
+Thanks Sebb, Just to clarify: the code was only fixed today (in both lang 2.x and lang 3.x) thanks to your JIRA report.
+However it was fixed (in SVN) just before your reworked fix was added.
+
+The Maven artifact name change was necessary because lang3 is not fully binary compatible with lang2]

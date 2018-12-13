@@ -1,0 +1,5 @@
+[From the Javadoc for stripStart():
+
+Strips any of a *set* of characters from the start of a String.
+
+It treats the "Tag-" as the set of characters 'T' 'a' 'g' '-' and removes any it finds from the start of the the string. 'T' appears twice, so is removed both times., To be helpful:  I think the functionality you're looking for is expressed by {{StringUtils#removeStart()}} :)]

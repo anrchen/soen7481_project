@@ -1,0 +1,11 @@
+[Bit odd in that javadoc for 1.5 shows that the compareTo(Object) was removed then; though maybe it's an Apple bug that it still has compareTo(Object) in it.
+
+1.4: http://java.sun.com/j2se/1.4.2/docs/api/java/math/BigDecimal.html
+1.5: http://java.sun.com/j2se/1.5.0/docs/api/java/math/BigDecimal.html
+1.6: http://today.java.net/download/jdk6/doc/api/java/math/BigDecimal.html
+
+So - JDK version issue. Presumably we should check that both lhs and rhs are BigDecimal and cast both., Resolving as duplicate of LANG-468 which came out of an earlier discussion on this., svn ci -m "Updating the BigDecimal.compareTo(Object) to BigDecimal.compareTo(BigDecimal) to match JDK change - fixes LANG-468/LANG-464" src
+
+Sending        src/java/org/apache/commons/lang/builder/EqualsBuilder.java
+Transmitting file data .
+Committed revision 711969.]

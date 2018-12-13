@@ -1,0 +1,43 @@
+[I'll have a look this week. {{endsWithAny()}} should behave the same way as {{startsWithAny()}}., It appears that the implementation of {{startsWithAny}} is also case sensitive, though it is documented as case insensitive. The underlying comparison is {{StringUtils.startsWith}} which is case-sensitive.
+
+A possible solution may be to (1) "correct" the documentation for {{startsWithAny}} and {{endsWithAny}} to clarify that they are case-sensitive comparisons, and (2) introduce two new methods {{startsWithAnyIgnoreCase}} and {{endsWithAnyIgnoreCase}}., Makes sense to me. Do you want to contribute a patch for this?
+
+TIA!, Patch, including unit tests, which appears to correct the bug. Please review., Not sure why two valid lower-case tests were dropped from the startsWithAny Javadoc; I think they should be kept.
+
+Also the Javadoc @return statements don't make sense (this is an old issue, but pasted into the new methods):
+
+{code}
+* @return {@code true} if the CharSequence starts with any of the the prefixes, case insensitive, or
+*  both {@code null}
+{code}
+
+No idea what that means. "both" is normally used to refer to two items, but there may be more (or fewer).
+Do the routines never return "false" ? Given that they are "boolean", they cannot return "null"., I've reviewed the patch. I agree with sebb, the doc can be tweaked, but that's no problem. What need's to be discussed is the behavior for null inputs:
+
+{code}
+StringUtils.startsWith(null, null) = true
+StringUtils.startsWithAny(null, null) = false
+{code}
+
+(this also applies for the other methods). I think they should behave the same for null inputs. The question how the following should behave:
+
+{code}
+StringUtils.startsWithAny(null, new String[]{ null })
+{code}, Would it not be simpler to always return false if the first parameter is null?
+
+I'm not sure it makes sense to try and allow null to match anything at all., Sure we could do that. But then again the methods which take only one prefix/suffix would behave differently. I don't know if it is a good idea to mix this up. Or are you proposing to change startWith and endWith as well?, I meant that all methods should treat null as not starting or ending with anything.
+
+Or throw IAE, which might make more sense., I would be in favour of an IAE as [~sebb@apache.org] suggests. One cannot reason sensibly about {{null}} values as though they are strings. Returning {{true}} or {{false}} would be arbitrary., Team, sorry to resurrect this ticket, but I think it's worth revisiting since the documentation is still not in sync with the code. Specifically, there are a few inconsistencies in the documentation that I feel are worthy of being corrected independent of the null-handling behaviors.
+
+Specifically, there's any example in startsWithAny that is incorrect, and in both startsWithAny and endsWithAny the documentation still indicates the comparisons are case insensitive.
+
+{code:title=StringUtils.java|borderStyle=solid}
+StringUtils.startsWithAny("abcxyz", new String[] {""}) = false
+{code}
+
+I'm creating and attaching for your review another patch which hopefully improves the documentation and introduces more test cases that verify the documented behaviors., Updated patch., Github user asfgit closed the pull request at:
+
+    https://github.com/apache/commons-lang/pull/149
+, Patch applied. Thanks!
+
+It would be nice if somebody could resolve this issue. Thanks!]

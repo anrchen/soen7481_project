@@ -1,0 +1,23 @@
+[I've uploaded a patch with a check that a constructor is either:
+- For a normal, top-level class; or
+- for an inner class that is a public, top-level class enclosed in a (set of) classes such that it is still visible.
+
+For the visibility rule I have maintained the existing rule in ConstructorUtils that "visible" means "public". However, that is not quite correct in reality -- a constructor of an inner class can still be visible if it is contained within a class with default or protected visibility and the accessing code is in the right package. I'll leave the code this way as long as the Commons-Lang team does not decide to change the definition used., {quote}
+a constructor of an inner class can still be visible if it is contained within a class with default or protected visibility and the accessing code is in the right package
+{quote}
+
+although this is true, it is very unlikely to happen, since the calling code that does the reflection is in package {{org.apache.commons.lang3}}., Hello Ben,
+
+I've reviewed your patch. Here are my findings:
+* You're using tabs to indent your code. Please only use spaces, since the representation of tabs depends on your editor
+* The tests are missing the {{@Test}} annotation
+* The new files are missing the Apache License header
+
+usually I would fix this myself and apply the patch, but the missing AL header is a problem. You either have to file an [Individual Contributor License Agreement|http://www.apache.org/licenses/] or reapply the patch with AL headers included. Sorry for the hassle but this is necessary to make sure we don't run into trouble regarding intellectual property.
+
+Thanks for contributing,
+Benedikt, [~bentels]: I can not apply your patch, without the ICLA, since I would have to modify your code. I'm only allowed to do this if you have the ICLA filled or if you resubmit a modified patch (ICLA would be better...).
+
+TIA!, No response from OP; recoded without looking at the patch.
+
+Committed revision 1559779.]

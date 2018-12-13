@@ -1,0 +1,12 @@
+[{noformat}
+commit -m "<action issue="LANG-1001" type="fix" dev="ggregory" due-to="Michael Osipov">ISO 8601 misspelled throughout the Javadocs</action>" (7 paths specified)
+    Sending        C:/vcs/svn/apache/commons/trunks-proper/lang/src/changes/changes.xml
+    Sending        C:/vcs/svn/apache/commons/trunks-proper/lang/src/main/java/org/apache/commons/lang3/time/DateFormatUtils.java
+    Sending        C:/vcs/svn/apache/commons/trunks-proper/lang/src/main/java/org/apache/commons/lang3/time/DurationFormatUtils.java
+    Sending        C:/vcs/svn/apache/commons/trunks-proper/lang/src/main/java/org/apache/commons/lang3/time/FastDateFormat.java
+    Sending        C:/vcs/svn/apache/commons/trunks-proper/lang/src/main/java/org/apache/commons/lang3/time/FastDatePrinter.java
+    Sending        C:/vcs/svn/apache/commons/trunks-proper/lang/src/main/java/org/apache/commons/lang3/time/StopWatch.java
+    Sending        C:/vcs/svn/apache/commons/trunks-proper/lang/src/test/java/org/apache/commons/lang3/time/DurationFormatUtilsTest.java
+    Transmitting file data ...
+    Committed revision 1591488.
+{noformat}, Thank you for the report Michael.]

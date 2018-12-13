@@ -1,0 +1,408 @@
+{
+    "expand": "operations,versionedRepresentations,editmeta,changelog,renderedFields",
+    "fields": {
+        "aggregateprogress": {
+            "progress": 0,
+            "total": 0
+        },
+        "aggregatetimeestimate": null,
+        "aggregatetimeoriginalestimate": null,
+        "aggregatetimespent": null,
+        "assignee": {
+            "active": true,
+            "avatarUrls": {
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=charles_honton%40intuit.com&avatarId=23130",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=charles_honton%40intuit.com&avatarId=23130",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=charles_honton%40intuit.com&avatarId=23130",
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=charles_honton%40intuit.com&avatarId=23130"
+            },
+            "displayName": "Charles Honton",
+            "key": "charles_honton@intuit.com",
+            "name": "chonton",
+            "self": "https://issues.apache.org/jira/rest/api/2/user?username=chonton",
+            "timeZone": "America/Los_Angeles"
+        },
+        "components": [{
+            "id": "12313196",
+            "name": "lang.time.*",
+            "self": "https://issues.apache.org/jira/rest/api/2/component/12313196"
+        }],
+        "created": "2013-09-13T01:19:23.000+0000",
+        "creator": {
+            "active": true,
+            "avatarUrls": {
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=cpm&avatarId=17834",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=cpm&avatarId=17834",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=cpm&avatarId=17834",
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=cpm&avatarId=17834"
+            },
+            "displayName": "Christian P. MOMON",
+            "key": "cpm",
+            "name": "cpm",
+            "self": "https://issues.apache.org/jira/rest/api/2/user?username=cpm",
+            "timeZone": "Europe/Paris"
+        },
+        "customfield_10010": null,
+        "customfield_12310220": "2013-10-19T17:48:32.723+0000",
+        "customfield_12310222": "3_*:*_1_*:*_242993_*|*_1_*:*_1_*:*_51411935716_*|*_5_*:*_1_*:*_0",
+        "customfield_12310250": null,
+        "customfield_12310290": null,
+        "customfield_12310291": null,
+        "customfield_12310300": null,
+        "customfield_12310310": "4.0",
+        "customfield_12310420": "348333",
+        "customfield_12310920": "348629",
+        "customfield_12310921": null,
+        "customfield_12311020": null,
+        "customfield_12311024": null,
+        "customfield_12311120": null,
+        "customfield_12311820": "0|i1o2an:",
+        "customfield_12312022": null,
+        "customfield_12312023": null,
+        "customfield_12312024": null,
+        "customfield_12312026": null,
+        "customfield_12312220": null,
+        "customfield_12312320": null,
+        "customfield_12312321": null,
+        "customfield_12312322": null,
+        "customfield_12312323": null,
+        "customfield_12312324": null,
+        "customfield_12312325": null,
+        "customfield_12312326": null,
+        "customfield_12312327": null,
+        "customfield_12312328": null,
+        "customfield_12312329": null,
+        "customfield_12312330": null,
+        "customfield_12312331": null,
+        "customfield_12312332": null,
+        "customfield_12312333": null,
+        "customfield_12312334": null,
+        "customfield_12312335": null,
+        "customfield_12312336": null,
+        "customfield_12312337": null,
+        "customfield_12312338": null,
+        "customfield_12312339": null,
+        "customfield_12312340": null,
+        "customfield_12312341": null,
+        "customfield_12312520": null,
+        "customfield_12312521": "Fri May 01 02:29:01 UTC 2015",
+        "customfield_12312720": null,
+        "customfield_12312823": null,
+        "customfield_12312920": null,
+        "customfield_12312921": null,
+        "customfield_12312923": null,
+        "customfield_12313422": "false",
+        "customfield_12313520": null,
+        "description": "In LANG-538 issue, there is an unit test:\n\n{noformat}\n  public void testFormat_CalendarIsoMsZulu() {\n    final String dateTime = \"2009-10-16T16:42:16.000Z\";\n    GregorianCalendar cal = new GregorianCalendar(TimeZone.getTimeZone(\"GMT-8\"));\n    cal.clear();\n    cal.set(2009, 9, 16, 8, 42, 16);\n    cal.getTime();\n\n    FastDateFormat format = FastDateFormat.getInstance(\"yyyy-MM-dd'T'HH:mm:ss.SSS'Z'\", TimeZone.getTimeZone(\"GMT\"));\n    assertEquals(\"dateTime\", dateTime, format.format(cal));\n  }\n{noformat}\n\nThis test passes successfully in lang-2.6 but failed in lang3-3.1:\n\n{noformat}\norg.junit.ComparisonFailure: dateTime expected:<2009-10-16T[16]:42:16.000Z> but was:<2009-10-16T[08]:42:16.000Z>\n{noformat}\n\nReproduced whit Sun Java version: 1.6.0_45 and 1.7.0_21 on Fedora 17 (Linux 3.9.10-100.fc17.i686.PAE).\n\nMoreover, I wrote another unit test showing that the timeZone parameter seems to be ignored :\n{noformat}\npublic void test() {\n\tCalendar cal = Calendar.getInstance(TimeZone.getTimeZone(\"Europe/Paris\"));\n\tcal.set(2009, 9, 16, 8, 42, 16);\n\n\t// System.out.println(DateFormatUtils.ISO_DATETIME_TIME_ZONE_FORMAT.format(cal));\n\n\tSystem.out.println(\"long\");\n\tSystem.out.println(DateFormatUtils.format(cal.getTimeInMillis(), DateFormatUtils.ISO_DATETIME_TIME_ZONE_FORMAT.getPattern(), TimeZone.getDefault()));\n\tSystem.out.println(DateFormatUtils.format(cal.getTimeInMillis(), DateFormatUtils.ISO_DATETIME_TIME_ZONE_FORMAT.getPattern(),\n\t\t\tTimeZone.getTimeZone(\"Asia/Kolkata\")));\n\tSystem.out.println(DateFormatUtils.format(cal.getTimeInMillis(), DateFormatUtils.ISO_DATETIME_TIME_ZONE_FORMAT.getPattern(),\n\t\t\tTimeZone.getTimeZone(\"Europe/London\")));\n\n\tSystem.out.println(\"calendar\");\n\tSystem.out.println(DateFormatUtils.format(cal, DateFormatUtils.ISO_DATETIME_TIME_ZONE_FORMAT.getPattern(), TimeZone.getDefault()));\n\tSystem.out.println(DateFormatUtils.format(cal, DateFormatUtils.ISO_DATETIME_TIME_ZONE_FORMAT.getPattern(), TimeZone.getTimeZone(\"Asia/Kolkata\")));\n\tSystem.out.println(DateFormatUtils.format(cal, DateFormatUtils.ISO_DATETIME_TIME_ZONE_FORMAT.getPattern(), TimeZone.getTimeZone(\"Europe/London\")));\n\n\tSystem.out.println(\"calendar fast\");\n\tSystem.out.println(FastDateFormat.getInstance(\"yyyy-MM-dd'T'HH:mm:ss.SSS'Z'\", TimeZone.getTimeZone(\"Europe/Paris\")).format(cal));\n\tSystem.out.println(FastDateFormat.getInstance(\"yyyy-MM-dd'T'HH:mm:ss.SSS'Z'\", TimeZone.getTimeZone(\"Asia/Kolkata\")).format(cal));\n\tSystem.out.println(FastDateFormat.getInstance(\"yyyy-MM-dd'T'HH:mm:ss.SSS'Z'\", TimeZone.getTimeZone(\"Europe/London\")).format(cal));\n}\n{noformat}\n\nGives the following console logs:\n{noformat}\nlong\n2009-10-16T08:42:16+02:00\n2009-10-16T12:12:16+05:30\n2009-10-16T07:42:16+01:00\ncalendar\n2009-10-16T08:42:16+02:00\n2009-10-16T08:42:16+02:00\n2009-10-16T08:42:16+02:00\ncalendar fast\n2009-10-16T08:42:16.975Z\n2009-10-16T08:42:16.975Z\n2009-10-16T08:42:16.975Z\n{noformat}\n\nWhen DateFormatUtils.format takes a long parameter, the time string is good.\nWhen DateFormatUtils.format takes a Calendar parameter, the time string is wrong, the timezone parameter is IGNORED.\n",
+        "duedate": null,
+        "environment": "Sun JDK 1.6.0_45 and 1.7.0_21 on Fedora 17 (Linux 3.9.10-100.fc17.i686.PAE).\n",
+        "fixVersions": [{
+            "archived": false,
+            "description": "New features including Java 9 support",
+            "id": "12331955",
+            "name": "3.5",
+            "releaseDate": "2016-10-14",
+            "released": true,
+            "self": "https://issues.apache.org/jira/rest/api/2/version/12331955"
+        }],
+        "issuelinks": [
+            {
+                "id": "12375179",
+                "outwardIssue": {
+                    "fields": {
+                        "issuetype": {
+                            "avatarId": 21133,
+                            "description": "A problem which impairs or prevents the functions of the product.",
+                            "iconUrl": "https://issues.apache.org/jira/secure/viewavatar?size=xsmall&avatarId=21133&avatarType=issuetype",
+                            "id": "1",
+                            "name": "Bug",
+                            "self": "https://issues.apache.org/jira/rest/api/2/issuetype/1",
+                            "subtask": false
+                        },
+                        "priority": {
+                            "iconUrl": "https://issues.apache.org/jira/images/icons/priorities/major.svg",
+                            "id": "3",
+                            "name": "Major",
+                            "self": "https://issues.apache.org/jira/rest/api/2/priority/3"
+                        },
+                        "status": {
+                            "description": "The issue is considered finished, the resolution is correct. Issues which are not closed can be reopened.",
+                            "iconUrl": "https://issues.apache.org/jira/images/icons/statuses/closed.png",
+                            "id": "6",
+                            "name": "Closed",
+                            "self": "https://issues.apache.org/jira/rest/api/2/status/6",
+                            "statusCategory": {
+                                "colorName": "green",
+                                "id": 3,
+                                "key": "done",
+                                "name": "Done",
+                                "self": "https://issues.apache.org/jira/rest/api/2/statuscategory/3"
+                            }
+                        },
+                        "summary": "DateFormatUtils.format does not correctly change Calendar TimeZone in certain situations"
+                    },
+                    "id": "12438318",
+                    "key": "LANG-538",
+                    "self": "https://issues.apache.org/jira/rest/api/2/issue/12438318"
+                },
+                "self": "https://issues.apache.org/jira/rest/api/2/issueLink/12375179",
+                "type": {
+                    "id": "10020",
+                    "inward": "is cloned by",
+                    "name": "Cloners",
+                    "outward": "is a clone of",
+                    "self": "https://issues.apache.org/jira/rest/api/2/issueLinkType/10020"
+                }
+            },
+            {
+                "id": "12410449",
+                "outwardIssue": {
+                    "fields": {
+                        "issuetype": {
+                            "avatarId": 21133,
+                            "description": "A problem which impairs or prevents the functions of the product.",
+                            "iconUrl": "https://issues.apache.org/jira/secure/viewavatar?size=xsmall&avatarId=21133&avatarType=issuetype",
+                            "id": "1",
+                            "name": "Bug",
+                            "self": "https://issues.apache.org/jira/rest/api/2/issuetype/1",
+                            "subtask": false
+                        },
+                        "priority": {
+                            "iconUrl": "https://issues.apache.org/jira/images/icons/priorities/major.svg",
+                            "id": "3",
+                            "name": "Major",
+                            "self": "https://issues.apache.org/jira/rest/api/2/priority/3"
+                        },
+                        "status": {
+                            "description": "The issue is considered finished, the resolution is correct. Issues which are not closed can be reopened.",
+                            "iconUrl": "https://issues.apache.org/jira/images/icons/statuses/closed.png",
+                            "id": "6",
+                            "name": "Closed",
+                            "self": "https://issues.apache.org/jira/rest/api/2/status/6",
+                            "statusCategory": {
+                                "colorName": "green",
+                                "id": 3,
+                                "key": "done",
+                                "name": "Done",
+                                "self": "https://issues.apache.org/jira/rest/api/2/statuscategory/3"
+                            }
+                        },
+                        "summary": "Wrong formating of time zones with daylight saving time in FastDatePrinter"
+                    },
+                    "id": "12781034",
+                    "key": "LANG-1092",
+                    "self": "https://issues.apache.org/jira/rest/api/2/issue/12781034"
+                },
+                "self": "https://issues.apache.org/jira/rest/api/2/issueLink/12410449",
+                "type": {
+                    "id": "10030",
+                    "inward": "is related to",
+                    "name": "Reference",
+                    "outward": "relates to",
+                    "self": "https://issues.apache.org/jira/rest/api/2/issueLinkType/10030"
+                }
+            },
+            {
+                "id": "12423355",
+                "inwardIssue": {
+                    "fields": {
+                        "issuetype": {
+                            "description": "A new unit, integration or system test.",
+                            "iconUrl": "https://issues.apache.org/jira/images/icons/issuetypes/requirement.png",
+                            "id": "6",
+                            "name": "Test",
+                            "self": "https://issues.apache.org/jira/rest/api/2/issuetype/6",
+                            "subtask": false
+                        },
+                        "priority": {
+                            "iconUrl": "https://issues.apache.org/jira/images/icons/priorities/major.svg",
+                            "id": "3",
+                            "name": "Major",
+                            "self": "https://issues.apache.org/jira/rest/api/2/priority/3"
+                        },
+                        "status": {
+                            "description": "The issue is considered finished, the resolution is correct. Issues which are not closed can be reopened.",
+                            "iconUrl": "https://issues.apache.org/jira/images/icons/statuses/closed.png",
+                            "id": "6",
+                            "name": "Closed",
+                            "self": "https://issues.apache.org/jira/rest/api/2/status/6",
+                            "statusCategory": {
+                                "colorName": "green",
+                                "id": 3,
+                                "key": "done",
+                                "name": "Done",
+                                "self": "https://issues.apache.org/jira/rest/api/2/statuscategory/3"
+                            }
+                        },
+                        "summary": "Use JUnit rules to set and reset the default Locale and TimeZone"
+                    },
+                    "id": "12826527",
+                    "key": "LANG-1127",
+                    "self": "https://issues.apache.org/jira/rest/api/2/issue/12826527"
+                },
+                "self": "https://issues.apache.org/jira/rest/api/2/issueLink/12423355",
+                "type": {
+                    "id": "10030",
+                    "inward": "is related to",
+                    "name": "Reference",
+                    "outward": "relates to",
+                    "self": "https://issues.apache.org/jira/rest/api/2/issueLinkType/10030"
+                }
+            },
+            {
+                "id": "12423210",
+                "outwardIssue": {
+                    "fields": {
+                        "issuetype": {
+                            "avatarId": 21133,
+                            "description": "A problem which impairs or prevents the functions of the product.",
+                            "iconUrl": "https://issues.apache.org/jira/secure/viewavatar?size=xsmall&avatarId=21133&avatarType=issuetype",
+                            "id": "1",
+                            "name": "Bug",
+                            "self": "https://issues.apache.org/jira/rest/api/2/issuetype/1",
+                            "subtask": false
+                        },
+                        "priority": {
+                            "iconUrl": "https://issues.apache.org/jira/images/icons/priorities/major.svg",
+                            "id": "3",
+                            "name": "Major",
+                            "self": "https://issues.apache.org/jira/rest/api/2/priority/3"
+                        },
+                        "status": {
+                            "description": "The issue is considered finished, the resolution is correct. Issues which are not closed can be reopened.",
+                            "iconUrl": "https://issues.apache.org/jira/images/icons/statuses/closed.png",
+                            "id": "6",
+                            "name": "Closed",
+                            "self": "https://issues.apache.org/jira/rest/api/2/status/6",
+                            "statusCategory": {
+                                "colorName": "green",
+                                "id": 3,
+                                "key": "done",
+                                "name": "Done",
+                                "self": "https://issues.apache.org/jira/rest/api/2/statuscategory/3"
+                            }
+                        },
+                        "summary": "Unit test FastDatePrinterTimeZonesTest needs a timezone set"
+                    },
+                    "id": "12826190",
+                    "key": "LANG-1123",
+                    "self": "https://issues.apache.org/jira/rest/api/2/issue/12826190"
+                },
+                "self": "https://issues.apache.org/jira/rest/api/2/issueLink/12423210",
+                "type": {
+                    "id": "12310040",
+                    "inward": "is required by",
+                    "name": "Required",
+                    "outward": "requires",
+                    "self": "https://issues.apache.org/jira/rest/api/2/issueLinkType/12310040"
+                }
+            }
+        ],
+        "issuetype": {
+            "avatarId": 21133,
+            "description": "A problem which impairs or prevents the functions of the product.",
+            "iconUrl": "https://issues.apache.org/jira/secure/viewavatar?size=xsmall&avatarId=21133&avatarType=issuetype",
+            "id": "1",
+            "name": "Bug",
+            "self": "https://issues.apache.org/jira/rest/api/2/issuetype/1",
+            "subtask": false
+        },
+        "labels": [
+            "patch",
+            "time"
+        ],
+        "lastViewed": null,
+        "priority": {
+            "iconUrl": "https://issues.apache.org/jira/images/icons/priorities/major.svg",
+            "id": "3",
+            "name": "Major",
+            "self": "https://issues.apache.org/jira/rest/api/2/priority/3"
+        },
+        "progress": {
+            "progress": 0,
+            "total": 0
+        },
+        "project": {
+            "avatarUrls": {
+                "16x16": "https://issues.apache.org/jira/secure/projectavatar?size=xsmall&pid=12310481&avatarId=10011",
+                "24x24": "https://issues.apache.org/jira/secure/projectavatar?size=small&pid=12310481&avatarId=10011",
+                "32x32": "https://issues.apache.org/jira/secure/projectavatar?size=medium&pid=12310481&avatarId=10011",
+                "48x48": "https://issues.apache.org/jira/secure/projectavatar?pid=12310481&avatarId=10011"
+            },
+            "id": "12310481",
+            "key": "LANG",
+            "name": "Commons Lang",
+            "projectCategory": {
+                "description": "Apache Commons components",
+                "id": "10260",
+                "name": "Commons",
+                "self": "https://issues.apache.org/jira/rest/api/2/projectCategory/10260"
+            },
+            "self": "https://issues.apache.org/jira/rest/api/2/project/12310481"
+        },
+        "reporter": {
+            "active": true,
+            "avatarUrls": {
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=cpm&avatarId=17834",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=cpm&avatarId=17834",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=cpm&avatarId=17834",
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=cpm&avatarId=17834"
+            },
+            "displayName": "Christian P. MOMON",
+            "key": "cpm",
+            "name": "cpm",
+            "self": "https://issues.apache.org/jira/rest/api/2/user?username=cpm",
+            "timeZone": "Europe/Paris"
+        },
+        "resolution": {
+            "description": "A fix for this issue is checked into the tree and tested.",
+            "id": "1",
+            "name": "Fixed",
+            "self": "https://issues.apache.org/jira/rest/api/2/resolution/1"
+        },
+        "resolutiondate": "2015-05-01T02:29:01.000+0000",
+        "status": {
+            "description": "The issue is considered finished, the resolution is correct. Issues which are not closed can be reopened.",
+            "iconUrl": "https://issues.apache.org/jira/images/icons/statuses/closed.png",
+            "id": "6",
+            "name": "Closed",
+            "self": "https://issues.apache.org/jira/rest/api/2/status/6",
+            "statusCategory": {
+                "colorName": "green",
+                "id": 3,
+                "key": "done",
+                "name": "Done",
+                "self": "https://issues.apache.org/jira/rest/api/2/statuscategory/3"
+            }
+        },
+        "subtasks": [],
+        "summary": "CLONE - DateFormatUtils.format does not correctly change Calendar TimeZone in certain situations",
+        "timeestimate": null,
+        "timeoriginalestimate": null,
+        "timespent": null,
+        "updated": "2016-10-19T07:00:27.000+0000",
+        "versions": [{
+            "archived": false,
+            "description": "November release from 3.x",
+            "id": "12317550",
+            "name": "3.1",
+            "releaseDate": "2011-11-14",
+            "released": true,
+            "self": "https://issues.apache.org/jira/rest/api/2/version/12317550"
+        }],
+        "votes": {
+            "hasVoted": false,
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/LANG-916/votes",
+            "votes": 0
+        },
+        "watches": {
+            "isWatching": false,
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/LANG-916/watchers",
+            "watchCount": 4
+        },
+        "workratio": -1
+    },
+    "id": "12668399",
+    "key": "LANG-916",
+    "self": "https://issues.apache.org/jira/rest/api/2/issue/12668399"
+}

@@ -1,0 +1,9 @@
+[If the setDefaultStyle() method is not used, then the class is not thread-hostile, so the Javadoc should at least point this out.
+
+The get/setDefaultStyle() methods should really be synch, otherwise there is no guarantee what one thread will get when another sets.
+
+If this were done, then it would be safe to call the set() method before any use is made of the class.
+
+Users that provide a non-null ToStringStyle to constructors and static methods should not be affected by changes to the default style, so perhaps the constructors should enforce this., Rewrite for 3.0 to deal with/remove the static variable?, Variable made volatile.
+
+I propose we close this call., Closing per Stephen's commit.]

@@ -1,0 +1,6 @@
+[Patch comments out the relevant suite.addTest line indicated in the bug description, Works fine for me on Sun Java 1.4.2_16 and 1.5.0_13 on Windows XP SP2. I get the expected compiler warnings on Java 5. Please include your errors., Any details on your errors Hasan?, I have warnings-as-errors set and that was the problem. In any case, commenting this out might be a good idea with a version test., The entire enum directory is deprecated for the same reason and will be removed at some point.
+No point in just removing the test case.
+
+The workround is to leave such warnings as warnings., Yup - closing as wontfix.
+
+All the deprecated bits will vanish in 3.0.]

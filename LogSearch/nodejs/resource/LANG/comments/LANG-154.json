@@ -1,0 +1,3 @@
+[Created an attachment (id=10369)
+Removes redundant null check in StringUtls#jion
+, Patch applied and then some. Thanks!, 2.1 released, closing.]

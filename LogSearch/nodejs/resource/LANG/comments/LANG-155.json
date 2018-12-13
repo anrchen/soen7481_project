@@ -1,0 +1,20 @@
+[Created an attachment (id=7459)
+a tiny patch which comments out the checkstyle.properties line
+, Another way to deal with this problem is to create 
+
+1. an xml config file, checkstyle.xml containing the properties in
+checkstyle.properties
+
+2. add a line to your local build.properties file (create one if you aren't
+using one) that sets maven.checkstyle.properties = checkstyle.xml. This will
+override the setting in project.properties.  
+
+That way, the maven checkstyle plugin will still work for people using the old
+version.
+
+I am no maven expert, but the above is working for me.  It would probably be a
+good idea for someone to add a good checkstyle.xml to cvs., Your suggestion is without a doubt the correct long term solution.  A week or so
+ago when maven-b10 was released, I looked into the new checkstyle configuration
+format, but didn't have to time to learn the new syntax.  My solution was meant
+to be a quick fix until a proper checkstyle.xml could be constructed., Applied.
+<sarcasm>Nice to see maven makes life easier for project management.</sarcasm>]

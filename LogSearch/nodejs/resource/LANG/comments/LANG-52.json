@@ -1,0 +1,53 @@
+[Perhaps Validate.notEmpty should also throw NullArgumentException if the
+Argument was null., What is NullArgumentException?  Do you mean NullPointerException?, Changing these methods to throw a different exception type could break existing
+code that depends on the fact that they throw IllegalArgumentException.  What if
+someone (even if it's not suggested) puts a try/catch around a call to
+Validate.notNull() which catches IllegalArgumentException?  For most cases
+you're not really supposed to catch runtime exceptions, but that doesn't mean
+that it's not done., For NullArgumentException see here:
+http://jakarta.apache.org/commons/lang/api/org/apache/commons/lang/NullArgumentException.html
+
+It's in the same package als Validate and a subclass of
+IllegalArgumentException, so it is no Problem to change this., Ahhh.  I was looking in the exception package and didn't see it.  This shouldn't
+cause any problems, then, I wouldn't think.  Good idea!, Hm, but there would be little difference in the use of
+Validate.notNull(Object,String) and the Methods notEmpty with take an message as
+second argument. At the moment I write something like:
+
+public void foo(Object bar){
+  Validate.notNull(bar, "bar was null");
+  //other code
+}
+
+
+But if notNull would throw an NullArgumentException you should write 
+
+public void foo(Object bar){
+  Validate.notNull(bar, "bar");
+  //other code
+}
+
+Or you would get "bar was null must not be null." as message. :-)
+
+
+BTW: Perhaps I want to provide some methods to this class (Validate). What do I
+have to do? (Or should I create an issue for every new method?), Sorry for lateness in replying Jörg. If you still wanted to do such, multiple
+attachments to the one issue is fine. If the attachments started to involve
+different classes, packages, or problems, then I'd be tempted to kick off a new
+issue., API change, so targetted for 3.0 (which hopefully will be pretty quickly after
+2.2). , The only problem with this is in the messages. The NullArgumentException automatically adds " must not be null" to the end of any message passed up to it (ACK). In Validate we receive the message to print out, so having " must not be null" on the end becomes very daft. Credit to whomever wrote the unit tests that failed; otherwise I wouldn't have noticed.
+
+We should also change the noNullElements methods if we do change the notNull ones, but I think the gain here is not worth the pain.
+
+I'm +1 to WONTFIX this., In case we do do this, a patch with the changes to Validate.java., Yes, this method probably should have thrown NullArgumentException, but it doesn't and its too late to fix now. Also, the JDK should have has a NullArgumentException, but there's not much we can do about that either., Reopening this issue for 3.0 - backwards compatible changes might be acceptable then., This can be fixed in the 2.x line. Add a second constructor to NullArgumentException which accepts both the name of the offending field and the message. Because the name isn't provided by Validate, just pass in null for it, but if it exists you can append both messages together. , Paul: Got patch? :), Just so we are clear. This change could break compatibility:
+
+try {
+. Validate.notNull(obj);
+. someMethodThatMightThrowNullArgumentException()
+} catch (NullArgumentException ex) {
+. System.out.println("A");
+} catch (IllegalArgumentException ex) {
+. System.out.println("B");
+}
+
+Making this change will cause the code to print A instead of B.
+, Stephen, was that only an FYI or an objection? , I won't block the change, but I personally disagree with it for compatibility reasons., Pushing back up to 3.0. I'm glad we discussed this again - and I think while it's worth doing, there's no rush to do it before we hit the next major release., Moving to LangTwo which will most likely be a different package structure. It's not a big enough deal to be a point of backwards incompatibility., I still vote for this to be in 3.0. You can achieve it by adding a new Validate.notNullArgument method which appropriately throws NullArgumentException. This way, you can keep both backwards compatibility, but also deprecate the current version., Won't fix because we deleted NullArgumentException.]

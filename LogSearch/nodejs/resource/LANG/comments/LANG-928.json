@@ -1,0 +1,6 @@
+[svn ci -m "Applying github pull request https://github.com/apache/commons-lang/pull/5, linked as LANG-928, fixing a bug in OctalEscaper trying to parse octal numbers longer than 3 digits" .
+Sending        src/changes/changes.xml
+Sending        src/main/java/org/apache/commons/lang3/text/translate/OctalUnescaper.java
+Sending        src/test/java/org/apache/commons/lang3/text/translate/OctalUnescaperTest.java
+Transmitting file data ...
+Committed revision 1535911.]

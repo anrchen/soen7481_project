@@ -1,0 +1,18 @@
+[Sorry, I should have been clearer that I was again referring to the Fraction
+class pow() method. , Comments from mathematicians please..., The OP is correct in stating that 0^0 is an indeterminate form.
+
+However, in lang's defense, java.lang.Math.pow(0, 0) does return 1.0 based on 
+the special case found in the javadoc comments:  If the second argument is 
+positive or negative zero, then the result is 1.0.
+
+, Zero to the power of zero, though undefined, is often "defined" to be 1 for
+several reasons. See this entry in the sci.math FAQ:
+http://www.faqs.org/faqs/sci-math-faq/specialnumbers/0to0/
+
+I would consider the current behaviour of returning 1 far more desirable than
+what is requested. Change resolution to WONTFIX?, My gut says to stick with the JVM way of doing it as per Brent's comment. I
+think it's better to not be surprising users with unexpected exceptions (and
+differences from the JVM) than to be trying to pick an option in what seems to
+be a grey area of mathematics.
+
+Does that sound reasonable Elliotte? , Going with WONTFIX. It seems a 50/50 call, so let's stick with the Sun one.]

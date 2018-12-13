@@ -1,0 +1,73 @@
+[GitHub user rikles opened a pull request:
+
+    https://github.com/apache/commons-lang/pull/97
+
+    LANG-1147 : Fix EnumUtils *BitVector issue with more than 32 values Enums
+
+    In `EnumUtils` all _BitVector_ related methods fail in handling Enum with more than 32 values.
+    This is due to a implicit `int` -> `long` conversion in generating the Enum value `long` mask.
+    
+    ```java
+    // Bad code : here `1` is an `int` value so the `<<` operation is done into an `int` context and then, the result is converted to a `long` value
+    long mask = 1 << 32;    // -> mask = 1 and not 4294967296 (0x100000000)
+    
+    // Good code : here `1L` is a `long` value so the `<<` operation is done into an `long` context
+    long mask = 1L << 32;    // -> mask = 4294967296 (0x100000000)
+    ```
+    
+    I fixed this and add some tests into `EnumUtilsTest` with a 64 values Enum.
+
+You can merge this pull request into a Git repository by running:
+
+    $ git pull https://github.com/rikles/commons-lang fix-LANG-1147
+
+Alternatively you can review and apply these changes as the patch at:
+
+    https://github.com/apache/commons-lang/pull/97.patch
+
+To close this pull request, make a commit to your master/trunk branch
+with (at least) the following in the commit message:
+
+    This closes #97
+    
+----
+commit 1c9e5139f2b515f8741fbcb9c9b0f398d22d73ca
+Author: Loic Guibert <lfdummy-apache@yahoo.fr>
+Date:   2015-06-12T08:19:37Z
+
+    LANG-1147 : Fix EnumUtils *BitVector issue with more than 32 values Enums
+
+----
+, Github user asfgit closed the pull request at:
+
+    https://github.com/apache/commons-lang/pull/97
+, Thanks for the report and thorough patch.
+Applied:
+
+Repository: commons-lang
+Updated Branches:
+  refs/heads/master 529964961 -> 06b7cd3a3
+
+
+LANG-1147 EnumUtils *BitVector issue with more than 32 values Enum
+This closes #97
+
+Project: http://git-wip-us.apache.org/repos/asf/commons-lang/repo
+Commit: http://git-wip-us.apache.org/repos/asf/commons-lang/commit/06b7cd3a
+Tree: http://git-wip-us.apache.org/repos/asf/commons-lang/tree/06b7cd3a
+Diff: http://git-wip-us.apache.org/repos/asf/commons-lang/diff/06b7cd3a
+
+Branch: refs/heads/master
+Commit: 06b7cd3a31c4565ceb0a127273ef800a3d084caf
+Parents: 5299649
+Author: Sebb <sebb@apache.org>
+Authored: Sat Jun 13 00:38:27 2015 +0100
+Committer: Sebb <sebb@apache.org>
+Committed: Sat Jun 13 00:38:27 2015 +0100
+
+----------------------------------------------------------------------
+ src/changes/changes.xml                         |  1 +
+ .../org/apache/commons/lang3/EnumUtils.java     |  8 +--
+ .../org/apache/commons/lang3/EnumUtilsTest.java | 51 ++++++++++++++++++++
+ 3 files changed, 56 insertions(+), 4 deletions(-)
+]

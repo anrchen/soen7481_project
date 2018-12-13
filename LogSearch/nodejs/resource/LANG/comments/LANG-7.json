@@ -1,0 +1,18 @@
+[Well spotted, thanks. Change made., As per the online javadocs:
+http://jakarta.apache.org/commons/lang/api/org/apache/commons/lang/StringUtils.html#replace(java.lang.String,%20java.lang.String,%20java.lang.String)
+
+This seems to have not been fixed:
+
+ StringUtils.replace(null, *, *)        = null
+ StringUtils.replace("", *, *)          = ""
+ StringUtils.replace("aba", null, null) = "aba"
+ StringUtils.replace("aba", null, null) = "aba"
+ StringUtils.replace("aba", "a", null)  = "aba" 
+ StringUtils.replace("aba", "a", "")    = "aba" <-- here
+ StringUtils.replace("aba", "a", "z")   = "zbz", Changing this to 'fixed' since this issue has been addressed in the source
+repository.
+
+The javadoc available at http://jakarta.apache.org/commons/lang/api/index.html
+reflects the latest released version (2.0) of commons-lang. In that version the
+issue were present. The online javadoc will however be updated when the next
+version of commons-lang is released., 2.1 released, closing.]

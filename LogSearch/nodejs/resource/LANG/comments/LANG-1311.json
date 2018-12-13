@@ -1,0 +1,5 @@
+[Patch applied. Thanks!
+
+{code}assertEquals("java.util.List<java.lang.String>[]", TypeUtils.toString(field.getGenericType()));{code} worked on current master and most probably on 3.5 (even before applying the patch)., Thanks.
+
+The generics list worked but I didn't see a unit test for a mix of generics and arrays, so I added one for good measure., Thanks for clarifying! :)]

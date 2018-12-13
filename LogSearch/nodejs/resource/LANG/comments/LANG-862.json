@@ -1,0 +1,1 @@
+[Apologies, I see this is fixed in the latests SVN - should have browsed the source code first! Although, the pos is still going to be bigger than the length of the input string, which seems odd to me, since it's just using pt to index into the string.]

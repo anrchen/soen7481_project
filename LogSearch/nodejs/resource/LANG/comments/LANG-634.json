@@ -1,0 +1,5 @@
+[Check the javadocs:
+
+"Checks if the String contains only unicode digits."
+
+This is not a bug., Try NumberUtils.isNumber().]

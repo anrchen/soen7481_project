@@ -1,0 +1,6 @@
+[This looks liked a duplicate of LANG-477 to me which was fixed in r733169:
+
+http://svn.apache.org/viewvc?view=revision&revision=733169
+, I downloaded the new version of ExtendedMessageFormat class. It runs. 
+I'll use it by shadowing the ExtendedMessageFormat 2.4 by waiting the release 3.0.
+Thanks.]

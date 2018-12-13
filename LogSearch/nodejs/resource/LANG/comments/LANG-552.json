@@ -1,0 +1,12 @@
+[Agreed that at the least a javadoc update should be done. Whether to change code - something up for discussion.
+
+Usually the null safe approach covers passing null directly in, rather than null inside an array., I dug more into the code and the intent appears to be that null in the replacement list is ignored. I've null protected the part that was dying and new tests pass.
+
+svn ci -m "Applying fix for LANG-552. StringUtils.replaceEach(String, String[], String[]) no longer NPEs when null appears in the last String[]"
+Sending        src/java/org/apache/commons/lang3/StringUtils.java
+Sending        src/test/org/apache/commons/lang3/StringUtilsTest.java
+Transmitting file data ..
+Committed revision 890212.
+
+
+]

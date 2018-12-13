@@ -1,0 +1,8 @@
+[URL: http://svn.apache.org/viewvc?rev=1390795&view=rev
+Log:
+LANG-832 FastDateParser does not handle unterminated quotes correctly
+
+Modified:
+    commons/proper/lang/trunk/src/changes/changes.xml
+    commons/proper/lang/trunk/src/main/java/org/apache/commons/lang3/time/FastDateParser.java
+    commons/proper/lang/trunk/src/test/java/org/apache/commons/lang3/time/FastDateParserTest.java]

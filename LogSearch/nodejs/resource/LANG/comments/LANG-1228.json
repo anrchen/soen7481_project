@@ -1,0 +1,50 @@
+[GitHub user bdhess opened a pull request:
+
+    https://github.com/apache/commons-lang/pull/139
+
+    [LANG-1228] Prefer Throwable.getCause() in ExceptionUtils.getCause()
+
+    
+
+You can merge this pull request into a Git repository by running:
+
+    $ git pull https://github.com/bdhess/commons-lang get-cause
+
+Alternatively you can review and apply these changes as the patch at:
+
+    https://github.com/apache/commons-lang/pull/139.patch
+
+To close this pull request, make a commit to your master/trunk branch
+with (at least) the following in the commit message:
+
+    This closes #139
+    
+----
+commit 2644ee0afc6fbc36f4f00990e4bffc55ca588f3f
+Author: Bradley Hess <bdhess@pobox.com>
+Date:   2016-05-10T03:38:13Z
+
+    [LANG-1228] Prefer Throwable.getCause() in ExceptionUtils.getCause()
+
+----
+, Github user bdhess commented on the pull request:
+
+    https://github.com/apache/commons-lang/pull/139#issuecomment-218052683
+  
+    For convenience: https://issues.apache.org/jira/browse/LANG-1228
+, Github user PascalSchumacher commented on the pull request:
+
+    https://github.com/apache/commons-lang/pull/139#issuecomment-220824801
+  
+    +1
+, Github user asfgit closed the pull request at:
+
+    https://github.com/apache/commons-lang/pull/139
+, Github user PascalSchumacher commented on the pull request:
+
+    https://github.com/apache/commons-lang/pull/139#issuecomment-221358056
+  
+    Thanks! :+1: 
+, Pull request merged. Thanks!
+
+Can somebody please resolve this? Thanks!]

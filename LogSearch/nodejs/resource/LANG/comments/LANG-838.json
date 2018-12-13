@@ -1,0 +1,8 @@
+[URL: http://svn.apache.org/viewvc?rev=1391695&view=rev
+Log:
+LANG-838 ArrayUtils removeElements methods clone temporary index arrays unnecessarily
+
+Modified:
+    commons/proper/lang/trunk/src/changes/changes.xml
+    commons/proper/lang/trunk/src/main/java/org/apache/commons/lang3/ArrayUtils.java
+]

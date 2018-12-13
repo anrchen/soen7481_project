@@ -1,0 +1,27 @@
+[Of course, JEP 223 is a little non-semantic-versiony on the semantics of specification.version .  A minor version may include non-breaking api changes from MR of specifications, but those versions aren't specification versions.
+
+
+{panel:title=Minor}
+$MINOR --- The minor version number, incremented for a minor update release that may contain compatible bug fixes, revisions to standard APIs mandated by a Maintenance Release of the relevant Platform Specification, and implementation features outside the scope of that Specification such as new JDK-specific APIs, additional service providers, new garbage collectors, and ports to new hardware architectures.
+
+{panel}
+
+
+*Major (GA)*
+{noformat}
+  java.version                    1.9.0         9
+  java.runtime.version            1.9.0-b100    9+100
+  java.vm.version                 1.9.0-b100    9+100
+  java.specification.version      1.9           9
+  java.vm.specification.version   1.9           9
+{noformat}
+
+*Minor #1 (GA)*
+{noformat}
+  java.version                    1.9.0_20      9.1.2
+  java.runtime.version            1.9.0_20-b62  9.1.2+62
+  java.vm.version                 1.9.0_20-b62  9.1.2+62
+  java.specification.version      1.9           9
+  java.vm.specification.version   1.9           9
+{noformat}
+]

@@ -1,0 +1,7 @@
+[This seems logical to me.
+
+throwables[i].getClass().equals(type)   changed to
+type.isAssignableFrom(throwables[i].getClass()) in ExceptionUtils and NestableDelegate., Reopening for the moment. It breaks tests (I foolishly had only the Time tests running from previous 
+dev work) and I want to get community opinion., I changed the behaviour of Nestable, but left ExceptionUtils alone. Instead, in 
+ExceptionUtils I added a parallel method, indexOfType. This should cover the 
+use cases and some measure of backwards compatability., 2.1 released, closing.]

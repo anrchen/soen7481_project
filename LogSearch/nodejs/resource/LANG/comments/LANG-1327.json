@@ -1,0 +1,11 @@
+[Empty format is legal, even if non-sensical. Since there are no format specifiers, the output should be an empty string. , (was writing probably at the same time [~chonton] closed the issue. Agree with his comment, but will leave mine here too FWIW)
+
+Looks like that changed indeed from 3.4 to 3.5, but not in DateFormatUtils, but in FastDatePrinter. See:
+
+{noformat}git diff LANG_3_4 master src/main/java/org/apache/commons/lang3/time/FastDatePrinter.java{noformat}
+
+Instead of simply calling the format method, now it's checking which rules it can apply, and in your case not applying anything, and simply returning an empty String.
+
+Adding a note to DateFormatUtils#format(Long, String) for that, would mean adding a note to all other methods that receive a pattern argument iff the behaviour is consistent (i.e. if for all these methods, passing an empty pattern, returns an empty string). However, I would argue that it would make more sense to document an exception, such as StringIndexOutOfBoundsException, rather than document that we won't throw an exception, and instead will return empty.
+
+Passing an empty pattern, users might guess that they will receive an empty date. I would be fine if the consensus was to document all methods stating that an empty pattern will return an empty formatted date but, my preferred solution is to close this as Won't Fix. ]

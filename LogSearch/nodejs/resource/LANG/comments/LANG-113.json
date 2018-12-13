@@ -1,0 +1,35 @@
+[Created an attachment (id=6460)
+possible fix
+, Attached is a patch that fixes this problem by using a default value when
+java.class.path cannot be read.  This could also be applied to the other
+properties, if necessary., Patch applied, with change made to all properties.
+Thanks, Should a notification be printed on System.err when the SecurityException is 
+detected? 
+
+I am wondering if not printing anything will cause people to have to dig deep 
+in their debugger just to find out that they need to tweak their security if 
+that is appropriate for their configuration. , Agreed, burying exceptions like this could be annoying.  Is System.err used in other places in 
+Lang?, FYI, the references to System.err are:
+
+Apache Jakarta Commons/lang/src/java - 
+org.apache.commons.lang.exception.ExceptionUtils.printRootCauseStackTrace
+(Throwable) : void
+Apache Jakarta Commons/lang/src/java - 
+org.apache.commons.lang.exception.NestableDelegate.printStackTrace() : void
+Apache Jakarta Commons/lang/src/java - 
+org.apache.commons.lang.reflect.MethodUtils.log(Object) : void
+Apache Jakarta Commons/lang/src/java - 
+org.apache.commons.lang.reflect.MethodUtils.log(Object, Throwable) : void (2 
+matches), Created an attachment (id=6470)
+fix 2
+, Attached above is a new patch for this problem.  This patch adds an error
+message and changes the default property to "".  I think defaulting to null is a
+bad idea as it has the potential to cause NPEs.  In particular if java.version
+cannot be read there will be gauranteed NPEs with the IS_JAVA_1_1_* variables., I have added the error message.
+
+I have left the return type as null. This is consistent with the use of this 
+class on early JVMs where a property is not available.
+
+I have added code to handle all cases (in SystemUtils) where a field may be 
+null.
+]

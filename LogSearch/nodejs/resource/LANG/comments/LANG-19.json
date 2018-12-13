@@ -1,0 +1,7 @@
+[Created an attachment (id=13239)
+patch for ToStringStyle
+, Created an attachment (id=13240)
+patch for ToStringStyleTest
+, Thanks for this bug report, and a textbook example of a unit test and fix.
+
+Stephen, 2.1 released, closing.]

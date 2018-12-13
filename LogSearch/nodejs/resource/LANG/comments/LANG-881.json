@@ -1,0 +1,27 @@
+[I suspect that is because it uses createLong() and createBigInteger() which used not to handle octal prefixes.
+This was fixed in 3.1 and 3.2 (not yet released) respectively.
+
+So createNumber() should now handle octal numbers for all integral sizes, i.e. I think the Javadoc is wrong.
+There are already tests which show the behaviour implicitly, for example:
+{code}
+assertEquals(Integer.class, NumberUtils.createNumber("017777777777").getClass()); // 31 bits
+assertEquals(Long.class,    NumberUtils.createNumber("037777777777").getClass()); // 32 bits
+{code}
+
+These should be extended/amended to check the value as well., Applied fixes:
+
+URL: http://svn.apache.org/r1461671
+Log:
+LANG-881 NumberUtils.createNumber() Javadoc says it does not work for octal numbers
+
+Modified:
+    commons/proper/lang/trunk/src/changes/changes.xml
+    commons/proper/lang/trunk/src/main/java/org/apache/commons/lang3/math/NumberUtils.java
+
+
+URL: http://svn.apache.org/r1461654
+Log:
+LANG-881 Enhance test so it also checks the exact values
+
+Modified:
+    commons/proper/lang/trunk/src/test/java/org/apache/commons/lang3/math/NumberUtilsTest.java]

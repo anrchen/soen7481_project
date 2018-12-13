@@ -1,0 +1,49 @@
+[GitHub user j--baker opened a pull request:
+
+    https://github.com/apache/commons-lang/pull/43
+
+    LANG-1055: StrLookup.systemPropertiesLookup() not singleton.
+
+    - Assuming StrLookup.systemPropertiesLookup() should not be a singleton.
+    - Assuming each lookup should have its own snap-shot of the system properties.
+    
+    Please review the proposed changes.
+    Thank you!
+
+You can merge this pull request into a Git repository by running:
+
+    $ git pull https://github.com/j--baker/commons-lang LANG-1055
+
+Alternatively you can review and apply these changes as the patch at:
+
+    https://github.com/apache/commons-lang/pull/43.patch
+
+To close this pull request, make a commit to your master/trunk branch
+with (at least) the following in the commit message:
+
+    This closes #43
+    
+----
+commit f4d574872bdd488032b296faece7921737518c3a
+Author: j--baker <j--baker@users.noreply.github.com>
+Date:   2015-01-21T18:45:11Z
+
+    LANG-1055: Change StrLookup.systemPropertiesLookup() to return a new instance with its own copy of the current system properties.
+
+----
+, Not sure if this is correct, or if it addresses Phil's concerns, but the following is an implementation that 1) does not use a singleton, and 2) allows each instance to have their own snap-shop of the system properties:
+
+https://github.com/apache/commons-lang/pull/43
+
+Thanks in advance for your time., Setting this to review patch. I'll try to have a look soon., Github user asfgit closed the pull request at:
+
+    https://github.com/apache/commons-lang/pull/43
+, {code}
+$ svn ci -m "LANG-1055: StrSubstitutor.replaceSystemProperties does not work consistently. This fixes #43 from github. Thanks to Jonathan Baker." src/main/java/org/apache/commons/lang3/text/StrLookup.java src/test/java/org/apache/commons/lang3/text/StrLookupTest.java
+Sending        src/main/java/org/apache/commons/lang3/text/StrLookup.java
+Sending        src/test/java/org/apache/commons/lang3/text/StrLookupTest.java
+Transmitting file data ..
+Committed revision 1654134.
+{code}
+
+Thanks!]

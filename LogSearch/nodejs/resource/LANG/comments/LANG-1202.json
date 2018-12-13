@@ -1,0 +1,42 @@
+[Patch! For some reason it also contains a lot of files i didn't modify. I'm new to git but did a git clone, only modified DateUtils and the test. I don't know why it thinks i modified:
+
+{code}
+        modified:   src/main/java/org/apache/commons/lang3/ArrayUtils.java
+        modified:   src/main/java/org/apache/commons/lang3/time/DateUtils.java
+        modified:   src/test/java/org/apache/commons/lang3/builder/ReflectionToStringBuilderConcurrencyTest.java
+        modified:   src/test/java/org/apache/commons/lang3/builder/ReflectionToStringBuilderMutateInspectConcurrencyTest.java
+        modified:   src/test/java/org/apache/commons/lang3/builder/ToStringStyleConcurrencyTest.java
+        modified:   src/test/java/org/apache/commons/lang3/time/DateUtilsTest.java
+        modified:   src/test/resources/java.policy
+{code}, Anyway, these are the changes due to lack of producing a normal patch file
+
+{code}
+    @Test
+    public void testLANG799whichDidNotWork() throws ParseException {
+        DateUtils.parseDateStrictly("09 abril 2008 23:55:38 GMT", new Locale("es"), new String[]{"dd MMM yyyy HH:mm:ss zzz"});
+    }
+{code}
+
+{code}
+    /**
+     * <p>Parses a string representing a date by trying a variety of different parsers,
+     * using the default date format symbols for the given locale..</p>
+     * 
+     * <p>The parse will try each parse pattern in turn.
+     * A parse is only deemed successful if it parses the whole of the input string.
+     * If no parse patterns match, a ParseException is thrown.</p>
+     * The parser parses strictly - it does not allow for dates such as "February 942, 1996". 
+     * 
+     * @param str  the date to parse, not null
+     * @param locale the locale whose date format symbols should be used. If <code>null</code>,
+     * the system locale is used (as per {@link #parseDateStrictly(String, String...)}).
+     * @param parsePatterns  the date format patterns to use, see SimpleDateFormat, not null
+     * @return the parsed date
+     * @throws IllegalArgumentException if the date string or pattern array is null
+     * @throws ParseException if none of the date patterns were suitable
+     * @since 3.2
+     */
+    public static Date parseDateStrictly(final String str, final Locale locale, final String... parsePatterns) throws ParseException {
+        return parseDateWithLeniency(str, locale, parsePatterns, false);
+    }  
+{code}, Any comments on this?, committed in [c99a787752770b8952297e24e07bd404cb2f4f74|https://git-wip-us.apache.org/repos/asf?p=commons-lang.git;a=commitdiff;h=c99a787752770b8952297e24e07bd404cb2f4f74]]

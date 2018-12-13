@@ -1,0 +1,64 @@
+[Also breaks on JDK 1.2.2 on Linux. 
+
+One possible way to get around it is the rather dubious use of an explicitly named 
+OperationEnum$1 class. [ie) not an anonymous inner class, but pretending to be]., Change made to OperationEnum. Can someone try it on Linux to see if it fixes 
+it??, The tests and all sources now compile and run fine for me under Sun Linux JDK
+1.3.1_8
+
+Using Sun Linux JDK 1.2.2_016, however, I am still getting the following compile
+error for OperationEnum:
+
+compile.tests:
+    [javac] Compiling 98 source files to
+/home/phil/jakarta-commons/lang/target/tests
+    [javac]
+/home/phil/jakarta-commons/lang/src/test/org/apache/commons/lang/enum/OperationEnum.java:71:
+class org.apache.commons.lang.enum.OperationEnum is an abstract class. It can't
+be instantiated.
+    [javac]         PLUS = new OperationEnum("Plus") {
+    [javac]                ^
+    [javac]
+/home/phil/jakarta-commons/lang/src/test/org/apache/commons/lang/enum/OperationEnum.java:76:
+class org.apache.commons.lang.enum.OperationEnum is an abstract class. It can't
+be instantiated.
+    [javac]         MINUS = new OperationEnum("Minus") {
+    [javac]                 ^
+    [javac] Note: 7 files use or override a deprecated API.  Recompile with
+"-deprecation" for details.
+    [javac] 2 errors, 1 warning
+
+I also had to add 
+
+encoding="ISO-8859-1"
+
+to the build.xml javac targets to get Entities, MethodUtils and
+DurationFormatUtils to compile under 1.2.2_016.
+, To clarify the comment above, all that is failing is compile.tests under Sun
+Linux  JDK 1.2.2.  The compile target succeeds (i.e. src/java builds fine) and
+the tests run clean using this JRE when compiled using 1.4., Stephen's change still fails to compile on my Linux JDK 1.2.2.
+
+    [javac] /home/hen/jakarta/src/jakarta-
+commons/lang/src/test/org/apache/commons/lang/enum/OperationEnum.java:71: 
+class org.apache.commons.lang.enum.OperationEnum is an abstract class. It 
+can't be instantiated.
+    [javac]         PLUS = new OperationEnum("Plus") {
+
+I haven't needed to use Phil's encoding attribute however to make the others 
+compile., OK, I finally understand the problem.
+
+static final OperationEnum PLUS = new OperationEnum("Plus") {
+};
+is defining a new anonymous class. However, because it is assigned to a static 
+field and declared in a static context, the class must be a static nested class 
+instead of an inner class. (inner classes reference their owning object, nested 
+classes don't)
+
+Obviously Sun improved the spec between 1.2 and 1.3 to allow for this unusual 
+case by generating a nested class instead of an inner. 1.2 just objects that it 
+can't create an inner class here.
+
+So...we either find a way around the problem, or declare this particular piece 
+of functionality broken if compiled using 1.2.
+
+, Change made. It should work now on JDK1.2.
+, Now works on JDK 1.2 on Linux. 1.3 had the same problem.]

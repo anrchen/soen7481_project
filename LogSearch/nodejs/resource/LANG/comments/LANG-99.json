@@ -1,0 +1,13 @@
+[Well, this is a tricky one. I feel the basic problem is that the Javadoc
+underspecifies the behavior of both methods, so perhaps we could discuss first
+what the behavior /should be/. 
+
+The heart of the problem is that the CharSetUtils method is a one pass map-style
+of method, while the StringUtils method is not, it uses a nested loop, which is
+somewhat contradictory to the Javadoc comment of doing the work "in one go"., This sort of translate functionality exists in other languages, too. Perl and 
+PHP both have them, and they work the way that translate() worked in 1.0.1. 
+Regardless of what the new replaceChars() method is trying to do, it would be 
+nice to have something backwards compatible with translate() that shares common 
+behavior with similar methods in other languages., CVS implementation now works for the supplied test case.
+ReplaceChars() differs from Translate() in the deletion behaviour when 
+replaceChars is shorter than searchChars. This is documented in CharSetUtils., 2.1 released, closing.]

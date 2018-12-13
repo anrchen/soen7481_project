@@ -1,0 +1,11 @@
+[Are you really waiting, or are you just wanting to get off of local forks?
+
+Aim is to get 3.0 out rather than doing a 2.4.1. Ideally by end of this year/January., well, I am resolved to not use any singly escaped apostrophe ''; since of course I can't just stop our project waiting for
+
+but this might come to bite me at any time, and who knows what other bug fixes have been waiting in the code for a year..
+
+so you're saying that people should just do a local build and just depend on a SNAPSHOT build?, Normally Lang has a release each year. The 2.4->3.0 change has slowed that down to 2 years. Given 3.0 is not backwards compatible with 2.4, I think that's fair.
+
+Ideally I know that I'd rather not use 3.0 time to release a 2.4.1 or 2.5 unless there's a strong reason. I'm not sold on any of the bugfixes being release drivers, and the 2.x JIRA version only has a few items that are there because the code was deleted in 3.0 and a fix was also not readily identifiable.
+
+Depending on the snapshot build would provide very useful feedback, or you could take the 2.4 source and fix the one bug affecting you in a local version.]

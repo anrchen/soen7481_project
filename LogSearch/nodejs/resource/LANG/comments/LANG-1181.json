@@ -1,0 +1,8 @@
+[The class looks absolutely {{public}} to me:
+https://git-wip-us.apache.org/repos/asf?p=commons-lang.git;a=blob;f=src/main/java/org/apache/commons/lang3/builder/MultilineRecursiveToStringStyle.java;h=d54e8b9cc2d40c50967f5aebcbed579f2b1c7ecc;hb=HEAD#l65
+
+What exactly are you referring to?, I include the library in my project as compile("org.apache.commons:commons-lang3:3.4") and the class is defined as:
+
+class MultilineRecursiveToStringStyle extends RecursiveToStringStyle {
+
+, [~Jeff.Guinness@wexinc.com] Thanks for reporting :), but this is a duplicate of [LANG-1112]., Sorry about that. I thought I searched on MultilineRecursiveToStringStyle and didn't find any results but I may have done something wrong., No problem. :)]

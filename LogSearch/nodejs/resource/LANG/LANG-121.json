@@ -1,0 +1,196 @@
+{
+    "expand": "operations,versionedRepresentations,editmeta,changelog,renderedFields",
+    "fields": {
+        "aggregateprogress": {
+            "progress": 0,
+            "total": 0
+        },
+        "aggregatetimeestimate": null,
+        "aggregatetimeoriginalestimate": null,
+        "aggregatetimespent": null,
+        "assignee": null,
+        "components": [],
+        "created": "2002-10-30T03:43:08.000+0000",
+        "creator": {
+            "active": true,
+            "avatarUrls": {
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452",
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452"
+            },
+            "displayName": "Mark McDowell",
+            "key": "mcdoma@ncs.com",
+            "name": "mcdoma@ncs.com",
+            "self": "https://issues.apache.org/jira/rest/api/2/user?username=mcdoma%40ncs.com",
+            "timeZone": "Etc/UTC"
+        },
+        "customfield_10010": 14062,
+        "customfield_12310220": "2002-11-23T09:08:12.000+0000",
+        "customfield_12310222": null,
+        "customfield_12310250": null,
+        "customfield_12310290": null,
+        "customfield_12310291": null,
+        "customfield_12310300": null,
+        "customfield_12310310": "0.0",
+        "customfield_12310420": "34121",
+        "customfield_12310920": "74854",
+        "customfield_12310921": null,
+        "customfield_12311020": null,
+        "customfield_12311024": null,
+        "customfield_12311120": null,
+        "customfield_12311820": "0|i0d6nj:",
+        "customfield_12312022": null,
+        "customfield_12312023": null,
+        "customfield_12312024": null,
+        "customfield_12312026": null,
+        "customfield_12312220": null,
+        "customfield_12312320": null,
+        "customfield_12312321": null,
+        "customfield_12312322": null,
+        "customfield_12312323": null,
+        "customfield_12312324": null,
+        "customfield_12312325": null,
+        "customfield_12312326": null,
+        "customfield_12312327": null,
+        "customfield_12312328": null,
+        "customfield_12312329": null,
+        "customfield_12312330": null,
+        "customfield_12312331": null,
+        "customfield_12312332": null,
+        "customfield_12312333": null,
+        "customfield_12312334": null,
+        "customfield_12312335": null,
+        "customfield_12312336": null,
+        "customfield_12312337": null,
+        "customfield_12312338": null,
+        "customfield_12312339": null,
+        "customfield_12312340": null,
+        "customfield_12312341": null,
+        "customfield_12312520": null,
+        "customfield_12312521": "Sat Jul 12 10:12:56 UTC 2003",
+        "customfield_12312720": null,
+        "customfield_12312823": null,
+        "customfield_12312920": null,
+        "customfield_12312921": null,
+        "customfield_12312923": null,
+        "customfield_12313422": "false",
+        "customfield_12313520": null,
+        "description": "/*\n\nThis bug is using Commons Lang 1.0 with JDK 1.4.0_01.\nThe problem only occurs when using null as the separator and using a\nmax value which is less than the number of actual tokens and making \nuse of the last token which consists of what is left of the string\nbeing tokenized. Because null is passed, the existing code loops through\nthe rest of the tokens, appending null to each of them, expecting that\nthe result will be the remaining string, except the string \"null\" is \nappended rather than a real token...\n\n*/\n\nimport org.apache.commons.lang.StringUtils;\nimport java.util.StringTokenizer;\n\n/**\n * If you replace the\n *   String[] split(String str, String separator, int max) code with the\n *   fixedSplit code below, it will fix the problem.  The code below \ndemonstrates the problem\n *   and the solution.\n *\n * NOTE: I have not run any JUnit tests for this - don't know how.  But - this \ndemonstrates the\n * but and supplies the solution.\n *\n */\n\npublic class DemoSplitBug {\n    public static final String strToSplit = \"This is a test of the emergency \nbroadcast system.\";\n\n    public static void main(String[] args) {\n        DemoSplitBug.demoSplitBug(strToSplit);\n        DemoSplitBug.demoSplitBugFix(strToSplit);\n    }\n\n    public static void demoSplitBug(String theString) {\n        String[] theSplits = StringUtils.split(theString, null, 4);\n        for (int i = 0; i < theSplits.length; i++) {\n            String theSplit = theSplits[i];\n            System.out.println(\"theSplit:\" + theSplit);\n        }\n    }\n\n    public static void demoSplitBugFix(String theString) {\n        String[] theSplits = fixedSplit(theString, null, 4);\n        for (int i = 0; i < theSplits.length; i++) {\n            String theSplit = theSplits[i];\n            System.out.println(\"theSplit:\" + theSplit);\n        }\n    }\n\n    public static String[] fixedSplit(String str, String separator, int max) {\n        StringTokenizer tok = null;\n        if (separator == null) {\n            // Null separator means we're using StringTokenizer's default\n            // delimiter, which comprises all whitespace characters.\n            tok = new StringTokenizer(str);\n        } else {\n            tok = new StringTokenizer(str, separator);\n        }\n\n        int listSize = tok.countTokens();\n        if (max > 0 && listSize > max) {\n            listSize = max;\n        }\n\n        String[] list = new String[listSize];\n        int i = 0;\n        int lastTokenBegin = 0;\n        int lastTokenEnd = 0;\n        while (tok.hasMoreTokens()) {\n            if (max > 0 && i == listSize - 1) {\n                // In the situation where we hit the max yet have\n                // tokens left over in our input, the last list\n                // element gets all remaining text.\n                String endToken = tok.nextToken();\n                lastTokenBegin = str.indexOf(endToken, lastTokenEnd);\n                list[i] = str.substring(lastTokenBegin);\n                break;\n            } else {\n                list[i] = tok.nextToken();\n                lastTokenBegin = str.indexOf(list[i], lastTokenBegin);\n                lastTokenEnd = lastTokenBegin + list[i].length();\n            }\n            i++;\n        }\n        return list;\n    }\n}",
+        "duedate": null,
+        "environment": "Operating System: All\nPlatform: All",
+        "fixVersions": [{
+            "archived": true,
+            "description": "",
+            "id": "12311868",
+            "name": "1.0.1",
+            "releaseDate": "2002-11-25",
+            "released": true,
+            "self": "https://issues.apache.org/jira/rest/api/2/version/12311868"
+        }],
+        "issuelinks": [],
+        "issuetype": {
+            "avatarId": 21133,
+            "description": "A problem which impairs or prevents the functions of the product.",
+            "iconUrl": "https://issues.apache.org/jira/secure/viewavatar?size=xsmall&avatarId=21133&avatarType=issuetype",
+            "id": "1",
+            "name": "Bug",
+            "self": "https://issues.apache.org/jira/rest/api/2/issuetype/1",
+            "subtask": false
+        },
+        "labels": [],
+        "lastViewed": null,
+        "priority": {
+            "iconUrl": "https://issues.apache.org/jira/images/icons/priorities/major.svg",
+            "id": "3",
+            "name": "Major",
+            "self": "https://issues.apache.org/jira/rest/api/2/priority/3"
+        },
+        "progress": {
+            "progress": 0,
+            "total": 0
+        },
+        "project": {
+            "avatarUrls": {
+                "16x16": "https://issues.apache.org/jira/secure/projectavatar?size=xsmall&pid=12310481&avatarId=10011",
+                "24x24": "https://issues.apache.org/jira/secure/projectavatar?size=small&pid=12310481&avatarId=10011",
+                "32x32": "https://issues.apache.org/jira/secure/projectavatar?size=medium&pid=12310481&avatarId=10011",
+                "48x48": "https://issues.apache.org/jira/secure/projectavatar?pid=12310481&avatarId=10011"
+            },
+            "id": "12310481",
+            "key": "LANG",
+            "name": "Commons Lang",
+            "projectCategory": {
+                "description": "Apache Commons components",
+                "id": "10260",
+                "name": "Commons",
+                "self": "https://issues.apache.org/jira/rest/api/2/projectCategory/10260"
+            },
+            "self": "https://issues.apache.org/jira/rest/api/2/project/12310481"
+        },
+        "reporter": {
+            "active": true,
+            "avatarUrls": {
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452",
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452"
+            },
+            "displayName": "Mark McDowell",
+            "key": "mcdoma@ncs.com",
+            "name": "mcdoma@ncs.com",
+            "self": "https://issues.apache.org/jira/rest/api/2/user?username=mcdoma%40ncs.com",
+            "timeZone": "Etc/UTC"
+        },
+        "resolution": {
+            "description": "A fix for this issue is checked into the tree and tested.",
+            "id": "1",
+            "name": "Fixed",
+            "self": "https://issues.apache.org/jira/rest/api/2/resolution/1"
+        },
+        "resolutiondate": "2006-05-16T12:45:54.000+0000",
+        "status": {
+            "description": "The issue is considered finished, the resolution is correct. Issues which are not closed can be reopened.",
+            "iconUrl": "https://issues.apache.org/jira/images/icons/statuses/closed.png",
+            "id": "6",
+            "name": "Closed",
+            "self": "https://issues.apache.org/jira/rest/api/2/status/6",
+            "statusCategory": {
+                "colorName": "green",
+                "id": 3,
+                "key": "done",
+                "name": "Done",
+                "self": "https://issues.apache.org/jira/rest/api/2/statuscategory/3"
+            }
+        },
+        "subtasks": [],
+        "summary": "split using null and max less than actual token count adds \"null\"",
+        "timeestimate": null,
+        "timeoriginalestimate": null,
+        "timespent": null,
+        "updated": "2006-05-16T12:45:54.000+0000",
+        "versions": [{
+            "archived": true,
+            "description": "",
+            "id": "12311908",
+            "name": "1.0",
+            "releaseDate": "2002-10-04",
+            "released": true,
+            "self": "https://issues.apache.org/jira/rest/api/2/version/12311908"
+        }],
+        "votes": {
+            "hasVoted": false,
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/LANG-121/votes",
+            "votes": 0
+        },
+        "watches": {
+            "isWatching": false,
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/LANG-121/watchers",
+            "watchCount": 0
+        },
+        "workratio": -1
+    },
+    "id": "12340390",
+    "key": "LANG-121",
+    "self": "https://issues.apache.org/jira/rest/api/2/issue/12340390"
+}

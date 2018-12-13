@@ -1,0 +1,11 @@
+[Nice catch! Thanks for reporting the issue.
+
+Fixed with a small test that will force the code to go through that line. Probably coverage will increase a tiny bit.
+
+However, that test is not really important. The output generated with or without the fix is the same, from what I could tell. When that check returns - incorrectly - false, then result of toString() is appended anyway.
+
+But for the sake of correctness, we should fix that method and allow it to follow the correct execution logic :-)
+
+Thanks again for spotting it and for providing the fix. Feel free to submit a pull request next time if you'd like your code to be included with the project. Added credits in the changes.xml, so it should appear in the website after the next release.
+
+Bruno, Fixed in c614fbcc79615f93d2c60a153db6e82d7474c425. changes.xml updated, FixVersion and Affect Version updated in JIRA too., 3.8 Released.]

@@ -1,0 +1,1 @@
+[Looks like timezones are broken on the IBM Linux 1.5.0 DateFormat class. Unable to test this on 1.4.2 on Linux as that errors out when trying to compile in either Ant or Maven., JDK bug, so not a lot we can do about it. ]

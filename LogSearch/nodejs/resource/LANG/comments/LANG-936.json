@@ -1,0 +1,8 @@
+[Submitted a patch via github PR to handle this case - https://github.com/apache/commons-lang/pull/14, Setting this to review patch., Thanks Yaniv + Eli :)
+
+svn ci -m "Applying Eli Lindsey's patch to Yaniv Kunda's report in LANG-936 that StringUtils.getLevensteinDistance(String, String, int) gave the wrong answer when the int threshold is near Integer.MAX_VALUE" .
+Sending        src/changes/changes.xml
+Sending        src/main/java/org/apache/commons/lang3/StringUtils.java
+Sending        src/test/java/org/apache/commons/lang3/StringUtilsTest.java
+Transmitting file data ...
+Committed revision 1560275.]
