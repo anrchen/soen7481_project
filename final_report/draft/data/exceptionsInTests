@@ -1,0 +1,44 @@
+ArrayUtilsAddTest.java:        } catch (IllegalArgumentException expected) {
+ArrayUtilsAddTest.java:        } catch (IllegalArgumentException iae){
+ArrayUtilsAddTest.java:        } catch(IndexOutOfBoundsException e) {
+ArrayUtilsRemoveTest.java:        } catch (IndexOutOfBoundsException e) {}
+ArrayUtilsTest.java:        } catch (IllegalArgumentException ex) {}
+ArrayUtilsTest.java:        } catch (ClassCastException e) {}
+ArrayUtilsTest.java:        } catch (NullPointerException ex) {}
+ArrayUtilsTest.java:         } catch (NullPointerException ex) {}
+ArrayUtilsTest.java:        } catch (IllegalArgumentException e) {}
+BooleanUtilsTest.java:        } catch (IllegalArgumentException ex) {}
+CharRangeTest.java:        } catch(IllegalArgumentException e) {
+CharRangeTest.java:        } catch (NoSuchElementException e) {
+CharSequenceUtilsTest.java:        } catch (IndexOutOfBoundsException e) {
+CharUtilsTest.java:        } catch (IllegalArgumentException ex) {}
+ClassUtilsTest.java:        } catch (ClassCastException expected) {}
+ClassUtilsTest.java:        catch( Exception e ) {
+ClassUtilsTest.java:        } catch(IllegalAccessException iae) {
+ClassUtilsTest.java:        } catch(java.lang.IllegalAccessException iae) {
+LocaleUtilsTest.java:        } catch (IllegalArgumentException iae) {}
+LocaleUtilsTest.java:        } catch (UnsupportedOperationException ex) {}
+ObjectUtilsTest.java:        } catch(NullPointerException npe) {
+ObjectUtilsTest.java:        } catch (final CloneFailedException e) {
+RandomStringUtilsTest.java:        } catch (IllegalArgumentException ex) {}
+RangeTest.java:        } catch(NullPointerException npe) {
+SerializationUtilsTest.java:        } catch (SerializationException ex) {
+SerializationUtilsTest.java:        } catch (IllegalArgumentException ex) {
+SerializationUtilsTest.java:        catch(SerializationException e) {
+SerializationUtilsTest.java:        } catch(SerializationException se) {
+StringEscapeUtilsTest.java:        } catch (IOException ex) {
+StringEscapeUtilsTest.java:        } catch (IllegalArgumentException ex) {
+StringEscapeUtilsTest.java:        } catch (RuntimeException ex) {
+StringEscapeUtilsTest.java:            } catch (IOException e) {
+StringEscapeUtilsTest.java:        } catch (IOException e) {
+StringUtilsTest.java:        } catch (IllegalStateException e) {}
+StringUtilsTest.java:        } catch (IllegalArgumentException ex) {
+StringUtilsTrimEmptyTest.java:            } catch(UnsupportedOperationException uoe) {
+SystemUtilsTest.java:        } catch (Exception ex) {
+ValidateTest.java:        } catch (IllegalArgumentException ex) {
+ValidateTest.java:        } catch (NullPointerException ex) {
+ValidateTest.java:        } catch (NullPointerException e) {
+ValidateTest.java:        } catch (IllegalArgumentException e) {
+ValidateTest.java:        } catch (IndexOutOfBoundsException ex) {
+ValidateTest.java:        catch (IllegalArgumentException e)
+ValidateTest.java:        } catch(IllegalArgumentException e) {

@@ -1,0 +1,60 @@
+
+\section{Abstract}
+
+
+Index terms: software test, static analysis, exception stack trace, log analysis
+
+\section{Introduction}
+
+Challenges
+
+\vspace{-0.1cm}
+\begin{itemize} \itemsep 0em
+ \item RQ 1: How are recent changes correlated with production errors?
+
+ \tbd {summary of findings}
+
+ \item RQ 2: How are test cases and exception stack trace correlated?
+
+ \tbd {summary of findings}
+ 
+ \item RQ 3: Can production failures contribute to better test cases?
+
+ \tbd {summary of findings}
+ 
+\end{itemize}
+
+\section{Methodology}
+We studied 65 user-reported bugs from \tbd{reference} Apache Commons Lang, a Java helper package that contains extra utilities for java.lang API. 
+
+Those failures we studied were collected by \tbd{reference} Defects4J. Each bug consists of the fixing commit number and the related tests that failed before the fix. We selected a specific set of issues that contain exception stack trace. The stack trace will help us to pinpoint the incident and thus, evaluate the root cause of the failure. 
+
+The main methodology is break down into three steps:
+\vspace{-0.1cm}
+\begin{itemize} \itemsep 0em
+ \item Exception and source code mapping
+ \item Test and source code mapping
+ \item Exception and test mapping
+\end{itemize}
+
+\phead{Exception and source code mapping}
+
+\phead{Test and source code mapping}
+
+\phead{Exception and test mapping}
+
+
+Limitations: 
+
+1) Small sample set. Only 65 bugs \tbd{more} In the scale 
+
+2) Representativeness of the seleted bugs. We only studied bugs reported from Apache Commons Lang project. Some issues, such as misconfigurations, are project-related, which might not provide a generic finding for future research. In consequence, we only list common findings that can also be observed in other Java projects. 
+
+We do our best to categorize production errors into findings to better reflect the characteristics of distinct errors. 
+
+\section{General Findings}
+
+
+\section{Threats to validity}
+
+\section{Conclusion}

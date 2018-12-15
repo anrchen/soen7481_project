@@ -1,0 +1,36 @@
+ActiveMQ 
+	df = 120
+	RanksumsResult(statistic=3.0477532935447034, pvalue=0.0023055912689879054)
+	Ttest_indResult(statistic=2.751431308233497, pvalue=0.00639065718823966)
+
+Camel
+	df = 16
+	RanksumsResult(statistic=1.2362301999273742, pvalue=0.21637300805763748)
+	Ttest_indResult(statistic=1.3761725291623295, pvalue=0.18774907320116596)
+	vs -> 1.341
+
+Hadoop
+	df > 120
+	RanksumsResult(statistic=0.610523827760296, pvalue=0.5415148641269023)
+	Ttest_indResult(statistic=0.5416601470142504, pvalue=0.5881814416951006)
+	vs -> 
+
+Hive
+	df > 120
+	RanksumsResult(statistic=0.5181543504210588, pvalue=0.6043505819780791)
+	Ttest_indResult(statistic=0.5468171005484284, pvalue=0.5848363334999902)
+
+Mapreduce
+	df > 120
+	RanksumsResult(statistic=1.9253005280449718, pvalue=0.054191771629714634)
+	Ttest_indResult(statistic=1.8678467404293768, pvalue=0.0629786825384194)
+
+Yarn
+	df > 76
+	RanksumsResult(statistic=-0.1271306918393851, pvalue=0.8988369599676559)
+	Ttest_indResult(statistic=0.11004586199907455, pvalue=0.9125200967832492)
+
+Zookeeper
+	df > 84
+	RanksumsResult(statistic=0.5091468033238183, pvalue=0.610649327520838)
+	Ttest_indResult(statistic=0.48026161131153966, pvalue=0.6316740738062911)

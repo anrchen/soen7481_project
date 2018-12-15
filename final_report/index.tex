@@ -1,0 +1,38 @@
+\documentclass[sigconf]{acmart}
+
+\usepackage{etoolbox}
+\usepackage{graphicx}
+\graphicspath{ {./figure/} }
+ 
+\makeatletter
+\patchcmd{\maketitle}{\@copyrightspace}{}{}{}
+\makeatother
+
+\begin{document}
+\title{A Production Log Mapping Approach to Testing Improvement}
+
+\author{An Ran Chen}
+\affiliation{%
+  \institution{Concordia University}
+  \city{Montreal}
+  \state{Quebec}
+  \country{Canada} }
+\email{anr_chen@encs.concordia.ca}
+
+\begin{abstract}
+	In modern software development, maintenance is one of the most expensive processes. When end-users encounter software defects, they report the bug to developers by specifying the expected behavior and error messages (e.g., log message). Then, they wait for a bug fix from the developers. However, on the developer side, it can be very challenging and expensive to debug the problem. To fix the bugs, developers often have to play the role of detectives: seeking clues in the user- provided logs files or stack trace in a snapshot of a specific system execution. This debugging process may take several hours or even days. Therefore, to reduce the cost of manual inspection and relieve developers from this tedious work, we need to help developers automatically identify the possible buggy location in the code.
+\end{abstract}
+
+\keywords{Automatic Bug Localization, Mining Software Repository Data, Events Log, Static Analysis, Production Errors}
+
+\input{customize}
+
+\maketitle
+% \input{draft/draft}
+
+\input{section/introduction}
+\input{section/researchQuestion}
+\input{section/conclusion}
+\input{section/references}
+
+\end{document}

@@ -1,0 +1,11 @@
+\subsection{Open Research Findings}
+
+	\subsubsection{RQ2: Can production failures contribute to better test cases}
+
+		\textbf{How much does the test case need to change to capture the problem?} 
+		Finding 1 motivates us to study the untested exceptions more closely. With the coverage metrics, we calculated an average of \tbd{number} \% instructions coverage (\tbd{number} lines coverage) improvement after a bug fix. Across the six bug reports that we have manually studied, the repair was fairly easy in most of the time. Although the effort to repair these issues was trivial, we noticed an average of \tbd{time} of repair time was required. Hence, to reduce the repair effort, we suggest to push this study further towards the automated program repair area.  By varying the test execution path, we generate new test cases that aim to fail the system. We can execise our approach in the less reliable portion of the code.  
+
+		\finding{\textbf{Finding 3}: \textit{an average of \% instructions coverage (number lines coverage) improvement after a bug fix}} 
+		
+		\textbf{How could the test coverage metrics (e.g., branch coverage, instruction coverage) reflect the improvement of test cases? ( focusing on the reliability of tests)} We can measure the reliability of the tests after repair by two factors: 1. the improvement in coverage metrics 2. the likelihood of causing regression. 
+    ~\\

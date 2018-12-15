@@ -1,0 +1,16 @@
+\section{Introduction}
+
+	For the majority of the production defects, system logs are a good starting point for bug localization. The current research paper proposes an automated solution that could identify the potential root cause in the code. We use a novel approach that automatically uses the unexpected system behavior or error messages reported by the end-user to localize the bug in code. Different from prior studies in this area, our approach is very light-weighted. Through the research, we also conducted an empirical study that examines the relationship between different software metrics and the production bugs. It provides an empirical-driven understanding on production bugs to future research. In addition, we suggest there is a high correlation between production failure and test. In this study, we provide general guidelines on testing improvement based on production failure.
+
+\subsection{Paper contribution}
+
+	The main contributions of this paper is divided into two parts:
+		\vspace{-0.1cm}
+		\begin{itemize} \itemsep 0em
+		 \item \phead{User-reported logs usefulness assessment} The section conducts an empirical study on user-reported logs to examine its usefulness to debug production failure. We introduce an novel approach that does not introduce new infrastruction to the existing system. It fully utilizes existing development knowledge, such as version control system, to diagonize the root cause of production failure. Our study shows that: 1) the results of our approach is highly accurate; 2) there is a high statistically difference in resolution time between bug report with logs and the ones without.
+		 \item \phead{Production failures mapping approach to testing improvement} By studying 65 user-reported bugs that contain exception stack trace, we examine the correlation between existing test cases and production failures. Based on the findings, we provide a general guideline on how to use an production failures mapping approach to improve testing. 
+		\end{itemize}
+
+\subsection{Paper organization}
+
+	Since both research questions (RQ) could lead to independent findings, we decide to treat each RQ indenpendently. The following shows the structure of RQ1 as an example: Sub-section \ref{rq1_motivation} explains the motivation of the research question. Sub-section \ref{rq1_approach} describes our approach in solving the challenges. Sub-section \label{rq1_discussion} discusses the result of our experiment. As certain findings require futher investigations, we have summarized them in \ref{rq1_open_research} \textit{Open Research Findings} sub-section. Finally, sub-section \ref{rq1_limitations} concludes the limitations and threats to validity.

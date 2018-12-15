@@ -1,0 +1,18 @@
+% Customization
+
+% removes citation information below abstract
+\settopmatter{printacmref=false}
+% removes footnote with conference information 
+\renewcommand\footnotetextcopyrightpermission[1]{} 
+% removes running headers
+\pagestyle{plain}
+
+% customized commands
+\newcommand{\phead}[1]{\vspace{1mm} {\bf #1}}
+\newcommand{\tbd}[1]{\textcolor{red}{{\it [To be done: #1]}}}
+\newcommand{\wc}[1]{\textcolor{orange}{{\it [word choice: #1]}}}
+
+\newcommand{\finding}[1]{
+	~\\
+	\noindent\fbox{\parbox{\linewidth}{#1}}
+}
